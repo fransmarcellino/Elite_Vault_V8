@@ -1,0 +1,40 @@
+============================================================
+           SOFTWARE LICENSE AGREEMENT: ELITE VAULT
+============================================================
+Project Name : Elite Vault (Sovereign Repository)
+Version      : 8.0
+Owner/Author : Frans Marcellino
+Date         : 2026
+------------------------------------------------------------
+
+1. OWNERSHIP & COPYRIGHT
+All code, design architecture, visual elements, and 
+conceptual frameworks within this repository are the 
+exclusive intellectual property of Frans Marcellino. 
+Unauthorized duplication is strictly prohibited.
+
+2. USAGE RIGHTS
+This license grants the owner (Frans Marcellino) full 
+sovereignty to operate, modify, and deploy the system 
+for personal or commercial purposes. 
+
+3. RESTRICTIONS
+Third parties are NOT permitted to:
+- Copy, redistribute, or resell the source code.
+- Reverse-engineer the UI/UX design for commercial gain.
+- Remove the "Crafted by Frans Marcellino" identifiers.
+
+4. ASSET LICENSING
+- Fonts: Plus Jakarta Sans (Licensed under Google OFL).
+- Images: Unsplash Assets (Licensed under Unsplash License).
+- Logic: Vanilla JavaScript Engine (Proprietary Build).
+
+5. TERMINATION
+Any breach of these terms will result in immediate 
+revocation of access and potential legal action under 
+Digital Intellectual Property laws.
+
+------------------------------------------------------------
+DETERMINED BY: FRANS MARCELLINO
+All Rights Reserved. © 2026
+============================================================
