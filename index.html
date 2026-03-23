@@ -204,12 +204,7 @@
     </div>
 
     <script>
-        /* ================================================================
-           1. DATA KONFIGURASI (UBAH DI SINI)
-           ================================================================
-        */
         const VAULT_DATA = {
-            // Identitas Pemilik
             owner: {
                 firstName: "FRANS",
                 lastName: "MARCELLINO",
@@ -217,15 +212,11 @@
                 email: "fransmarselinosroyer@gmail.com",
                 badge: "[ Sovereign Repository v8.0 ]"
             },
-            
-            // Konten Teks Utama
             content: {
                 heroTitle: "Architecting Digital Sovereignty.",
                 heroDesc: "Industrial-grade software assets designed for those who demand absolute performance and uncompromising aesthetic perfection.",
                 footer: "© 2026 FRANS MARCELLINO — ALL RIGHTS RESERVED"
             },
-
-            // Daftar Produk (Tambahkan atau hapus di sini)
             products: [
                 { name: "Titan Core", price: "$1,290", desc: "Enterprise SaaS Framework.", img: "https://images.unsplash.com/photo-1614850523296-d8c1af93d400" },
                 { name: "Quantum UI", price: "$750", desc: "Kinetic React Components.", img: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0" },
@@ -236,8 +227,6 @@
                 { name: "Vortex DB", price: "$980", desc: "Real-time Vector Database.", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc51" },
                 { name: "Cipher Mesh", price: "$1,100", desc: "P2P Encryption Layer.", img: "https://images.unsplash.com/photo-1563986768609-322da13575f3" }
             ],
-
-            // Navigasi
             menu: [
                 { label: "Home", id: "home" },
                 { label: "Vault", id: "market" },
@@ -246,16 +235,28 @@
             ]
         };
 
-        /* ================================================================
-           2. ENGINE SISTEM (LOCKED)
-           ================================================================
-        */
-        function navigateTo(id) {
+        // --- NAVIGATION ENGINE WITH HISTORY API ---
+        function navigateTo(id, pushState = true) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
+            const targetPage = document.getElementById(id);
+            if(targetPage) targetPage.classList.add('active');
+            
             window.scrollTo({top: 0, behavior: 'smooth'});
             toggleMenu(true);
+
+            if (pushState) {
+                history.pushState({ pageId: id }, null, `#${id}`);
+            }
         }
+
+        // Listener for Back Button
+        window.onpopstate = function(event) {
+            if (event.state && event.state.pageId) {
+                navigateTo(event.state.pageId, false);
+            } else {
+                navigateTo('home', false);
+            }
+        };
 
         function toggleTheme() {
             document.body.classList.toggle('light-mode');
@@ -302,14 +303,12 @@
         }
 
         function init() {
-            // Render Identity
             document.getElementById('nav-logo').innerHTML = `${VAULT_DATA.owner.firstName} <span>${VAULT_DATA.owner.lastName}</span>`;
             document.getElementById('hero-badge').innerText = VAULT_DATA.owner.badge;
             document.getElementById('curated-by').innerHTML = `Curated Selection by <strong>${VAULT_DATA.owner.fullName}</strong>`;
             document.getElementById('footer-text').innerText = VAULT_DATA.content.footer;
             document.getElementById('hero-desc').innerText = VAULT_DATA.content.heroDesc;
 
-            // Render Nav & Contact
             const dropdown = document.getElementById('social-links');
             const contactBox = document.getElementById('contact-methods');
             
@@ -318,12 +317,16 @@
                 contactBox.innerHTML += `<button class="btn-premium" style="background:var(--surface); color:var(--text-main); border:1px solid var(--border);" onclick="location.href='mailto:${VAULT_DATA.owner.email}'">${item.label} Channel</button>`;
             });
 
+            // Initialize History State
+            const startPage = 'home';
+            history.replaceState({ pageId: startPage }, null, `#${startPage}`);
+
             typeWriter(VAULT_DATA.content.heroTitle, 0, () => renderProducts(VAULT_DATA.products));
         }
 
         function toggleMenu(close = false) { 
             const d = document.getElementById('dropdown');
-            d.style.display = (close || d.style.display === 'block') ? 'none' : 'block';
+            if(d) d.style.display = (close || d.style.display === 'block') ? 'none' : 'block';
         }
 
         function handleSearch() {
