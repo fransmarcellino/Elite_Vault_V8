@@ -22,7 +22,7 @@ oleh organisasi standar internasional:
 Status "Tervalidasi" ini melekat pada kepemilikan Frans Marcellino Sroyer.
 
 3. LARANGAN KERAS (RESTRIKSI PRIBADI)
-Tanpa izin tertulis dari Frans Marcellino Sroyer, DILARANG:
+Tanpa izin tertulis dari Frans Marcellino, DILARANG:
 - Menyalin (Copying) sebagian atau seluruh struktur kode.
 - Menggunakan kode ini untuk proyek klien atau pihak ketiga.
 - Mengklaim kepemilikan atau melakukan rekayasa balik (Reverse Engineering).
