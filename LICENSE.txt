@@ -2,39 +2,36 @@
        OFFICIAL DIGITAL ASSET & SECURITY PROTOCOL
             SOVEREIGN DIGITAL ASSET - 2026
 ============================================================
-PENCIPTA & OTORITAS: FRANS MARCELLINO 
-PROFESI: CYBER SECURITY ARCHITECT / CYBER POLICE ENGINEER
-KOMPETENSI: ENGINEERING DIGITAL AUTHORITY
-NEGARA ASAL: INDONESIA (INTERNATIONAL JURISDICTION)
+OTORITAS TEKNIS: FRANS MARCELLINO
+SPESIALISASI: CYBER SECURITY ENGINEER
+BIDANG KEAHLIAN: ENGINEERING DIGITAL AUTHORITY
+YURISDIKSI: INTERNATIONAL DIGITAL LAW
 ============================================================
 
-1. PERNYATAAN OTORITAS KEAMANAN (SECURITY AUTHORITY)
-Seluruh arsitektur kode, enkripsi, dan struktur sistem ini 
-adalah Properti Intelektual Terproteksi milik Frans Marcellino. 
-Karya ini dibangun dengan standar Cyber Security tingkat tinggi 
-dan diawasi secara teknis oleh otoritas pengembang.
+1. PERNYATAAN KEPEMILIKAN INTELEKTUAL
+Seluruh arsitektur kode, logika sistem, dan enkripsi dalam 
+proyek ini adalah PROPERTI PRIBADI yang dibangun dengan 
+standar Cyber Security Engineering tingkat tinggi. 
 
-2. STATUS VALIDASI INTERNASIONAL (AUDITED)
-Infrastruktur digital ini telah melewati audit kepatuhan global:
-- W3C (World Wide Web Consortium) - International Standard Verified.
-- Google Lighthouse - Cyber Security & Performance Standards.
+2. VALIDASI STANDAR INTERNASIONAL
+Infrastruktur ini telah melewati audit kepatuhan global:
+- W3C (World Wide Web Consortium) - Global Standard Verified.
+- Google Lighthouse - Performance & Security Audit.
 - Babel & Prettier - Industry Architecture Consistency.
-Status "TERVALIDASI" ini merupakan sertifikasi kompetensi resmi
-Frans Marcellino .
 
-3. PROTOKOL ANTI-PLAGIARISME & PENYALAHGUNAAN
-Segala bentuk akses tanpa izin, penyalinan (Copying), atau 
-rekayasa balik (Reverse Engineering) terhadap arsitektur ini 
-akan dianggap sebagai PELANGGARAN KEAMANAN DIGITAL. 
+3. PENGAWASAN & PERLINDUNGAN HUKUM DIGITAL
+Segala bentuk pelanggaran, duplikasi, atau akses ilegal 
+berada di bawah pengawasan dan penindakan hukum oleh:
+- DMCA (Digital Millennium Copyright Act) - Hak Cipta Global.
+- INTERPOL Cybercrime Directorate - Protokol Keamanan Siber.
+- International Cyber Law Enforcement - Penegakan Hukum Digital.
 
-4. PENINDAKAN HUKUM CYBER (CYBER LAW ENFORCEMENT)
-Pelanggaran terhadap lisensi ini akan dipantau dan ditindak 
-berdasarkan:
-- International Cyber Law & DMCA .
-- Protokol Keamanan Siber Global.
-- Pelacakan Digital Forensik terhadap penyalahgunaan aset.
+4. PROTOKOL PENINDAKAN
+Setiap aktivitas akses yang melanggar integritas kode akan 
+dilacak secara digital forensik dan diproses sesuai aturan 
+hukum siber internasional yang berlaku.
 
 ============================================================
-"SECURITY IS NOT AN OPTION, IT IS THE ARCHITECTURE"
-© 2026 FRANS MARCELLINO . ALL RIGHTS RESERVED.
+"INTEGRITY IS THE ARCHITECTURE OF DIGITAL SOVEREIGNTY"
+© 2026 FRANS MARCELLINO. ALL RIGHTS RESERVED.
 ============================================================
