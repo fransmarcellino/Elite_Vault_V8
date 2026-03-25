@@ -9,7 +9,7 @@ NEGARA ASAL: INDONESIA (STANDAR GLOBAL)
 
 1. PERNYATAAN HAK MILIK MUTLAK
 Seluruh arsitektur kode, logika algoritma, dan desain sistem 
-dalam proyek ini adalah PROPERTI PRIBADI milik Frans Marcellino Sroyer. 
+dalam proyek ini adalah PROPERTI PRIBADI milik Frans Marcellino. 
 Karya ini BUKAN merupakan domain publik atau karya yang dapat 
 digunakan secara bebas tanpa izin tertulis dari pencipta.
 
