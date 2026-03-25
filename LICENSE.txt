@@ -19,7 +19,7 @@ oleh organisasi standar internasional:
 - W3C (World Wide Web Consortium) - Global Standard Compliance.
 - Google Lighthouse - Performance & Security Standards.
 - Babel & Prettier - Industry Architecture Consistency.
-Status "Tervalidasi" ini melekat pada kepemilikan Frans Marcellino Sroyer.
+Status "Tervalidasi" ini melekat pada kepemilikan Frans Marcellino.
 
 3. LARANGAN KERAS (RESTRIKSI PRIBADI)
 Tanpa izin tertulis dari Frans Marcellino, DILARANG:
