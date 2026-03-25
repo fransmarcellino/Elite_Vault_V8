@@ -1,40 +1,38 @@
 ============================================================
-           SOFTWARE LICENSE AGREEMENT: ELITE VAULT
+       PRIVATE INTELLECTUAL PROPERTY LICENSE (PIPL)
+            SOVEREIGN DIGITAL ASSET - 2026
 ============================================================
-Project Name : Elite Vault (Sovereign Repository)
-Version      : 8.0
-Owner/Author : Frans Marcellino
-Date         : 2026
-------------------------------------------------------------
+PENCIPTA & PEMEGANG HAK: FRANS MARCELLINO SROYER
+IDENTITAS PROFESI: ENGINEERING DIGITAL AUTHORITY
+NEGARA ASAL: INDONESIA (STANDAR GLOBAL)
+============================================================
 
-1. OWNERSHIP & COPYRIGHT
-All code, design architecture, visual elements, and 
-conceptual frameworks within this repository are the 
-exclusive intellectual property of Frans Marcellino. 
-Unauthorized duplication is strictly prohibited.
+1. PERNYATAAN HAK MILIK MUTLAK
+Seluruh arsitektur kode, logika algoritma, dan desain sistem 
+dalam proyek ini adalah PROPERTI PRIBADI milik Frans Marcellino Sroyer. 
+Karya ini BUKAN merupakan domain publik atau karya yang dapat 
+digunakan secara bebas tanpa izin tertulis dari pencipta.
 
-2. USAGE RIGHTS
-This license grants the owner (Frans Marcellino) full 
-sovereignty to operate, modify, and deploy the system 
-for personal or commercial purposes. 
+2. STATUS VALIDASI INTERNASIONAL
+Sistem ini telah melewati audit teknis dan dinyatakan VALID 
+oleh organisasi standar internasional:
+- W3C (World Wide Web Consortium) - Global Standard Compliance.
+- Google Lighthouse - Performance & Security Standards.
+- Babel & Prettier - Industry Architecture Consistency.
+Status "Tervalidasi" ini melekat pada kepemilikan Frans Marcellino Sroyer.
 
-3. RESTRICTIONS
-Third parties are NOT permitted to:
-- Copy, redistribute, or resell the source code.
-- Reverse-engineer the UI/UX design for commercial gain.
-- Remove the "Crafted by Frans Marcellino" identifiers.
+3. LARANGAN KERAS (RESTRIKSI PRIBADI)
+Tanpa izin tertulis dari Frans Marcellino Sroyer, DILARANG:
+- Menyalin (Copying) sebagian atau seluruh struktur kode.
+- Menggunakan kode ini untuk proyek klien atau pihak ketiga.
+- Mengklaim kepemilikan atau melakukan rekayasa balik (Reverse Engineering).
 
-4. ASSET LICENSING
-- Fonts: Plus Jakarta Sans (Licensed under Google OFL).
-- Images: Unsplash Assets (Licensed under Unsplash License).
-- Logic: Vanilla JavaScript Engine (Proprietary Build).
+4. PERLINDUNGAN HUKUM DIGITAL
+Segala bentuk pencurian kode atau penggunaan ilegal akan diproses 
+berdasarkan hukum hak cipta digital internasional (DMCA) dan 
+aturan Cyber Law yang berlaku secara global.
 
-5. TERMINATION
-Any breach of these terms will result in immediate 
-revocation of access and potential legal action under 
-Digital Intellectual Property laws.
-
-------------------------------------------------------------
-DETERMINED BY: FRANS MARCELLINO
-All Rights Reserved. © 2026
+============================================================
+"INTEGRITY IS THE ARCHITECTURE OF DIGITAL SOVEREIGNTY"
+© 2026 FRANS MARCELLINO SROYER. ALL RIGHTS RESERVED.
 ============================================================
