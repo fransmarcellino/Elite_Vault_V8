@@ -2,7 +2,7 @@
        PRIVATE INTELLECTUAL PROPERTY LICENSE (PIPL)
             SOVEREIGN DIGITAL ASSET - 2026
 ============================================================
-PENCIPTA & PEMEGANG HAK: FRANS MARCELLINO SROYER
+PENCIPTA & PEMEGANG HAK: FRANS MARCELLINO 
 IDENTITAS PROFESI: ENGINEERING DIGITAL AUTHORITY
 NEGARA ASAL: INDONESIA (STANDAR GLOBAL)
 ============================================================
@@ -34,5 +34,5 @@ aturan Cyber Law yang berlaku secara global.
 
 ============================================================
 "INTEGRITY IS THE ARCHITECTURE OF DIGITAL SOVEREIGNTY"
-© 2026 FRANS MARCELLINO SROYER. ALL RIGHTS RESERVED.
+© 2026 FRANS MARCELLINO. ALL RIGHTS RESERVED.
 ============================================================
