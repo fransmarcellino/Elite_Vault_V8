@@ -1,35 +1,43 @@
 ============================================================
-       OFFICIAL DIGITAL ASSET & SECURITY PROTOCOL
+       OFFICIAL DIGITAL ASSET & SECURITY PRIVACY
             SOVEREIGN DIGITAL ASSET - 2026
 ============================================================
-OTORITAS TEKNIS: FRANS MARCELLINO
-SPESIALISASI: CYBER SECURITY ENGINEER
-BIDANG KEAHLIAN: ENGINEERING DIGITAL AUTHORITY
-YURISDIKSI: INTERNATIONAL DIGITAL LAW
+AUTHORITY: FRANS MARCELLINO
+DESIGNATION: CYBER SECURITY ENGINEER
+SPECIALIZATION: ENGINEERING DIGITAL AUTHORITY
+JURISDICTION: INTERNATIONAL DIGITAL LAW (GLOBAL)
 ============================================================
 
-1. PERNYATAAN KEPEMILIKAN INTELEKTUAL
-Seluruh arsitektur kode, logika sistem, dan enkripsi dalam 
-proyek ini adalah PROPERTI PRIBADI yang dibangun dengan 
-standar Cyber Security Engineering tingkat tinggi. 
+1. INTELLECTUAL PROPERTY DECLARATION
+The entire source code, including but not limited to the HTML 
+architecture, CSS variables, and JavaScript logic (ES6+), 
+is the exclusive private property of Frans Marcellino. 
+This work is NOT open-source and is NOT public domain.
 
-2. VALIDASI STANDAR INTERNASIONAL
-Infrastruktur ini telah melewati audit kepatuhan global:
-- W3C (World Wide Web Consortium) - Global Standard Verified.
-- Google Lighthouse - Performance & Security Audit.
-- Babel & Prettier - Industry Architecture Consistency.
+2. COMMERCIAL USAGE LICENSE (LIMITED)
+By acquiring this template, the Licensee is granted a 
+SINGLE-USE COMMERCIAL LICENSE.
+- Permitted: One (1) deployment for a single personal or 
+  business domain.
+- Prohibited: Reselling, redistribution, sub-licensing, 
+  or sharing of the source code in any public repository 
+  (e.g., GitHub Public, GitLab) is strictly forbidden.
 
-3. PENGAWASAN & PERLINDUNGAN HUKUM DIGITAL
-Segala bentuk pelanggaran, duplikasi, atau akses ilegal 
-berada di bawah pengawasan dan penindakan hukum oleh:
-- DMCA (Digital Millennium Copyright Act) - Hak Cipta Global.
-- INTERPOL Cybercrime Directorate - Protokol Keamanan Siber.
-- International Cyber Law Enforcement - Penegakan Hukum Digital.
+3. TECHNICAL VALIDATION & AUDIT
+This infrastructure has been engineered to comply with:
+- W3C (World Wide Web Consortium) International Standards.
+- Google Lighthouse Security & Performance Protocols.
+Any unauthorized modification that compromises the system's 
+structural integrity or security is the sole responsibility 
+of the Licensee.
 
-4. PROTOKOL PENINDAKAN
-Setiap aktivitas akses yang melanggar integritas kode akan 
-dilacak secara digital forensik dan diproses sesuai aturan 
-hukum siber internasional yang berlaku.
+4. LEGAL ENFORCEMENT & CYBER LAW
+This asset is protected under the DMCA (Digital Millennium 
+Copyright Act). Any breach of this license will be tracked 
+via digital forensics and reported to:
+- International Cybercrime Enforcement Agencies.
+- Global Hosting & Domain Providers for immediate takedown.
+- Legal authorities under International Copyright Jurisdiction.
 
 ============================================================
 "INTEGRITY IS THE ARCHITECTURE OF DIGITAL SOVEREIGNTY"
