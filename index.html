@@ -17,6 +17,51 @@
     />
 
     <link rel="stylesheet" href="assets/css/style.css" />
+
+    <style>
+      .cinematic-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        margin-top: 30px;
+      }
+      @media (min-width: 768px) {
+        .cinematic-grid { grid-template-columns: repeat(4, 1fr); }
+      }
+      .cinematic-item {
+        position: relative;
+        aspect-ratio: 1/1;
+        overflow: hidden;
+        border-radius: 15px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+      }
+      .cinematic-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 6s ease;
+        opacity: 0.7;
+      }
+      .cinematic-item:hover img {
+        transform: scale(1.2);
+        opacity: 1;
+      }
+      .item-label {
+        position: absolute;
+        bottom: 12px;
+        left: 12px;
+        font-size: 10px;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 800;
+        color: var(--text-main);
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        background: rgba(0,0,0,0.5);
+        padding: 2px 8px;
+        border-radius: 4px;
+      }
+    </style>
   </head>
   <body>
     <div id="cursor"></div>
@@ -115,6 +160,41 @@
               style="color: var(--text-dim); font-weight: 300"
             ></p>
           </div>
+
+          <div class="cinematic-grid">
+            <div class="cinematic-item">
+              <img src="https://picsum.photos/600/600?random=1" alt="Vault Asset">
+              <div class="item-label">AI Cinematic 01</div>
+            </div>
+            <div class="cinematic-item">
+              <img src="https://picsum.photos/600/600?random=2" alt="Vault Asset">
+              <div class="item-label">Digital Arch 02</div>
+            </div>
+            <div class="cinematic-item">
+              <img src="https://picsum.photos/600/600?random=3" alt="Vault Asset">
+              <div class="item-label">Sovereign Asset 03</div>
+            </div>
+            <div class="cinematic-item">
+              <img src="https://picsum.photos/600/600?random=4" alt="Vault Asset">
+              <div class="item-label">High-End Logic 04</div>
+            </div>
+            <div class="cinematic-item">
+              <img src="https://picsum.photos/600/600?random=5" alt="Vault Asset">
+              <div class="item-label">Premium Core 05</div>
+            </div>
+            <div class="cinematic-item">
+              <img src="https://picsum.photos/600/600?random=6" alt="Vault Asset">
+              <div class="item-label">Neural Design 06</div>
+            </div>
+            <div class="cinematic-item">
+              <img src="https://picsum.photos/600/600?random=7" alt="Vault Asset">
+              <div class="item-label">Vault Alpha 07</div>
+            </div>
+            <div class="cinematic-item">
+              <img src="https://picsum.photos/600/600?random=8" alt="Vault Asset">
+              <div class="item-label">Elite Vision 08</div>
+            </div>
+          </div>
           <input
             type="text"
             id="search-bar"
@@ -124,7 +204,7 @@
             style="
               width: 100%;
               max-width: 500px;
-              margin: 0 auto 40px;
+              margin: 40px auto;
               display: block;
               padding: 18px;
               background: var(--surface);
