@@ -1,3 +1,6 @@
+/* =========================
+   ROOT (NO BREAK CHANGES)
+========================= */
 :root {
   --primary: #ffd700;
   --bg: #050505;
@@ -8,6 +11,11 @@
   --transition: cubic-bezier(0.23, 1, 0.32, 1);
   --glow: rgba(255, 215, 0, 0.15);
   --accent-gradient: linear-gradient(45deg, #ffd700, #ff8c00);
+
+  /* 🔥 NEW (SAFE ADDITION) */
+  --radius-lg: 30px;
+  --radius-md: 18px;
+  --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.4);
 }
 
 body.light-mode {
@@ -19,29 +27,9 @@ body.light-mode {
   --glow: rgba(255, 215, 0, 0.3);
 }
 
-#cursor {
-  width: 20px;
-  height: 20px;
-  background: var(--primary);
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-  mix-blend-mode: difference;
-  transition: transform 0.15s ease-out;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 0 20px var(--primary);
-}
-
-@media (max-width: 768px) {
-  #cursor {
-    display: none;
-  }
-  * {
-    cursor: auto !important;
-  }
-}
-
+/* =========================
+   GLOBAL RESET
+========================= */
 * {
   margin: 0;
   padding: 0;
@@ -56,14 +44,49 @@ body {
   line-height: 1.6;
   transition: background 0.5s ease;
   overflow-x: hidden;
+
+  /* 🔥 subtle premium smoothness */
+  -webkit-font-smoothing: antialiased;
 }
 
+/* =========================
+   CURSOR (UNCHANGED + SMOOTH)
+========================= */
+#cursor {
+  width: 20px;
+  height: 20px;
+  background: var(--primary);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transition: transform 0.12s ease-out;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 25px var(--primary);
+}
+
+@media (max-width: 768px) {
+  #cursor {
+    display: none;
+  }
+  * {
+    cursor: auto !important;
+  }
+}
+
+/* =========================
+   LAYOUT
+========================= */
 .container {
   max-width: 1300px;
   margin: 0 auto;
   padding: 0 5%;
 }
 
+/* =========================
+   NAVBAR (UPGRADED GLASS EFFECT)
+========================= */
 nav {
   padding: 20px 0;
   display: flex;
@@ -72,12 +95,15 @@ nav {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: var(--bg);
+  background: rgba(5, 5, 5, 0.6); /* 🔥 glass effect */
   backdrop-filter: blur(25px);
   border-bottom: 1px solid var(--border);
   transition: 0.5s;
 }
 
+/* =========================
+   LOGO
+========================= */
 .logo {
   font-weight: 800;
   letter-spacing: 4px;
@@ -87,14 +113,19 @@ nav {
 }
 .logo span {
   color: var(--primary);
-  text-shadow: 0 0 10px var(--glow);
+  text-shadow: 0 0 12px var(--glow);
 }
 
+/* =========================
+   NAV CONTROLS
+========================= */
 .nav-controls {
   display: flex;
   align-items: center;
   gap: 15px;
 }
+
+/* 🔥 BUTTON POLISH */
 .theme-toggle {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -106,7 +137,13 @@ nav {
   transition: 0.3s;
   cursor: pointer !important;
 }
+.theme-toggle:hover {
+  border-color: var(--primary);
+}
 
+/* =========================
+   MENU
+========================= */
 .kebab-btn {
   background: none;
   border: 1px solid var(--border);
@@ -117,6 +154,10 @@ nav {
   gap: 4px;
   cursor: pointer !important;
 }
+.kebab-btn:hover {
+  border-color: var(--primary);
+}
+
 .dot {
   width: 4px;
   height: 4px;
@@ -135,9 +176,12 @@ nav {
   width: 220px;
   overflow: hidden;
   z-index: 1001;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--shadow-soft);
 }
 
+/* =========================
+   PAGE TRANSITION
+========================= */
 .page {
   display: none;
   padding: 60px 0;
@@ -151,7 +195,7 @@ nav {
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(25px);
     filter: blur(10px);
   }
   to {
@@ -161,11 +205,15 @@ nav {
   }
 }
 
+/* =========================
+   HERO (UPGRADED DEPTH)
+========================= */
 .hero {
   text-align: center;
   position: relative;
-  padding: 100px 0;
+  padding: 120px 0;
 }
+
 .hero h1 {
   font-size: clamp(2.5rem, 8vw, 5.5rem);
   font-weight: 800;
@@ -174,15 +222,9 @@ nav {
   line-height: 1.1;
 }
 
-.typewriter-cursor::after {
-  content: "|";
-  animation: blink 0.7s infinite;
-  color: var(--primary);
-}
-@keyframes blink {
-  50% {
-    opacity: 0;
-  }
+/* 🔥 subtle glow text */
+.hero h1 {
+  text-shadow: 0 0 25px rgba(255, 215, 0, 0.08);
 }
 
 .hero-badge-style {
@@ -193,6 +235,7 @@ nav {
   font-weight: 800;
   text-transform: uppercase;
 }
+
 .hero-desc-style {
   color: var(--text-dim);
   max-width: 750px;
@@ -201,20 +244,24 @@ nav {
   font-weight: 300;
 }
 
+/* 🔥 improved glow */
 .hero-glow {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
-  max-width: 800px;
-  height: 600px;
+  max-width: 900px;
+  height: 650px;
   background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
   z-index: -1;
   pointer-events: none;
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
+/* =========================
+   GRID
+========================= */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -222,21 +269,43 @@ nav {
   margin-top: 50px;
 }
 
+/* =========================
+   CARD (PREMIUM EFFECT)
+========================= */
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 35px;
+  border-radius: var(--radius-lg);
   padding: 40px;
   position: relative;
-  transition: 0.6s var(--transition);
+  transition: 0.5s var(--transition);
   overflow: hidden;
   backdrop-filter: blur(10px);
 }
-.card:hover {
-  border-color: var(--primary);
-  transform: translateY(-10px);
+
+/* 🔥 glow border effect */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(120deg, transparent, var(--glow), transparent);
+  opacity: 0;
+  transition: 0.5s;
 }
 
+.card:hover::before {
+  opacity: 1;
+}
+
+.card:hover {
+  border-color: var(--primary);
+  transform: translateY(-10px) scale(1.01);
+}
+
+/* =========================
+   IMAGE
+========================= */
 .card-img {
   width: 100%;
   height: 250px;
@@ -246,11 +315,15 @@ nav {
   filter: grayscale(1);
   transition: 0.8s;
 }
+
 .card:hover .card-img {
   filter: grayscale(0);
   transform: scale(1.05);
 }
 
+/* =========================
+   PRICE
+========================= */
 .price-tag {
   position: absolute;
   top: 30px;
@@ -265,23 +338,30 @@ nav {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
+/* =========================
+   BUTTON (UPGRADED FEEL)
+========================= */
 .btn-premium {
   background: var(--primary);
   color: #000;
   padding: 18px;
-  border-radius: 18px;
+  border-radius: var(--radius-md);
   width: 100%;
   border: none;
   font-weight: 800;
   text-transform: uppercase;
   cursor: pointer !important;
-  transition: 0.3s;
-}
-.btn-premium:hover {
-  transform: scale(1.02);
-  box-shadow: 0 10px 20px var(--glow);
+  transition: 0.25s;
 }
 
+.btn-premium:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 25px var(--glow);
+}
+
+/* =========================
+   MODAL
+========================= */
 #modal {
   position: fixed;
   inset: 0;
@@ -293,6 +373,7 @@ nav {
   z-index: 2000;
   padding: 20px;
 }
+
 .m-box {
   background: var(--surface);
   padding: 50px 30px;
@@ -301,7 +382,9 @@ nav {
   width: 100%;
   max-width: 450px;
   text-align: center;
+  box-shadow: var(--shadow-soft);
 }
+
 .modal-price {
   font-size: 3rem;
   margin: 15px 0;
@@ -310,18 +393,22 @@ nav {
   -webkit-text-fill-color: transparent;
   font-weight: 800;
 }
+
 .modal-input {
   width: 100%;
   padding: 18px;
   margin-bottom: 15px;
   background: var(--bg);
   border: 1px solid var(--border);
-  color: #fff;
+  color: var(--text-main);
   border-radius: 15px;
   text-align: center;
   font-size: 1rem;
 }
 
+/* =========================
+   FOOTER
+========================= */
 footer {
   text-align: center;
   padding: 80px 0;
