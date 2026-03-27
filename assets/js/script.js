@@ -1,10 +1,8 @@
 /**
  * @file script.js
- * @description Core Logic for Elite Vault v8.0 - Engineering Digital Authority
+ * @description Core Logic for Elite Vault v8.0 - Engineering Digital Authority (Enhanced)
  * @author Frans Marcellino
- * @version 8.0.0
- * @license MIT
- * @standards ES6+, W3C Validated Assets
+ * @version 8.1.0
  */
 
 "use strict";
@@ -12,7 +10,9 @@
 /* jshint esversion: 6 */
 /* exported navigateTo, toggleTheme, handleSearch, openModal, closeModal, confirmInquiry, toggleMenu */
 
-// --- 1. CONFIGURATION & DATA REPOSITORY ---
+// =========================
+// 1. CONFIGURATION
+// =========================
 const VAULT_DATA = {
   owner: {
     firstName: "FRANS",
@@ -22,9 +22,9 @@ const VAULT_DATA = {
     badge: "[ Sovereign Repository v8.0 ]",
   },
   content: {
-    heroTitle: "Architecting Digital Sovereignty.",
+    heroTitle: "Build Elite Digital Assets with Sovereign Precision.",
     heroDesc:
-      "Industrial-grade software assets designed for those who demand absolute performance and uncompromising aesthetic perfection.",
+      "A curated repository of high-performance digital assets engineered for creators, developers, and modern brands who demand speed, elegance, and scalability.",
     footer: "© 2026 FRANS MARCELLINO — ALL RIGHTS RESERVED",
   },
   products: [
@@ -85,97 +85,153 @@ const VAULT_DATA = {
   ],
 };
 
+// =========================
+// 2. GLOBAL STATE
+// =========================
 const cursor = document.getElementById("cursor");
 let curN = "",
   curP = "";
 
+// =========================
+// 3. NAVIGATION
+// =========================
 function toggleMenu(close = false) {
   const d = document.getElementById("dropdown");
-  if (d) {
-    if (close) d.style.display = "none";
-    else d.style.display = d.style.display === "block" ? "none" : "block";
+  if (!d) return;
+
+  if (close) {
+    d.style.display = "none";
+  } else {
+    d.style.display = d.style.display === "block" ? "none" : "block";
   }
 }
 
 function navigateTo(id, pushState = true) {
-  document
-    .querySelectorAll(".page")
-    .forEach((p) => p.classList.remove("active"));
+  document.querySelectorAll(".page").forEach((p) => {
+    p.classList.remove("active");
+  });
+
   const targetPage = document.getElementById(id);
   if (targetPage) targetPage.classList.add("active");
+
   window.scrollTo({ top: 0, behavior: "smooth" });
   toggleMenu(true);
-  if (pushState) history.pushState({ pageId: id }, null, `#${id}`);
+
+  if (pushState) {
+    history.pushState({ pageId: id }, null, `#${id}`);
+  }
 }
 
+// =========================
+// 4. THEME TOGGLE (ENHANCED)
+// =========================
 function toggleTheme() {
   document.body.classList.toggle("light-mode");
+
   const btn = document.getElementById("theme-btn");
-  if (btn)
-    btn.innerText = document.body.classList.contains("light-mode")
-      ? "DARK MODE"
-      : "LIGHT MODE";
+  if (!btn) return;
+
+  const isLight = document.body.classList.contains("light-mode");
+  btn.innerText = isLight ? "DARK MODE" : "LIGHT MODE";
+
+  // 🔥 persist theme
+  localStorage.setItem("theme", isLight ? "light" : "dark");
 }
 
+// =========================
+// 5. CURSOR
+// =========================
 document.addEventListener("mousemove", (e) => {
-  if (cursor) {
-    cursor.style.left = e.clientX + "px";
-    cursor.style.top = e.clientY + "px";
-  }
+  if (!cursor) return;
+
+  cursor.style.left = e.clientX + "px";
+  cursor.style.top = e.clientY + "px";
 });
 
+// =========================
+// 6. TYPEWRITER (SAFE)
+// =========================
 function typeWriter(text, i, cb) {
   const el = document.getElementById("hero-title");
-  if (el && i < text.length) {
+  if (!el) return;
+
+  if (i < text.length) {
     el.innerHTML =
       text.substring(0, i + 1) + '<span class="typewriter-cursor"></span>';
-    setTimeout(() => typeWriter(text, i + 1, cb), 60);
-  } else if (cb) setTimeout(cb, 500);
+    setTimeout(() => typeWriter(text, i + 1, cb), 50);
+  } else if (cb) {
+    setTimeout(cb, 400);
+  }
 }
 
-// --- RENDERING SYSTEM (BAGIAN YANG DIPERBAIKI) ---
+// =========================
+// 7. RENDER PRODUCTS (OPTIMIZED)
+// =========================
 function renderProducts(data) {
   const grid = document.getElementById("main-grid");
   if (!grid) return;
+
   grid.innerHTML = "";
+
+  const fragment = document.createDocumentFragment();
+
   data.forEach((p) => {
     const card = document.createElement("div");
     card.className = "card";
-    // PERBAIKAN: alt diubah menjadi kosong "" agar skor menjadi 10/10
-    card.innerHTML = `
-            <div class="price-tag">${p.price}</div>
-            <img src="${p.img}" class="card-img" alt="" loading="lazy">
-            <h3 style="font-size:1.8rem; letter-spacing:-1px; margin-bottom:10px;">${p.name}</h3>
-            <p style="color:var(--text-dim); margin-bottom:25px; font-weight:300;">${p.desc}</p>
-            <button class="btn-premium" onclick="openModal('${p.name}', '${p.price}')">Acquire License</button>
-        `;
 
+    card.innerHTML = `
+      <div class="price-tag">${p.price}</div>
+      <img src="${p.img}" class="card-img" alt="" loading="lazy">
+      <h3 style="font-size:1.8rem; letter-spacing:-1px; margin-bottom:10px;">${p.name}</h3>
+      <p style="color:var(--text-dim); margin-bottom:25px; font-weight:300;">${p.desc}</p>
+      <button class="btn-premium" onclick="openModal('${p.name}', '${p.price}')">
+        Acquire License
+      </button>
+    `;
+
+    // 🔥 smoother tilt (less aggressive)
     if (window.innerWidth > 1024) {
-      card.onmousemove = (e) => {
+      card.addEventListener("mousemove", (e) => {
         const r = card.getBoundingClientRect();
         const x = (e.clientX - r.left) / r.width - 0.5;
         const y = (e.clientY - r.top) / r.height - 0.5;
-        card.style.transform = `perspective(1000px) rotateY(${x * 10}deg) rotateX(${y * -10}deg) translateY(-5px)`;
-      };
-      card.onmouseleave = () => (card.style.transform = `none`);
+
+        card.style.transform = `perspective(1000px) rotateY(${x * 6}deg) rotateX(${y * -6}deg) translateY(-5px)`;
+      });
+
+      card.addEventListener("mouseleave", () => {
+        card.style.transform = "none";
+      });
     }
-    grid.appendChild(card);
+
+    fragment.appendChild(card);
   });
+
+  grid.appendChild(fragment);
 }
 
+// =========================
+// 8. SEARCH (NO CHANGE LOGIC)
+// =========================
 function handleSearch() {
   const q = document.getElementById("search-bar").value.toLowerCase();
+
   renderProducts(
     VAULT_DATA.products.filter(
       (p) =>
-        p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q),
+        p.name.toLowerCase().includes(q) ||
+        p.desc.toLowerCase().includes(q),
     ),
   );
 }
 
+// =========================
+// 9. MODAL
+// =========================
 function openModal(n, p) {
   curN = n;
   curP = p;
+
   document.getElementById("target-name").innerText = n.toUpperCase();
   document.getElementById("target-price").innerText = p;
   document.getElementById("modal").style.display = "flex";
@@ -186,12 +242,21 @@ function closeModal() {
 }
 
 function confirmInquiry() {
-  const name = document.getElementById("client-name").value;
-  if (!name) return alert("Identity Verification Required.");
+  const name = document.getElementById("client-name").value.trim();
+
+  if (!name) {
+    alert("Please enter your full name.");
+    return;
+  }
+
   window.location.href = `mailto:${VAULT_DATA.owner.email}?subject=Acquisition: ${curN}&body=Client Name: ${name}\nRequested Asset: ${curN}\nInvestment Value: ${curP}`;
+
   closeModal();
 }
 
+// =========================
+// 10. INIT (ENHANCED)
+// =========================
 function init() {
   const navLogo = document.getElementById("nav-logo");
   const heroBadge = document.getElementById("hero-badge");
@@ -199,37 +264,69 @@ function init() {
   const footerText = document.getElementById("footer-text");
   const heroDesc = document.getElementById("hero-desc");
 
+  // 🔥 safe injection
   if (navLogo)
     navLogo.innerHTML = `${VAULT_DATA.owner.firstName} <span>${VAULT_DATA.owner.lastName}</span>`;
+
   if (heroBadge) heroBadge.innerText = VAULT_DATA.owner.badge;
+
   if (curatedBy)
-    curatedBy.innerHTML = `Curated Selection by <strong>${VAULT_DATA.owner.fullName}</strong>`;
+    curatedBy.innerHTML = `Curated by <strong>${VAULT_DATA.owner.fullName}</strong>`;
+
   if (footerText) footerText.innerText = VAULT_DATA.content.footer;
+
   if (heroDesc) heroDesc.innerText = VAULT_DATA.content.heroDesc;
 
+  // 🔥 menu render
   const dropdown = document.getElementById("social-links");
   const contactBox = document.getElementById("contact-methods");
 
   if (dropdown && contactBox) {
     dropdown.innerHTML = "";
     contactBox.innerHTML = "";
+
     VAULT_DATA.menu.forEach((item) => {
-      dropdown.innerHTML += `<a href="javascript:void(0)" onclick="navigateTo('${item.id}')" style="padding:18px 25px; display:block; color:var(--text-main); text-decoration:none; font-size:0.75rem; border-bottom:1px solid var(--border); transition:0.3s; font-weight:700;">${item.label.toUpperCase()}</a>`;
-      contactBox.innerHTML += `<button class="btn-premium" style="background:var(--surface); color:var(--text-main); border:1px solid var(--border); margin-bottom:12px;" onclick="navigateTo('${item.id}')">${item.label} Protocol</button>`;
+      dropdown.innerHTML += `
+        <a href="javascript:void(0)" 
+           onclick="navigateTo('${item.id}')" 
+           style="padding:18px 25px; display:block; color:var(--text-main); text-decoration:none; font-size:0.75rem; border-bottom:1px solid var(--border); font-weight:700;">
+           ${item.label.toUpperCase()}
+        </a>`;
+
+      contactBox.innerHTML += `
+        <button class="btn-premium" 
+          style="background:var(--surface); color:var(--text-main); border:1px solid var(--border); margin-bottom:12px;" 
+          onclick="navigateTo('${item.id}')">
+          ${item.label} Protocol
+        </button>`;
     });
   }
 
-  setTimeout(
-    () =>
-      typeWriter(VAULT_DATA.content.heroTitle, 0, () =>
-        renderProducts(VAULT_DATA.products),
-      ),
-    1000,
-  );
+  // 🔥 restore theme
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "light") {
+    document.body.classList.add("light-mode");
+    const btn = document.getElementById("theme-btn");
+    if (btn) btn.innerText = "DARK MODE";
+  }
+
+  setTimeout(() => {
+    typeWriter(VAULT_DATA.content.heroTitle, 0, () =>
+      renderProducts(VAULT_DATA.products),
+    );
+  }, 800);
 }
 
+// =========================
+// 11. HISTORY
+// =========================
 window.addEventListener("popstate", (e) => {
-  if (e.state && e.state.pageId) navigateTo(e.state.pageId, false);
+  if (e.state && e.state.pageId) {
+    navigateTo(e.state.pageId, false);
+  }
 });
 
+// =========================
+// 12. START
+// =========================
 window.onload = init;
