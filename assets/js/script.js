@@ -3,7 +3,6 @@
  * @description Core Logic for Elite Vault v8.0 - Engineering Digital Authority
  * @author Frans Marcellino
  * @version 8.0.0
- * @license MIT
  * @standards ES6+, W3C Validated Assets, WCAG 2.1 Compliant
  */
 
@@ -48,7 +47,7 @@ const cursorEl = document.getElementById("cursor");
 // --- 3. UI ENGINE ---
 
 /**
- * Handle Custom Cursor with RequestAnimationFrame (RAM Efficiency)
+ * Handle Custom Cursor (RAM Efficiency)
  */
 document.addEventListener("mousemove", (e) => {
     if (cursorEl) {
@@ -72,46 +71,56 @@ function navigateTo(id, pushState = true) {
         window.scrollTo({ top: 0, behavior: "smooth" });
     }
     
-    toggleMenu(true);
+    toggleMenu(true); // Close menu on navigation
     if (pushState) history.pushState({ pageId: id }, null, `#${id}`);
 }
 
 /**
- * Theme Engine with LocalStorage Persistence
+ * Theme Engine
  */
 function toggleTheme() {
     const isLight = document.body.classList.toggle("light-mode");
     localStorage.setItem("theme", isLight ? "light" : "dark");
-    updateThemeButton(isLight);
-}
-
-function updateThemeButton(isLight) {
     const btn = document.getElementById("theme-btn");
     if (btn) btn.innerText = isLight ? "DARK MODE" : "LIGHT MODE";
 }
 
 /**
- * Dropdown Menu Controller
+ * FIXED MENU LOGIC: Menghubungkan CSS display:none dengan animasinya
  */
 function toggleMenu(forceClose = false) {
     const dropdown = document.getElementById("dropdown");
     if (!dropdown) return;
+
     if (forceClose) {
-        dropdown.style.display = "none";
+        dropdown.classList.remove("active");
+        setTimeout(() => { dropdown.style.display = "none"; }, 300);
     } else {
-        dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
+        // Jika menu sedang tertutup (display none)
+        if (getComputedStyle(dropdown).display === "none") {
+            dropdown.style.display = "block";
+            // Timeout 10ms agar browser sadar ada perubahan display sebelum animasi dimulai
+            setTimeout(() => {
+                dropdown.classList.add("active");
+            }, 10);
+        } else {
+            // Jika menu sedang terbuka, tutup dengan animasi
+            dropdown.classList.remove("active");
+            setTimeout(() => {
+                dropdown.style.display = "none";
+            }, 300);
+        }
     }
 }
 
 /**
- * Typewriter Effect with Accessibility Support
+ * Typewriter Effect
  */
 function typeWriter(text, i, cb) {
     const el = document.getElementById("hero-title");
     if (el) {
-        el.setAttribute("aria-label", text); // Accessibility
         if (i < text.length) {
-            el.innerHTML = text.substring(0, i + 1) + '<span class="typewriter-cursor" aria-hidden="true"></span>';
+            el.innerHTML = text.substring(0, i + 1) + '<span class="typewriter-cursor"></span>';
             setTimeout(() => typeWriter(text, i + 1, cb), 60);
         } else if (cb) {
             setTimeout(cb, 500);
@@ -121,26 +130,22 @@ function typeWriter(text, i, cb) {
 
 // --- 4. DATA RENDERING ---
 
-/**
- * Render Product Cards with 3D Tilt Effect
- */
 function renderProducts(data) {
     const grid = document.getElementById("main-grid");
     if (!grid) return;
     
     grid.innerHTML = "";
     data.forEach((p) => {
-        const card = document.createElement("article"); // Semantic Change
+        const card = document.createElement("article");
         card.className = "card";
         card.innerHTML = `
-            <div class="price-tag" aria-label="Price">${p.price}</div>
+            <div class="price-tag">${p.price}</div>
             <img src="${p.img}" class="card-img" alt="" loading="lazy">
             <h3 style="font-size:1.8rem; letter-spacing:-1px; margin-bottom:10px;">${p.name}</h3>
             <p style="color:var(--text-dim); margin-bottom:25px; font-weight:300;">${p.desc}</p>
             <button class="btn-premium" onclick="openModal('${p.name}', '${p.price}')">Acquire License</button>
         `;
 
-        // 3D Tilt Logic - Desktop Only
         if (window.innerWidth > 1024) {
             card.addEventListener("mousemove", (e) => {
                 const r = card.getBoundingClientRect();
@@ -156,9 +161,6 @@ function renderProducts(data) {
     });
 }
 
-/**
- * Search Logic
- */
 function handleSearch() {
     const q = document.getElementById("search-bar").value.toLowerCase();
     const filtered = VAULT_DATA.products.filter(p => 
@@ -184,25 +186,19 @@ function closeModal() {
 function confirmInquiry() {
     const clientName = document.getElementById("client-name").value;
     if (!clientName) return alert("Identity Verification Required.");
-    
-    const mailSubject = encodeURIComponent(`Acquisition: ${curN}`);
-    const mailBody = encodeURIComponent(`Client Name: ${clientName}\nRequested Asset: ${curN}\nInvestment Value: ${curP}`);
-    
-    window.location.href = `mailto:${VAULT_DATA.owner.email}?subject=${mailSubject}&body=${mailBody}`;
+    window.location.href = `mailto:${VAULT_DATA.owner.email}?subject=Acquisition: ${curN}&body=Client Name: ${clientName}\nRequested Asset: ${curN}\nInvestment Value: ${curP}`;
     closeModal();
 }
 
 // --- 6. INITIALIZATION ---
 
 function init() {
-    // 1. Setup Theme from LocalStorage
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme === "light") {
         document.body.classList.add("light-mode");
-        updateThemeButton(true);
+        document.getElementById("theme-btn").innerText = "DARK MODE";
     }
 
-    // 2. Map Vault Data to DOM
     const mappings = {
         "nav-logo": `${VAULT_DATA.owner.firstName} <span>${VAULT_DATA.owner.lastName}</span>`,
         "hero-badge": VAULT_DATA.owner.badge,
@@ -216,7 +212,6 @@ function init() {
         if (el) el.innerHTML = val;
     });
 
-    // 3. Setup Navigation & Menu
     const dropdown = document.getElementById("social-links");
     const contactBox = document.getElementById("contact-methods");
 
@@ -229,7 +224,6 @@ function init() {
         });
     }
 
-    // 4. Start Intro Sequence
     setTimeout(() => {
         typeWriter(VAULT_DATA.content.heroTitle, 0, () => {
             renderProducts(VAULT_DATA.products);
@@ -237,7 +231,6 @@ function init() {
     }, 800);
 }
 
-// Event Listeners
 window.addEventListener("popstate", (e) => {
     if (e.state && e.state.pageId) navigateTo(e.state.pageId, false);
 });
