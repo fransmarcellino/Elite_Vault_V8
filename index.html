@@ -13,25 +13,25 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Kanit:wght@700;900&family=Plus+Jakarta+Sans:wght@300;400;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Kanit:wght@700;800;900&family=Plus+Jakarta+Sans:wght@300;400;700;800&display=swap"
       rel="stylesheet"
     />
 
     <link rel="stylesheet" href="assets/css/style.css" />
     
     <style>
-      /* 🔥 QUICK CSS OVERRIDE UNTUK FONT & IMAGE HERO */
+      /* 🔥 STANDAR INTERNASIONAL: PRE-RENDER OVERRIDES */
       :root {
-        --primary: #D4AF37; /* Gold Standard */
+        --primary: #FFD700; /* Pure Gold */
       }
       
       #hero-title {
         font-family: 'Kanit', sans-serif !important;
         font-weight: 900;
         text-transform: uppercase;
-        letter-spacing: -1px;
-        line-height: 1;
-        background: linear-gradient(to bottom, #ffffff 60%, var(--primary) 100%);
+        letter-spacing: -2px;
+        line-height: 0.9;
+        background: linear-gradient(to bottom, #ffffff 50%, var(--primary) 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
       }
@@ -39,13 +39,14 @@
       .hero {
         position: relative;
         overflow: hidden;
-        /* Menyiapkan tempat untuk dashboard-mockup.jpg */
-        background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('assets/dashboard-mockup.jpg');
+        /* Dashboard Mockup Integration */
+        background-image: linear-gradient(rgba(5, 5, 5, 0.8), rgba(5, 5, 5, 0.95)), url('assets/dashboard-mockup.jpg');
         background-size: cover;
         background-position: center;
-        border-radius: 24px;
-        padding: 100px 20px;
-        border: 1px solid rgba(212, 175, 55, 0.2);
+        border-radius: 32px;
+        padding: 160px 5%;
+        border: 1px solid rgba(255, 215, 0, 0.1);
+        box-shadow: 0 40px 100px rgba(0,0,0,0.6);
       }
     </style>
   </head>
@@ -62,7 +63,6 @@
           role="button"
           tabindex="0"
           aria-label="Kembali ke Beranda"
-          style="cursor: pointer; font-family: 'Kanit', sans-serif; font-weight: 700;"
         >
           FRANS <span style="color: var(--primary)">MARCELLINO</span>
         </div>
@@ -72,7 +72,7 @@
             class="theme-toggle"
             onclick="toggleTheme()"
             id="theme-btn"
-            aria-label="Ganti Mode Cahaya atau Gelap"
+            aria-label="Ganti Mode"
           >
             LIGHT MODE
           </button>
@@ -81,10 +81,9 @@
             <button
               class="kebab-btn"
               onclick="toggleMenu()"
-              aria-label="Buka Menu Navigasi Utama"
+              aria-label="Menu"
             >
-              <span class="dot"></span><span class="dot"></span
-              ><span class="dot"></span>
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
             </button>
 
             <div id="dropdown" class="dropdown-menu">
@@ -112,14 +111,14 @@
               pengembang, dan merek modern yang menuntut kecepatan dan keamanan absolut.
             </p>
 
-            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-              <button class="btn-premium" style="max-width: 280px" onclick="navigateTo('market')">
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+              <button class="btn-premium" style="min-width: 220px" onclick="navigateTo('market')">
                 JELAJAHI ASET
               </button>
 
               <button
                 class="btn-premium"
-                style="max-width: 280px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--text-main);"
+                style="min-width: 220px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); color: var(--text-main);"
                 onclick="navigateTo('about')"
               >
                 LIHAT STANDAR
@@ -129,11 +128,12 @@
         </section>
 
         <section id="market" class="page">
-          <div style="text-align: center; margin-bottom: 50px">
-            <h2 style="font-size: 2.8rem; letter-spacing: -2px; margin-bottom: 10px; font-family: 'Kanit', sans-serif;">
+          <div style="text-align: center; margin-bottom: 60px">
+            <div class="hero-badge-style">CURATED REPOSITORY</div>
+            <h2 style="font-size: 3.5rem; letter-spacing: -2px; margin-bottom: 10px;">
               Asset Repository
             </h2>
-            <p id="curated-by" style="color: var(--text-dim); font-weight: 300">
+            <p style="color: var(--text-dim); font-weight: 300">
               Produk digital yang direkayasa untuk skalabilitas global.
             </p>
           </div>
@@ -143,35 +143,39 @@
             id="search-bar"
             placeholder="Cari aset premium..."
             onkeyup="handleSearch()"
-            style="width: 100%; max-width: 500px; margin: 0 auto 40px; display: block; padding: 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; color: var(--text-main); outline: none;"
+            style="width: 100%; max-width: 600px; margin: 0 auto 50px; display: block; padding: 22px; background: var(--surface); border: 1px solid var(--border); border-radius: 20px; color: var(--text-main); outline: none; backdrop-filter: blur(10px);"
           />
 
           <div class="grid" id="main-grid"></div>
         </section>
 
         <section id="about" class="page">
-          <div style="max-width: 900px; margin: 0 auto; text-align: center">
-            <h2 style="font-size: 2.8rem; margin-bottom: 30px; font-family: 'Kanit', sans-serif;">
-              Engineering the Premium Standard
+          <div style="max-width: 1100px; margin: 0 auto; text-align: center">
+            <div class="hero-badge-style">ELITE PROTOCOL</div>
+            <h2 style="font-size: 3.5rem; margin-bottom: 20px;">
+              Engineering Premium Standards
             </h2>
+            <p style="color: var(--text-dim); max-width: 700px; margin: 0 auto 60px; line-height: 1.8;">
+              Kami menetapkan standar baru dalam pengembangan aset digital melalui arsitektur yang berdaulat dan keamanan tanpa kompromi.
+            </p>
 
             <div class="grid">
               <div class="card">
-                <img src="assets/step1-ingestion.png" alt="Ingestion" style="width: 60px; margin-bottom: 15px;">
-                <h3 style="color: var(--primary); margin-bottom: 15px; font-size: 1.5rem;">
-                  Sovereign Infrastructure
-                </h3>
-                <p style="color: var(--text-dim)">
+                <div style="background: rgba(255,215,0,0.05); padding: 25px; border-radius: 24px; margin-bottom: 25px; display: inline-block;">
+                  <img src="assets/step1-ingestion.png" alt="Ingestion" style="width: 80px; height: 80px; object-fit: contain;">
+                </div>
+                <h3>Sovereign Infrastructure</h3>
+                <p style="color: var(--text-dim); font-size: 0.95rem; line-height: 1.7;">
                   Arsitektur kode abadi yang dirancang untuk performa tanpa batas waktu dan privasi total.
                 </p>
               </div>
 
               <div class="card">
-                <img src="assets/security-vault.jpg" alt="Security" style="width: 60px; margin-bottom: 15px; border-radius: 8px;">
-                <h3 style="color: var(--primary); margin-bottom: 15px; font-size: 1.5rem;">
-                  Elite Security
-                </h3>
-                <p style="color: var(--text-dim)">
+                <div style="background: rgba(255,215,0,0.05); padding: 25px; border-radius: 24px; margin-bottom: 25px; display: inline-block;">
+                  <img src="assets/security-vault.jpg" alt="Security" style="width: 80px; height: 80px; object-fit: cover; border-radius: 12px;">
+                </div>
+                <h3>Elite Security</h3>
+                <p style="color: var(--text-dim); font-size: 0.95rem; line-height: 1.7;">
                   Standar keamanan tingkat industri dengan protokol enkripsi tanpa kompromi.
                 </p>
               </div>
@@ -180,20 +184,21 @@
         </section>
 
         <section id="contact" class="page">
-          <div style="text-align: center; max-width: 500px; margin: 0 auto">
-            <h2 style="font-size: 2.8rem; margin-bottom: 25px; font-family: 'Kanit', sans-serif;">
+          <div style="text-align: center; max-width: 600px; margin: 0 auto">
+            <div class="hero-badge-style">GET IN TOUCH</div>
+            <h2 style="font-size: 3.5rem; margin-bottom: 25px;">
               Direct Inquiry
             </h2>
-            <p style="color: var(--text-dim); margin-bottom: 20px">
-              Butuh lisensi eksklusif atau kolaborasi khusus? Hubungi protokol kami secara langsung.
+            <p style="color: var(--text-dim); margin-bottom: 40px; line-height: 1.8;">
+              Butuh lisensi eksklusif atau kolaborasi khusus? Hubungi protokol kami secara langsung untuk konsultasi teknis.
             </p>
             <div id="contact-methods"></div>
           </div>
         </section>
       </main>
 
-      <footer style="text-align: center; padding: 40px 20px; border-top: 1px solid var(--border); margin-top: 50px;">
-        <p id="footer-text" style="margin-bottom: 20px; color: var(--text-dim); font-size: 0.9rem">
+      <footer style="text-align: center; padding: 80px 20px; border-top: 1px solid var(--border); margin-top: 100px;">
+        <p id="footer-text" style="color: var(--text-dim); font-size: 0.7rem; letter-spacing: 5px; text-transform: uppercase; font-weight: 800;">
           © 2026 Frans Marcellino — Elite Vault. Built with Sovereign Precision.
         </p>
       </footer>
@@ -201,9 +206,7 @@
 
     <div id="modal" role="dialog" aria-modal="true" aria-labelledby="target-name">
       <div class="m-box">
-        <h3 id="target-name" style="font-size: 0.8rem; letter-spacing: 3px; color: var(--text-dim); text-transform: uppercase;">
-          Asset Selection
-        </h3>
+        <h3 id="target-name">Asset Selection</h3>
         <p id="target-price" class="modal-price">$15</p>
         <input type="text" id="client-name" placeholder="Nama Lengkap Anda" class="modal-input" />
         <button class="btn-premium" onclick="confirmInquiry()">
