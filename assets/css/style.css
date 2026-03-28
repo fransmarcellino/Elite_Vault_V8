@@ -4,27 +4,27 @@
 :root {
   --primary: #ffd700;
   --bg: #050505;
-  --surface: rgba(15, 15, 15, 0.8); /* Transparansi untuk Glassmorphism */
+  --surface: rgba(20, 20, 20, 0.6); 
   --text-main: #ffffff;
-  --text-dim: #a0a0a0;
-  --border: rgba(255, 215, 0, 0.15); /* Border emas tipis */
-  --transition: cubic-bezier(0.16, 1, 0.3, 1);
-  --glow: rgba(255, 215, 0, 0.2);
+  --text-dim: rgba(255, 255, 255, 0.6);
+  --border: rgba(255, 215, 0, 0.12);
+  --transition: cubic-bezier(0.2, 0, 0, 1);
+  --glow: rgba(255, 215, 0, 0.15);
   --accent-gradient: linear-gradient(135deg, #ffd700 0%, #b8860b 100%);
 
   /* NEW DESIGN TOKENS */
   --radius-lg: 32px;
-  --radius-md: 16px;
-  --shadow-gold: 0 10px 50px rgba(212, 175, 55, 0.1);
+  --radius-md: 20px;
+  --shadow-gold: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 215, 0, 0.05);
 }
 
 body.light-mode {
   --bg: #f5f5f7;
-  --surface: rgba(255, 255, 255, 0.8);
+  --surface: rgba(255, 255, 255, 0.7);
   --text-main: #1d1d1f;
   --text-dim: #6e6e73;
-  --border: rgba(0, 0, 0, 0.1);
-  --glow: rgba(255, 215, 0, 0.4);
+  --border: rgba(0, 0, 0, 0.08);
+  --glow: rgba(255, 215, 0, 0.3);
 }
 
 /* =========================
@@ -41,8 +41,8 @@ body.light-mode {
 body {
   background: var(--bg);
   color: var(--text-main);
-  line-height: 1.5;
-  transition: background 0.5s ease;
+  line-height: 1.6;
+  transition: background 0.6s var(--transition);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
@@ -51,174 +51,145 @@ body {
 h1, h2, h3, .logo {
   font-family: "Kanit", sans-serif !important;
   text-transform: uppercase;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
+  font-weight: 800;
 }
 
 /* =========================
-   CURSOR (STILL ACTIVE)
+   CURSOR (REFINED)
 ========================= */
 #cursor {
-  width: 15px;
-  height: 15px;
+  width: 12px;
+  height: 12px;
   background: var(--primary);
   border-radius: 50%;
   position: fixed;
   pointer-events: none;
   z-index: 9999;
   mix-blend-mode: difference;
-  transition: transform 0.1s ease-out;
+  transition: transform 0.15s ease-out, opacity 0.3s ease;
   transform: translate(-50%, -50%);
-  box-shadow: 0 0 20px var(--primary);
 }
 
 /* =========================
-   NAVBAR (GLASSMORPHISM)
+   NAVBAR (REFINED GLASS)
 ========================= */
 nav {
-  padding: 25px 0;
+  padding: 20px 5%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: rgba(5, 5, 5, 0.7);
-  backdrop-filter: blur(30px);
+  background: rgba(5, 5, 5, 0.8);
+  backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 1px solid var(--border);
 }
 
-.logo {
-  font-weight: 900;
-  letter-spacing: 2px;
-  font-size: 1.2rem;
-}
-
 /* =========================
-   HERO (THE SOVEREIGN LOOK)
+   SECTION ABOUT / STANDARD
 ========================= */
-.hero {
-  text-align: center;
-  position: relative;
-  padding: 150px 5% 100px;
-  background-image: radial-gradient(circle at center, var(--glow) 0%, transparent 80%);
-  border-radius: var(--radius-lg);
-  margin-top: 20px;
-}
-
-.hero h1 {
-  font-size: clamp(2.5rem, 10vw, 5.5rem);
-  font-weight: 900;
-  line-height: 0.95;
-  margin-bottom: 25px;
-  background: linear-gradient(to bottom, #fff 50%, var(--primary) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.hero-badge-style {
-  font-size: 0.75rem;
-  letter-spacing: 10px;
-  color: var(--primary);
-  margin-bottom: 20px;
-  font-weight: 800;
-  opacity: 0.8;
-}
-
-.hero-desc-style {
-  color: var(--text-dim);
-  max-width: 650px;
-  margin: 0 auto 50px;
-  font-size: 1.15rem;
-  font-weight: 400;
-}
-
-/* =========================
-   CARDS & GRID (UPGRADED)
-========================= */
-.grid {
+#about .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 25px;
-  padding: 20px 0;
+  gap: 30px;
+  padding: 50px 0;
 }
 
-.card {
+#about .card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 40px;
-  position: relative;
-  transition: 0.4s var(--transition);
-  backdrop-filter: blur(20px);
-  overflow: hidden;
+  padding: 60px 40px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  transition: 0.5s var(--transition);
+  backdrop-filter: blur(25px);
 }
 
-.card:hover {
-  transform: translateY(-12px);
-  background: rgba(255, 215, 0, 0.03);
+#about .card:hover {
+  transform: translateY(-15px);
+  background: rgba(255, 215, 0, 0.04);
   border-color: var(--primary);
   box-shadow: var(--shadow-gold);
 }
 
-.card h3 {
-  font-weight: 800;
-  font-size: 1.5rem;
-  margin-bottom: 15px;
-  color: var(--primary);
+/* Perbaikan Icon Berantakan */
+#about .card img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 0 15px var(--glow));
+  transition: transform 0.6s var(--transition);
 }
 
-.card img {
-  border-radius: var(--radius-md);
-  filter: saturate(1.2) brightness(1.1);
-  transition: 0.5s;
+#about .card:hover img {
+  transform: scale(1.15) rotate(5deg);
+}
+
+#about .card h3 {
+  font-size: 1.8rem;
+  color: var(--primary);
+  line-height: 1.2;
+}
+
+#about .card p {
+  color: var(--text-dim);
+  font-size: 1.05rem;
+  font-weight: 300;
+  max-width: 90%;
 }
 
 /* =========================
-   BUTTONS (PREMIUM FEEL)
+   HERO UPGRADE
+========================= */
+.hero {
+  text-align: center;
+  padding: 180px 5% 120px;
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 12vw, 6.5rem);
+  line-height: 0.85;
+  margin-bottom: 30px;
+  background: linear-gradient(180deg, #fff 40%, var(--primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 10px 30px rgba(0,0,0,0.3));
+}
+
+/* =========================
+   BUTTONS (PREMIUM)
 ========================= */
 .btn-premium {
   background: var(--accent-gradient);
   color: #000;
-  padding: 20px 40px;
+  padding: 22px 45px;
   border-radius: var(--radius-md);
   border: none;
   font-weight: 900;
-  font-family: "Kanit", sans-serif;
-  letter-spacing: 1px;
-  transition: 0.3s;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  transition: 0.4s var(--transition);
   box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
 }
 
 .btn-premium:hover {
-  transform: scale(1.05);
-  box-shadow: 0 15px 40px var(--glow);
+  transform: scale(1.03) translateY(-3px);
+  box-shadow: 0 20px 40px var(--glow);
   filter: brightness(1.1);
 }
 
 /* =========================
-   MODAL (REFINED)
-========================= */
-.m-box {
-  background: #0a0a0a;
-  padding: 60px 40px;
-  border-radius: 40px;
-  border: 2px solid var(--primary);
-  box-shadow: 0 0 100px rgba(255, 215, 0, 0.1);
-}
-
-.modal-price {
-  font-family: "Kanit", sans-serif;
-  font-size: 4rem;
-  font-weight: 900;
-  color: var(--primary);
-}
-
-/* =========================
-   RESPONSIVE FIXES
+   RESPONSIVE
 ========================= */
 @media (max-width: 768px) {
-  .hero { padding: 80px 10px; }
-  .hero h1 { font-size: 3rem; letter-spacing: -2px; }
-  .grid { grid-template-columns: 1fr; }
-  .card { padding: 30px; }
+  #about .card { padding: 40px 20px; }
+  .hero { padding: 120px 5% 60px; }
+  .hero h1 { font-size: 3.5rem; }
 }
