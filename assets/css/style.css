@@ -33,7 +33,6 @@ body.light-mode {
   padding: 0;
   box-sizing: border-box;
   font-family: "Plus Jakarta Sans", sans-serif;
-  /* Kursor dilepas !important agar tidak error jika JS gagal */
   cursor: none; 
 }
 
@@ -136,6 +135,31 @@ nav {
   border-radius: 50%;
 }
 
+/* FIX: DROPDOWN MENU - Mencegah "Bocor" saat Refresh */
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 70px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  width: 220px;
+  z-index: 1001;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  display: none; /* Sembunyi total saat awal */
+  opacity: 0;    /* Untuk animasi */
+  transform: translateY(-10px);
+  transition: opacity 0.3s var(--transition), transform 0.3s var(--transition);
+  overflow: hidden;
+}
+
+/* Kelas ini akan dipicu oleh JS */
+.dropdown-menu.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* =========================
    4. PAGE & ANIMATION
    ========================= */
@@ -213,7 +237,7 @@ nav {
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 28px; /* Disesuaikan untuk standar modern */
+  border-radius: 28px;
   padding: 40px;
   position: relative;
   transition: 0.6s var(--transition);
@@ -314,7 +338,7 @@ nav {
   margin-bottom: 20px;
   background: var(--bg);
   border: 1px solid var(--border);
-  color: var(--text-main); /* FIX: Support Light/Dark Mode */
+  color: var(--text-main); 
   border-radius: 16px;
   text-align: center;
   font-size: 1rem;
