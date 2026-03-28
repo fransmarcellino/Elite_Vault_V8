@@ -1,3 +1,11 @@
+/* =========================
+   IMPOR FONT (DITAMBAHKAN)
+========================= */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;700;800&family=Playfair+Display:ital,wght@0,900;1,900&display=swap');
+
+/* =========================
+   ROOT & THEME SYSTEM
+========================= */
 :root {
   --primary: #ffd700;
   --bg: #050505;
@@ -19,6 +27,17 @@ body.light-mode {
   --glow: rgba(255, 215, 0, 0.3);
 }
 
+/* =========================
+   CORE SETUP
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  cursor: none !important;
+}
+
 #cursor {
   width: 20px;
   height: 20px;
@@ -34,20 +53,8 @@ body.light-mode {
 }
 
 @media (max-width: 768px) {
-  #cursor {
-    display: none;
-  }
-  * {
-    cursor: auto !important;
-  }
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Plus Jakarta Sans", sans-serif;
-  cursor: none !important;
+  #cursor { display: none; }
+  * { cursor: auto !important; }
 }
 
 body {
@@ -64,6 +71,9 @@ body {
   padding: 0 5%;
 }
 
+/* =========================
+   NAVIGATION (LOCKED)
+========================= */
 nav {
   padding: 20px 0;
   display: flex;
@@ -95,6 +105,7 @@ nav {
   align-items: center;
   gap: 15px;
 }
+
 .theme-toggle {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -117,6 +128,7 @@ nav {
   gap: 4px;
   cursor: pointer !important;
 }
+
 .dot {
   width: 4px;
   height: 4px;
@@ -138,6 +150,9 @@ nav {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
+/* =========================
+   PAGE SYSTEM (LOCKED)
+========================= */
 .page {
   display: none;
   padding: 60px 0;
@@ -149,29 +164,28 @@ nav {
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-    filter: blur(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-  }
+  from { opacity: 0; transform: translateY(20px); filter: blur(10px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
 }
 
+/* =========================
+   HERO SECTION (UPGRADED FONT)
+========================= */
 .hero {
   text-align: center;
   position: relative;
   padding: 100px 0;
 }
+
+/* PERUBAHAN FONT: Architecting Digital Sovereignty */
 .hero h1 {
+  font-family: 'Playfair Display', serif !important;
   font-size: clamp(2.5rem, 8vw, 5.5rem);
-  font-weight: 800;
-  letter-spacing: -4px;
+  font-weight: 900;
+  letter-spacing: -2px; /* Disesuaikan untuk Serif agar tetap elegan */
   margin-bottom: 20px;
   line-height: 1.1;
+  font-style: italic; /* Opsional: Menambah kesan artistik digital */
 }
 
 .typewriter-cursor::after {
@@ -179,11 +193,8 @@ nav {
   animation: blink 0.7s infinite;
   color: var(--primary);
 }
-@keyframes blink {
-  50% {
-    opacity: 0;
-  }
-}
+
+@keyframes blink { 50% { opacity: 0; } }
 
 .hero-badge-style {
   font-size: 0.7rem;
@@ -193,6 +204,7 @@ nav {
   font-weight: 800;
   text-transform: uppercase;
 }
+
 .hero-desc-style {
   color: var(--text-dim);
   max-width: 750px;
@@ -215,6 +227,9 @@ nav {
   opacity: 0.6;
 }
 
+/* =========================
+   GRID & CARDS (LOCKED)
+========================= */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -232,6 +247,7 @@ nav {
   overflow: hidden;
   backdrop-filter: blur(10px);
 }
+
 .card:hover {
   border-color: var(--primary);
   transform: translateY(-10px);
@@ -246,6 +262,7 @@ nav {
   filter: grayscale(1);
   transition: 0.8s;
 }
+
 .card:hover .card-img {
   filter: grayscale(0);
   transform: scale(1.05);
@@ -277,11 +294,15 @@ nav {
   cursor: pointer !important;
   transition: 0.3s;
 }
+
 .btn-premium:hover {
   transform: scale(1.02);
   box-shadow: 0 10px 20px var(--glow);
 }
 
+/* =========================
+   MODAL SYSTEM (LOCKED)
+========================= */
 #modal {
   position: fixed;
   inset: 0;
@@ -293,6 +314,7 @@ nav {
   z-index: 2000;
   padding: 20px;
 }
+
 .m-box {
   background: var(--surface);
   padding: 50px 30px;
@@ -302,6 +324,7 @@ nav {
   max-width: 450px;
   text-align: center;
 }
+
 .modal-price {
   font-size: 3rem;
   margin: 15px 0;
@@ -310,6 +333,7 @@ nav {
   -webkit-text-fill-color: transparent;
   font-weight: 800;
 }
+
 .modal-input {
   width: 100%;
   padding: 18px;
@@ -322,6 +346,9 @@ nav {
   font-size: 1rem;
 }
 
+/* =========================
+   FOOTER (LOCKED)
+========================= */
 footer {
   text-align: center;
   padding: 80px 0;
