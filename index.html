@@ -1,188 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Frans Marcellino | Elite Vault v8.0</title>
+    
+    <meta name="description" content="Sovereign Digital Repository by Frans Marcellino. High-end software assets and industrial-grade frameworks." />
+    <meta name="author" content="Frans Marcellino" />
+    <meta property="og:title" content="Frans Marcellino | Elite Vault v8.0" />
+    <meta property="og:description" content="Industrial-grade software assets designed for absolute performance." />
+    <meta property="og:type" content="website" />
 
-<title>Frans Marcellino | Elite Vault v8.0</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" rel="stylesheet" />
 
-<meta name="description" content="Elite Vault by Frans Marcellino — A controlled repository of high-performance digital assets for serious creators." />
-
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&family=Playfair+Display:wght@900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css">
-
-<style>
-noscript .page { display:block !important; opacity:1 !important; }
-
-/* ===== SAFE UPGRADE ===== */
-.evx-section { padding:90px 20px; text-align:center; }
-.evx-title { font-size:2.6rem; font-weight:800; letter-spacing:-1px; }
-.evx-sub { color:var(--text-dim); margin-top:10px; max-width:600px; margin-inline:auto; }
-
-.evx-box {
-  background:rgba(255,255,255,0.04);
-  border:1px solid var(--border);
-  backdrop-filter:blur(14px);
-  border-radius:20px;
-  padding:28px;
-  max-width:820px;
-  margin:25px auto;
-  transition:0.3s;
-}
-
-.evx-box:hover {
-  transform:translateY(-5px);
-}
-
-.evx-cta {
-  display:inline-block;
-  margin-top:30px;
-  padding:14px 34px;
-  border-radius:40px;
-  font-weight:700;
-  text-decoration:none;
-  background:linear-gradient(90deg,#00f0ff,#8a2be2);
-  color:white;
-  transition:0.3s;
-}
-
-.evx-cta:hover {
-  transform:scale(1.05);
-  opacity:0.9;
-}
-
-.evx-testi {
-  font-style:italic;
-  color:#bbb;
-}
-</style>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    
+    <style>
+        /* No-JS Fallback: Memastikan konten tampil jika JS gagal/mati */
+        noscript .page { display: block !important; opacity: 1 !important; }
+        noscript #cursor { display: none !important; }
+    </style>
 </head>
-
 <body>
+    <div id="cursor" aria-hidden="true"></div>
 
-<div class="container">
+    <div class="container">
+        <nav role="navigation" aria-label="Main Navigation">
+            <div 
+                class="logo" 
+                id="nav-logo" 
+                onclick="navigateTo('home')" 
+                role="button" 
+                tabindex="0" 
+                onkeypress="if (event.key === 'Enter') navigateTo('home');"
+                aria-label="Back to Home"
+            >
+                FRANS <span>MARCELLINO</span>
+            </div>
 
-<!-- NAV -->
-<nav>
-<div class="logo" onclick="navigateTo('home')">
-FRANS <span>MARCELLINO</span>
-</div>
+            <div class="nav-controls">
+                <button 
+                    class="theme-toggle" 
+                    onclick="toggleTheme()" 
+                    id="theme-btn"
+                    aria-label="Switch between Light and Dark mode"
+                >
+                    LIGHT MODE
+                </button>
+                <div class="menu-wrapper" style="position: relative">
+                    <button 
+                        class="kebab-btn" 
+                        onclick="toggleMenu()" 
+                        aria-haspopup="true" 
+                        aria-expanded="false"
+                        aria-label="Toggle Menu"
+                    >
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </button>
+                    <div id="dropdown" class="dropdown-menu" role="menu">
+                        <div id="social-links"></div>
+                    </div>
+                </div>
+            </div>
+        </nav>
 
-<div class="nav-controls">
-<button onclick="toggleTheme()">MODE</button>
-</div>
-</nav>
+        <main id="main-content">
+            <section id="home" class="page active" aria-labelledby="hero-title">
+                <div class="hero">
+                    <div class="hero-glow" aria-hidden="true"></div>
+                    <div id="hero-badge" class="hero-badge-style"></div>
+                    <h1 id="hero-title">Architecting Digital Sovereignty.</h1>
+                    <p id="hero-desc" class="hero-desc-style"></p>
+                    <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 30px;">
+                        <button class="btn-premium" style="max-width: 280px" onclick="navigateTo('market')">
+                            VIEW REPOSITORY
+                        </button>
+                        <button class="btn-premium" style="max-width: 280px; background: transparent; border: 1px solid var(--border); color: var(--text-main);" onclick="navigateTo('about')">
+                            THE STANDARD
+                        </button>
+                    </div>
+                </div>
+            </section>
 
-<!-- MAIN -->
-<main>
+            <section id="market" class="page" aria-labelledby="market-title">
+                <div style="text-align: center; margin-bottom: 50px">
+                    <h2 id="market-title" style="font-size: 2.8rem; letter-spacing: -2px; margin-bottom: 10px;">The Repository</h2>
+                    <p id="curated-by" style="color: var(--text-dim); font-weight: 300"></p>
+                </div>
+                <div class="search-container" style="position: relative; max-width: 500px; margin: 0 auto 40px;">
+                    <input 
+                        type="text" 
+                        id="search-bar" 
+                        aria-label="Search digital assets" 
+                        placeholder="Filter Assets..." 
+                        onkeyup="handleSearch()"
+                        style="width: 100%; padding: 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; color: var(--text-main); outline: none;"
+                    />
+                </div>
+                <div class="grid" id="main-grid">
+                    </div>
+            </section>
 
-<!-- HERO (UPGRADE COPY) -->
-<section id="home" class="page active">
-<div class="hero">
-<h1>Architecting Digital Sovereignty</h1>
+            <section id="about" class="page" aria-labelledby="about-title">
+                <div style="max-width: 900px; margin: 0 auto; text-align: center">
+                    <h2 id="about-title" style="font-size: 2.8rem; margin-bottom: 30px">Sovereign Architecture</h2>
+                    <div class="grid">
+                        <article class="card">
+                            <h3 style="color: var(--primary); margin-bottom: 15px; font-size: 1.5rem;">Immutable</h3>
+                            <p style="color: var(--text-dim)">Pondasi kode abadi yang dirancang untuk performa tanpa batas waktu.</p>
+                        </article>
+                        <article class="card">
+                            <h3 style="color: var(--primary); margin-bottom: 15px; font-size: 1.5rem;">Elite Security</h3>
+                            <p style="color: var(--text-dim)">Keamanan tingkat industri dengan standar enkripsi tanpa kompromi.</p>
+                        </article>
+                    </div>
+                </div>
+            </section>
 
-<p>
-A private repository of engineered digital assets — built for creators who demand performance, control, and exclusivity.
-</p>
+            <section id="contact" class="page" aria-labelledby="contact-title">
+                <div style="text-align: center; max-width: 500px; margin: 0 auto">
+                    <h2 id="contact-title" style="font-size: 2.8rem; margin-bottom: 25px">Direct Inquiry</h2>
+                    <div id="contact-methods"></div>
+                </div>
+            </section>
+        </main>
 
-<div style="margin-top:25px;">
-<button onclick="navigateTo('market')">ENTER REPOSITORY</button>
-</div>
-</div>
-</section>
+        <footer>
+            <p id="footer-text" style="margin-bottom: 20px; color: var(--text-dim); font-size: 0.9rem"></p>
+            <div style="display: flex; justify-content: center; gap: 15px; filter: grayscale(1) opacity(0.5); transition: 0.3s;">
+                <a href="https://validator.w3.org/check?uri=referer" target="_blank" rel="noopener" aria-label="W3C HTML5 Validation">
+                    <img src="https://www.w3.org/html/logo/badge/html5-badge-h-solo.png" alt="HTML5 Valid" height="31" style="border-radius: 4px" />
+                </a>
+                <a href="https://jigsaw.w3.org/css-validator/check/referer" target="_blank" rel="noopener" aria-label="W3C CSS3 Validation">
+                    <img src="https://jigsaw.w3.org/css-validator/images/vcss-blue" alt="CSS3 Valid" height="31" style="border-radius: 4px" />
+                </a>
+            </div>
+        </footer>
+    </div>
 
-<!-- MARKET -->
-<section id="market" class="page">
-<h2>The Repository</h2>
+    <div id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-target-name">
+        <div class="m-box">
+            <h3 id="modal-target-name" style="font-size: 0.8rem; letter-spacing: 3px; color: var(--text-dim); text-transform: uppercase;">ASSET SELECTION</h3>
+            <p id="target-name" style="font-size: 1.2rem; font-weight: 800; margin-top: 5px; color: var(--primary);"></p>
+            <p id="target-price" class="modal-price">$0</p>
+            <input 
+                type="text" 
+                id="client-name" 
+                aria-label="Enter your full name for licensing" 
+                placeholder="VERIFY FULL NAME" 
+                class="modal-input" 
+            />
+            <button class="btn-premium" onclick="confirmInquiry()">REQUEST LICENSE</button>
+            <button 
+                onclick="closeModal()" 
+                style="background: none; border: none; color: inherit; cursor: pointer; margin-top: 25px; opacity: 0.5; font-size: 0.7rem; letter-spacing: 2px; font-weight: 800; display: block; width: 100%;"
+                aria-label="Cancel and close"
+            >
+                CANCEL PROTOCOL
+            </button>
+        </div>
+    </div>
 
-<p style="text-align:center; color:var(--text-dim); margin-bottom:20px;">
-Curated digital systems. Not templates — engineered assets.
-</p>
-
-<input type="text" placeholder="Filter Assets..." onkeyup="handleSearch()">
-<div id="main-grid"></div>
-</section>
-
-<!-- ABOUT -->
-<section id="about" class="page">
-<h2>Sovereign Standard</h2>
-
-<p style="max-width:700px; margin:auto; color:var(--text-dim);">
-Elite Vault is not built for mass consumption. Every asset is designed with long-term scalability, performance precision, and controlled distribution in mind.
-</p>
-</section>
-
-<!-- CONTACT -->
-<section id="contact" class="page">
-<h2>Direct Inquiry</h2>
-<p style="color:var(--text-dim);">
-Access requests and collaborations are handled privately.
-</p>
-</section>
-
-<!-- ===== PREMIUM LAYER ===== -->
-
-<section class="evx-section">
-<div class="evx-title">Elite Access Protocol</div>
-
-<div class="evx-sub">
-This is a controlled system — not an open marketplace.
-Only serious creators understand the value inside.
-</div>
-
-<div class="evx-box">
-🚀 High-performance digital assets  
-<br>🔒 Limited & controlled distribution  
-<br>⚡ Built for professionals, not beginners  
-</div>
-
-<a href="#market" class="evx-cta">ACCESS THE VAULT</a>
-</section>
-
-<section class="evx-section">
-<div class="evx-title">Why It Feels Different</div>
-
-<div class="evx-box">
-Most platforms sell volume.  
-<br><br>
-<strong>Elite Vault operates on precision.</strong>  
-<br><br>
-Each asset is built to perform, scale, and outlast trends.
-</div>
-</section>
-
-<section class="evx-section">
-<div class="evx-title">Perception Layer</div>
-
-<div class="evx-box evx-testi">
-"This feels like a closed ecosystem for high-level creators."
-<br><br>— Independent Developer
-</div>
-
-<div class="evx-box evx-testi">
-"The branding alone positions this above typical marketplaces."
-<br><br>— UI Analyst
-</div>
-</section>
-
-</main>
-
-<!-- FOOTER -->
-<footer>
-<p>© Frans Marcellino — Elite Vault System</p>
-</footer>
-
-</div>
-
-<script src="assets/js/script.js"></script>
-
-<script>
-document.querySelectorAll('.evx-cta').forEach(btn=>{
-btn.addEventListener('click',()=>{
-btn.innerText="ACCESSING...";
-});
-});
-</script>
-
+    <script src="assets/js/script.js"></script>
 </body>
 </html>
