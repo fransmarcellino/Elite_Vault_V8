@@ -1,332 +1,188 @@
 /**
  * @file script.js
- * @description Core Logic for Elite Vault v8.0 - Engineering Digital Authority (Enhanced)
+ * @description Core Logic for Elite Vault v8.0 - Sovereign Edition
  * @author Frans Marcellino
- * @version 8.1.0
+ * @version 8.2.0
+ * @status LOCKDOWN - Anti-Flicker Enabled
  */
 
 "use strict";
 
-/* jshint esversion: 6 */
-/* exported navigateTo, toggleTheme, handleSearch, openModal, closeModal, confirmInquiry, toggleMenu */
-
 // =========================
-// 1. CONFIGURATION
+// 1. VAULT CONFIGURATION
 // =========================
 const VAULT_DATA = {
-  owner: {
-    firstName: "FRANS",
-    lastName: "MARCELLINO",
-    fullName: "Frans Marcellino",
-    email: "fransmarselinosroyer@gmail.com",
-    badge: "[ Sovereign Repository v8.0 ]",
-  },
-  content: {
-    heroTitle: "Build Elite Digital Assets with Sovereign Precision.",
-    heroDesc:
-      "A curated repository of high-performance digital assets engineered for creators, developers, and modern brands who demand speed, elegance, and scalability.",
-    footer: "© 2026 FRANS MARCELLINO — ALL RIGHTS RESERVED",
-  },
-  products: [
-    {
-      name: "Titan Core",
-      price: "$1,290",
-      desc: "Enterprise SaaS Framework.",
-      img: "https://placehold.co/800x600/0f0f0f/ffd700?text=Titan+Core",
+    owner: {
+        email: "fransmarselinosroyer@gmail.com",
     },
-    {
-      name: "Quantum UI",
-      price: "$750",
-      desc: "Kinetic React Components.",
-      img: "https://placehold.co/800x600/0f0f0f/ffd700?text=Quantum+UI",
-    },
-    {
-      name: "SecureAuth X",
-      price: "$490",
-      desc: "Zero-Knowledge Auth Suite.",
-      img: "https://placehold.co/800x600/0f0f0f/ffd700?text=SecureAuth+X",
-    },
-    {
-      name: "Nebula AI",
-      price: "$2,999",
-      desc: "Neural Integration Engine.",
-      img: "https://placehold.co/800x600/0f0f0f/ffd700?text=Nebula+AI",
-    },
-    {
-      name: "Apex CMS",
-      price: "$1,800",
-      desc: "Headless Content Engine.",
-      img: "https://placehold.co/800x600/0f0f0f/ffd700?text=Apex+CMS",
-    },
-    {
-      name: "Zenith ERP",
-      price: "$4,500",
-      desc: "Global Logistics Logic.",
-      img: "https://placehold.co/800x600/0f0f0f/ffd700?text=Zenith+ERP",
-    },
-    {
-      name: "Vortex DB",
-      price: "$980",
-      desc: "Real-time Vector Database.",
-      img: "https://placehold.co/800x600/0f0f0f/ffd700?text=Vortex+DB",
-    },
-    {
-      name: "Cipher Mesh",
-      price: "$1,100",
-      desc: "P2P Encryption Layer.",
-      img: "https://placehold.co/800x600/0f0f0f/ffd700?text=Cipher+Mesh",
-    },
-  ],
-  menu: [
-    { label: "Home", id: "home" },
-    { label: "Vault", id: "market" },
-    { label: "About", id: "about" },
-    { label: "Contact", id: "contact" },
-  ],
+    products: [
+        { name: "Titan Core", price: "$1,290", desc: "Enterprise SaaS Framework.", img: "https://placehold.co/800x600/0f0f0f/ffd700?text=Titan+Core" },
+        { name: "Quantum UI", price: "$750", desc: "Kinetic React Components.", img: "https://placehold.co/800x600/0f0f0f/ffd700?text=Quantum+UI" },
+        { name: "SecureAuth X", price: "$490", desc: "Zero-Knowledge Auth Suite.", img: "https://placehold.co/800x600/0f0f0f/ffd700?text=SecureAuth+X" },
+        { name: "Nebula AI", price: "$2,999", desc: "Neural Integration Engine.", img: "https://placehold.co/800x600/0f0f0f/ffd700?text=Nebula+AI" }
+    ],
+    menu: [
+        { label: "Home", id: "home" },
+        { label: "Vault", id: "market" },
+        { label: "About", id: "about" }
+    ]
 };
 
 // =========================
-// 2. GLOBAL STATE
+// 2. NAVIGATION (ANTI-FLICKER LOCK)
 // =========================
-const cursor = document.getElementById("cursor");
-let curN = "",
-  curP = "";
-
-// =========================
-// 3. NAVIGATION
-// =========================
-function toggleMenu(close = false) {
-  const d = document.getElementById("dropdown");
-  if (!d) return;
-
-  if (close) {
-    d.style.display = "none";
-  } else {
-    d.style.display = d.style.display === "block" ? "none" : "block";
-  }
-}
-
 function navigateTo(id, pushState = true) {
-  document.querySelectorAll(".page").forEach((p) => {
-    p.classList.remove("active");
-  });
+    const pages = document.querySelectorAll(".page");
+    const targetPage = document.getElementById(id);
 
-  const targetPage = document.getElementById(id);
-  if (targetPage) targetPage.classList.add("active");
+    if (!targetPage) return;
 
-  window.scrollTo({ top: 0, behavior: "smooth" });
-  toggleMenu(true);
+    // KUNCI: Sembunyikan semua halaman secara instan sebelum transisi
+    pages.forEach((p) => {
+        p.classList.remove("active");
+        p.style.display = "none"; // Hard reset untuk mencegah kebocoran elemen
+    });
 
-  if (pushState) {
-    history.pushState({ pageId: id }, null, `#${id}`);
-  }
+    // Aktifkan halaman tujuan dengan delay mikro untuk sinkronisasi CSS
+    targetPage.style.display = "flex"; 
+    setTimeout(() => {
+        targetPage.classList.add("active");
+    }, 10);
+
+    // Reset Menu & Scroll
+    closeKebabMenu();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    if (pushState) {
+        history.pushState({ pageId: id }, null, `#${id}`);
+    }
 }
 
 // =========================
-// 4. THEME TOGGLE (ENHANCED)
+// 3. KEBAB MENU LOGIC
 // =========================
-function toggleTheme() {
-  document.body.classList.toggle("light-mode");
-
-  const btn = document.getElementById("theme-btn");
-  if (!btn) return;
-
-  const isLight = document.body.classList.contains("light-mode");
-  btn.innerText = isLight ? "DARK MODE" : "LIGHT MODE";
-
-  // 🔥 persist theme
-  localStorage.setItem("theme", isLight ? "light" : "dark");
+function toggleKebabMenu() {
+    const dropdown = document.getElementById("dropdown");
+    if (dropdown) {
+        dropdown.classList.toggle("active");
+    }
 }
 
-// =========================
-// 5. CURSOR
-// =========================
-document.addEventListener("mousemove", (e) => {
-  if (!cursor) return;
+function closeKebabMenu() {
+    const dropdown = document.getElementById("dropdown");
+    if (dropdown) {
+        dropdown.classList.remove("active");
+    }
+}
 
-  cursor.style.left = e.clientX + "px";
-  cursor.style.top = e.clientY + "px";
+// Tutup menu jika klik di luar area navigasi
+document.addEventListener("click", (e) => {
+    const nav = document.getElementById("top-nav");
+    if (nav && !nav.contains(e.target)) {
+        closeKebabMenu();
+    }
 });
 
 // =========================
-// 6. TYPEWRITER (SAFE)
+// 4. THEME ENGINE
 // =========================
-function typeWriter(text, i, cb) {
-  const el = document.getElementById("hero-title");
-  if (!el) return;
-
-  if (i < text.length) {
-    el.innerHTML =
-      text.substring(0, i + 1) + '<span class="typewriter-cursor"></span>';
-    setTimeout(() => typeWriter(text, i + 1, cb), 50);
-  } else if (cb) {
-    setTimeout(cb, 400);
-  }
-}
-
-// =========================
-// 7. RENDER PRODUCTS (OPTIMIZED)
-// =========================
-function renderProducts(data) {
-  const grid = document.getElementById("main-grid");
-  if (!grid) return;
-
-  grid.innerHTML = "";
-
-  const fragment = document.createDocumentFragment();
-
-  data.forEach((p) => {
-    const card = document.createElement("div");
-    card.className = "card";
-
-    card.innerHTML = `
-      <div class="price-tag">${p.price}</div>
-      <img src="${p.img}" class="card-img" alt="" loading="lazy">
-      <h3 style="font-size:1.8rem; letter-spacing:-1px; margin-bottom:10px;">${p.name}</h3>
-      <p style="color:var(--text-dim); margin-bottom:25px; font-weight:300;">${p.desc}</p>
-      <button class="btn-premium" onclick="openModal('${p.name}', '${p.price}')">
-        Acquire License
-      </button>
-    `;
-
-    // 🔥 smoother tilt (less aggressive)
-    if (window.innerWidth > 1024) {
-      card.addEventListener("mousemove", (e) => {
-        const r = card.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width - 0.5;
-        const y = (e.clientY - r.top) / r.height - 0.5;
-
-        card.style.transform = `perspective(1000px) rotateY(${x * 6}deg) rotateX(${y * -6}deg) translateY(-5px)`;
-      });
-
-      card.addEventListener("mouseleave", () => {
-        card.style.transform = "none";
-      });
+function toggleTheme() {
+    const isLight = document.body.classList.toggle("light-mode");
+    const btn = document.getElementById("theme-btn");
+    
+    if (btn) {
+        btn.innerText = isLight ? "DARK MODE" : "LIGHT MODE";
     }
-
-    fragment.appendChild(card);
-  });
-
-  grid.appendChild(fragment);
+    
+    localStorage.setItem("vault-theme", isLight ? "light" : "dark");
 }
 
 // =========================
-// 8. SEARCH (NO CHANGE LOGIC)
+// 5. PRODUCT ENGINE
 // =========================
+function renderProducts(data = VAULT_DATA.products) {
+    const grid = document.getElementById("main-grid");
+    if (!grid) return;
+
+    grid.innerHTML = data.map(p => `
+        <div class="card">
+            <div class="price-tag">${p.price}</div>
+            <img src="${p.img}" class="card-img" alt="${p.name}" loading="lazy">
+            <h3>${p.name}</h3>
+            <p>${p.desc}</p>
+            <button class="btn-premium" onclick="openModal('${p.name}', '${p.price}')">
+                Acquire License
+            </button>
+        </div>
+    `).join('');
+}
+
 function handleSearch() {
-  const q = document.getElementById("search-bar").value.toLowerCase();
-
-  renderProducts(
-    VAULT_DATA.products.filter(
-      (p) =>
-        p.name.toLowerCase().includes(q) ||
-        p.desc.toLowerCase().includes(q),
-    ),
-  );
+    const query = document.getElementById("search-bar").value.toLowerCase();
+    const filtered = VAULT_DATA.products.filter(p => 
+        p.name.toLowerCase().includes(query) || p.desc.toLowerCase().includes(query)
+    );
+    renderProducts(filtered);
 }
 
 // =========================
-// 9. MODAL
+// 6. MODAL SYSTEM (LOCK)
 // =========================
-function openModal(n, p) {
-  curN = n;
-  curP = p;
+let activeAsset = { name: "", price: "" };
 
-  document.getElementById("target-name").innerText = n.toUpperCase();
-  document.getElementById("target-price").innerText = p;
-  document.getElementById("modal").style.display = "flex";
+function openModal(name, price) {
+    activeAsset = { name, price };
+    const modal = document.getElementById("modal");
+    document.getElementById("target-name").innerText = name.toUpperCase();
+    document.getElementById("target-price").innerText = price;
+    
+    modal.style.display = "flex";
+    setTimeout(() => modal.classList.add("active"), 10);
 }
 
 function closeModal() {
-  document.getElementById("modal").style.display = "none";
+    const modal = document.getElementById("modal");
+    modal.classList.remove("active");
+    setTimeout(() => { modal.style.display = "none"; }, 300);
 }
 
 function confirmInquiry() {
-  const name = document.getElementById("client-name").value.trim();
+    const client = document.getElementById("client-name").value.trim();
+    if (!client) return alert("Identification required.");
 
-  if (!name) {
-    alert("Please enter your full name.");
-    return;
-  }
-
-  window.location.href = `mailto:${VAULT_DATA.owner.email}?subject=Acquisition: ${curN}&body=Client Name: ${name}\nRequested Asset: ${curN}\nInvestment Value: ${curP}`;
-
-  closeModal();
+    const mailto = `mailto:${VAULT_DATA.owner.email}?subject=Acquisition: ${activeAsset.name}&body=Client: ${client}%0AAsset: ${activeAsset.name}%0AValue: ${activeAsset.price}`;
+    window.location.href = mailto;
+    closeModal();
 }
 
 // =========================
-// 10. INIT (ENHANCED)
+// 7. INITIALIZATION
 // =========================
 function init() {
-  const navLogo = document.getElementById("nav-logo");
-  const heroBadge = document.getElementById("hero-badge");
-  const curatedBy = document.getElementById("curated-by");
-  const footerText = document.getElementById("footer-text");
-  const heroDesc = document.getElementById("hero-desc");
+    // Render Menu Links
+    const socialLinks = document.getElementById("social-links");
+    if (socialLinks) {
+        socialLinks.innerHTML = VAULT_DATA.menu.map(item => `
+            <a href="javascript:void(0)" onclick="navigateTo('${item.id}')">
+                ${item.label.toUpperCase()} PROTOCOL
+            </a>
+        `).join('');
+    }
 
-  // 🔥 safe injection
-  if (navLogo)
-    navLogo.innerHTML = `${VAULT_DATA.owner.firstName} <span>${VAULT_DATA.owner.lastName}</span>`;
+    // Restore Theme
+    if (localStorage.getItem("vault-theme") === "light") {
+        toggleTheme();
+    }
 
-  if (heroBadge) heroBadge.innerText = VAULT_DATA.owner.badge;
-
-  if (curatedBy)
-    curatedBy.innerHTML = `Curated by <strong>${VAULT_DATA.owner.fullName}</strong>`;
-
-  if (footerText) footerText.innerText = VAULT_DATA.content.footer;
-
-  if (heroDesc) heroDesc.innerText = VAULT_DATA.content.heroDesc;
-
-  // 🔥 menu render
-  const dropdown = document.getElementById("social-links");
-  const contactBox = document.getElementById("contact-methods");
-
-  if (dropdown && contactBox) {
-    dropdown.innerHTML = "";
-    contactBox.innerHTML = "";
-
-    VAULT_DATA.menu.forEach((item) => {
-      dropdown.innerHTML += `
-        <a href="javascript:void(0)" 
-           onclick="navigateTo('${item.id}')" 
-           style="padding:18px 25px; display:block; color:var(--text-main); text-decoration:none; font-size:0.75rem; border-bottom:1px solid var(--border); font-weight:700;">
-           ${item.label.toUpperCase()}
-        </a>`;
-
-      contactBox.innerHTML += `
-        <button class="btn-premium" 
-          style="background:var(--surface); color:var(--text-main); border:1px solid var(--border); margin-bottom:12px;" 
-          onclick="navigateTo('${item.id}')">
-          ${item.label} Protocol
-        </button>`;
-    });
-  }
-
-  // 🔥 restore theme
-  const savedTheme = localStorage.getItem("theme");
-  if (savedTheme === "light") {
-    document.body.classList.add("light-mode");
-    const btn = document.getElementById("theme-btn");
-    if (btn) btn.innerText = "DARK MODE";
-  }
-
-  setTimeout(() => {
-    typeWriter(VAULT_DATA.content.heroTitle, 0, () =>
-      renderProducts(VAULT_DATA.products),
-    );
-  }, 800);
+    // Default Page
+    const hash = window.location.hash.replace("#", "");
+    navigateTo(hash || "home", false);
+    
+    renderProducts();
 }
 
-// =========================
-// 11. HISTORY
-// =========================
 window.addEventListener("popstate", (e) => {
-  if (e.state && e.state.pageId) {
-    navigateTo(e.state.pageId, false);
-  }
+    if (e.state && e.state.pageId) navigateTo(e.state.pageId, false);
 });
 
-// =========================
-// 12. START
-// =========================
 window.onload = init;
