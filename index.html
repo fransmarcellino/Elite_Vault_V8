@@ -14,23 +14,43 @@
     <link rel="stylesheet" href="assets/css/style.css" />
     
     <style>
-      /* EMERGENCY OVERRIDE: Menghindari konten menumpuk & menyembunyikan elemen modal dari aliran dokumen utama */
-      .page { display: none !important; }
-      .page.active { display: block !important; position: relative !important; }
-      
+      /* --- KUNCI ANTI-FLICKER & LAYOUT LEAK --- */
+      .page { 
+        display: none !important; 
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+      }
+      .page.active { 
+        display: block !important; 
+        visibility: visible;
+        opacity: 1;
+        pointer-events: auto;
+        animation: pageFadeIn 0.5s ease-out forwards;
+      }
+
+      @keyframes pageFadeIn {
+        from { transform: translateY(10px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+
+      /* --- MODAL PROTOCOL --- */
       #modal { 
         display: none; 
         position: fixed; 
+        inset: 0;
         z-index: 99999; 
-        top: 0; left: 0; 
-        width: 100%; height: 100%; 
-        background: rgba(0,0,0,0.9); 
-        backdrop-filter: blur(10px);
+        background: rgba(0,0,0,0.85); 
+        backdrop-filter: blur(15px);
+        padding: 20px;
       }
       #modal.active { display: flex !important; justify-content: center; align-items: center; }
+
+      /* --- W3C LOGO STYLE --- */
+      .w3c-logo { opacity: 0.5; transition: 0.3s; filter: grayscale(1) invert(var(--invert-val, 1)); }
+      .w3c-logo:hover { opacity: 1; filter: grayscale(0) invert(0); }
       
-      .w3c-logo { opacity: 0.6; transition: 0.3s; filter: grayscale(1); }
-      .w3c-logo:hover { opacity: 1; filter: grayscale(0); }
+      body.light-mode { --invert-val: 0; }
     </style>
   </head>
 
@@ -44,14 +64,17 @@
         </div>
 
         <div class="nav-controls">
-          <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()">LIGHT MODE</button>
+          <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()">
+            LIGHT MODE
+          </button>
           
           <div class="menu-wrapper">
-            <button class="kebab-btn" onclick="toggleMenu()" aria-label="Menu">
+            <button class="kebab-btn" onclick="toggleKebabMenu()" aria-label="Menu" id="kebab-trigger">
               <span class="dot"></span><span class="dot"></span><span class="dot"></span>
             </button>
             <div id="dropdown" class="dropdown-menu">
-              <div id="social-links"></div>
+              <div id="social-links">
+                </div>
             </div>
           </div>
         </div>
@@ -62,55 +85,66 @@
           <div class="hero">
             <div class="hero-badge-style">V8.0 SOVEREIGN ARCHITECTURE</div>
             <h1 id="hero-title">Bangun Aset Digital Elit<br>dengan Presisi Tertinggi.</h1>
-            <p class="hero-desc-style">Repositori pilihan untuk aset berkinerja tinggi yang dirancang bagi kreator dan merek modern.</p>
-            <div class="hero-action-group" style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 40px; position: relative; z-index: 50;">
-              <button class="btn-premium" style="min-width: 220px;" onclick="navigateTo('market')">JELAJAHI ASET</button>
-              <button class="btn-premium secondary-btn" style="min-width: 220px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: #fff;" onclick="navigateTo('about')">LIHAT STANDAR</button>
+            <p class="hero-desc-style">
+                Repositori pilihan untuk aset berkinerja tinggi yang dirancang bagi kreator dan merek modern yang menuntut kecepatan absolut.
+            </p>
+            <div class="hero-action-group">
+              <button class="btn-premium" onclick="navigateTo('market')">JELAJAHI ASET</button>
+              <button class="btn-premium secondary-btn" onclick="navigateTo('about')">LIHAT STANDAR</button>
             </div>
           </div>
         </section>
 
         <section id="market" class="page">
-          <div class="section-header" style="text-align: center; margin-bottom: 60px">
+          <div class="section-header">
             <div class="hero-badge-style">CURATED REPOSITORY</div>
-            <h2 style="font-size: clamp(2.5rem, 5vw, 3.5rem); letter-spacing: -2px; color: var(--text-main);">Asset Repository</h2>
+            <h2 class="section-title">Asset Repository</h2>
+            <p class="section-subtitle">Produk digital yang direkayasa untuk skalabilitas global.</p>
           </div>
-          <div class="search-container" style="max-width: 600px; margin: 0 auto 50px;">
+          <div class="search-container">
             <input type="text" id="search-bar" placeholder="Cari aset premium..." onkeyup="handleSearch()" />
           </div>
           <div class="grid" id="main-grid"></div>
         </section>
 
         <section id="about" class="page">
-          <div style="max-width: 1100px; margin: 0 auto; text-align: center">
+          <div class="standards-wrapper">
             <div class="hero-badge-style">ELITE PROTOCOL</div>
-            <h2 style="font-size: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 20px; color: var(--text-main);">Engineering Standards</h2>
-            <div class="grid">
-              <div class="card">
-                <div class="icon-box"><img src="./assets/step1-ingestion.png" alt="Ingestion" onerror="this.src='https://img.icons8.com/wired/64/ffd700/database.png'"></div>
+            <h2 class="section-title">Engineering Standards</h2>
+            
+            <div class="standards-grid">
+              <div class="standard-card">
+                <div class="card-glow"></div>
+                <div class="icon-box">
+                    <img src="./assets/step1-ingestion.png" alt="Ingestion" onerror="this.src='https://img.icons8.com/wired/64/ffd700/database.png'">
+                </div>
                 <h3>Sovereign Infrastructure</h3>
-                <p style="color: var(--text-dim);">Arsitektur kode abadi untuk performa tanpa batas waktu.</p>
+                <p>Arsitektur kode abadi yang direkayasa untuk performa tanpa batas waktu dan privasi total melalui enkripsi tingkat lanjut.</p>
               </div>
-              <div class="card">
-                <div class="icon-box"><img src="./assets/security-vault.jpg" alt="Security" onerror="this.src='https://img.icons8.com/wired/64/ffd700/shield.png'"></div>
+
+              <div class="standard-card">
+                <div class="card-glow"></div>
+                <div class="icon-box">
+                    <img src="./assets/security-vault.jpg" alt="Security" onerror="this.src='https://img.icons8.com/wired/64/ffd700/shield.png'">
+                </div>
                 <h3>Elite Security</h3>
-                <p style="color: var(--text-dim);">Standar keamanan tingkat industri dengan protokol enkripsi total.</p>
+                <p>Standar keamanan tingkat industri dengan protokol enkripsi total untuk memastikan integritas data Anda tetap absolut.</p>
               </div>
             </div>
           </div>
         </section>
       </main>
 
-      <footer style="margin-top: 100px; padding: 60px 20px; border-top: 1px solid var(--border); text-align: center;">
-        <p style="color: var(--text-dim); font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; font-weight: 800; margin-bottom: 30px;">
-          © 2026 Frans Marcellino — Elite Vault.
+      <footer>
+        <p class="footer-copyright">
+          © 2026 Frans Marcellino — Elite Vault. Built with Sovereign Precision.
         </p>
         
-        <div style="display: flex; justify-content: center; gap: 15px;">
-            <a href="https://validator.w3.org/check?uri=referer" target="_blank">
+        <div class="w3c-container">
+            <a href="https://validator.w3.org/check?uri=referer" target="_blank" rel="noopener">
                 <img class="w3c-logo" src="https://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0" height="31" width="88">
             </a>
-            <a href="https://jigsaw.w3.org/css-validator/check/referer" target="_blank">
+            <a href="https://jigsaw.w3.org/css-validator/check/referer" target="_blank" rel="noopener">
                 <img class="w3c-logo" src="https://www.w3.org/Icons/valid-css" alt="Valid CSS!" height="31" width="88">
             </a>
         </div>
@@ -121,9 +155,11 @@
       <div class="m-box">
         <h3 id="target-name">Asset Selection</h3>
         <p id="target-price" class="modal-price"></p>
-        <input type="text" id="client-name" placeholder="Nama Lengkap Anda" class="modal-input" />
+        <div class="input-group">
+            <input type="text" id="client-name" placeholder="Nama Lengkap Anda" class="modal-input" />
+        </div>
         <button class="btn-premium" onclick="confirmInquiry()" style="width: 100%;">REQUEST ACCESS</button>
-        <button onclick="closeModal()" style="margin-top: 25px; background: none; border: none; color: var(--text-dim); cursor: pointer; font-size: 0.7rem; letter-spacing: 2px; font-weight: 800; width: 100%;">
+        <button onclick="closeModal()" class="btn-cancel">
           CANCEL PROTOCOL
         </button>
       </div>
