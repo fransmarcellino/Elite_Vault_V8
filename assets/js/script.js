@@ -42,6 +42,7 @@ const VAULT_DATA = {
 
 // --- 2. GLOBAL STATE ---
 let curN = "", curP = "";
+let selectedGateway = "PayPal"; // Default Gateway
 const cursorEl = document.getElementById("cursor");
 
 // --- 3. UI ENGINE ---
@@ -59,19 +60,28 @@ document.addEventListener("mousemove", (e) => {
 });
 
 /**
- * Navigation System
+ * Navigation System with Seamless Transition
  */
 function navigateTo(id, pushState = true) {
     const pages = document.querySelectorAll(".page");
-    pages.forEach((p) => p.classList.remove("active"));
+    
+    // Fade out current page
+    pages.forEach((p) => {
+        p.classList.remove("active");
+        p.style.display = "none";
+    });
     
     const targetPage = document.getElementById(id);
     if (targetPage) {
-        targetPage.classList.add("active");
+        targetPage.style.display = "block";
+        // Small timeout to trigger CSS transition
+        setTimeout(() => {
+            targetPage.classList.add("active");
+        }, 10);
         window.scrollTo({ top: 0, behavior: "smooth" });
     }
     
-    toggleMenu(true); // Close menu on navigation
+    toggleMenu(true); 
     if (pushState) history.pushState({ pageId: id }, null, `#${id}`);
 }
 
@@ -86,7 +96,7 @@ function toggleTheme() {
 }
 
 /**
- * FIXED MENU LOGIC: Menghubungkan CSS display:none dengan animasinya
+ * Menu Logic with Animation
  */
 function toggleMenu(forceClose = false) {
     const dropdown = document.getElementById("dropdown");
@@ -96,19 +106,12 @@ function toggleMenu(forceClose = false) {
         dropdown.classList.remove("active");
         setTimeout(() => { dropdown.style.display = "none"; }, 300);
     } else {
-        // Jika menu sedang tertutup (display none)
         if (getComputedStyle(dropdown).display === "none") {
             dropdown.style.display = "block";
-            // Timeout 10ms agar browser sadar ada perubahan display sebelum animasi dimulai
-            setTimeout(() => {
-                dropdown.classList.add("active");
-            }, 10);
+            setTimeout(() => { dropdown.classList.add("active"); }, 10);
         } else {
-            // Jika menu sedang terbuka, tutup dengan animasi
             dropdown.classList.remove("active");
-            setTimeout(() => {
-                dropdown.style.display = "none";
-            }, 300);
+            setTimeout(() => { dropdown.style.display = "none"; }, 300);
         }
     }
 }
@@ -169,36 +172,84 @@ function handleSearch() {
     renderProducts(filtered);
 }
 
-// --- 5. MODAL SYSTEM ---
+// --- 5. MODAL & PAYMENT SYSTEM ---
 
+/**
+ * Open Modal with Reset Gateway
+ */
 function openModal(n, p) {
     curN = n;
     curP = p;
     document.getElementById("target-name").innerText = n.toUpperCase();
     document.getElementById("target-price").innerText = p;
     document.getElementById("modal").style.display = "flex";
+    
+    // Reset selection to PayPal as default
+    resetPaymentSelection();
 }
 
 function closeModal() {
     document.getElementById("modal").style.display = "none";
 }
 
+/**
+ * Payment Selection Logic
+ */
+function selectPayment(method, element) {
+    // Remove active class from all cards
+    document.querySelectorAll('.method-card').forEach(card => {
+        card.classList.remove('active');
+    });
+    
+    // Add active class to clicked card
+    element.classList.add('active');
+    
+    // Update global state
+    selectedGateway = method;
+    console.log("Gateway Strategy Updated: " + selectedGateway);
+}
+
+function resetPaymentSelection() {
+    selectedGateway = "PayPal";
+    const methods = document.querySelectorAll('.method-card');
+    methods.forEach(m => m.classList.remove('active'));
+    if (methods[0]) methods[0].classList.add('active');
+}
+
+/**
+ * Final Inquiry - Generates Email with Payment Info
+ */
 function confirmInquiry() {
     const clientName = document.getElementById("client-name").value;
     if (!clientName) return alert("Identity Verification Required.");
-    window.location.href = `mailto:${VAULT_DATA.owner.email}?subject=Acquisition: ${curN}&body=Client Name: ${clientName}\nRequested Asset: ${curN}\nInvestment Value: ${curP}`;
+    
+    const subject = encodeURIComponent(`Acquisition: ${curN}`);
+    const body = encodeURIComponent(
+        `CLIENT VERIFICATION\n` +
+        `-------------------\n` +
+        `Client Name: ${clientName}\n` +
+        `Requested Asset: ${curN}\n` +
+        `Investment Value: ${curP}\n` +
+        `Selected Gateway: ${selectedGateway}\n\n` +
+        `Please provide the secure payment link/invoice for the protocol above.`
+    );
+
+    window.location.href = `mailto:${VAULT_DATA.owner.email}?subject=${subject}&body=${body}`;
     closeModal();
 }
 
 // --- 6. INITIALIZATION ---
 
 function init() {
+    // Theme Check
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme === "light") {
         document.body.classList.add("light-mode");
-        document.getElementById("theme-btn").innerText = "DARK MODE";
+        const btn = document.getElementById("theme-btn");
+        if (btn) btn.innerText = "DARK MODE";
     }
 
+    // Dynamic Mappings
     const mappings = {
         "nav-logo": `${VAULT_DATA.owner.firstName} <span>${VAULT_DATA.owner.lastName}</span>`,
         "hero-badge": VAULT_DATA.owner.badge,
@@ -212,6 +263,7 @@ function init() {
         if (el) el.innerHTML = val;
     });
 
+    // Populate Menu & Contact
     const dropdown = document.getElementById("social-links");
     const contactBox = document.getElementById("contact-methods");
 
@@ -224,6 +276,7 @@ function init() {
         });
     }
 
+    // Start Sequence
     setTimeout(() => {
         typeWriter(VAULT_DATA.content.heroTitle, 0, () => {
             renderProducts(VAULT_DATA.products);
@@ -231,6 +284,7 @@ function init() {
     }, 800);
 }
 
+// History Handling
 window.addEventListener("popstate", (e) => {
     if (e.state && e.state.pageId) navigateTo(e.state.pageId, false);
 });
