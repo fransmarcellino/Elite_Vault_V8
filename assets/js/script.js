@@ -42,13 +42,13 @@ const VAULT_DATA = {
 
 // --- 2. GLOBAL STATE ---
 let curN = "", curP = "";
-let selectedGateway = "PayPal"; // Default Gateway
+let selectedGateway = "PayPal"; 
 const cursorEl = document.getElementById("cursor");
 
 // --- 3. UI ENGINE ---
 
 /**
- * Handle Custom Cursor (RAM Efficiency)
+ * Handle Custom Cursor
  */
 document.addEventListener("mousemove", (e) => {
     if (cursorEl) {
@@ -60,12 +60,11 @@ document.addEventListener("mousemove", (e) => {
 });
 
 /**
- * Navigation System with Seamless Transition
+ * Navigation System
  */
 function navigateTo(id, pushState = true) {
     const pages = document.querySelectorAll(".page");
     
-    // Fade out current page
     pages.forEach((p) => {
         p.classList.remove("active");
         p.style.display = "none";
@@ -74,7 +73,6 @@ function navigateTo(id, pushState = true) {
     const targetPage = document.getElementById(id);
     if (targetPage) {
         targetPage.style.display = "block";
-        // Small timeout to trigger CSS transition
         setTimeout(() => {
             targetPage.classList.add("active");
         }, 10);
@@ -96,7 +94,7 @@ function toggleTheme() {
 }
 
 /**
- * Menu Logic with Animation
+ * FIXED MENU LOGIC: Instant Response System
  */
 function toggleMenu(forceClose = false) {
     const dropdown = document.getElementById("dropdown");
@@ -105,16 +103,29 @@ function toggleMenu(forceClose = false) {
     if (forceClose) {
         dropdown.classList.remove("active");
         setTimeout(() => { dropdown.style.display = "none"; }, 300);
+        return;
+    }
+
+    const isHidden = window.getComputedStyle(dropdown).display === "none";
+
+    if (isHidden) {
+        dropdown.style.display = "block";
+        dropdown.offsetHeight; // Force reflow
+        dropdown.classList.add("active");
     } else {
-        if (getComputedStyle(dropdown).display === "none") {
-            dropdown.style.display = "block";
-            setTimeout(() => { dropdown.classList.add("active"); }, 10);
-        } else {
-            dropdown.classList.remove("active");
-            setTimeout(() => { dropdown.style.display = "none"; }, 300);
-        }
+        dropdown.classList.remove("active");
+        setTimeout(() => { dropdown.style.display = "none"; }, 300);
     }
 }
+
+// Close menu when clicking outside
+document.addEventListener("click", (e) => {
+    const dropdown = document.getElementById("dropdown");
+    const kebabBtn = document.querySelector(".kebab-btn");
+    if (dropdown && !dropdown.contains(e.target) && !kebabBtn.contains(e.target)) {
+        toggleMenu(true);
+    }
+});
 
 /**
  * Typewriter Effect
@@ -174,17 +185,12 @@ function handleSearch() {
 
 // --- 5. MODAL & PAYMENT SYSTEM ---
 
-/**
- * Open Modal with Reset Gateway
- */
 function openModal(n, p) {
     curN = n;
     curP = p;
     document.getElementById("target-name").innerText = n.toUpperCase();
     document.getElementById("target-price").innerText = p;
     document.getElementById("modal").style.display = "flex";
-    
-    // Reset selection to PayPal as default
     resetPaymentSelection();
 }
 
@@ -192,21 +198,10 @@ function closeModal() {
     document.getElementById("modal").style.display = "none";
 }
 
-/**
- * Payment Selection Logic
- */
 function selectPayment(method, element) {
-    // Remove active class from all cards
-    document.querySelectorAll('.method-card').forEach(card => {
-        card.classList.remove('active');
-    });
-    
-    // Add active class to clicked card
+    document.querySelectorAll('.method-card').forEach(card => card.classList.remove('active'));
     element.classList.add('active');
-    
-    // Update global state
     selectedGateway = method;
-    console.log("Gateway Strategy Updated: " + selectedGateway);
 }
 
 function resetPaymentSelection() {
@@ -216,9 +211,6 @@ function resetPaymentSelection() {
     if (methods[0]) methods[0].classList.add('active');
 }
 
-/**
- * Final Inquiry - Generates Email with Payment Info
- */
 function confirmInquiry() {
     const clientName = document.getElementById("client-name").value;
     if (!clientName) return alert("Identity Verification Required.");
@@ -241,7 +233,6 @@ function confirmInquiry() {
 // --- 6. INITIALIZATION ---
 
 function init() {
-    // Theme Check
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme === "light") {
         document.body.classList.add("light-mode");
@@ -249,7 +240,6 @@ function init() {
         if (btn) btn.innerText = "DARK MODE";
     }
 
-    // Dynamic Mappings
     const mappings = {
         "nav-logo": `${VAULT_DATA.owner.firstName} <span>${VAULT_DATA.owner.lastName}</span>`,
         "hero-badge": VAULT_DATA.owner.badge,
@@ -263,7 +253,6 @@ function init() {
         if (el) el.innerHTML = val;
     });
 
-    // Populate Menu & Contact
     const dropdown = document.getElementById("social-links");
     const contactBox = document.getElementById("contact-methods");
 
@@ -276,7 +265,6 @@ function init() {
         });
     }
 
-    // Start Sequence
     setTimeout(() => {
         typeWriter(VAULT_DATA.content.heroTitle, 0, () => {
             renderProducts(VAULT_DATA.products);
@@ -284,7 +272,6 @@ function init() {
     }, 800);
 }
 
-// History Handling
 window.addEventListener("popstate", (e) => {
     if (e.state && e.state.pageId) navigateTo(e.state.pageId, false);
 });
