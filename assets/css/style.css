@@ -11,8 +11,9 @@
   --transition: cubic-bezier(0.2, 0, 0, 1);
   --glow: rgba(255, 215, 0, 0.2);
   --accent-gradient: linear-gradient(135deg, #ffd700 0%, #b8860b 100%);
-  --radius-lg: 32px;
+  --radius-lg: 40px; /* Diperhalus dari 32px */
   --radius-md: 20px;
+  --invert-val: 1; /* Untuk W3C Logo */
 }
 
 body.light-mode {
@@ -22,21 +23,27 @@ body.light-mode {
   --text-dim: #6e6e73;
   --border: rgba(0, 0, 0, 0.1);
   --glow: rgba(255, 215, 0, 0.3);
+  --invert-val: 0;
 }
 
 /* =========================
-   SISTEM NAVIGASI (SOLUSI ANTI-NUMPUK)
+   ANTI-FLICKER NAVIGATION (LOCK SYSTEM)
 ========================= */
 .page {
-  display: none !important; /* Total isolation agar tidak menumpuk */
+  display: none !important; /* Kunci: Isolasi total elemen mati */
   opacity: 0;
+  visibility: hidden;
   width: 100%;
+  pointer-events: none;
 }
 
 .page.active {
-  display: block !important;
+  display: flex !important; /* Gunakan flex untuk alignment presisi */
+  flex-direction: column;
   opacity: 1;
-  animation: pageAppear 0.6s var(--transition) forwards;
+  visibility: visible;
+  pointer-events: auto;
+  animation: pageAppear 0.5s var(--transition) forwards;
 }
 
 @keyframes pageAppear {
@@ -45,74 +52,108 @@ body.light-mode {
 }
 
 /* =========================
-   HERO & BUTTON FIX (Screenshot_20260328-155124)
+   NAVBAR & KEBAB MENU
 ========================= */
-.hero-action-group {
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 40px;
-}
-
-.btn-premium {
-  background: var(--accent-gradient);
-  color: #000 !important;
-  padding: 18px 30px;
-  border-radius: var(--radius-md);
-  border: none;
-  font-weight: 800;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: 0.3s var(--transition);
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 60px; /* Mencegah teks tertumpuk di mobile */
-}
-
-.secondary-btn {
-  background: rgba(255, 255, 255, 0.05) !important;
-  color: var(--text-main) !important;
-  border: 1px solid var(--border) !important;
-}
-
-/* =========================
-   MODAL FIX (Screenshot_20260328-160453)
-========================= */
-#modal {
-  display: none; /* Default tersembunyi */
-  position: fixed;
+nav {
+  position: sticky;
   top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(15px);
-  z-index: 99999; /* Di atas segalanya */
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-}
-
-#modal.active {
-  display: flex !important;
-}
-
-.m-box {
+  z-index: 1000;
   background: var(--bg);
-  border: 1px solid var(--primary);
-  padding: 40px;
-  border-radius: var(--radius-lg);
-  max-width: 500px;
-  width: 100%;
-  text-align: center;
-  box-shadow: 0 0 50px var(--glow);
+  backdrop-filter: blur(20px);
+  padding: 15px 5%;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.kebab-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.kebab-btn .dot {
+  width: 5px;
+  height: 5px;
+  background: var(--text-main);
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.kebab-btn:hover .dot {
+  background: var(--primary);
+  box-shadow: 0 0 10px var(--primary);
 }
 
 /* =========================
-   W3C & FOOTER
+   ENGINEERING STANDARDS (ELITE VISUAL)
+========================= */
+.standards-wrapper {
+  padding: 80px 5%;
+  text-align: center;
+}
+
+.standards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 40px;
+  margin-top: 50px;
+}
+
+.standard-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 50px 30px;
+  position: relative;
+  overflow: hidden;
+  transition: 0.4s var(--transition);
+}
+
+.standard-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--primary);
+  background: rgba(255, 215, 0, 0.02);
+}
+
+.icon-box {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 25px;
+  background: rgba(255, 215, 0, 0.1);
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+}
+
+.standard-card h3 {
+  font-family: 'Kanit', sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: var(--text-main);
+}
+
+.standard-card p {
+  color: var(--text-dim);
+  line-height: 1.8;
+  font-size: 0.95rem;
+}
+
+/* =========================
+   FOOTER & W3C LOGO
 ========================= */
 footer {
   text-align: center;
@@ -120,11 +161,17 @@ footer {
   border-top: 1px solid var(--border);
 }
 
+.w3c-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 25px;
+}
+
 .w3c-logo {
-  filter: grayscale(1) invert(1);
+  filter: grayscale(1) invert(var(--invert-val));
   opacity: 0.4;
   transition: 0.3s;
-  margin-top: 20px;
 }
 
 .w3c-logo:hover {
@@ -133,25 +180,10 @@ footer {
 }
 
 /* =========================
-   GRID & CARD FIX
+   MOBILE OPTIMIZATION
 ========================= */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-  padding: 20px 0;
-}
-
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 35px;
-  transition: 0.4s var(--transition);
-  height: 100%;
-}
-
 @media (max-width: 768px) {
-  .btn-premium { width: 100%; }
-  .grid { grid-template-columns: 1fr; }
+  .standards-grid { grid-template-columns: 1fr; }
+  .standard-card { padding: 40px 20px; }
+  .nav-controls { gap: 5px; }
 }
