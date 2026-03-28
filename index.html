@@ -6,39 +6,55 @@
 
 <title>Frans Marcellino | Elite Vault v8.0</title>
 
-<meta name="description" content="Sovereign Digital Repository by Frans Marcellino. High-end software assets and industrial-grade frameworks." />
+<meta name="description" content="Elite Vault by Frans Marcellino — A controlled repository of high-performance digital assets for serious creators." />
 
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&family=Playfair+Display:wght@900&display=swap" rel="stylesheet">
-
 <link rel="stylesheet" href="assets/css/style.css">
 
 <style>
 noscript .page { display:block !important; opacity:1 !important; }
 
-/* ===== SAFE UPGRADE STYLE ===== */
-.evx-section { padding:80px 20px; text-align:center; }
-.evx-title { font-size:2.4rem; font-weight:800; }
-.evx-sub { color:var(--text-dim); margin-top:10px; }
+/* ===== SAFE UPGRADE ===== */
+.evx-section { padding:90px 20px; text-align:center; }
+.evx-title { font-size:2.6rem; font-weight:800; letter-spacing:-1px; }
+.evx-sub { color:var(--text-dim); margin-top:10px; max-width:600px; margin-inline:auto; }
+
 .evx-box {
   background:rgba(255,255,255,0.04);
   border:1px solid var(--border);
-  backdrop-filter:blur(12px);
+  backdrop-filter:blur(14px);
   border-radius:20px;
-  padding:25px;
-  max-width:800px;
+  padding:28px;
+  max-width:820px;
   margin:25px auto;
+  transition:0.3s;
 }
+
+.evx-box:hover {
+  transform:translateY(-5px);
+}
+
 .evx-cta {
   display:inline-block;
-  margin-top:25px;
-  padding:14px 30px;
-  border-radius:30px;
-  font-weight:bold;
+  margin-top:30px;
+  padding:14px 34px;
+  border-radius:40px;
+  font-weight:700;
   text-decoration:none;
   background:linear-gradient(90deg,#00f0ff,#8a2be2);
   color:white;
+  transition:0.3s;
 }
-.evx-testi { font-style:italic; color:#bbb; }
+
+.evx-cta:hover {
+  transform:scale(1.05);
+  opacity:0.9;
+}
+
+.evx-testi {
+  font-style:italic;
+  color:#bbb;
+}
 </style>
 </head>
 
@@ -60,67 +76,92 @@ FRANS <span>MARCELLINO</span>
 <!-- MAIN -->
 <main>
 
-<!-- HERO -->
+<!-- HERO (UPGRADE COPY) -->
 <section id="home" class="page active">
 <div class="hero">
 <h1>Architecting Digital Sovereignty</h1>
-<p>High-performance digital systems built for elite creators.</p>
 
-<button onclick="navigateTo('market')">VIEW REPOSITORY</button>
+<p>
+A private repository of engineered digital assets — built for creators who demand performance, control, and exclusivity.
+</p>
+
+<div style="margin-top:25px;">
+<button onclick="navigateTo('market')">ENTER REPOSITORY</button>
+</div>
 </div>
 </section>
 
 <!-- MARKET -->
 <section id="market" class="page">
 <h2>The Repository</h2>
-<input type="text" placeholder="Search..." onkeyup="handleSearch()">
+
+<p style="text-align:center; color:var(--text-dim); margin-bottom:20px;">
+Curated digital systems. Not templates — engineered assets.
+</p>
+
+<input type="text" placeholder="Filter Assets..." onkeyup="handleSearch()">
 <div id="main-grid"></div>
 </section>
 
 <!-- ABOUT -->
 <section id="about" class="page">
-<h2>About</h2>
-<p>Elite-grade digital architecture.</p>
+<h2>Sovereign Standard</h2>
+
+<p style="max-width:700px; margin:auto; color:var(--text-dim);">
+Elite Vault is not built for mass consumption. Every asset is designed with long-term scalability, performance precision, and controlled distribution in mind.
+</p>
 </section>
 
 <!-- CONTACT -->
 <section id="contact" class="page">
-<h2>Contact</h2>
+<h2>Direct Inquiry</h2>
+<p style="color:var(--text-dim);">
+Access requests and collaborations are handled privately.
+</p>
 </section>
 
-<!-- ===== UPGRADE SECTION ===== -->
+<!-- ===== PREMIUM LAYER ===== -->
 
 <section class="evx-section">
 <div class="evx-title">Elite Access Protocol</div>
-<div class="evx-sub">Private vault for high-performance assets</div>
 
-<div class="evx-box">
-🚀 Premium assets<br>
-🔒 Exclusive access<br>
-⚡ Built for serious creators
+<div class="evx-sub">
+This is a controlled system — not an open marketplace.
+Only serious creators understand the value inside.
 </div>
 
-<a href="#market" class="evx-cta">ENTER VAULT</a>
+<div class="evx-box">
+🚀 High-performance digital assets  
+<br>🔒 Limited & controlled distribution  
+<br>⚡ Built for professionals, not beginners  
+</div>
+
+<a href="#market" class="evx-cta">ACCESS THE VAULT</a>
 </section>
 
 <section class="evx-section">
-<div class="evx-title">Why This Feels Different</div>
+<div class="evx-title">Why It Feels Different</div>
 
 <div class="evx-box">
-This is not a template store.<br><br>
-<strong>This is a controlled digital vault.</strong>
+Most platforms sell volume.  
+<br><br>
+<strong>Elite Vault operates on precision.</strong>  
+<br><br>
+Each asset is built to perform, scale, and outlast trends.
 </div>
 </section>
 
 <section class="evx-section">
-<div class="evx-title">Trusted Perception</div>
+<div class="evx-title">Perception Layer</div>
 
 <div class="evx-box evx-testi">
-"Feels like a premium underground marketplace."<br>— Developer
+"This feels like a closed ecosystem for high-level creators."
+<br><br>— Independent Developer
 </div>
 
 <div class="evx-box evx-testi">
-"Strong branding. High selling potential."<br>— Designer
+"The branding alone positions this above typical marketplaces."
+<br><br>— UI Analyst
 </div>
 </section>
 
@@ -128,7 +169,7 @@ This is not a template store.<br><br>
 
 <!-- FOOTER -->
 <footer>
-<p>© Frans Marcellino</p>
+<p>© Frans Marcellino — Elite Vault System</p>
 </footer>
 
 </div>
