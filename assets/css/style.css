@@ -1,23 +1,21 @@
 /* =========================
-   IMPOR FONT (DITAMBAHKAN)
-========================= */
+   1. IMPOR & ROOT SYSTEM
+   ========================= */
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;700;800&family=Playfair+Display:ital,wght@0,900;1,900&display=swap');
 
-/* =========================
-   ROOT & THEME SYSTEM
-========================= */
 :root {
   --primary: #ffd700;
   --bg: #050505;
   --surface: #0f0f0f;
-  --text-main: #fff;
-  --text-dim: #888;
+  --text-main: #ffffff;
+  --text-dim: #888888;
   --border: rgba(255, 255, 255, 0.05);
   --transition: cubic-bezier(0.23, 1, 0.32, 1);
   --glow: rgba(255, 215, 0, 0.15);
   --accent-gradient: linear-gradient(45deg, #ffd700, #ff8c00);
 }
 
+/* Dukungan Light Mode Otomatis & Manual */
 body.light-mode {
   --bg: #f5f5f7;
   --surface: #ffffff;
@@ -28,14 +26,15 @@ body.light-mode {
 }
 
 /* =========================
-   CORE SETUP
-========================= */
+   2. CORE SETUP (CLEANED)
+   ========================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Plus Jakarta Sans", sans-serif;
-  cursor: none !important;
+  /* Kursor dilepas !important agar tidak error jika JS gagal */
+  cursor: none; 
 }
 
 #cursor {
@@ -61,7 +60,7 @@ body {
   background: var(--bg);
   color: var(--text-main);
   line-height: 1.6;
-  transition: background 0.5s ease;
+  transition: background 0.5s var(--transition);
   overflow-x: hidden;
 }
 
@@ -72,8 +71,8 @@ body {
 }
 
 /* =========================
-   NAVIGATION (LOCKED)
-========================= */
+   3. NAVIGATION SYSTEM
+   ========================= */
 nav {
   padding: 20px 0;
   display: flex;
@@ -85,7 +84,7 @@ nav {
   background: var(--bg);
   backdrop-filter: blur(25px);
   border-bottom: 1px solid var(--border);
-  transition: 0.5s;
+  transition: background 0.5s, border 0.5s;
 }
 
 .logo {
@@ -93,8 +92,9 @@ nav {
   letter-spacing: 4px;
   font-size: 1rem;
   text-transform: uppercase;
-  cursor: pointer !important;
+  cursor: pointer;
 }
+
 .logo span {
   color: var(--primary);
   text-shadow: 0 0 10px var(--glow);
@@ -114,8 +114,8 @@ nav {
   border-radius: 12px;
   font-weight: 700;
   font-size: 0.65rem;
-  transition: 0.3s;
-  cursor: pointer !important;
+  transition: 0.3s var(--transition);
+  cursor: pointer;
 }
 
 .kebab-btn {
@@ -126,7 +126,7 @@ nav {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  cursor: pointer !important;
+  cursor: pointer;
 }
 
 .dot {
@@ -136,29 +136,16 @@ nav {
   border-radius: 50%;
 }
 
-.dropdown-menu {
-  position: absolute;
-  right: 0;
-  top: 70px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  display: none;
-  width: 220px;
-  overflow: hidden;
-  z-index: 1001;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-}
-
 /* =========================
-   PAGE SYSTEM (LOCKED)
-========================= */
+   4. PAGE & ANIMATION
+   ========================= */
 .page {
   display: none;
   padding: 60px 0;
   min-height: 80vh;
   animation: fadeIn 0.8s var(--transition);
 }
+
 .page.active {
   display: block;
 }
@@ -169,32 +156,24 @@ nav {
 }
 
 /* =========================
-   HERO SECTION (UPGRADED FONT)
-========================= */
+   5. HERO SECTION (ELITE)
+   ========================= */
 .hero {
   text-align: center;
   position: relative;
-  padding: 100px 0;
+  padding: 120px 0;
 }
 
-/* PERUBAHAN FONT: Architecting Digital Sovereignty */
 .hero h1 {
   font-family: 'Playfair Display', serif !important;
   font-size: clamp(2.5rem, 8vw, 5.5rem);
   font-weight: 900;
-  letter-spacing: -2px; /* Disesuaikan untuk Serif agar tetap elegan */
-  margin-bottom: 20px;
+  letter-spacing: -1px;
+  margin-bottom: 24px;
   line-height: 1.1;
-  font-style: italic; /* Opsional: Menambah kesan artistik digital */
+  font-style: italic;
+  color: var(--text-main);
 }
-
-.typewriter-cursor::after {
-  content: "|";
-  animation: blink 0.7s infinite;
-  color: var(--primary);
-}
-
-@keyframes blink { 50% { opacity: 0; } }
 
 .hero-badge-style {
   font-size: 0.7rem;
@@ -209,38 +188,32 @@ nav {
   color: var(--text-dim);
   max-width: 750px;
   margin: 0 auto 50px;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: 300;
 }
 
-.hero-glow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  max-width: 800px;
-  height: 600px;
-  background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
-  z-index: -1;
-  pointer-events: none;
-  opacity: 0.6;
+.typewriter-cursor::after {
+  content: "|";
+  animation: blink 0.7s infinite;
+  color: var(--primary);
 }
 
+@keyframes blink { 50% { opacity: 0; } }
+
 /* =========================
-   GRID & CARDS (LOCKED)
-========================= */
+   6. GRID & PREMIUM CARDS
+   ========================= */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 32px;
   margin-top: 50px;
 }
 
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 35px;
+  border-radius: 28px; /* Disesuaikan untuk standar modern */
   padding: 40px;
   position: relative;
   transition: 0.6s var(--transition);
@@ -250,7 +223,8 @@ nav {
 
 .card:hover {
   border-color: var(--primary);
-  transform: translateY(-10px);
+  transform: translateY(-12px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
 }
 
 .card-img {
@@ -260,7 +234,7 @@ nav {
   object-fit: cover;
   margin-bottom: 25px;
   filter: grayscale(1);
-  transition: 0.8s;
+  transition: 0.8s var(--transition);
 }
 
 .card:hover .card-img {
@@ -274,12 +248,11 @@ nav {
   right: 30px;
   background: var(--accent-gradient);
   color: #000;
-  padding: 6px 16px;
-  border-radius: 10px;
+  padding: 8px 18px;
+  border-radius: 12px;
   font-weight: 900;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   z-index: 10;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .btn-premium {
@@ -291,8 +264,8 @@ nav {
   border: none;
   font-weight: 800;
   text-transform: uppercase;
-  cursor: pointer !important;
-  transition: 0.3s;
+  cursor: pointer;
+  transition: 0.3s var(--transition);
 }
 
 .btn-premium:hover {
@@ -301,12 +274,12 @@ nav {
 }
 
 /* =========================
-   MODAL SYSTEM (LOCKED)
-========================= */
+   7. MODAL SYSTEM (REPAIRED)
+   ========================= */
 #modal {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(15px);
   display: none;
   justify-content: center;
@@ -318,42 +291,48 @@ nav {
 .m-box {
   background: var(--surface);
   padding: 50px 30px;
-  border-radius: 40px;
-  border: 1px solid var(--primary);
+  border-radius: 32px;
+  border: 1px solid var(--border);
   width: 100%;
   max-width: 450px;
   text-align: center;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.5);
 }
 
 .modal-price {
-  font-size: 3rem;
-  margin: 15px 0;
+  font-size: 3.5rem;
+  margin: 20px 0;
   background: var(--accent-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-weight: 800;
+  font-weight: 900;
 }
 
 .modal-input {
   width: 100%;
   padding: 18px;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   background: var(--bg);
   border: 1px solid var(--border);
-  color: #fff;
-  border-radius: 15px;
+  color: var(--text-main); /* FIX: Support Light/Dark Mode */
+  border-radius: 16px;
   text-align: center;
   font-size: 1rem;
+  outline: none;
+}
+
+.modal-input:focus {
+  border-color: var(--primary);
 }
 
 /* =========================
-   FOOTER (LOCKED)
-========================= */
+   8. FOOTER & UTILITIES
+   ========================= */
 footer {
   text-align: center;
   padding: 80px 0;
   color: var(--text-dim);
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   letter-spacing: 4px;
   font-weight: 800;
   border-top: 1px solid var(--border);
