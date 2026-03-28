@@ -1,7 +1,7 @@
 /* =========================
    1. IMPOR & ROOT SYSTEM
    ========================= */
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;700;800&family=Playfair+Display:ital,wght@0,900;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&family=Playfair+Display:ital,wght@0,900;1,900&display=swap');
 
 :root {
   --primary: #ffd700;
@@ -97,6 +97,7 @@ nav {
   padding: 60px 0; min-height: 80vh;
 }
 
+/* Safety Fallback: Jika active, otomatis muncul */
 .page.active { display: block; opacity: 1; transform: translateY(0); filter: blur(0); }
 
 /* =========================
@@ -109,8 +110,11 @@ nav {
   margin-bottom: 24px; line-height: 1.1; font-style: italic;
 }
 
+.hero-badge-style { font-size: 0.7rem; letter-spacing: 8px; color: var(--primary); margin-bottom: 30px; font-weight: 800; text-transform: uppercase; }
+.hero-desc-style { color: var(--text-dim); max-width: 750px; margin: 0 auto 50px; font-size: 1.15rem; font-weight: 300; }
+
 /* =========================
-   6. GRID & CARDS
+   6. GRID & PREMIUM CARDS
    ========================= */
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; margin-top: 50px; }
 
@@ -129,19 +133,23 @@ nav {
 .card-img {
   width: 100%; height: 250px; border-radius: 20px; object-fit: cover;
   margin-bottom: 25px; filter: grayscale(1); transition: 0.8s var(--transition);
+  background: #1a1a1a;
 }
 
 .card:hover .card-img { filter: grayscale(0); transform: scale(1.05); }
 
 .price-tag {
   position: absolute; top: 30px; right: 30px; background: var(--accent-gradient);
-  color: #000; padding: 8px 18px; border-radius: 12px; font-weight: 900;
+  color: #000; padding: 8px 18px; border-radius: 12px; font-weight: 900; font-size: 0.8rem; z-index: 10;
 }
 
 .btn-premium {
   background: var(--primary); color: #000; padding: 18px; border-radius: 18px;
   width: 100%; border: none; font-weight: 800; text-transform: uppercase; cursor: pointer;
+  transition: 0.3s var(--transition);
 }
+
+.btn-premium:hover { transform: scale(1.02); box-shadow: 0 10px 20px var(--glow); }
 
 /* =========================
    7. MODAL SYSTEM
@@ -155,7 +163,21 @@ nav {
 .m-box {
   background: var(--surface); padding: 50px 30px; border-radius: 32px;
   border: 1px solid var(--border); width: 100%; max-width: 450px; text-align: center;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.5);
 }
+
+.modal-price {
+  font-size: 3.5rem; margin: 20px 0; background: var(--accent-gradient);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900;
+}
+
+.modal-input {
+  width: 100%; padding: 18px; margin-bottom: 20px; background: var(--bg);
+  border: 1px solid var(--border); color: var(--text-main); 
+  border-radius: 16px; text-align: center; font-size: 1rem; outline: none;
+}
+
+.modal-input:focus { border-color: var(--primary); }
 
 /* =========================
    8. FOOTER & STATUS
@@ -163,54 +185,37 @@ nav {
 footer {
   text-align: center; padding: 80px 0; color: var(--text-dim);
   font-size: 0.7rem; letter-spacing: 4px; font-weight: 800;
-  border-top: 1px solid var(--border); text-transform: uppercase;
+  border-top: 1px solid var(--border); text-transform: uppercase; position: relative;
 }
 
 footer::after {
   content: "CORE SYSTEM: SECURE • ENCRYPTION: ACTIVE";
   position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
-  font-size: 0.5rem; opacity: 0.3;
+  font-size: 0.5rem; opacity: 0.3; letter-spacing: 2px;
 }
 
 /* =========================
-   9. PAYMENT GATEWAY SYSTEM (NEW)
+   9. PAYMENT GATEWAY SYSTEM
    ========================= */
 .payment-methods {
-  margin: 25px 0;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: 20px;
-  border: 1px solid var(--border);
+  margin: 25px 0; padding: 20px; background: rgba(255, 255, 255, 0.02);
+  border-radius: 20px; border: 1px solid var(--border);
 }
 
-.method-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-}
+.method-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 
 .method-card {
-  padding: 15px 10px;
-  border: 1px solid var(--border);
-  border-radius: 15px;
-  cursor: pointer;
-  transition: all 0.3s var(--transition);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  background: var(--bg);
+  padding: 15px 10px; border: 1px solid var(--border); border-radius: 15px;
+  cursor: pointer; transition: all 0.3s var(--transition);
+  display: flex; flex-direction: column; align-items: center; gap: 8px; background: var(--bg);
 }
 
 .method-card i { font-size: 1.2rem; color: var(--text-dim); }
 .method-card span { font-size: 0.6rem; font-weight: 800; color: var(--text-dim); text-transform: uppercase; }
 
-/* Active State: Selected Payment */
 .method-card.active {
-  border-color: var(--primary);
-  background: rgba(255, 215, 0, 0.05);
-  box-shadow: 0 0 15px var(--glow);
-  transform: translateY(-5px);
+  border-color: var(--primary); background: rgba(255, 215, 0, 0.05);
+  box-shadow: 0 0 15px var(--glow); transform: translateY(-5px);
 }
 
 .method-card.active i, .method-card.active span { color: var(--primary); }
