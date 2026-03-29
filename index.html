@@ -5,14 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Frans Marcellino | Elite Vault v8.0</title>
     
-    <meta name="description" content="Sovereign Digital Repository by Frans Marcellino. High-end software assets." />
+    <meta name="description" content="Elite Vault v8.0 by Frans Marcellino. A high-end sovereign digital repository featuring industrial-grade software assets and premium cinematic engineering." />
     <meta name="author" content="Frans Marcellino" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" media="print" onload="this.media='all'" />
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    
     <link rel="stylesheet" href="assets/css/style.css" />
     
     <style>
@@ -164,10 +168,10 @@
             <p id="footer-text" style="margin-bottom: 25px; color: var(--text-dim); font-size: 0.85rem; letter-spacing: 1px;"></p>
             
             <div class="social-strip">
-                <a href="https://instagram.com/frans_marcellino" target="_blank" aria-label="Instagram">
+                <a href="https://instagram.com/frans_marcellino" target="_blank" rel="noopener" aria-label="Instagram">
                     <i class="fab fa-instagram"></i>
                 </a>
-                <a href="https://linkedin.com/in/frans-marcellino" target="_blank" aria-label="LinkedIn">
+                <a href="https://linkedin.com/in/frans-marcellino" target="_blank" rel="noopener" aria-label="LinkedIn">
                     <i class="fab fa-linkedin-in"></i>
                 </a>
                 <a href="mailto:fransmarselinosroyer@gmail.com" aria-label="Email">
@@ -176,10 +180,10 @@
             </div>
 
             <div class="w3c-container">
-                <a href="https://validator.w3.org/check?uri=referer" target="_blank" rel="noopener">
+                <a href="https://validator.w3.org/check?uri=referer" target="_blank" rel="noopener" aria-label="W3C HTML Validator">
                     <img class="w3c-logo" src="https://www.w3.org/Icons/valid-html401" alt="Valid HTML" />
                 </a>
-                <a href="https://jigsaw.w3.org/css-validator/check/referer" target="_blank" rel="noopener">
+                <a href="https://jigsaw.w3.org/css-validator/check/referer" target="_blank" rel="noopener" aria-label="W3C CSS Validator">
                     <img class="w3c-logo" src="https://www.w3.org/Icons/valid-css" alt="Valid CSS" />
                 </a>
             </div>
@@ -213,6 +217,6 @@
         </div>
     </div>
 
-    <script src="assets/js/script.js"></script>
+    <script src="assets/js/script.js" defer></script>
 </body>
 </html>
