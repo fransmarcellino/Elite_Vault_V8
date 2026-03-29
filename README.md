@@ -1,59 +1,52 @@
-# 🏛️ ELITE VAULT v8.0.6 — OFFICIAL DOCUMENTATION
+# 🏛️ ELITE VAULT v8.1.1 — OFFICIAL DOCUMENTATION
 **Architecting Digital Sovereignty | Engineering Digital Authority**
 
-Welcome to **Elite Vault v8.0.6**. You have just acquired a digital repository system with an industrial-grade architecture. This website is engineered for maximum speed, exclusive aesthetics, and seamless management through a single centralized data hub.
+Welcome to **Elite Vault v8.1.1**. You have activated a premium digital repository system built with industrial-grade architecture. This system is engineered for maximum speed, exclusive aesthetics, and centralized content management through a single data hub.
 
 ---
 
-## 📂 DIRECTORY STRUCTURE (IMPORTANT)
-To maintain system integrity, please **DO NOT** rename folders or move files from the following structure:
-* `index.html` — Core Framework (Static).
-* `assets/css/style.css` — Aesthetics & Animation Hub.
-* `assets/js/script.js` — **CONTENT CONTROL CENTER (Edit here).**
-* `assets/img/` — Storage folder for your product assets and images.
+## 📂 DIRECTORY STRUCTURE (MANDATORY)
+To maintain system integrity and high-performance scores (Lighthouse 100%), please **DO NOT** rename folders or move files from the following structure:
+* `index.html` — Core Framework & Social Media Links (Edit here for profile links).
+* `assets/css/style.css` — Aesthetic Hub, Color Variables, & Animations.
+* `assets/js/script.js` — **CONTENT CONTROL CENTER (Edit here for Products & Email).**
+* `assets/img/` — Storage folder for your product assets and preview images.
 
 ---
 
 ## 🛠️ CONTENT CUSTOMIZATION GUIDE
-You do not need complex programming knowledge. Simply open the **`assets/js/script.js`** file using a Text Editor (such as VS Code or Notepad) and locate the `VAULT_DATA` object at the very top.
 
 ### 1. Update Profile & Inquiry Email
-Locate the `owner` block. Modify the text within the quotation marks:
-* `firstName` & `lastName`: The names displayed on the navigation logo.
-* `email`: The destination address where buyers will send their **"Request License"** inquiries.
+Open **`assets/js/script.js`** and locate the `owner` block at the top:
+* `firstName` & `lastName`: The names displayed as your identity in the navigation.
+* `email`: The primary destination address. Every buyer who clicks **"Acquire License"** will automatically generate an inquiry to this email.
 
 ### 2. Manage Assets (The Repository)
-Locate the `products` block. To change a product image:
-1.  Save your image file into the `assets/img/` folder.
-2.  Update the `img: "..."` line with your filename, e.g., `img: "assets/img/my-work.jpg"`.
-*If you haven't prepared an image yet, the system will automatically display a premium Gold Placeholder to keep the site looking professional.*
+In **`script.js`**, locate the `products` block. To update your catalog:
+1. Save your image file into the `assets/img/` folder.
+2. Update the `img: "..."` line with your filename (e.g., `img: "assets/img/titan-v2.jpg"`).
+*The v8.1.1 system now features an automated **"Asset Not Found"** state if a buyer's search query does not match your catalog.*
 
-### 3. Navigation & Social Media
--   **Main Menu:** Update the labels in the `menu` section if you wish to rename navigation tabs (e.g., Home, Vault, About).
--   **Social Access:** Update the links in the `socials` section to point to your Instagram or LinkedIn profiles within the dropdown menu.
+### 3. Update Social Media Links
+Unlike the product data, social media links (Instagram, LinkedIn, etc.) are managed directly in **`index.html`**:
+* Scroll to the `<footer>` section at the bottom.
+* Replace the `href="#"` attributes within the `<a>` tags with your actual profile URLs.
 
 ---
 
-## ⚠️ CODE SECURITY WARNING (MANDATORY READ)
-To prevent system crashes or layout breakage, please observe the following rules while editing:
-
-1.  **Quotes & Commas:** Never delete the quotation marks (`" "`) surrounding the text or the commas (`,`) at the end of data lines. Removing them will cause the website to fail (Blank Screen).
-2.  **Folder Integrity:** Do not move `style.css` or `script.js` out of the `assets` folder. If the file path is broken, the website's design will vanish.
-3.  **W3C Validation:** Do not remove the W3C logos in the footer. This is a certification that your website meets international web standards.
-4.  **Image Optimization:** Use images under 500KB to ensure instant loading speeds (Mobile-First Optimization).
+## ⚠️ CODE SECURITY WARNING (READ CAREFULLY)
+1. **Quotes & Commas:** Never delete the quotation marks (`" "`) or the commas (`,`) at the end of data lines in the JS file. Removing them will cause a syntax error (Blank Screen).
+2. **Contact Operator:** The contact menu in the **Kebab Menu (three dots)** is now fully dynamic. It automatically pulls the email address from your `VAULT_DATA` settings.
+3. **Image Precision:** For optimal visual consistency and to prevent Layout Shifts (CLS), use images with a 4:3 aspect ratio (recommended: 800x600px).
 
 ---
 
 ## 🚀 DEPLOYMENT GUIDE (GO LIVE)
-1.  Upload the entire `Elite_Vault_V8` folder to your preferred hosting provider (e.g., GitHub Pages, Netlify, or Vercel).
-2.  Ensure the `index.html` file is located in the root directory.
-3.  Your website is now live and accessible to clients worldwide.
+1. Upload the entire `Elite_Vault_V8` folder to your preferred hosting provider (GitHub Pages is highly recommended).
+2. Ensure the `index.html` file is located in the root directory.
+3. Your vault is now live and accessible to global clients with optimized performance.
 
 ---
-
-## 🤝 THANK YOU & SUPPORT
-Thank you for trusting **Elite Vault** for your digital authority needs. We believe that a strong design is the foundation of client trust. If you require further technical assistance or advanced design customization, please contact the developer through the official channels below:
-
 **Frans Marcellino** *Lead Developer & Digital Architect*
 
 📧 **Email:** [fransmarselinosroyer@gmail.com](mailto:fransmarselinosroyer@gmail.com)  
@@ -61,4 +54,4 @@ Thank you for trusting **Elite Vault** for your digital authority needs. We beli
 🏛️ **Repository:** [Frans Marcellino on GitHub](https://github.com/fransmarcellino)
 
 ---
-*© 2026 FRANS MARCELLINO. ALL RIGHTS RESERVED.* *CORE SYSTEM: SECURE • ENCRYPTION: ACTIVE*
+*© 2026 FRANS MARCELLINO. ALL RIGHTS RESERVED.* *CORE SYSTEM: SECURE • PERFORMANCE: OPTIMIZED*
