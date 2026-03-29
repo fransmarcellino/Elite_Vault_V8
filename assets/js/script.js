@@ -1,6 +1,6 @@
 /**
  * @file script.js
- * @description Ultra-Optimized Core for Elite Vault v8.1.1
+ * @description Master-Optimized Core for Elite Vault v8.1.1
  * @author Frans Marcellino
  */
 
@@ -29,25 +29,28 @@ const VAULT_DATA = {
 let curN = "", curP = "", selectedGateway = "PayPal";
 const cursorEl = document.getElementById("cursor");
 
-// --- UI ENGINE (Optimized with Passive Listener) ---
+// --- UI ENGINE (High Performance) ---
+// Perbaikan: Menggunakan transform alih-alih top/left untuk FPS 60+
 document.addEventListener("mousemove", (e) => {
     if (cursorEl) {
         window.requestAnimationFrame(() => {
-            cursorEl.style.left = `${e.clientX}px`;
-            cursorEl.style.top = `${e.clientY}px`;
+            cursorEl.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
         });
     }
-}, { passive: true }); // Performance fix for Mobile
+}, { passive: true });
 
 function navigateTo(id) {
-    document.querySelectorAll(".page").forEach(p => {
+    const pages = document.querySelectorAll(".page");
+    pages.forEach(p => {
         p.classList.remove("active");
         p.style.display = "none";
     });
+    
     const target = document.getElementById(id);
     if (target) {
         target.style.display = "block";
-        setTimeout(() => target.classList.add("active"), 10);
+        // Menggunakan requestAnimationFrame agar transisi mulus
+        requestAnimationFrame(() => target.classList.add("active"));
         window.scrollTo({ top: 0, behavior: "smooth" });
     }
     toggleMenu(true);
@@ -72,8 +75,7 @@ function toggleMenu(forceClose = false, event = null) {
         }, 300);
     } else {
         dropdown.style.display = "block";
-        // Force reflow for animation
-        dropdown.offsetHeight; 
+        dropdown.offsetHeight; // Trigger reflow
         dropdown.classList.add("active");
     }
 }
@@ -87,47 +89,50 @@ document.addEventListener("click", (e) => {
     }
 });
 
-// --- TYPEWRITER (SEO FRIENDLY) ---
-function typeWriter(text, i, cb) {
+// --- TYPEWRITER (Performance Optimized) ---
+function typeWriter(text, i) {
     const el = document.getElementById("hero-title");
     if (el) {
-        if (i < text.length) {
-            // Menggunakan innerText untuk keamanan dan menambahkan span kursor
-            el.innerHTML = text.substring(0, i + 1) + '<span class="typewriter-cursor" aria-hidden="true" style="border-right: 2px solid var(--primary); margin-left: 5px; animation: blink 0.7s infinite;"></span>';
-            setTimeout(() => typeWriter(text, i + 1, cb), 60);
-        } else if (cb) cb();
+        if (i <= text.length) {
+            // Optimization: Menggunakan textContent untuk efisiensi
+            el.textContent = text.substring(0, i);
+            setTimeout(() => typeWriter(text, i + 1), 50);
+        }
     }
 }
 
-// --- PRODUCT RENDERER (Optimized Card Structure) ---
+// --- PRODUCT RENDERER (LCP Optimized) ---
 function renderProducts(data) {
     const grid = document.getElementById("main-grid");
     if (!grid) return;
-    grid.innerHTML = "";
+    
+    // Perbaikan CLS: Jangan kosongkan innerHTML langsung jika ada data
+    const fragment = document.createDocumentFragment();
 
     if (data.length === 0) {
-        grid.innerHTML = `
-            <div style="grid-column: 1 / -1; text-align: center; padding: 80px 20px; border: 1px dashed var(--border); border-radius: 28px; background: rgba(255,255,255,0.02);">
-                <h3 style="color: var(--primary); font-size: 1.5rem; margin-bottom: 10px; letter-spacing: -1px;">Asset Not Found</h3>
-                <p style="color: var(--text-dim); font-weight: 300; max-width: 400px; margin: 0 auto;">The requested digital asset is not currently in the vault.</p>
-                <button class="btn-premium" style="max-width: 200px; margin-top: 25px; font-size: 0.7rem;" onclick="document.getElementById('search-bar').value=''; renderProducts(VAULT_DATA.products);">RESET REPOSITORY</button>
-            </div>
-        `;
+        grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:80px 20px;"><h3>Asset Not Found</h3></div>`;
         return;
     }
 
-    data.forEach(p => {
+    data.forEach((p, index) => {
         const card = document.createElement("article");
         card.className = "card";
-        // SEO: Heading h3 digunakan di setiap kartu produk
+        
+        // AKAR MASALAH FIX: Gambar pertama (index 0) TIDAK boleh lazy load untuk skor Performa 100
+        const loadingStrategy = index === 0 ? "eager" : "lazy";
+        const priority = index === 0 ? "fetchpriority='high'" : "";
+
         card.innerHTML = `
-            <div class="price-tag" aria-label="Price">${p.price}</div>
-            <img src="${p.img}" class="card-img" alt="${p.name} Preview" width="800" height="600" loading="lazy">
+            <div class="price-tag">${p.price}</div>
+            <img src="${p.img}" class="card-img" alt="${p.name}" width="800" height="600" loading="${loadingStrategy}" ${priority}>
             <h3 style="margin-bottom:10px;">${p.name}</h3>
-            <p style="color:var(--text-dim); margin-bottom:25px; font-weight:300; font-size:0.9rem;">${p.desc}</p>
-            <button class="btn-premium" aria-label="Acquire license for ${p.name}" onclick="openModal('${p.name}', '${p.price}')">Acquire License</button>`;
-        grid.appendChild(card);
+            <p style="color:var(--text-dim);margin-bottom:25px;font-size:0.9rem;">${p.desc}</p>
+            <button class="btn-premium" onclick="openModal('${p.name}', '${p.price}')">Acquire License</button>`;
+        fragment.appendChild(card);
     });
+
+    grid.innerHTML = "";
+    grid.appendChild(fragment);
 }
 
 function handleSearch() {
@@ -141,10 +146,8 @@ function handleSearch() {
 // --- MODAL & PAYMENT ---
 function openModal(n, p) {
     curN = n; curP = p;
-    const nameEl = document.getElementById("target-name");
-    const priceEl = document.getElementById("target-price");
-    if(nameEl) nameEl.innerText = n.toUpperCase();
-    if(priceEl) priceEl.innerText = p;
+    document.getElementById("target-name").innerText = n.toUpperCase();
+    document.getElementById("target-price").innerText = p;
     document.getElementById("modal").style.display = "flex";
 }
 
@@ -159,9 +162,8 @@ function selectPayment(method, element) {
 function confirmInquiry() {
     const clientName = document.getElementById("client-name").value;
     if (!clientName) return alert("Identity Verification Required.");
-    const subject = encodeURIComponent(`Inquiry: ${curN}`);
-    const body = encodeURIComponent(`CLIENT: ${clientName}\nASSET: ${curN}\nVALUE: ${curP}\nGATEWAY: ${selectedGateway}`);
-    window.location.href = `mailto:${VAULT_DATA.owner.email}?subject=${subject}&body=${body}`;
+    const body = `CLIENT: ${clientName}\nASSET: ${curN}\nVALUE: ${curP}\nGATEWAY: ${selectedGateway}`;
+    window.location.href = `mailto:${VAULT_DATA.owner.email}?subject=Inquiry: ${curN}&body=${encodeURIComponent(body)}`;
     closeModal();
 }
 
@@ -184,29 +186,16 @@ function init() {
         linksBox.innerHTML = "";
         VAULT_DATA.menu.forEach(item => {
             const a = document.createElement("a");
-            a.href = "#" + item.id; // SEO: Menggunakan hash asli
+            a.href = "#" + item.id;
             a.style = "padding:18px 25px; display:block; color:var(--text-main); text-decoration:none; font-size:0.75rem; border-bottom:1px solid var(--border); font-weight:700;";
             a.innerText = item.label.toUpperCase();
-            a.onclick = (e) => { 
-                e.preventDefault(); 
-                navigateTo(item.id); 
-            };
+            a.onclick = (e) => { e.preventDefault(); navigateTo(item.id); };
             linksBox.appendChild(a);
         });
-
-        const contactLink = document.createElement("a");
-        contactLink.href = `mailto:${VAULT_DATA.owner.email}`;
-        contactLink.style = "padding:18px 25px; display:block; color:var(--primary); text-decoration:none; font-size:0.75rem; border-bottom:1px solid var(--border); font-weight:800; letter-spacing:1px;";
-        contactLink.innerText = "CONTACT OPERATOR";
-        linksBox.appendChild(contactLink);
     }
 
     renderProducts(VAULT_DATA.products);
-    
-    // SEO FIX: Ambil teks dari HTML jika ada, atau gunakan VAULT_DATA sebagai fallback
-    const existingHeroText = document.getElementById("hero-title")?.innerText || VAULT_DATA.content.heroTitle;
-    typeWriter(existingHeroText, 0);
+    typeWriter(VAULT_DATA.content.heroTitle, 0);
 }
 
-// Start Engine
 window.addEventListener('DOMContentLoaded', init);
