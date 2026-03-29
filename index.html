@@ -20,85 +20,34 @@
     <link rel="stylesheet" href="assets/css/style.css" />
     
     <style>
+        /* CSS Kritis: Tetap di head agar layout tidak berantakan saat loading */
         noscript .page { display: block !important; opacity: 1 !important; }
         noscript #cursor { display: none !important; }
         
-        /* Layout Fixes */
-        .menu-wrapper { 
-            position: relative; 
-            z-index: 10; 
-        }
+        .menu-wrapper { position: relative; z-index: 10; }
         .dropdown-menu {
-            display: none;
-            position: absolute;
-            right: 0;
-            top: 100%;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            min-width: 200px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            overflow: hidden;
+            display: none; position: absolute; right: 0; top: 100%;
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; min-width: 200px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); overflow: hidden;
         }
-        .dropdown-menu.active {
-            display: block;
-        }
+        .dropdown-menu.active { display: block; }
 
-        /* CONTACT STRIP STYLING */
-        .social-strip {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            margin-bottom: 25px;
-        }
-        .social-strip a {
-            color: var(--text-main);
-            font-size: 1.2rem;
-            opacity: 0.5;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            text-decoration: none;
-        }
-        .social-strip a:hover {
-            opacity: 1;
-            color: var(--primary);
-            transform: translateY(-3px);
-        }
+        .social-strip { display: flex; justify-content: center; gap: 25px; margin-bottom: 25px; }
+        .social-strip a { color: var(--text-main); font-size: 1.2rem; opacity: 0.5; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); text-decoration: none; }
+        .social-strip a:hover { opacity: 1; color: var(--primary); transform: translateY(-3px); }
 
-        /* W3C LOGO STYLING */
-        .w3c-container {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            align-items: center;
-            margin-top: 15px;
-            padding-bottom: 20px;
-        }
-        .w3c-logo {
-            height: 24px;
-            opacity: 0.3;
-            filter: grayscale(1);
-            transition: all 0.3s ease;
-        }
-        .w3c-logo:hover {
-            opacity: 1;
-            filter: grayscale(0);
-        }
+        .w3c-container { display: flex; gap: 15px; justify-content: center; align-items: center; margin-top: 15px; padding-bottom: 20px; }
+        .w3c-logo { height: 24px; opacity: 0.3; filter: grayscale(1); transition: all 0.3s ease; }
+        .w3c-logo:hover { opacity: 1; filter: grayscale(0); }
         
-        /* Dark Mode Compatibility for W3C Logos */
-        body:not(.light-mode) .w3c-logo {
-            filter: grayscale(1) invert(0.8);
-        }
-        body:not(.light-mode) .w3c-logo:hover {
-            filter: grayscale(0) invert(0);
-        }
+        body:not(.light-mode) .w3c-logo { filter: grayscale(1) invert(0.8); }
+        body:not(.light-mode) .w3c-logo:hover { filter: grayscale(0) invert(0); }
 
-        /* Utility */
-        footer {
-            text-align: center;
-            padding: 80px 20px 40px;
-            border-top: 1px solid var(--border);
-            margin-top: 100px;
-        }
+        footer { text-align: center; padding: 80px 20px 40px; border-top: 1px solid var(--border); margin-top: 100px; }
+        
+        /* Pencegahan Layout Shift (CLS) */
+        .hero h1 { min-height: 1.2em; }
     </style>
 </head>
 <body>
@@ -195,7 +144,6 @@
             <h3 style="font-size: 0.7rem; letter-spacing: 3px; color: var(--text-dim); text-transform: uppercase;">ASSET SELECTION</h3>
             <p id="target-name" style="font-size: 1.2rem; font-weight: 800; margin-top: 5px; color: var(--primary);"></p>
             <p id="target-price" class="modal-price">$0</p>
-
             <div class="payment-methods">
                 <p style="font-size: 0.6rem; color: var(--text-dim); margin-bottom: 15px; letter-spacing: 2px; font-weight: 800;">SELECT SECURE GATEWAY</p>
                 <div class="method-grid">
@@ -210,7 +158,6 @@
                     </div>
                 </div>
             </div>
-
             <input type="text" id="client-name" placeholder="VERIFY FULL NAME" class="modal-input" />
             <button class="btn-premium" onclick="confirmInquiry()">REQUEST LICENSE</button>
             <button onclick="closeModal()" style="background: none; border: none; color: inherit; cursor: pointer; margin-top: 25px; opacity: 0.5; font-size: 0.7rem; letter-spacing: 2px; font-weight: 800; display: block; width: 100%;">CANCEL PROTOCOL</button>
