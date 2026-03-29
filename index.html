@@ -19,6 +19,7 @@
         noscript .page { display: block !important; opacity: 1 !important; }
         noscript #cursor { display: none !important; }
         
+        /* Layout Fixes */
         .menu-wrapper { 
             position: relative; 
             z-index: 10; 
@@ -33,9 +34,30 @@
             border-radius: 12px;
             min-width: 200px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            overflow: hidden;
         }
         .dropdown-menu.active {
             display: block;
+        }
+
+        /* CONTACT STRIP STYLING */
+        .social-strip {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+        .social-strip a {
+            color: var(--text-main);
+            font-size: 1.2rem;
+            opacity: 0.5;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+        }
+        .social-strip a:hover {
+            opacity: 1;
+            color: var(--primary);
+            transform: translateY(-3px);
         }
 
         /* W3C LOGO STYLING */
@@ -44,26 +66,34 @@
             gap: 15px;
             justify-content: center;
             align-items: center;
-            margin-top: 20px;
-            padding-bottom: 30px;
+            margin-top: 15px;
+            padding-bottom: 20px;
         }
         .w3c-logo {
-            height: 30px;
-            opacity: 0.4;
+            height: 24px;
+            opacity: 0.3;
             filter: grayscale(1);
             transition: all 0.3s ease;
         }
         .w3c-logo:hover {
             opacity: 1;
             filter: grayscale(0);
-            transform: translateY(-2px);
         }
-        /* Penyesuaian warna logo untuk dark mode */
+        
+        /* Dark Mode Compatibility for W3C Logos */
         body:not(.light-mode) .w3c-logo {
             filter: grayscale(1) invert(0.8);
         }
         body:not(.light-mode) .w3c-logo:hover {
             filter: grayscale(0) invert(0);
+        }
+
+        /* Utility */
+        footer {
+            text-align: center;
+            padding: 80px 20px 40px;
+            border-top: 1px solid var(--border);
+            margin-top: 100px;
         }
     </style>
 </head>
@@ -131,8 +161,20 @@
         </main>
 
         <footer>
-            <p id="footer-text" style="margin-bottom: 10px; color: var(--text-dim); font-size: 0.9rem">© 2026 FRANS MARCELLINO. ALL RIGHTS RESERVED.</p>
+            <p id="footer-text" style="margin-bottom: 25px; color: var(--text-dim); font-size: 0.85rem; letter-spacing: 1px;"></p>
             
+            <div class="social-strip">
+                <a href="https://instagram.com/frans_marcellino" target="_blank" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://linkedin.com/in/frans-marcellino" target="_blank" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="mailto:fransmarselinosroyer@gmail.com" aria-label="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+
             <div class="w3c-container">
                 <a href="https://validator.w3.org/check?uri=referer" target="_blank" rel="noopener">
                     <img class="w3c-logo" src="https://www.w3.org/Icons/valid-html401" alt="Valid HTML" />
