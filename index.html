@@ -5,58 +5,118 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Frans Marcellino | Elite Vault v8.0</title>
     
-    <meta name="description" content="Elite Vault v8.0 by Frans Marcellino. High-end sovereign digital repository." />
+    <meta name="description" content="Elite Vault v8.0 by Frans Marcellino. A high-end sovereign digital repository featuring industrial-grade software assets and premium cinematic engineering." />
     <meta name="author" content="Frans Marcellino" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
 
-    <style>
-        :root { --primary: #FFD700; --surface: #0a0a0a; --text-main: #ffffff; --text-dim: #a0a0a0; --border: rgba(255,255,255,0.1); --card-bg: #111111; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: var(--surface); color: var(--text-main); font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; line-height: 1.6; }
-        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
-        
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 30px 0; background: var(--surface); position: sticky; top: 0; z-index: 100; }
-        .logo { font-weight: 800; font-size: 1.2rem; cursor: pointer; letter-spacing: 2px; }
-        .logo span { color: var(--primary); }
-
-        .hero { min-height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-        .hero-badge-style { font-size: 0.7rem; letter-spacing: 4px; color: var(--primary); margin-bottom: 20px; text-transform: uppercase; }
-        h1 { font-size: clamp(2.2rem, 7vw, 4.5rem); line-height: 1.1; margin-bottom: 25px; font-weight: 900; }
-        
-        .btn-premium { background: var(--primary); color: #000; border: none; padding: 18px 35px; font-weight: 800; border-radius: 50px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
-        
-        .page { display: none; opacity: 0; transition: opacity 0.4s ease; }
-        .page.active { display: block; opacity: 1; }
-
-        /* Grid & Card Styles */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; margin-top: 40px; }
-        .card { background: var(--card-bg); border: 1px solid var(--border); padding: 30px; border-radius: 20px; transition: 0.3s; }
-        
-        /* Modal Fix */
-        #modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
-        .m-box { background: var(--surface); border: 1px solid var(--border); padding: 40px; border-radius: 24px; max-width: 500px; width: 100%; text-align: center; }
-    </style>
-
-    <link rel="stylesheet" href="assets/css/style.css" media="print" onload="this.media='all'">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" media="print" onload="this.media='all'" />
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    
+    <link rel="stylesheet" href="assets/css/style.css" />
+    
+    <style>
+        noscript .page { display: block !important; opacity: 1 !important; }
+        noscript #cursor { display: none !important; }
+        
+        /* Layout Fixes */
+        .menu-wrapper { 
+            position: relative; 
+            z-index: 10; 
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            min-width: 200px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            overflow: hidden;
+        }
+        .dropdown-menu.active {
+            display: block;
+        }
+
+        /* CONTACT STRIP STYLING */
+        .social-strip {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+        .social-strip a {
+            color: var(--text-main);
+            font-size: 1.2rem;
+            opacity: 0.5;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+        }
+        .social-strip a:hover {
+            opacity: 1;
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* W3C LOGO STYLING */
+        .w3c-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 15px;
+            padding-bottom: 20px;
+        }
+        .w3c-logo {
+            height: 24px;
+            opacity: 0.3;
+            filter: grayscale(1);
+            transition: all 0.3s ease;
+        }
+        .w3c-logo:hover {
+            opacity: 1;
+            filter: grayscale(0);
+        }
+        
+        /* Dark Mode Compatibility for W3C Logos */
+        body:not(.light-mode) .w3c-logo {
+            filter: grayscale(1) invert(0.8);
+        }
+        body:not(.light-mode) .w3c-logo:hover {
+            filter: grayscale(0) invert(0);
+        }
+
+        /* Utility */
+        footer {
+            text-align: center;
+            padding: 80px 20px 40px;
+            border-top: 1px solid var(--border);
+            margin-top: 100px;
+        }
+    </style>
 </head>
 <body>
     <div id="cursor" aria-hidden="true"></div>
 
     <div class="container">
-        <nav aria-label="Primary Navigation">
+        <nav aria-label="Main Navigation">
             <div class="logo" id="nav-logo" onclick="navigateTo('home')" role="button" tabindex="0">
                 FRANS <span>MARCELLINO</span>
             </div>
-            <div class="nav-controls" style="display: flex; align-items: center; gap: 15px;">
-                <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn" style="background:transparent; border:1px solid var(--border); color:white; padding:8px 15px; border-radius:20px; font-size:0.7rem; cursor:pointer;">LIGHT MODE</button>
-                <div class="menu-wrapper" style="position: relative;">
-                    <button class="kebab-btn" id="kebab-menu-btn" onclick="toggleMenu(false, event)" aria-label="Menu" style="background:none; border:none; color:white; cursor:pointer;">
-                        <i class="fas fa-ellipsis-v"></i>
+
+            <div class="nav-controls">
+                <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">LIGHT MODE</button>
+                <div class="menu-wrapper">
+                    <button class="kebab-btn" id="kebab-menu-btn" onclick="toggleMenu(false, event)" aria-label="Toggle Menu">
+                        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
                     </button>
-                    <div id="dropdown" class="dropdown-menu" style="display:none; position:absolute; right:0; top:40px; background:var(--surface); border:1px solid var(--border); border-radius:12px; min-width:200px; z-index:1000;">
+                    <div id="dropdown" class="dropdown-menu" role="menu">
                         <div id="social-links"></div>
                     </div>
                 </div>
@@ -66,12 +126,12 @@
         <main id="main-content">
             <section id="home" class="page active">
                 <div class="hero">
-                    <div class="hero-badge-style">ESTABLISHED 2026</div>
+                    <div id="hero-badge" class="hero-badge-style">ESTABLISHED 2026</div>
                     <h1 id="hero-title">Architecting Digital Sovereignty.</h1>
-                    <p id="hero-desc" style="color: var(--text-dim); max-width: 600px; margin-bottom: 35px;">Industrial-grade software assets designed for absolute performance.</p>
-                    <div style="display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;">
-                        <button class="btn-premium" onclick="navigateTo('market')">VIEW REPOSITORY</button>
-                        <button class="btn-premium" style="background:transparent; border:1px solid var(--border); color:var(--text-main);" onclick="navigateTo('about')">THE STANDARD</button>
+                    <p id="hero-desc" class="hero-desc-style">Industrial-grade software assets designed for absolute performance.</p>
+                    <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 30px;">
+                        <button class="btn-premium" style="max-width: 280px" onclick="navigateTo('market')">VIEW REPOSITORY</button>
+                        <button class="btn-premium" style="max-width: 280px; background: transparent; border: 1px solid var(--border); color: var(--text-main);" onclick="navigateTo('about')">THE STANDARD</button>
                     </div>
                 </div>
             </section>
@@ -81,11 +141,10 @@
                     <h2 style="font-size: 2.8rem; letter-spacing: -2px; margin-bottom: 10px;">The Repository</h2>
                     <p style="color: var(--text-dim); font-weight: 300">CURATED ASSETS BY FRANS MARCELLINO</p>
                 </div>
-                <div class="search-container" style="max-width: 500px; margin: 0 auto 40px;">
-                    <input type="text" id="search-bar" placeholder="Filter Assets..." onkeyup="handleSearch()" style="width: 100%; padding: 18px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 18px; color: white; outline: none;" />
+                <div class="search-container" style="position: relative; max-width: 500px; margin: 0 auto 40px;">
+                    <input type="text" id="search-bar" placeholder="Filter Assets..." onkeyup="handleSearch()" style="width: 100%; padding: 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; color: var(--text-main); outline: none;" />
                 </div>
-                <div class="grid" id="main-grid">
-                    </div>
+                <div class="grid" id="main-grid"></div>
             </section>
 
             <section id="about" class="page">
@@ -93,11 +152,11 @@
                     <h2 style="font-size: 2.8rem; margin-bottom: 30px">Sovereign Architecture</h2>
                     <div class="grid">
                         <article class="card">
-                            <h3 style="color: var(--primary); margin-bottom: 15px;">Immutable</h3>
+                            <h3 style="color: var(--primary); margin-bottom: 15px; font-size: 1.5rem;">Immutable</h3>
                             <p style="color: var(--text-dim)">Pondasi kode abadi yang dirancang untuk performa tanpa batas waktu.</p>
                         </article>
                         <article class="card">
-                            <h3 style="color: var(--primary); margin-bottom: 15px;">Elite Security</h3>
+                            <h3 style="color: var(--primary); margin-bottom: 15px; font-size: 1.5rem;">Elite Security</h3>
                             <p style="color: var(--text-dim)">Keamanan tingkat industri dengan standar enkripsi tanpa kompromi.</p>
                         </article>
                     </div>
@@ -106,29 +165,58 @@
         </main>
 
         <footer>
-            <div class="social-strip" style="display: flex; justify-content: center; gap: 25px; margin: 40px 0;">
-                <a href="https://instagram.com/frans_marcellino" target="_blank" rel="noopener" style="color:white; opacity:0.5;"><i class="fab fa-instagram"></i></a>
-                <a href="https://linkedin.com/in/frans-marcellino" target="_blank" rel="noopener" style="color:white; opacity:0.5;"><i class="fab fa-linkedin-in"></i></a>
+            <p id="footer-text" style="margin-bottom: 25px; color: var(--text-dim); font-size: 0.85rem; letter-spacing: 1px;"></p>
+            
+            <div class="social-strip">
+                <a href="https://instagram.com/frans_marcellino" target="_blank" rel="noopener" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://linkedin.com/in/frans-marcellino" target="_blank" rel="noopener" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="mailto:fransmarselinosroyer@gmail.com" aria-label="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
             </div>
-            <div style="display: flex; justify-content: center; gap: 15px; opacity: 0.2;">
-                <img src="https://www.w3.org/Icons/valid-html401" alt="Valid HTML" height="20">
-                <img src="https://www.w3.org/Icons/valid-css" alt="Valid CSS" height="20">
+
+            <div class="w3c-container">
+                <a href="https://validator.w3.org/check?uri=referer" target="_blank" rel="noopener" aria-label="W3C HTML Validator">
+                    <img class="w3c-logo" src="https://www.w3.org/Icons/valid-html401" alt="Valid HTML" />
+                </a>
+                <a href="https://jigsaw.w3.org/css-validator/check/referer" target="_blank" rel="noopener" aria-label="W3C CSS Validator">
+                    <img class="w3c-logo" src="https://www.w3.org/Icons/valid-css" alt="Valid CSS" />
+                </a>
             </div>
         </footer>
     </div>
 
     <div id="modal" role="dialog" aria-modal="true">
         <div class="m-box">
-            <h3 style="font-size: 0.7rem; letter-spacing: 3px; color: var(--text-dim);">ASSET SELECTION</h3>
-            <p id="target-name" style="font-size: 1.2rem; font-weight: 800; color: var(--primary); margin: 10px 0;"></p>
-            <p id="target-price" style="font-size: 2rem; font-weight: 900; margin-bottom: 20px;">$0</p>
-            <input type="text" id="client-name" placeholder="VERIFY FULL NAME" style="width: 100%; padding: 15px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; color: white; margin-bottom: 20px;" />
-            <button class="btn-premium" style="width: 100%;" onclick="confirmInquiry()">REQUEST LICENSE</button>
-            <button onclick="closeModal()" style="background: none; border: none; color: var(--text-dim); margin-top: 20px; cursor: pointer;">CANCEL</button>
+            <h3 style="font-size: 0.7rem; letter-spacing: 3px; color: var(--text-dim); text-transform: uppercase;">ASSET SELECTION</h3>
+            <p id="target-name" style="font-size: 1.2rem; font-weight: 800; margin-top: 5px; color: var(--primary);"></p>
+            <p id="target-price" class="modal-price">$0</p>
+
+            <div class="payment-methods">
+                <p style="font-size: 0.6rem; color: var(--text-dim); margin-bottom: 15px; letter-spacing: 2px; font-weight: 800;">SELECT SECURE GATEWAY</p>
+                <div class="method-grid">
+                    <div class="method-card active" onclick="selectPayment('PayPal', this)">
+                        <i class="fab fa-paypal"></i><span>PayPal</span>
+                    </div>
+                    <div class="method-card" onclick="selectPayment('Card', this)">
+                        <i class="fas fa-credit-card"></i><span>Card</span>
+                    </div>
+                    <div class="method-card" onclick="selectPayment('Crypto', this)">
+                        <i class="fab fa-bitcoin"></i><span>Crypto</span>
+                    </div>
+                </div>
+            </div>
+
+            <input type="text" id="client-name" placeholder="VERIFY FULL NAME" class="modal-input" />
+            <button class="btn-premium" onclick="confirmInquiry()">REQUEST LICENSE</button>
+            <button onclick="closeModal()" style="background: none; border: none; color: inherit; cursor: pointer; margin-top: 25px; opacity: 0.5; font-size: 0.7rem; letter-spacing: 2px; font-weight: 800; display: block; width: 100%;">CANCEL PROTOCOL</button>
         </div>
     </div>
 
     <script src="assets/js/script.js" defer></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;800&family=Playfair+Display:wght@900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 </body>
 </html>
