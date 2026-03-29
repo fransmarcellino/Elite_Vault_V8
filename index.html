@@ -3,21 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Frans Marcellino | Elite Vault v8.1.1</title>
-    <meta name="description" content="Official repository of Frans Marcellino. Industrial-grade software assets.">
-    
+    <title>Frans Marcellino | Elite Vault v8.1.1 — Digital Architect Portfolio</title>
+    <meta name="description" content="Official repository of Frans Marcellino. Industrial-grade software assets. Established 2026.">
+    <meta name="author" content="Frans Marcellino">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&family=Playfair+Display:ital,wght@1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body class="dark-mode"> <div id="cursor" aria-hidden="true"></div>
+<body class="dark-mode">
+    <div id="cursor" aria-hidden="true"></div>
 
     <div class="container">
         <header role="banner">
             <nav aria-label="Main Navigation">
-                <div class="logo" onclick="navigateTo('home')">FRANS <span>MARCELLINO</span></div>
+                <div class="logo" onclick="navigateTo('home')" role="link">
+                    FRANS <span>MARCELLINO</span>
+                </div>
 
                 <div class="nav-controls">
                     <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">LIGHT MODE</button>
@@ -34,10 +38,11 @@
         </header>
 
         <main id="main-content" role="main">
-            <section id="home" class="page active">
+            <section id="home" class="page active" aria-labelledby="hero-title">
                 <article class="hero">
                     <div class="hero-badge-style">ESTABLISHED 2026</div>
-                    <h1 id="hero-title" style="min-height: 1.2em;"></h1> <p class="hero-desc-style">Industrial-grade software assets designed for absolute performance.</p>
+                    <h1 id="hero-title" style="min-height: 1.2em;"></h1>
+                    <p class="hero-desc-style">Industrial-grade software assets designed for absolute performance.</p>
                     <div class="hero-actions">
                         <button class="btn-premium btn-main" onclick="navigateTo('market')">VIEW REPOSITORY</button>
                         <a href="mailto:fransmarselinosroyer@gmail.com" class="btn-premium btn-outline">CONTACT OPERATOR</a>
@@ -45,20 +50,20 @@
                 </article>
             </section>
 
-            <section id="market" class="page">
+            <section id="market" class="page" aria-labelledby="market-title">
                 <header class="section-header">
-                    <h2>The Repository</h2>
+                    <h2 id="market-title">The Repository</h2>
                     <p>CURATED ASSETS BY FRANS MARCELLINO</p>
                 </header>
                 <div class="search-container">
-                    <input type="text" id="search-bar" placeholder="Filter Assets..." onkeyup="handleSearch()">
+                    <input type="text" id="search-bar" aria-label="Search Assets" placeholder="Filter Assets..." onkeyup="handleSearch()">
                 </div>
                 <div class="grid" id="main-grid"></div>
             </section>
 
-            <section id="about" class="page">
+            <section id="about" class="page" aria-labelledby="about-title">
                 <div class="about-content">
-                    <h2>Sovereign Architecture</h2>
+                    <h2 id="about-title">Sovereign Architecture</h2>
                     <div class="grid">
                         <article class="card">
                             <h3>Immutable</h3>
@@ -75,9 +80,9 @@
 
         <footer role="contentinfo">
             <div class="social-strip">
-                <a href="https://instagram.com/frans_marcellino" target="_blank" rel="noopener">IG</a>
-                <a href="mailto:fransmarselinosroyer@gmail.com">MAIL</a>
-                <a href="https://linkedin.com/in/frans-marcellino" target="_blank" rel="noopener">IN</a>
+                <a href="https://instagram.com/frans_marcellino" target="_blank" rel="noopener">INSTAGRAM</a>
+                <a href="mailto:fransmarselinosroyer@gmail.com">EMAIL</a>
+                <a href="https://linkedin.com/in/frans-marcellino" target="_blank" rel="noopener">LINKEDIN</a>
             </div>
             <p id="footer-text"></p>
             <div class="validation-logos">
@@ -86,19 +91,19 @@
         </footer>
     </div>
 
-    <div id="modal" role="dialog" aria-modal="true">
+    <div id="modal" role="dialog" aria-modal="true" aria-labelledby="target-name">
         <div class="m-box">
             <h3>ASSET SELECTION</h3>
             <p id="target-name"></p>
             <p id="target-price" class="modal-price">$0</p>
             <div class="payment-methods">
                 <div class="method-grid">
-                    <div class="method-card active" onclick="selectPayment('PayPal', this)"><span>PayPal</span></div>
-                    <div class="method-card" onclick="selectPayment('Card', this)"><span>Card</span></div>
-                    <div class="method-card" onclick="selectPayment('Crypto', this)"><span>Crypto</span></div>
+                    <div class="method-card active" onclick="selectPayment('PayPal', this)" role="button" tabindex="0"><span>PayPal</span></div>
+                    <div class="method-card" onclick="selectPayment('Card', this)" role="button" tabindex="0"><span>Card</span></div>
+                    <div class="method-card" onclick="selectPayment('Crypto', this)" role="button" tabindex="0"><span>Crypto</span></div>
                 </div>
             </div>
-            <input type="text" id="client-name" placeholder="VERIFY FULL NAME" class="modal-input">
+            <input type="text" id="client-name" placeholder="VERIFY FULL NAME" class="modal-input" aria-label="Your Name">
             <button class="btn-premium" onclick="confirmInquiry()">REQUEST LICENSE</button>
             <button onclick="closeModal()" class="btn-cancel">CANCEL PROTOCOL</button>
         </div>
