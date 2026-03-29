@@ -1,52 +1,64 @@
-# 🌐 SOVEREIGN DIGITAL ASSET — ELITE VAULT v8.0
-### **LEAD ARCHITECT: FRANS MARCELLINO**
-**Specialization: Cyber Security Engineering & Digital Authority**
+# 🏛️ ELITE VAULT v8.0.6 — OFFICIAL DOCUMENTATION
+**Architecting Digital Sovereignty | Engineering Digital Authority**
+
+Welcome to **Elite Vault v8.0.6**. You have just acquired a digital repository system with an industrial-grade architecture. This website is engineered for maximum speed, exclusive aesthetics, and seamless management through a single centralized data hub.
 
 ---
 
-## 🏆 THE ENGINEERING STANDARD
-The **Elite Vault v8.0** is not merely a visual template; it is a high-performance digital infrastructure engineered with a **"Security by Design"** philosophy. Every line of code has been audited to meet global deployment standards:
-
-* **W3C Global Compliance:** 100% Validated HTML5 & CSS3 architecture for cross-browser stability.
-* **Centralized Data Core:** Content management is isolated within a single JavaScript (ES6+) object to prevent logic corruption.
-* **Performance Optimization:** High Google Lighthouse scores via native Lazy Loading and optimized rendering cycles.
-* **Cyber Security Integrity:** "Clean Code" protocols implemented to eliminate script injection vulnerabilities and structural backdoors.
-
----
-
-## 🛠️ CUSTOMIZATION PROTOCOL (CLIENT GUIDE)
-
-We have decoupled the **System Logic** from the **Visual Content**. You can modify the entire website identity without deep coding knowledge.
-
-### 1. Modifying Content & Assets (JavaScript)
-Navigate to `assets/js/script.js`. Focus exclusively on the **`VAULT_DATA`** object at the top of the file:
-* **Identity:** Update `firstName`, `lastName`, and `email` to automatically rebrand the logo and set the destination for license requests.
-* **Hero Section:** Edit `heroTitle` for the typewriter effect and `heroDesc` for the primary value proposition.
-* **Inventory Management:** Add or remove objects within the `products` array to update your digital storefront instantly.
-
-### 2. Visual Identity & Theming (CSS)
-Navigate to `assets/css/style.css`. Modify the **`:root`** variables at the start of the file:
-* Change the HEX code for `--primary` (Default: Gold `#ffd700`) to instantly update the cursor, buttons, and glow accents globally.
-* Adjust `--accent-gradient` to align with your specific brand aesthetics.
-
-### 3. Navigation Architecture (HTML)
-The navigation is dynamic. To add new menu items, simply update the `menu` array in `script.js`. The system will render the navigation buttons and protocol triggers automatically.
+## 📂 DIRECTORY STRUCTURE (IMPORTANT)
+To maintain system integrity, please **DO NOT** rename folders or move files from the following structure:
+* `index.html` — Core Framework (Static).
+* `assets/css/style.css` — Aesthetics & Animation Hub.
+* `assets/js/script.js` — **CONTENT CONTROL CENTER (Edit here).**
+* `assets/img/` — Storage folder for your product assets and images.
 
 ---
 
-## 🛡️ SECURITY ADVISORY & STRUCTURAL INTEGRITY
-To maintain the integrity of the architecture engineered by **Frans Marcellino**:
-1.  **ID & Class Integrity:** DO NOT modify or delete `id` attributes in the HTML (e.g., `hero-title`, `main-grid`). These are critical hooks for the rendering engine.
-2.  **Cursor Protocol:** Ensure the `pointer-events: none;` property remains on the `#cursor` element in CSS. Removal will disable interaction with underlying buttons.
-3.  **Strict Execution:** The `"use strict";` declaration in JavaScript is a mandatory security protocol to ensure stable code execution.
+## 🛠️ CONTENT CUSTOMIZATION GUIDE
+You do not need complex programming knowledge. Simply open the **`assets/js/script.js`** file using a Text Editor (such as VS Code or Notepad) and locate the `VAULT_DATA` object at the very top.
+
+### 1. Update Profile & Inquiry Email
+Locate the `owner` block. Modify the text within the quotation marks:
+* `firstName` & `lastName`: The names displayed on the navigation logo.
+* `email`: The destination address where buyers will send their **"Request License"** inquiries.
+
+### 2. Manage Assets (The Repository)
+Locate the `products` block. To change a product image:
+1.  Save your image file into the `assets/img/` folder.
+2.  Update the `img: "..."` line with your filename, e.g., `img: "assets/img/my-work.jpg"`.
+*If you haven't prepared an image yet, the system will automatically display a premium Gold Placeholder to keep the site looking professional.*
+
+### 3. Navigation & Social Media
+-   **Main Menu:** Update the labels in the `menu` section if you wish to rename navigation tabs (e.g., Home, Vault, About).
+-   **Social Access:** Update the links in the `socials` section to point to your Instagram or LinkedIn profiles within the dropdown menu.
 
 ---
 
-## ⚖️ LEGAL PROTECTION & INTELLECTUAL PROPERTY
-This digital architecture is the exclusive intellectual property of **Frans Marcellino**.
-* **DMCA Protected:** Secured under international digital copyright laws.
-* **Enforcement:** Any unauthorized duplication, reselling, or redistribution of this source code will be prosecuted under global cyber laws and monitored by international cybercrime enforcement protocols.
+## ⚠️ CODE SECURITY WARNING (MANDATORY READ)
+To prevent system crashes or layout breakage, please observe the following rules while editing:
+
+1.  **Quotes & Commas:** Never delete the quotation marks (`" "`) surrounding the text or the commas (`,`) at the end of data lines. Removing them will cause the website to fail (Blank Screen).
+2.  **Folder Integrity:** Do not move `style.css` or `script.js` out of the `assets` folder. If the file path is broken, the website's design will vanish.
+3.  **W3C Validation:** Do not remove the W3C logos in the footer. This is a certification that your website meets international web standards.
+4.  **Image Optimization:** Use images under 500KB to ensure instant loading speeds (Mobile-First Optimization).
 
 ---
-**"INTEGRITY IS THE ARCHITECTURE OF DIGITAL SOVEREIGNTY"**
-© 2026 **FRANS MARCELLINO** | Cyber Security Engineering.
+
+## 🚀 DEPLOYMENT GUIDE (GO LIVE)
+1.  Upload the entire `Elite_Vault_V8` folder to your preferred hosting provider (e.g., GitHub Pages, Netlify, or Vercel).
+2.  Ensure the `index.html` file is located in the root directory.
+3.  Your website is now live and accessible to clients worldwide.
+
+---
+
+## 🤝 THANK YOU & SUPPORT
+Thank you for trusting **Elite Vault** for your digital authority needs. We believe that a strong design is the foundation of client trust. If you require further technical assistance or advanced design customization, please contact the developer through the official channels below:
+
+**Frans Marcellino** *Lead Developer & Digital Architect*
+
+📧 **Email:** [fransmarselinosroyer@gmail.com](mailto:fransmarselinosroyer@gmail.com)  
+🔗 **LinkedIn:** [Frans Marcellino](https://www.linkedin.com/in/frans-marcellino)  
+🏛️ **Repository:** [Frans Marcellino on GitHub](https://github.com/fransmarcellino)
+
+---
+*© 2026 FRANS MARCELLINO. ALL RIGHTS RESERVED.* *CORE SYSTEM: SECURE • ENCRYPTION: ACTIVE*
