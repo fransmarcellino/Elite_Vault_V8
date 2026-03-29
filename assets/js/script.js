@@ -2,7 +2,7 @@
  * @file script.js
  * @description Core Logic for Elite Vault v8.0 - Engineering Digital Authority
  * @author Frans Marcellino
- * @version 8.0.0
+ * @version 8.0.2 (Fix: Menu Z-Index Stack)
  * @standards ES6+, W3C Validated Assets, WCAG 2.1 Compliant
  */
 
@@ -47,9 +47,6 @@ const cursorEl = document.getElementById("cursor");
 
 // --- 3. UI ENGINE ---
 
-/**
- * Handle Custom Cursor
- */
 document.addEventListener("mousemove", (e) => {
     if (cursorEl) {
         window.requestAnimationFrame(() => {
@@ -59,12 +56,8 @@ document.addEventListener("mousemove", (e) => {
     }
 });
 
-/**
- * Navigation System
- */
 function navigateTo(id, pushState = true) {
     const pages = document.querySelectorAll(".page");
-    
     pages.forEach((p) => {
         p.classList.remove("active");
         p.style.display = "none";
@@ -73,9 +66,7 @@ function navigateTo(id, pushState = true) {
     const targetPage = document.getElementById(id);
     if (targetPage) {
         targetPage.style.display = "block";
-        setTimeout(() => {
-            targetPage.classList.add("active");
-        }, 10);
+        setTimeout(() => { targetPage.classList.add("active"); }, 10);
         window.scrollTo({ top: 0, behavior: "smooth" });
     }
     
@@ -83,9 +74,6 @@ function navigateTo(id, pushState = true) {
     if (pushState) history.pushState({ pageId: id }, null, `#${id}`);
 }
 
-/**
- * Theme Engine
- */
 function toggleTheme() {
     const isLight = document.body.classList.toggle("light-mode");
     localStorage.setItem("theme", isLight ? "light" : "dark");
@@ -94,36 +82,58 @@ function toggleTheme() {
 }
 
 /**
- * FIXED MENU LOGIC: Instant Response System
+ * CORE FIX: Menu Logic with Z-Index Shielding
+ * Solves the "menu under dark mode button" issue.
  */
-function toggleMenu(forceClose = false) {
+function toggleMenu(forceClose = false, event = null) {
+    if (event) event.stopPropagation();
+
     const dropdown = document.getElementById("dropdown");
-    if (!dropdown) return;
+    const wrapper = document.querySelector(".menu-wrapper"); // Ambil pembungkus menu
+    if (!dropdown || !wrapper) return;
+
+    // Fungsi Internal Menutup
+    const closeMenu = () => {
+        dropdown.classList.remove("active");
+        
+        // Turunkan Z-Index pembungkus setelah animasi selesai
+        setTimeout(() => { 
+            if(!dropdown.classList.contains('active')) {
+                dropdown.style.display = "none"; 
+                wrapper.style.zIndex = "1"; // Kembalikan ke normal
+            }
+        }, 300);
+    };
 
     if (forceClose) {
-        dropdown.classList.remove("active");
-        setTimeout(() => { dropdown.style.display = "none"; }, 300);
+        closeMenu();
         return;
     }
 
-    const isHidden = window.getComputedStyle(dropdown).display === "none";
+    const isActive = dropdown.classList.contains("active");
 
-    if (isHidden) {
+    if (!isActive) {
+        // MAIKKAN Z-INDEX PEMBUNGKUS (Force to Top)
+        // Ini memastikan menu berada di atas tombol Dark Mode sebelahnya.
+        wrapper.style.zIndex = "9999"; 
+        
         dropdown.style.display = "block";
         dropdown.offsetHeight; // Force reflow
         dropdown.classList.add("active");
     } else {
-        dropdown.classList.remove("active");
-        setTimeout(() => { dropdown.style.display = "none"; }, 300);
+        closeMenu();
     }
 }
 
-// Close menu when clicking outside
+// Global Click Listener (Click Outside)
 document.addEventListener("click", (e) => {
     const dropdown = document.getElementById("dropdown");
     const kebabBtn = document.querySelector(".kebab-btn");
-    if (dropdown && !dropdown.contains(e.target) && !kebabBtn.contains(e.target)) {
-        toggleMenu(true);
+    
+    if (dropdown && dropdown.classList.contains("active")) {
+        if (!dropdown.contains(e.target) && !kebabBtn.contains(e.target)) {
+            toggleMenu(true);
+        }
     }
 });
 
