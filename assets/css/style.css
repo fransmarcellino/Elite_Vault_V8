@@ -84,6 +84,7 @@ nav {
   z-index: 1001; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
   display: none; opacity: 0; transform: translateY(-10px);
   transition: opacity 0.3s var(--transition), transform 0.3s var(--transition);
+  overflow: hidden; /* Penting untuk pemisah menu baru */
 }
 
 .dropdown-menu.active { display: block; opacity: 1; transform: translateY(0); }
@@ -97,7 +98,6 @@ nav {
   padding: 60px 0; min-height: 80vh;
 }
 
-/* Safety Fallback: Jika active, otomatis muncul */
 .page.active { display: block; opacity: 1; transform: translateY(0); filter: blur(0); }
 
 /* =========================
@@ -180,18 +180,47 @@ nav {
 .modal-input:focus { border-color: var(--primary); }
 
 /* =========================
-   8. FOOTER & STATUS
+   8. FOOTER & SOCIAL STRIP
    ========================= */
 footer {
-  text-align: center; padding: 80px 0; color: var(--text-dim);
-  font-size: 0.7rem; letter-spacing: 4px; font-weight: 800;
-  border-top: 1px solid var(--border); text-transform: uppercase; position: relative;
+  text-align: center; padding: 100px 0 60px; color: var(--text-dim);
+  border-top: 1px solid var(--border); position: relative;
+  margin-top: 80px;
 }
+
+.social-strip {
+  display: flex; justify-content: center; gap: 30px; margin: 30px 0;
+}
+
+.social-strip a {
+  color: var(--text-main); font-size: 1.4rem; opacity: 0.4;
+  transition: all 0.3s var(--transition); text-decoration: none;
+}
+
+.social-strip a:hover {
+  opacity: 1; color: var(--primary); transform: translateY(-5px);
+}
+
+/* W3C VALIDATION STYLING */
+.w3c-container {
+  display: flex; gap: 20px; justify-content: center; align-items: center; margin-top: 20px;
+}
+
+.w3c-logo {
+  height: 25px; opacity: 0.2; filter: grayscale(1); transition: 0.3s ease;
+}
+
+.w3c-logo:hover { opacity: 1; filter: grayscale(0); }
+
+/* Safety for Dark/Light Mode Logos */
+body.light-mode .w3c-logo { filter: grayscale(1); }
+body:not(.light-mode) .w3c-logo { filter: grayscale(1) invert(0.8); }
+body:not(.light-mode) .w3c-logo:hover { filter: grayscale(0) invert(0); }
 
 footer::after {
   content: "CORE SYSTEM: SECURE • ENCRYPTION: ACTIVE";
-  position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
-  font-size: 0.5rem; opacity: 0.3; letter-spacing: 2px;
+  position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+  font-size: 0.5rem; opacity: 0.2; letter-spacing: 3px; font-weight: 400;
 }
 
 /* =========================
