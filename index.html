@@ -1,427 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Frans Marcellino | Elite Vault v8.0</title>
+    <meta name="description" content="Elite Vault v8.0 by Frans Marcellino. High-end sovereign digital repository with industrial-grade software assets.">
+    <meta name="author" content="Frans Marcellino">
 
-    <meta
-      name="description"
-      content="Elite Vault v8.0 by Frans Marcellino. A high-end sovereign digital repository featuring industrial-grade software assets and premium cinematic engineering."
-    />
-    <meta name="author" content="Frans Marcellino" />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
-
-    <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&family=Playfair+Display:ital,wght@0,900;1,900&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&family=Playfair+Display:ital,wght@0,900;1,900&display=swap"
-      media="print"
-      onload="this.media = 'all'"
-    />
-
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      media="print"
-      onload="this.media = 'all'"
-    />
-
-    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <style>
-      noscript .page {
-        display: block !important;
-        opacity: 1 !important;
-      }
-      noscript #cursor {
-        display: none !important;
-      }
-
-      /* Layout Fixes */
-      .menu-wrapper {
-        position: relative;
-        z-index: 10;
-      }
-      .dropdown-menu {
-        display: none;
-        position: absolute;
-        right: 0;
-        top: 100%;
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        min-width: 200px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        overflow: hidden;
-      }
-      .dropdown-menu.active {
-        display: block;
-      }
-
-      /* CONTACT STRIP STYLING */
-      .social-strip {
-        display: flex;
-        justify-content: center;
-        gap: 25px;
-        margin-bottom: 25px;
-      }
-      .social-strip a {
-        color: var(--text-main);
-        font-size: 1.2rem;
-        opacity: 0.5;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        text-decoration: none;
-      }
-      .social-strip a:hover {
-        opacity: 1;
-        color: var(--primary);
-        transform: translateY(-3px);
-      }
-
-      /* W3C LOGO STYLING */
-      .w3c-container {
-        display: flex;
-        gap: 15px;
-        justify-content: center;
-        align-items: center;
-        margin-top: 15px;
-        padding-bottom: 20px;
-      }
-      .w3c-logo {
-        height: 24px;
-        opacity: 0.3;
-        filter: grayscale(1);
-        transition: all 0.3s ease;
-      }
-      .w3c-logo:hover {
-        opacity: 1;
-        filter: grayscale(0);
-      }
-
-      /* Dark Mode Compatibility for W3C Logos */
-      body:not(.light-mode) .w3c-logo {
-        filter: grayscale(1) invert(0.8);
-      }
-      body:not(.light-mode) .w3c-logo:hover {
-        filter: grayscale(0) invert(0);
-      }
-
-      /* Utility */
-      footer {
-        text-align: center;
-        padding: 80px 20px 40px;
-        border-top: 1px solid var(--border);
-        margin-top: 100px;
-      }
+        /* ============================================================
+           COMPRESSED CORE SYSTEM (MINIFIED) 
+           Mencakup: Root, Cursor, Nav, Hero, Grid, Modal, & Footer
+           ============================================================ */
+        @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&family=Playfair+Display:ital,wght@0,900;1,900&display=swap");:root{--primary:#ffd700;--bg:#050505;--surface:#0f0f0f;--text-main:#fff;--text-dim:#888;--border:rgba(255,255,255,0.05);--transition:cubic-bezier(.23,1,.32,1);--glow:rgba(255,215,0,0.15);--accent-gradient:linear-gradient(45deg,#ffd700,#ff8c00)}body.light-mode{--bg:#f5f5f7;--surface:#fff;--text-main:#1d1d1f;--text-dim:#6e6e73;--border:rgba(0,0,0,0.1);--glow:rgba(255,215,0,0.3)}*{margin:0;padding:0;box-sizing:border-box;font-family:"Plus Jakarta Sans",sans-serif;cursor:none}#cursor{width:20px;height:20px;background:var(--primary);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;mix-blend-mode:difference;transition:transform .15s ease-out;transform:translate(-50%,-50%);box-shadow:0 0 20px var(--primary)}@media (max-width:768px){#cursor{display:none}*{cursor:auto!important}}body{background:var(--bg);color:var(--text-main);line-height:1.6;transition:background .5s var(--transition);overflow-x:hidden}.container{max-width:1300px;margin:0 auto;padding:0 5%}nav{padding:20px 0;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:1000;background:var(--bg);backdrop-filter:blur(25px);border-bottom:1px solid var(--border)}.logo{font-weight:800;letter-spacing:4px;font-size:1rem;text-transform:uppercase;cursor:pointer}.logo span{color:var(--primary);text-shadow:0 0 10px var(--glow)}.nav-controls{display:flex;align-items:center;gap:15px}.theme-toggle{background:var(--surface);border:1px solid var(--border);color:var(--text-main);padding:10px 18px;border-radius:12px;font-weight:700;font-size:.65rem;transition:.3s var(--transition);cursor:pointer}.kebab-btn{background:none;border:1px solid var(--border);padding:12px;border-radius:14px;display:flex;flex-direction:column;gap:4px;cursor:pointer}.dot{width:4px;height:4px;background:var(--text-main);border-radius:50%}.dropdown-menu{position:absolute;right:0;top:100%;background:var(--surface);border:1px solid var(--border);border-radius:20px;width:220px;z-index:1001;box-shadow:0 20px 40px rgba(0,0,0,.4);display:none;opacity:0;transform:translateY(-10px);transition:opacity .3s var(--transition),transform .3s var(--transition);overflow:hidden}.dropdown-menu.active{display:block;opacity:1;transform:translateY(0)}.page{display:none;opacity:0;transform:translateY(20px);filter:blur(5px);transition:opacity .6s var(--transition),transform .6s var(--transition),filter .6s var(--transition);padding:60px 0;min-height:80vh}.page.active{display:block;opacity:1;transform:translateY(0);filter:blur(0)}.hero{text-align:center;position:relative;padding:120px 0}.hero h1{font-family:"Playfair Display",serif!important;font-size:clamp(2.5rem,8vw,5.5rem);font-weight:900;margin-bottom:24px;line-height:1.1;font-style:italic}.hero-badge-style{font-size:.7rem;letter-spacing:8px;color:var(--primary);margin-bottom:30px;font-weight:800;text-transform:uppercase}.hero-desc-style{color:var(--text-dim);max-width:750px;margin:0 auto 50px;font-size:1.15rem;font-weight:300}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:32px;margin-top:50px}.card{background:var(--surface);border:1px solid var(--border);border-radius:28px;padding:40px;position:relative;overflow:hidden;backdrop-filter:blur(10px);box-shadow:0 10px 30px rgba(0,0,0,.5);transition:.6s var(--transition)}.card:hover{border-color:var(--primary);transform:translateY(-12px) scale(1.02);box-shadow:0 30px 60px rgba(0,0,0,.8),0 0 20px var(--glow)}.card-img{width:100%;height:250px;border-radius:20px;object-fit:cover;margin-bottom:25px;filter:grayscale(1);transition:.8s var(--transition);background:#1a1a1a}.card:hover .card-img{filter:grayscale(0);transform:scale(1.05)}.price-tag{position:absolute;top:30px;right:30px;background:var(--accent-gradient);color:#000;padding:8px 18px;border-radius:12px;font-weight:900;font-size:.8rem;z-index:10}.btn-premium{background:var(--primary);color:#000;padding:18px;border-radius:18px;width:100%;border:none;font-weight:800;text-transform:uppercase;cursor:pointer;transition:.3s var(--transition);text-align:center;display:inline-block;text-decoration:none}.btn-premium:hover{transform:scale(1.02);box-shadow:0 10px 20px var(--glow)}#modal{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(15px);display:none;justify-content:center;align-items:center;z-index:2000;padding:20px}.m-box{background:var(--surface);padding:50px 30px;border-radius:32px;border:1px solid var(--border);width:100%;max-width:450px;text-align:center;box-shadow:0 25px 50px rgba(0,0,0,.5)}.modal-price{font-size:3.5rem;margin:20px 0;background:var(--accent-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900}.modal-input{width:100%;padding:18px;margin-bottom:20px;background:var(--bg);border:1px solid var(--border);color:var(--text-main);border-radius:16px;text-align:center;font-size:1rem;outline:none}.modal-input:focus{border-color:var(--primary)}footer{text-align:center;padding:100px 0 60px;color:var(--text-dim);border-top:1px solid var(--border);position:relative;margin-top:80px}.social-strip{display:flex;justify-content:center;gap:30px;margin:30px 0}.social-strip a{color:var(--text-main);font-size:1.4rem;opacity:.4;transition:all .3s var(--transition);text-decoration:none}.social-strip a:hover{opacity:1;color:var(--primary);transform:translateY(-5px)}.w3c-container{display:flex;gap:20px;justify-content:center;align-items:center;margin-top:20px}.w3c-logo{height:25px;opacity:.2;filter:grayscale(1);transition:.3s ease}.w3c-logo:hover{opacity:1;filter:grayscale(0)}body.light-mode .w3c-logo{filter:grayscale(1)}body:not(.light-mode) .w3c-logo{filter:grayscale(1) invert(.8)}body:not(.light-mode) .w3c-logo:hover{filter:grayscale(0) invert(0)}footer::after{content:"CORE SYSTEM: SECURE • ENCRYPTION: ACTIVE";position:absolute;bottom:20px;left:50%;transform:translateX(-50%);font-size:.5rem;opacity:.2;letter-spacing:3px;font-weight:400}.payment-methods{margin:25px 0;padding:20px;background:rgba(255,255,255,.02);border-radius:20px;border:1px solid var(--border)}.method-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.method-card{padding:15px 10px;border:1px solid var(--border);border-radius:15px;cursor:pointer;transition:all .3s var(--transition);display:flex;flex-direction:column;align-items:center;gap:8px;background:var(--bg)}.method-card i{font-size:1.2rem;color:var(--text-dim)}.method-card span{font-size:.6rem;font-weight:800;color:var(--text-dim);text-transform:uppercase}.method-card.active{border-color:var(--primary);background:rgba(255,215,0,.05);box-shadow:0 0 15px var(--glow);transform:translateY(-5px)}.method-card.active i,.method-card.active span{color:var(--primary)}
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div id="cursor" aria-hidden="true"></div>
 
     <div class="container">
-      <nav aria-label="Main Navigation">
-        <div
-          class="logo"
-          id="nav-logo"
-          onclick="navigateTo('home')"
-          role="button"
-          tabindex="0"
-        >
-          FRANS <span>MARCELLINO</span>
-        </div>
-
-        <div class="nav-controls">
-          <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">
-            LIGHT MODE
-          </button>
-          <div class="menu-wrapper">
-            <button
-              class="kebab-btn"
-              id="kebab-menu-btn"
-              onclick="toggleMenu(false, event)"
-              aria-label="Toggle Menu"
-            >
-              <span class="dot"></span><span class="dot"></span
-              ><span class="dot"></span>
-            </button>
-            <div id="dropdown" class="dropdown-menu" role="menu">
-              <div id="social-links"></div>
+        <nav aria-label="Main Navigation">
+            <div class="logo" onclick="navigateTo('home')" role="button" tabindex="0">
+                FRANS <span>MARCELLINO</span>
             </div>
-          </div>
-        </div>
-      </nav>
 
-      <main id="main-content">
-        <section id="home" class="page active">
-          <div class="hero">
-            <div id="hero-badge" class="hero-badge-style">ESTABLISHED 2026</div>
-            <h1 id="hero-title">Architecting Digital Sovereignty.</h1>
-            <p id="hero-desc" class="hero-desc-style">
-              Industrial-grade software assets designed for absolute
-              performance.
-            </p>
-            <div
-              style="
-                display: flex;
-                gap: 15px;
-                justify-content: center;
-                flex-wrap: wrap;
-                margin-top: 30px;
-              "
-            >
-              <button
-                class="btn-premium"
-                style="max-width: 280px"
-                onclick="navigateTo('market')"
-              >
-                VIEW REPOSITORY
-              </button>
-              <button
-                class="btn-premium"
-                style="
-                  max-width: 280px;
-                  background: transparent;
-                  border: 1px solid var(--border);
-                  color: var(--text-main);
-                "
-                onclick="navigateTo('about')"
-              >
-                THE STANDARD
-              </button>
+            <div class="nav-controls">
+                <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">LIGHT MODE</button>
+                <div class="menu-wrapper" style="position:relative;">
+                    <button class="kebab-btn" id="kebab-menu-btn" onclick="toggleMenu(false, event)" aria-label="Toggle Menu">
+                        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                    </button>
+                    <div id="dropdown" class="dropdown-menu" role="menu">
+                        <div id="social-links"></div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </section>
+        </nav>
 
-        <section id="market" class="page">
-          <div style="text-align: center; margin-bottom: 50px">
-            <h2
-              style="
-                font-size: 2.8rem;
-                letter-spacing: -2px;
-                margin-bottom: 10px;
-              "
-            >
-              The Repository
-            </h2>
-            <p style="color: var(--text-dim); font-weight: 300">
-              CURATED ASSETS BY FRANS MARCELLINO
-            </p>
-          </div>
-          <div
-            class="search-container"
-            style="position: relative; max-width: 500px; margin: 0 auto 40px"
-          >
-            <input
-              type="text"
-              id="search-bar"
-              placeholder="Filter Assets..."
-              onkeyup="handleSearch()"
-              style="
-                width: 100%;
-                padding: 18px;
-                background: var(--surface);
-                border: 1px solid var(--border);
-                border-radius: 18px;
-                color: var(--text-main);
-                outline: none;
-              "
-            />
-          </div>
-          <div class="grid" id="main-grid"></div>
-        </section>
+        <main id="main-content">
+            <section id="home" class="page active">
+                <div class="hero">
+                    <div id="hero-badge" class="hero-badge-style">ESTABLISHED 2026</div>
+                    <h1 id="hero-title">Architecting Digital Sovereignty.</h1>
+                    <p id="hero-desc" class="hero-desc-style">Industrial-grade software assets designed for absolute performance.</p>
+                    <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 30px;">
+                        <button class="btn-premium" style="max-width: 280px" onclick="navigateTo('market')">VIEW REPOSITORY</button>
+                        <button class="btn-premium" style="max-width: 280px; background: transparent; border: 1px solid var(--border); color: var(--text-main);" onclick="navigateTo('about')">THE STANDARD</button>
+                    </div>
+                </div>
+            </section>
 
-        <section id="about" class="page">
-          <div style="max-width: 900px; margin: 0 auto; text-align: center">
-            <h2 style="font-size: 2.8rem; margin-bottom: 30px">
-              Sovereign Architecture
-            </h2>
-            <div class="grid">
-              <article class="card">
-                <h3
-                  style="
-                    color: var(--primary);
-                    margin-bottom: 15px;
-                    font-size: 1.5rem;
-                  "
-                >
-                  Immutable
-                </h3>
-                <p style="color: var(--text-dim)">
-                  Pondasi kode abadi yang dirancang untuk performa tanpa batas
-                  waktu.
-                </p>
-              </article>
-              <article class="card">
-                <h3
-                  style="
-                    color: var(--primary);
-                    margin-bottom: 15px;
-                    font-size: 1.5rem;
-                  "
-                >
-                  Elite Security
-                </h3>
-                <p style="color: var(--text-dim)">
-                  Keamanan tingkat industri dengan standar enkripsi tanpa
-                  kompromi.
-                </p>
-              </article>
+            <section id="market" class="page">
+                <div style="text-align: center; margin-bottom: 50px">
+                    <h2 style="font-size: 2.8rem; letter-spacing: -2px; margin-bottom: 10px;">The Repository</h2>
+                    <p style="color: var(--text-dim); font-weight: 300">CURATED ASSETS BY FRANS MARCELLINO</p>
+                </div>
+                <div class="search-container" style="max-width: 500px; margin: 0 auto 40px">
+                    <input type="text" id="search-bar" placeholder="Filter Assets..." onkeyup="handleSearch()" style="width: 100%; padding: 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; color: var(--text-main); outline: none;">
+                </div>
+                <div class="grid" id="main-grid"></div>
+            </section>
+
+            <section id="about" class="page">
+                <div style="max-width: 900px; margin: 0 auto; text-align: center">
+                    <h2 style="font-size: 2.8rem; margin-bottom: 30px">Sovereign Architecture</h2>
+                    <div class="grid">
+                        <article class="card">
+                            <h3 style="color: var(--primary); margin-bottom: 15px; font-size: 1.5rem;">Immutable</h3>
+                            <p style="color: var(--text-dim)">Pondasi kode abadi yang dirancang untuk performa tanpa batas waktu.</p>
+                        </article>
+                        <article class="card">
+                            <h3 style="color: var(--primary); margin-bottom: 15px; font-size: 1.5rem;">Elite Security</h3>
+                            <p style="color: var(--text-dim)">Keamanan tingkat industri dengan standar enkripsi tanpa kompromi.</p>
+                        </article>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="social-strip">
+                <a href="https://instagram.com/frans_marcellino" target="_blank" rel="noopener" aria-label="Instagram">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.332 3.608 1.308.975.975 1.247 2.242 1.308 3.607.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.332 2.633-1.308 3.608-.975.975-2.242 1.247-3.607 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.332-3.608-1.308-.975-.975-1.247-2.242-1.308-3.607-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.062-1.366.332-2.633 1.308-3.608.975-.975 2.242-1.247 3.607-1.308 1.266-.058 1.646-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.337 2.617 6.78 6.979 6.98 1.281.059 1.689.073 4.948.073s3.667-.014 4.947-.072c4.357-.2 6.78-2.618 6.98-6.98.058-1.281.072-1.689.072-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.059-1.69-.072-4.949-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                </a>
+                <a href="https://linkedin.com/in/frans-marcellino" target="_blank" rel="noopener" aria-label="LinkedIn">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"/></svg>
+                </a>
+                <a href="mailto:fransmarselinosroyer@gmail.com" aria-label="Email">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                </a>
             </div>
-          </div>
-        </section>
-      </main>
 
-      <footer>
-        <p
-          id="footer-text"
-          style="
-            margin-bottom: 25px;
-            color: var(--text-dim);
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-          "
-        ></p>
-
-        <div class="social-strip">
-          <a
-            href="https://instagram.com/frans_marcellino"
-            target="_blank"
-            rel="noopener"
-            aria-label="Instagram"
-          >
-            <i class="fab fa-instagram"></i>
-          </a>
-          <a
-            href="https://linkedin.com/in/frans-marcellino"
-            target="_blank"
-            rel="noopener"
-            aria-label="LinkedIn"
-          >
-            <i class="fab fa-linkedin-in"></i>
-          </a>
-          <a href="mailto:fransmarselinosroyer@gmail.com" aria-label="Email">
-            <i class="fas fa-envelope"></i>
-          </a>
-        </div>
-
-        <div class="w3c-container">
-          <a
-            href="https://validator.w3.org/check?uri=referer"
-            target="_blank"
-            rel="noopener"
-            aria-label="W3C HTML Validator"
-          >
-            <img
-              class="w3c-logo"
-              src="https://www.w3.org/Icons/valid-html401"
-              alt="Valid HTML"
-            />
-          </a>
-          <a
-            href="https://jigsaw.w3.org/css-validator/check/referer"
-            target="_blank"
-            rel="noopener"
-            aria-label="W3C CSS Validator"
-          >
-            <img
-              class="w3c-logo"
-              src="https://www.w3.org/Icons/valid-css"
-              alt="Valid CSS"
-            />
-          </a>
-        </div>
-      </footer>
+            <div class="w3c-container">
+                <a href="https://validator.w3.org/check?uri=referer" target="_blank" rel="noopener" aria-label="W3C HTML Validator">
+                    <img class="w3c-logo" src="https://www.w3.org/Icons/valid-html401" alt="Valid HTML">
+                </a>
+                <a href="https://jigsaw.w3.org/css-validator/check/referer" target="_blank" rel="noopener" aria-label="W3C CSS Validator">
+                    <img class="w3c-logo" src="https://www.w3.org/Icons/valid-css" alt="Valid CSS">
+                </a>
+            </div>
+            <p style="margin-top:20px; font-size:0.8rem; color:var(--text-dim);">&copy; 2026 FRANS MARCELLINO. ALL RIGHTS RESERVED.</p>
+        </footer>
     </div>
 
     <div id="modal" role="dialog" aria-modal="true">
-      <div class="m-box">
-        <h3
-          style="
-            font-size: 0.7rem;
-            letter-spacing: 3px;
-            color: var(--text-dim);
-            text-transform: uppercase;
-          "
-        >
-          ASSET SELECTION
-        </h3>
-        <p
-          id="target-name"
-          style="
-            font-size: 1.2rem;
-            font-weight: 800;
-            margin-top: 5px;
-            color: var(--primary);
-          "
-        ></p>
-        <p id="target-price" class="modal-price">$0</p>
+        <div class="m-box">
+            <h3 style="font-size: 0.7rem; letter-spacing: 3px; color: var(--text-dim); text-transform: uppercase;">ASSET SELECTION</h3>
+            <p id="target-name" style="font-size: 1.2rem; font-weight: 800; margin-top: 5px; color: var(--primary);"></p>
+            <p id="target-price" class="modal-price">$0</p>
 
-        <div class="payment-methods">
-          <p
-            style="
-              font-size: 0.6rem;
-              color: var(--text-dim);
-              margin-bottom: 15px;
-              letter-spacing: 2px;
-              font-weight: 800;
-            "
-          >
-            SELECT SECURE GATEWAY
-          </p>
-          <div class="method-grid">
-            <div
-              class="method-card active"
-              onclick="selectPayment('PayPal', this)"
-            >
-              <i class="fab fa-paypal"></i><span>PayPal</span>
+            <div class="payment-methods">
+                <p style="font-size: 0.6rem; color: var(--text-dim); margin-bottom: 15px; letter-spacing: 2px; font-weight: 800;">SELECT SECURE GATEWAY</p>
+                <div class="method-grid">
+                    <div class="method-card active" onclick="selectPayment('PayPal', this)"><span>PayPal</span></div>
+                    <div class="method-card" onclick="selectPayment('Card', this)"><span>Card</span></div>
+                    <div class="method-card" onclick="selectPayment('Crypto', this)"><span>Crypto</span></div>
+                </div>
             </div>
-            <div class="method-card" onclick="selectPayment('Card', this)">
-              <i class="fas fa-credit-card"></i><span>Card</span>
-            </div>
-            <div class="method-card" onclick="selectPayment('Crypto', this)">
-              <i class="fab fa-bitcoin"></i><span>Crypto</span>
-            </div>
-          </div>
+
+            <input type="text" id="client-name" placeholder="VERIFY FULL NAME" class="modal-input">
+            <button class="btn-premium" onclick="confirmInquiry()">REQUEST LICENSE</button>
+            <button onclick="closeModal()" style="background: none; border: none; color: inherit; cursor: pointer; margin-top: 25px; opacity: 0.5; font-size: 0.7rem; letter-spacing: 2px; font-weight: 800; display: block; width: 100%;">CANCEL PROTOCOL</button>
         </div>
-
-        <input
-          type="text"
-          id="client-name"
-          placeholder="VERIFY FULL NAME"
-          class="modal-input"
-        />
-        <button class="btn-premium" onclick="confirmInquiry()">
-          REQUEST LICENSE
-        </button>
-        <button
-          onclick="closeModal()"
-          style="
-            background: none;
-            border: none;
-            color: inherit;
-            cursor: pointer;
-            margin-top: 25px;
-            opacity: 0.5;
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            font-weight: 800;
-            display: block;
-            width: 100%;
-          "
-        >
-          CANCEL PROTOCOL
-        </button>
-      </div>
     </div>
 
     <script src="assets/js/script.js" defer></script>
-  </body>
+</body>
 </html>
