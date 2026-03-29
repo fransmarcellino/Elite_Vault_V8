@@ -1,8 +1,8 @@
 /**
  * @file script.js
- * @description Core Logic for Elite Vault v8.0 - Synchronized Version
+ * @description Fix for Product Grid & Menu Overlay
  * @author Frans Marcellino
- * @version 8.0.7 (HTML-Sync Optimized)
+ * @version 8.0.8
  */
 
 "use strict";
@@ -11,7 +11,6 @@ const VAULT_DATA = {
     owner: {
         firstName: "FRANS",
         lastName: "MARCELLINO",
-        fullName: "Frans Marcellino",
         email: "fransmarselinosroyer@gmail.com",
     },
     content: {
@@ -32,12 +31,7 @@ const VAULT_DATA = {
         { label: "Home", id: "home" },
         { label: "Vault", id: "market" },
         { label: "About", id: "about" },
-    ],
-    socials: [
-        { label: "INSTAGRAM", url: "https://instagram.com/frans_marcellino" },
-        { label: "LINKEDIN", url: "https://linkedin.com/in/frans-marcellino" },
-        { label: "EMAIL", url: "mailto:fransmarselinosroyer@gmail.com" },
-    ],
+    ]
 };
 
 let curN = "", curP = "", selectedGateway = "PayPal";
@@ -80,17 +74,9 @@ function toggleMenu(forceClose = false, event = null) {
     const dropdown = document.getElementById("dropdown");
     if (!dropdown) return;
 
-    const closeAction = () => {
-        dropdown.classList.remove("active");
-        setTimeout(() => {
-            if (!dropdown.classList.contains("active")) {
-                dropdown.style.display = "none";
-            }
-        }, 300);
-    };
-
     if (forceClose) {
-        closeAction();
+        dropdown.classList.remove("active");
+        setTimeout(() => { dropdown.style.display = "none"; }, 300);
         return;
     }
 
@@ -99,11 +85,12 @@ function toggleMenu(forceClose = false, event = null) {
         void dropdown.offsetWidth;
         dropdown.classList.add("active");
     } else {
-        closeAction();
+        dropdown.classList.remove("active");
+        setTimeout(() => { dropdown.style.display = "none"; }, 300);
     }
 }
 
-// Global click to close dropdown
+// Tutup menu jika klik di luar
 document.addEventListener("click", (e) => {
     const dropdown = document.getElementById("dropdown");
     const kebabBtn = document.getElementById("kebab-menu-btn");
@@ -120,26 +107,17 @@ function typeWriter(text, i, cb) {
         if (i < text.length) {
             el.innerHTML = text.substring(0, i + 1) + '<span class="typewriter-cursor"></span>';
             setTimeout(() => typeWriter(text, i + 1, cb), 60);
-        } else if (cb) setTimeout(cb, 500);
+        } else if (cb) cb();
     }
 }
 
-// --- DATA RENDERING ---
+// --- PRODUCT RENDERER (FIXED) ---
 
 function renderProducts(data) {
     const grid = document.getElementById("main-grid");
     if (!grid) return;
 
-    grid.innerHTML = "";
-
-    if (data.length === 0) {
-        grid.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; padding: 60px; border: 1px dashed var(--border); border-radius: 20px;">
-            <h3 style="color: var(--primary);">PROTOCOL ERROR</h3>
-            <p style="color: var(--text-dim); font-size: 0.8rem;">No assets found.</p>
-            <button onclick="document.getElementById('search-bar').value=''; renderProducts(VAULT_DATA.products);" style="margin-top:20px; background:none; border:1px solid var(--primary); color:var(--primary); padding:10px 20px; border-radius:20px; cursor:pointer;">RESET</button>
-        </div>`;
-        return;
-    }
+    grid.innerHTML = ""; // Bersihkan grid sebelum render
 
     data.forEach((p) => {
         const card = document.createElement("article");
@@ -165,32 +143,25 @@ function handleSearch() {
 // --- MODAL & PAYMENT ---
 
 function openModal(n, p) {
-    curN = n;
-    curP = p;
-    const nameEl = document.getElementById("target-name");
-    const priceEl = document.getElementById("target-price");
-    if(nameEl) nameEl.innerText = n.toUpperCase();
-    if(priceEl) priceEl.innerText = p;
-    const modal = document.getElementById("modal");
-    if(modal) modal.style.display = "flex";
+    curN = n; curP = p;
+    document.getElementById("target-name").innerText = n.toUpperCase();
+    document.getElementById("target-price").innerText = p;
+    document.getElementById("modal").style.display = "flex";
 }
 
 function closeModal() {
-    const modal = document.getElementById("modal");
-    if(modal) modal.style.display = "none";
+    document.getElementById("modal").style.display = "none";
 }
 
 function selectPayment(method, element) {
-    document.querySelectorAll(".method-card").forEach((card) => card.classList.remove("active"));
+    document.querySelectorAll(".method-card").forEach((c) => c.classList.remove("active"));
     element.classList.add("active");
     selectedGateway = method;
 }
 
 function confirmInquiry() {
-    const clientInput = document.getElementById("client-name");
-    const clientName = clientInput ? clientInput.value : "";
+    const clientName = document.getElementById("client-name").value;
     if (!clientName) return alert("Identity Verification Required.");
-    
     const subject = encodeURIComponent(`Acquisition Inquiry: ${curN}`);
     const body = encodeURIComponent(`CLIENT: ${clientName}\nASSET: ${curN}\nVALUE: ${curP}\nGATEWAY: ${selectedGateway}`);
     window.location.href = `mailto:${VAULT_DATA.owner.email}?subject=${subject}&body=${body}`;
@@ -200,38 +171,34 @@ function confirmInquiry() {
 // --- INITIALIZATION ---
 
 function init() {
-    // Theme Restoration
+    // 1. Pulihkan Tema
     if (localStorage.getItem("theme") === "light") {
         document.body.classList.add("light-mode");
         const btn = document.getElementById("theme-btn");
         if (btn) btn.innerText = "DARK MODE";
     }
 
-    // Static Content Injection
+    // 2. Isi Teks Statis
     const footerText = document.getElementById("footer-text");
     if (footerText) footerText.innerText = VAULT_DATA.content.footer;
 
-    // Dropdown Menu & Socials Injection
+    // 3. Render Dropdown Links (Agar tidak menimpa elemen lain)
     const linksBox = document.getElementById("social-links");
     if (linksBox) {
         linksBox.innerHTML = "";
         VAULT_DATA.menu.forEach((item) => {
-            linksBox.innerHTML += `<a href="javascript:void(0)" onclick="navigateTo('${item.id}')" style="padding:18px 25px; display:block; color:var(--text-main); text-decoration:none; font-size:0.75rem; border-bottom:1px solid var(--border); font-weight:700;">${item.label.toUpperCase()}</a>`;
-        });
-        
-        linksBox.innerHTML += `<div style="padding:12px 25px; font-size:0.6rem; color:var(--text-dim); letter-spacing:2px; font-weight:800; background:rgba(255,255,255,0.02)">CONTACT ACCESS</div>`;
-        
-        VAULT_DATA.socials.forEach((soc) => {
-            linksBox.innerHTML += `<a href="${soc.url}" target="_blank" style="padding:15px 25px; display:block; color:var(--primary); text-decoration:none; font-size:0.7rem; font-weight:600;">${soc.label}</a>`;
+            const a = document.createElement("a");
+            a.href = "javascript:void(0)";
+            a.style = "padding:18px 25px; display:block; color:var(--text-main); text-decoration:none; font-size:0.75rem; border-bottom:1px solid var(--border); font-weight:700;";
+            a.innerText = item.label.toUpperCase();
+            a.onclick = () => navigateTo(item.id);
+            linksBox.appendChild(a);
         });
     }
 
-    // Start Hero Animation
-    setTimeout(() => {
-        typeWriter(VAULT_DATA.content.heroTitle, 0, () => {
-            renderProducts(VAULT_DATA.products);
-        });
-    }, 800);
+    // 4. Jalankan Produk & Animasi
+    renderProducts(VAULT_DATA.products); // Panggil segera agar grid tidak kosong
+    typeWriter(VAULT_DATA.content.heroTitle, 0);
 }
 
 window.addEventListener('DOMContentLoaded', init);
