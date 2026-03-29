@@ -2,7 +2,7 @@
  * @file script.js
  * @description Core Logic for Elite Vault v8.0 - Engineering Digital Authority
  * @author Frans Marcellino
- * @version 8.0.5 (Integrated Search Error & W3C Logic)
+ * @version 8.0.6 (Integrated Search Error, W3C, & Contact Systems)
  */
 
 "use strict";
@@ -35,6 +35,12 @@ const VAULT_DATA = {
         { label: "Vault", id: "market" },
         { label: "About", id: "about" },
     ],
+    // Extension: Social Contact Data
+    socials: [
+        { label: "INSTAGRAM", icon: "fab fa-instagram", url: "https://instagram.com/frans_marcellino" },
+        { label: "LINKEDIN", icon: "fab fa-linkedin-in", url: "https://linkedin.com/in/frans-marcellino" },
+        { label: "EMAIL", icon: "fas fa-envelope", url: "mailto:fransmarselinosroyer@gmail.com" }
+    ]
 };
 
 let curN = "", curP = "", selectedGateway = "PayPal"; 
@@ -201,8 +207,20 @@ function init() {
     const linksBox = document.getElementById("social-links");
     if (linksBox) {
         linksBox.innerHTML = "";
+        
+        // Render Navigasi Menu Utama
         VAULT_DATA.menu.forEach((item) => {
             linksBox.innerHTML += `<a href="javascript:void(0)" onclick="navigateTo('${item.id}')" style="padding:18px 25px; display:block; color:var(--text-main); text-decoration:none; font-size:0.75rem; border-bottom:1px solid var(--border); transition:0.3s; font-weight:700;">${item.label.toUpperCase()}</a>`;
+        });
+
+        // Render Kontak/Social Media Terintegrasi
+        linksBox.innerHTML += `<div style="padding:12px 25px; font-size:0.6rem; color:var(--text-dim); letter-spacing:2px; font-weight:800; background:rgba(255,255,255,0.02)">CONTACT ACCESS</div>`;
+        
+        VAULT_DATA.socials.forEach((soc) => {
+            linksBox.innerHTML += `
+                <a href="${soc.url}" target="_blank" style="padding:15px 25px; display:flex; align-items:center; gap:12px; color:var(--primary); text-decoration:none; font-size:0.7rem; transition:0.3s; font-weight:600;">
+                   <i class="${soc.icon}" style="width:15px"></i> ${soc.label}
+                </a>`;
         });
     }
 
