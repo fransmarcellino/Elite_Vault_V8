@@ -2,8 +2,7 @@
  * @file script.js
  * @description Core Logic for Elite Vault v8.0 - Engineering Digital Authority
  * @author Frans Marcellino
- * @version 8.0.2 (Fix: Menu Z-Index Stack)
- * @standards ES6+, W3C Validated Assets, WCAG 2.1 Compliant
+ * @version 8.0.4 (Deep Stack & Propagation Fix)
  */
 
 "use strict";
@@ -36,7 +35,6 @@ const VAULT_DATA = {
         { label: "Home", id: "home" },
         { label: "Vault", id: "market" },
         { label: "About", id: "about" },
-        { label: "Contact", id: "contact" },
     ],
 };
 
@@ -47,6 +45,9 @@ const cursorEl = document.getElementById("cursor");
 
 // --- 3. UI ENGINE ---
 
+/**
+ * Handle Custom Cursor
+ */
 document.addEventListener("mousemove", (e) => {
     if (cursorEl) {
         window.requestAnimationFrame(() => {
@@ -56,7 +57,10 @@ document.addEventListener("mousemove", (e) => {
     }
 });
 
-function navigateTo(id, pushState = true) {
+/**
+ * Navigation System
+ */
+function navigateTo(id) {
     const pages = document.querySelectorAll(".page");
     pages.forEach((p) => {
         p.classList.remove("active");
@@ -71,9 +75,11 @@ function navigateTo(id, pushState = true) {
     }
     
     toggleMenu(true); 
-    if (pushState) history.pushState({ pageId: id }, null, `#${id}`);
 }
 
+/**
+ * Theme Engine
+ */
 function toggleTheme() {
     const isLight = document.body.classList.toggle("light-mode");
     localStorage.setItem("theme", isLight ? "light" : "dark");
@@ -82,55 +88,54 @@ function toggleTheme() {
 }
 
 /**
- * CORE FIX: Menu Logic with Z-Index Shielding
- * Solves the "menu under dark mode button" issue.
+ * DEEP FIX: Menu Logic dengan Z-Index Isolation
+ * Mencegah menu tertimpa tombol Dark Mode atau elemen lainnya.
  */
 function toggleMenu(forceClose = false, event = null) {
+    // Hentikan penutupan instan akibat 'click outside'
     if (event) event.stopPropagation();
 
     const dropdown = document.getElementById("dropdown");
-    const wrapper = document.querySelector(".menu-wrapper"); // Ambil pembungkus menu
+    const wrapper = document.querySelector(".menu-wrapper");
     if (!dropdown || !wrapper) return;
 
-    // Fungsi Internal Menutup
-    const closeMenu = () => {
+    const closeAction = () => {
         dropdown.classList.remove("active");
-        
-        // Turunkan Z-Index pembungkus setelah animasi selesai
-        setTimeout(() => { 
-            if(!dropdown.classList.contains('active')) {
-                dropdown.style.display = "none"; 
-                wrapper.style.zIndex = "1"; // Kembalikan ke normal
+        setTimeout(() => {
+            if (!dropdown.classList.contains("active")) {
+                dropdown.style.display = "none";
+                wrapper.style.zIndex = "10"; // Kembali ke tumpukan normal
             }
         }, 300);
     };
 
     if (forceClose) {
-        closeMenu();
+        closeAction();
         return;
     }
 
-    const isActive = dropdown.classList.contains("active");
+    const isOpening = !dropdown.classList.contains("active");
 
-    if (!isActive) {
-        // MAIKKAN Z-INDEX PEMBUNGKUS (Force to Top)
-        // Ini memastikan menu berada di atas tombol Dark Mode sebelahnya.
-        wrapper.style.zIndex = "9999"; 
-        
+    if (isOpening) {
+        // Angkat seluruh wrapper ke lapisan teratas (di atas nav-controls lainnya)
+        wrapper.style.zIndex = "99999"; 
         dropdown.style.display = "block";
-        dropdown.offsetHeight; // Force reflow
+        void dropdown.offsetWidth; // Force Reflow
         dropdown.classList.add("active");
     } else {
-        closeMenu();
+        closeAction();
     }
 }
 
-// Global Click Listener (Click Outside)
+/**
+ * Click Outside Handler
+ */
 document.addEventListener("click", (e) => {
     const dropdown = document.getElementById("dropdown");
-    const kebabBtn = document.querySelector(".kebab-btn");
+    const kebabBtn = document.getElementById("kebab-menu-btn");
     
     if (dropdown && dropdown.classList.contains("active")) {
+        // Jika klik bukan di menu dan bukan di tombol kebab, tutup.
         if (!dropdown.contains(e.target) && !kebabBtn.contains(e.target)) {
             toggleMenu(true);
         }
@@ -169,18 +174,6 @@ function renderProducts(data) {
             <p style="color:var(--text-dim); margin-bottom:25px; font-weight:300;">${p.desc}</p>
             <button class="btn-premium" onclick="openModal('${p.name}', '${p.price}')">Acquire License</button>
         `;
-
-        if (window.innerWidth > 1024) {
-            card.addEventListener("mousemove", (e) => {
-                const r = card.getBoundingClientRect();
-                const x = (e.clientX - r.left) / r.width - 0.5;
-                const y = (e.clientY - r.top) / r.height - 0.5;
-                card.style.transform = `perspective(1000px) rotateY(${x * 10}deg) rotateX(${y * -10}deg) translateY(-8px)`;
-            });
-            card.addEventListener("mouseleave", () => {
-                card.style.transform = `translateY(0)`;
-            });
-        }
         grid.appendChild(card);
     });
 }
@@ -196,12 +189,10 @@ function handleSearch() {
 // --- 5. MODAL & PAYMENT SYSTEM ---
 
 function openModal(n, p) {
-    curN = n;
-    curP = p;
+    curN = n; curP = p;
     document.getElementById("target-name").innerText = n.toUpperCase();
     document.getElementById("target-price").innerText = p;
     document.getElementById("modal").style.display = "flex";
-    resetPaymentSelection();
 }
 
 function closeModal() {
@@ -214,26 +205,13 @@ function selectPayment(method, element) {
     selectedGateway = method;
 }
 
-function resetPaymentSelection() {
-    selectedGateway = "PayPal";
-    const methods = document.querySelectorAll('.method-card');
-    methods.forEach(m => m.classList.remove('active'));
-    if (methods[0]) methods[0].classList.add('active');
-}
-
 function confirmInquiry() {
     const clientName = document.getElementById("client-name").value;
     if (!clientName) return alert("Identity Verification Required.");
     
     const subject = encodeURIComponent(`Acquisition: ${curN}`);
     const body = encodeURIComponent(
-        `CLIENT VERIFICATION\n` +
-        `-------------------\n` +
-        `Client Name: ${clientName}\n` +
-        `Requested Asset: ${curN}\n` +
-        `Investment Value: ${curP}\n` +
-        `Selected Gateway: ${selectedGateway}\n\n` +
-        `Please provide the secure payment link/invoice for the protocol above.`
+        `CLIENT: ${clientName}\nASSET: ${curN}\nVALUE: ${curP}\nGATEWAY: ${selectedGateway}`
     );
 
     window.location.href = `mailto:${VAULT_DATA.owner.email}?subject=${subject}&body=${body}`;
@@ -243,6 +221,7 @@ function confirmInquiry() {
 // --- 6. INITIALIZATION ---
 
 function init() {
+    // Theme Sync
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme === "light") {
         document.body.classList.add("light-mode");
@@ -250,40 +229,31 @@ function init() {
         if (btn) btn.innerText = "DARK MODE";
     }
 
-    const mappings = {
-        "nav-logo": `${VAULT_DATA.owner.firstName} <span>${VAULT_DATA.owner.lastName}</span>`,
-        "hero-badge": VAULT_DATA.owner.badge,
-        "curated-by": `Curated Selection by <strong>${VAULT_DATA.owner.fullName}</strong>`,
-        "footer-text": VAULT_DATA.content.footer,
-        "hero-desc": VAULT_DATA.content.heroDesc
-    };
+    // Static Content Mapping
+    document.getElementById("nav-logo").innerHTML = `${VAULT_DATA.owner.firstName} <span>${VAULT_DATA.owner.lastName}</span>`;
+    document.getElementById("hero-badge").innerText = VAULT_DATA.owner.badge;
+    document.getElementById("footer-text").innerText = VAULT_DATA.content.footer;
+    document.getElementById("hero-desc").innerText = VAULT_DATA.content.heroDesc;
 
-    Object.entries(mappings).forEach(([id, val]) => {
-        const el = document.getElementById(id);
-        if (el) el.innerHTML = val;
-    });
-
-    const dropdown = document.getElementById("social-links");
-    const contactBox = document.getElementById("contact-methods");
-
-    if (dropdown && contactBox) {
-        dropdown.innerHTML = "";
-        contactBox.innerHTML = "";
+    // Render Menu Links
+    const linksBox = document.getElementById("social-links");
+    if (linksBox) {
+        linksBox.innerHTML = "";
         VAULT_DATA.menu.forEach((item) => {
-            dropdown.innerHTML += `<a href="javascript:void(0)" onclick="navigateTo('${item.id}')" style="padding:18px 25px; display:block; color:var(--text-main); text-decoration:none; font-size:0.75rem; border-bottom:1px solid var(--border); transition:0.3s; font-weight:700;">${item.label.toUpperCase()}</a>`;
-            contactBox.innerHTML += `<button class="btn-premium" style="background:var(--surface); color:var(--text-main); border:1px solid var(--border); margin-bottom:12px;" onclick="navigateTo('${item.id}')">${item.label} Protocol</button>`;
+            linksBox.innerHTML += `
+                <a href="javascript:void(0)" onclick="navigateTo('${item.id}')" 
+                   style="padding:18px 25px; display:block; color:var(--text-main); text-decoration:none; font-size:0.75rem; border-bottom:1px solid var(--border); transition:0.3s; font-weight:700;">
+                   ${item.label.toUpperCase()}
+                </a>`;
         });
     }
 
+    // Launch Intro
     setTimeout(() => {
         typeWriter(VAULT_DATA.content.heroTitle, 0, () => {
             renderProducts(VAULT_DATA.products);
         });
     }, 800);
 }
-
-window.addEventListener("popstate", (e) => {
-    if (e.state && e.state.pageId) navigateTo(e.state.pageId, false);
-});
 
 window.onload = init;
