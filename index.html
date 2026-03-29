@@ -19,7 +19,6 @@
         noscript .page { display: block !important; opacity: 1 !important; }
         noscript #cursor { display: none !important; }
         
-        /* Tambahan CSS kritis untuk memastikan tumpukan menu benar */
         .menu-wrapper { 
             position: relative; 
             z-index: 10; 
@@ -37,6 +36,34 @@
         }
         .dropdown-menu.active {
             display: block;
+        }
+
+        /* W3C LOGO STYLING */
+        .w3c-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            padding-bottom: 30px;
+        }
+        .w3c-logo {
+            height: 30px;
+            opacity: 0.4;
+            filter: grayscale(1);
+            transition: all 0.3s ease;
+        }
+        .w3c-logo:hover {
+            opacity: 1;
+            filter: grayscale(0);
+            transform: translateY(-2px);
+        }
+        /* Penyesuaian warna logo untuk dark mode */
+        body:not(.light-mode) .w3c-logo {
+            filter: grayscale(1) invert(0.8);
+        }
+        body:not(.light-mode) .w3c-logo:hover {
+            filter: grayscale(0) invert(0);
         }
     </style>
 </head>
@@ -104,7 +131,16 @@
         </main>
 
         <footer>
-            <p id="footer-text" style="margin-bottom: 20px; color: var(--text-dim); font-size: 0.9rem">© 2026 FRANS MARCELLINO. ALL RIGHTS RESERVED.</p>
+            <p id="footer-text" style="margin-bottom: 10px; color: var(--text-dim); font-size: 0.9rem">© 2026 FRANS MARCELLINO. ALL RIGHTS RESERVED.</p>
+            
+            <div class="w3c-container">
+                <a href="https://validator.w3.org/check?uri=referer" target="_blank" rel="noopener">
+                    <img class="w3c-logo" src="https://www.w3.org/Icons/valid-html401" alt="Valid HTML" />
+                </a>
+                <a href="https://jigsaw.w3.org/css-validator/check/referer" target="_blank" rel="noopener">
+                    <img class="w3c-logo" src="https://www.w3.org/Icons/valid-css" alt="Valid CSS" />
+                </a>
+            </div>
         </footer>
     </div>
 
