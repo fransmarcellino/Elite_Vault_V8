@@ -1,6 +1,6 @@
 /**
  * @file script.js
- * @description Ultra-Optimized Core for Elite Vault v8.1.0
+ * @description Ultra-Optimized Core for Elite Vault v8.1.1
  * @author Frans Marcellino
  */
 
@@ -92,15 +92,27 @@ function typeWriter(text, i, cb) {
     }
 }
 
-// --- PRODUCT RENDERER (PRECISION DIMENSIONS) ---
+// --- PRODUCT RENDERER (DENGAN PEMBERITAHUAN BARANG TIDAK ADA) ---
 function renderProducts(data) {
     const grid = document.getElementById("main-grid");
     if (!grid) return;
     grid.innerHTML = "";
+
+    // PEMBERITAHUAN JIKA SEARCH KOSONG
+    if (data.length === 0) {
+        grid.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 80px 20px; border: 1px dashed var(--border); border-radius: 28px; background: rgba(255,255,255,0.02);">
+                <h3 style="color: var(--primary); font-size: 1.5rem; margin-bottom: 10px; letter-spacing: -1px;">Asset Not Found</h3>
+                <p style="color: var(--text-dim); font-weight: 300; max-width: 400px; margin: 0 auto;">The requested digital asset is not currently in the vault. Try another keyword.</p>
+                <button class="btn-premium" style="max-width: 200px; margin-top: 25px; font-size: 0.7rem;" onclick="document.getElementById('search-bar').value=''; renderProducts(VAULT_DATA.products);">RESET REPOSITORY</button>
+            </div>
+        `;
+        return;
+    }
+
     data.forEach(p => {
         const card = document.createElement("article");
         card.className = "card";
-        // Explicit width/height added to prevent Layout Shifts (CLS)
         card.innerHTML = `
             <div class="price-tag" aria-label="Price">${p.price}</div>
             <img src="${p.img}" class="card-img" alt="${p.name} Preview" width="800" height="600" loading="lazy">
@@ -113,9 +125,11 @@ function renderProducts(data) {
 
 function handleSearch() {
     const q = document.getElementById("search-bar").value.toLowerCase();
-    renderProducts(VAULT_DATA.products.filter(p => p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q)));
+    const filtered = VAULT_DATA.products.filter(p => p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q));
+    renderProducts(filtered);
 }
 
+// --- MODAL & PAYMENT ---
 function openModal(n, p) {
     curN = n; curP = p;
     document.getElementById("target-name").innerText = n.toUpperCase();
@@ -138,7 +152,9 @@ function confirmInquiry() {
     closeModal();
 }
 
+// --- INITIALIZATION ---
 function init() {
+    // Tema & Footer
     if (localStorage.getItem("theme") === "light") {
         document.body.classList.add("light-mode");
         const btn = document.getElementById("theme-btn");
@@ -147,9 +163,12 @@ function init() {
     const footerText = document.getElementById("footer-text");
     if (footerText) footerText.innerText = VAULT_DATA.content.footer;
 
+    // DROPDOWN MENU (TITIK 3) - TERMASUK KONTAK
     const linksBox = document.getElementById("social-links");
     if (linksBox) {
         linksBox.innerHTML = "";
+        
+        // Render Link Navigasi
         VAULT_DATA.menu.forEach(item => {
             const a = document.createElement("a");
             a.href = "javascript:void(0)";
@@ -158,7 +177,15 @@ function init() {
             a.onclick = (e) => { e.preventDefault(); navigateTo(item.id); };
             linksBox.appendChild(a);
         });
+
+        // TAMBAHKAN LINK KONTAK OPERATOR
+        const contactLink = document.createElement("a");
+        contactLink.href = `mailto:${VAULT_DATA.owner.email}`;
+        contactLink.style = "padding:18px 25px; display:block; color:var(--primary); text-decoration:none; font-size:0.75rem; border-bottom:1px solid var(--border); font-weight:800; letter-spacing:1px;";
+        contactLink.innerText = "CONTACT OPERATOR";
+        linksBox.appendChild(contactLink);
     }
+
     renderProducts(VAULT_DATA.products);
     typeWriter(VAULT_DATA.content.heroTitle, 0);
 }
