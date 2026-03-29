@@ -13,12 +13,31 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" rel="stylesheet" />
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <link rel="stylesheet" href="assets/css/style.css" />
     
     <style>
         noscript .page { display: block !important; opacity: 1 !important; }
         noscript #cursor { display: none !important; }
+        
+        /* Tambahan CSS kritis untuk memastikan tumpukan menu benar */
+        .menu-wrapper { 
+            position: relative; 
+            z-index: 10; 
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            min-width: 200px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .dropdown-menu.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -32,8 +51,8 @@
 
             <div class="nav-controls">
                 <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">LIGHT MODE</button>
-                <div class="menu-wrapper" style="position: relative">
-                    <button class="kebab-btn" id="kebab-menu-btn" onclick="toggleMenu()" aria-label="Toggle Menu">
+                <div class="menu-wrapper">
+                    <button class="kebab-btn" id="kebab-menu-btn" onclick="toggleMenu(false, event)" aria-label="Toggle Menu">
                         <span class="dot"></span><span class="dot"></span><span class="dot"></span>
                     </button>
                     <div id="dropdown" class="dropdown-menu" role="menu">
