@@ -29,7 +29,7 @@ const VAULT_DATA = {
 let curN = "", curP = "", selectedGateway = "PayPal";
 const cursorEl = document.getElementById("cursor");
 
-// --- UI ENGINE ---
+// --- UI ENGINE (Optimized with Passive Listener) ---
 document.addEventListener("mousemove", (e) => {
     if (cursorEl) {
         window.requestAnimationFrame(() => {
@@ -37,7 +37,7 @@ document.addEventListener("mousemove", (e) => {
             cursorEl.style.top = `${e.clientY}px`;
         });
     }
-});
+}, { passive: true }); // Performance fix for Mobile
 
 function navigateTo(id) {
     document.querySelectorAll(".page").forEach(p => {
@@ -64,16 +64,21 @@ function toggleMenu(forceClose = false, event = null) {
     if (event) event.stopPropagation();
     const dropdown = document.getElementById("dropdown");
     if (!dropdown) return;
+    
     if (forceClose || dropdown.classList.contains("active")) {
         dropdown.classList.remove("active");
-        setTimeout(() => { if(!dropdown.classList.contains("active")) dropdown.style.display = "none"; }, 300);
+        setTimeout(() => { 
+            if(!dropdown.classList.contains("active")) dropdown.style.display = "none"; 
+        }, 300);
     } else {
         dropdown.style.display = "block";
-        void dropdown.offsetWidth;
+        // Force reflow for animation
+        dropdown.offsetHeight; 
         dropdown.classList.add("active");
     }
 }
 
+// Click outside menu fix
 document.addEventListener("click", (e) => {
     const dropdown = document.getElementById("dropdown");
     const kebabBtn = document.getElementById("kebab-menu-btn");
@@ -82,28 +87,29 @@ document.addEventListener("click", (e) => {
     }
 });
 
+// --- TYPEWRITER (SEO FRIENDLY) ---
 function typeWriter(text, i, cb) {
     const el = document.getElementById("hero-title");
     if (el) {
         if (i < text.length) {
-            el.innerHTML = text.substring(0, i + 1) + '<span class="typewriter-cursor" aria-hidden="true"></span>';
+            // Menggunakan innerText untuk keamanan dan menambahkan span kursor
+            el.innerHTML = text.substring(0, i + 1) + '<span class="typewriter-cursor" aria-hidden="true" style="border-right: 2px solid var(--primary); margin-left: 5px; animation: blink 0.7s infinite;"></span>';
             setTimeout(() => typeWriter(text, i + 1, cb), 60);
         } else if (cb) cb();
     }
 }
 
-// --- PRODUCT RENDERER (DENGAN PEMBERITAHUAN BARANG TIDAK ADA) ---
+// --- PRODUCT RENDERER (Optimized Card Structure) ---
 function renderProducts(data) {
     const grid = document.getElementById("main-grid");
     if (!grid) return;
     grid.innerHTML = "";
 
-    // PEMBERITAHUAN JIKA SEARCH KOSONG
     if (data.length === 0) {
         grid.innerHTML = `
             <div style="grid-column: 1 / -1; text-align: center; padding: 80px 20px; border: 1px dashed var(--border); border-radius: 28px; background: rgba(255,255,255,0.02);">
                 <h3 style="color: var(--primary); font-size: 1.5rem; margin-bottom: 10px; letter-spacing: -1px;">Asset Not Found</h3>
-                <p style="color: var(--text-dim); font-weight: 300; max-width: 400px; margin: 0 auto;">The requested digital asset is not currently in the vault. Try another keyword.</p>
+                <p style="color: var(--text-dim); font-weight: 300; max-width: 400px; margin: 0 auto;">The requested digital asset is not currently in the vault.</p>
                 <button class="btn-premium" style="max-width: 200px; margin-top: 25px; font-size: 0.7rem;" onclick="document.getElementById('search-bar').value=''; renderProducts(VAULT_DATA.products);">RESET REPOSITORY</button>
             </div>
         `;
@@ -113,6 +119,7 @@ function renderProducts(data) {
     data.forEach(p => {
         const card = document.createElement("article");
         card.className = "card";
+        // SEO: Heading h3 digunakan di setiap kartu produk
         card.innerHTML = `
             <div class="price-tag" aria-label="Price">${p.price}</div>
             <img src="${p.img}" class="card-img" alt="${p.name} Preview" width="800" height="600" loading="lazy">
@@ -125,15 +132,19 @@ function renderProducts(data) {
 
 function handleSearch() {
     const q = document.getElementById("search-bar").value.toLowerCase();
-    const filtered = VAULT_DATA.products.filter(p => p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q));
+    const filtered = VAULT_DATA.products.filter(p => 
+        p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q)
+    );
     renderProducts(filtered);
 }
 
 // --- MODAL & PAYMENT ---
 function openModal(n, p) {
     curN = n; curP = p;
-    document.getElementById("target-name").innerText = n.toUpperCase();
-    document.getElementById("target-price").innerText = p;
+    const nameEl = document.getElementById("target-name");
+    const priceEl = document.getElementById("target-price");
+    if(nameEl) nameEl.innerText = n.toUpperCase();
+    if(priceEl) priceEl.innerText = p;
     document.getElementById("modal").style.display = "flex";
 }
 
@@ -148,37 +159,41 @@ function selectPayment(method, element) {
 function confirmInquiry() {
     const clientName = document.getElementById("client-name").value;
     if (!clientName) return alert("Identity Verification Required.");
-    window.location.href = `mailto:${VAULT_DATA.owner.email}?subject=Inquiry: ${curN}&body=CLIENT: ${clientName}%0AASSET: ${curN}%0AVALUE: ${curP}%0AGATEWAY: ${selectedGateway}`;
+    const subject = encodeURIComponent(`Inquiry: ${curN}`);
+    const body = encodeURIComponent(`CLIENT: ${clientName}\nASSET: ${curN}\nVALUE: ${curP}\nGATEWAY: ${selectedGateway}`);
+    window.location.href = `mailto:${VAULT_DATA.owner.email}?subject=${subject}&body=${body}`;
     closeModal();
 }
 
 // --- INITIALIZATION ---
 function init() {
-    // Tema & Footer
+    // Theme Recovery
     if (localStorage.getItem("theme") === "light") {
         document.body.classList.add("light-mode");
         const btn = document.getElementById("theme-btn");
         if (btn) btn.innerText = "DARK MODE";
     }
+
+    // Dynamic Footer
     const footerText = document.getElementById("footer-text");
     if (footerText) footerText.innerText = VAULT_DATA.content.footer;
 
-    // DROPDOWN MENU (TITIK 3) - TERMASUK KONTAK
+    // Dropdown Menu Builder
     const linksBox = document.getElementById("social-links");
     if (linksBox) {
         linksBox.innerHTML = "";
-        
-        // Render Link Navigasi
         VAULT_DATA.menu.forEach(item => {
             const a = document.createElement("a");
-            a.href = "javascript:void(0)";
+            a.href = "#" + item.id; // SEO: Menggunakan hash asli
             a.style = "padding:18px 25px; display:block; color:var(--text-main); text-decoration:none; font-size:0.75rem; border-bottom:1px solid var(--border); font-weight:700;";
             a.innerText = item.label.toUpperCase();
-            a.onclick = (e) => { e.preventDefault(); navigateTo(item.id); };
+            a.onclick = (e) => { 
+                e.preventDefault(); 
+                navigateTo(item.id); 
+            };
             linksBox.appendChild(a);
         });
 
-        // TAMBAHKAN LINK KONTAK OPERATOR
         const contactLink = document.createElement("a");
         contactLink.href = `mailto:${VAULT_DATA.owner.email}`;
         contactLink.style = "padding:18px 25px; display:block; color:var(--primary); text-decoration:none; font-size:0.75rem; border-bottom:1px solid var(--border); font-weight:800; letter-spacing:1px;";
@@ -187,7 +202,11 @@ function init() {
     }
 
     renderProducts(VAULT_DATA.products);
-    typeWriter(VAULT_DATA.content.heroTitle, 0);
+    
+    // SEO FIX: Ambil teks dari HTML jika ada, atau gunakan VAULT_DATA sebagai fallback
+    const existingHeroText = document.getElementById("hero-title")?.innerText || VAULT_DATA.content.heroTitle;
+    typeWriter(existingHeroText, 0);
 }
 
+// Start Engine
 window.addEventListener('DOMContentLoaded', init);
