@@ -1,8 +1,8 @@
 /**
- * @file script.js
- * @description Master-Optimized Core for Elite Vault v8.1.1
- * @author Frans Marcellino
- */
+* @file script.js
+* @description Master-Optimized Core for Elite Vault v8.1.1 + Neural Grid Engine
+* @author Frans Marcellino
+*/
 
 "use strict";
 
@@ -30,7 +30,6 @@ let curN = "", curP = "", selectedGateway = "PayPal";
 const cursorEl = document.getElementById("cursor");
 
 // --- UI ENGINE (High Performance) ---
-// Perbaikan: Menggunakan transform alih-alih top/left untuk FPS 60+
 document.addEventListener("mousemove", (e) => {
     if (cursorEl) {
         window.requestAnimationFrame(() => {
@@ -45,11 +44,10 @@ function navigateTo(id) {
         p.classList.remove("active");
         p.style.display = "none";
     });
-    
+
     const target = document.getElementById(id);
     if (target) {
         target.style.display = "block";
-        // Menggunakan requestAnimationFrame agar transisi mulus
         requestAnimationFrame(() => target.classList.add("active"));
         window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -67,12 +65,10 @@ function toggleMenu(forceClose = false, event = null) {
     if (event) event.stopPropagation();
     const dropdown = document.getElementById("dropdown");
     if (!dropdown) return;
-    
+
     if (forceClose || dropdown.classList.contains("active")) {
         dropdown.classList.remove("active");
-        setTimeout(() => { 
-            if(!dropdown.classList.contains("active")) dropdown.style.display = "none"; 
-        }, 300);
+        setTimeout(() => { if(!dropdown.classList.contains("active")) dropdown.style.display = "none"; }, 300);
     } else {
         dropdown.style.display = "block";
         dropdown.offsetHeight; // Trigger reflow
@@ -89,24 +85,22 @@ document.addEventListener("click", (e) => {
     }
 });
 
-// --- TYPEWRITER (Performance Optimized) ---
+// --- TYPEWRITER ---
 function typeWriter(text, i) {
     const el = document.getElementById("hero-title");
     if (el) {
         if (i <= text.length) {
-            // Optimization: Menggunakan textContent untuk efisiensi
             el.textContent = text.substring(0, i);
             setTimeout(() => typeWriter(text, i + 1), 50);
         }
     }
 }
 
-// --- PRODUCT RENDERER (LCP Optimized) ---
+// --- PRODUCT RENDERER (Neural Integration) ---
 function renderProducts(data) {
     const grid = document.getElementById("main-grid");
     if (!grid) return;
-    
-    // Perbaikan CLS: Jangan kosongkan innerHTML langsung jika ada data
+
     const fragment = document.createDocumentFragment();
 
     if (data.length === 0) {
@@ -114,19 +108,23 @@ function renderProducts(data) {
         return;
     }
 
+    // Variasi Animasi AI
+    const aiClasses = ["ai-vid-1", "ai-vid-2", "ai-vid-3", "ai-vid-4", "ai-vid-5", "ai-vid-6", "ai-vid-7", "ai-vid-8"];
+
     data.forEach((p, index) => {
         const card = document.createElement("article");
         card.className = "card";
-        
-        // AKAR MASALAH FIX: Gambar pertama (index 0) TIDAK boleh lazy load untuk skor Performa 100
+        const vidClass = aiClasses[index % aiClasses.length];
+
         const loadingStrategy = index === 0 ? "eager" : "lazy";
         const priority = index === 0 ? "fetchpriority='high'" : "";
 
         card.innerHTML = `
+            <div class="ev-video-bg ${vidClass}"></div>
             <div class="price-tag">${p.price}</div>
             <img src="${p.img}" class="card-img" alt="${p.name}" width="800" height="600" loading="${loadingStrategy}" ${priority}>
-            <h3 style="margin-bottom:10px;">${p.name}</h3>
-            <p style="color:var(--text-dim);margin-bottom:25px;font-size:0.9rem;">${p.desc}</p>
+            <h3 style="margin-bottom:10px; position:relative; z-index:2;">${p.name}</h3>
+            <p style="color:var(--text-dim);margin-bottom:25px;font-size:0.9rem; position:relative; z-index:2;">${p.desc}</p>
             <button class="btn-premium" onclick="openModal('${p.name}', '${p.price}')">Acquire License</button>`;
         fragment.appendChild(card);
     });
@@ -169,18 +167,15 @@ function confirmInquiry() {
 
 // --- INITIALIZATION ---
 function init() {
-    // Theme Recovery
     if (localStorage.getItem("theme") === "light") {
         document.body.classList.add("light-mode");
         const btn = document.getElementById("theme-btn");
         if (btn) btn.innerText = "DARK MODE";
     }
 
-    // Dynamic Footer
     const footerText = document.getElementById("footer-text");
     if (footerText) footerText.innerText = VAULT_DATA.content.footer;
 
-    // Dropdown Menu Builder
     const linksBox = document.getElementById("social-links");
     if (linksBox) {
         linksBox.innerHTML = "";
