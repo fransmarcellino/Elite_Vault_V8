@@ -1,72 +1,46 @@
 /**
 * @file style.css
-* @description Master Sync - Elite Vault v8.1.3 (Premium Light Mode Fix)
+* @description Restoration of Elite Visuals v8.1.3
 * @author Frans Marcellino
 */
 
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&family=Playfair+Display:ital,wght@0,900;1,900&display=swap");
 
 /* =========================
-1. ROOT SYSTEM (DARK & LIGHT CORE)
+1. ROOT SYSTEM (RECLAIMING GLOW)
 ========================= */
 :root {
     --primary: #ffd700;
     --bg: #050505;
     --surface: #0f0f0f;
     --text-main: #ffffff;
-    --text-dim: rgba(255, 255, 255, 0.5);
+    --text-dim: #888888;
     --border: rgba(255, 255, 255, 0.05);
     --transition: cubic-bezier(0.23, 1, 0.32, 1);
     --glow: rgba(255, 215, 0, 0.15);
+    --accent-gradient: linear-gradient(45deg, #ffd700, #ff8c00);
 }
 
-/* PERBAIKAN: Premium Light Mode (Bukan Putih Mati) */
 body.light-mode {
-    --bg: #fafafc; /* Putih porselen, lebih elegan */
-    --surface: #ffffff; /* Putih bersih untuk elemen mengambang */
-    --text-main: #1d1d1f; /* Hitam arang, bukan hitam pekat */
-    --text-dim: rgba(29, 29, 31, 0.6); /* Abu-abu hangat */
-    --border: rgba(0, 0, 0, 0.06); /* Border sangat halus */
-    --glow: rgba(255, 215, 0, 0.25); /* Glow emas yang lebih lembut */
+    --bg: #f5f5f7;
+    --surface: #ffffff;
+    --text-main: #1d1d1f;
+    --text-dim: #6e6e73;
+    --border: rgba(0, 0, 0, 0.1);
+    --glow: rgba(255, 215, 0, 0.3);
 }
 
 /* =========================
-2. CORE SETUP & PREMIUM TYPOGRAPHY
+2. CORE & CURSOR RESTORATION
 ========================= */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: "Plus Jakarta Sans", sans-serif;
-    cursor: none; /* Custom Cursor Engaged */
+    cursor: none;
 }
 
-body {
-    background-color: var(--bg) !important; /* Paksa variabel CSS */
-    color: var(--text-main);
-    transition: background-color 0.5s var(--transition), color 0.5s var(--transition);
-    overflow-x: hidden;
-}
-
-h1, h2, h3 {
-    letter-spacing: -1px;
-    font-weight: 800;
-}
-
-.hero-title {
-    font-family: "Playfair Display", serif !important;
-    font-style: italic;
-}
-
-/* =========================
-3. UI COMPONENTS (TAILWIND BRIDGE)
-========================= */
-.text-text-main { color: var(--text-main) !important; }
-.text-text-dim { color: var(--text-dim) !important; }
-.bg-surface { background-color: var(--surface) !important; }
-.border-white\/5 { border-color: var(--border) !important; }
-
-/* Custom Cursor */
 #cursor {
     width: 20px;
     height: 20px;
@@ -76,84 +50,98 @@ h1, h2, h3 {
     pointer-events: none;
     z-index: 9999;
     mix-blend-mode: difference;
-    transition: transform 0.1s ease-out;
+    transition: transform 0.15s ease-out;
     transform: translate(-50%, -50%);
+    box-shadow: 0 0 20px var(--primary); /* Glow Cursor Kembali */
 }
 
-@media (max-width: 768px) {
-    #cursor { display: none; }
-    * { cursor: auto !important; }
+body {
+    background-color: var(--bg) !important;
+    color: var(--text-main);
+    transition: background 0.5s var(--transition);
 }
 
 /* =========================
-4. CARD SYSTEM (PREMIUM POLISH)
+3. ELITE CARD SYSTEM (THE "VIBE" RESTORATION)
 ========================= */
 .card {
     background: var(--surface) !important;
     border: 1px solid var(--border) !important;
-    border-radius: 32px;
-    transition: all 0.5s var(--transition);
+    border-radius: 28px;
+    padding: 30px; /* Kembali ke padding lama */
+    position: relative;
     overflow: hidden;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Bayangan dalam */
+    transition: 0.6s var(--transition);
 }
 
-/* Hover Effects */
 .card:hover {
-    transform: translateY(-10px);
     border-color: var(--primary) !important;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.1), 0 0 20px var(--glow);
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 20px var(--glow); /* Glow kartu kembali */
 }
 
-/* Card Media (Grayscale Fix) */
 .card-img {
+    width: 100%;
+    border-radius: 20px;
     filter: grayscale(1);
     transition: 0.8s var(--transition);
 }
 
 .card:hover .card-img {
     filter: grayscale(0);
-    transform: scale(1.05);
 }
 
-/* AI Video Patterns (Neural Grid) */
+/* Efek Neural Pattern yang Anda Maksud */
 .ev-video-bg {
     position: absolute;
     inset: 0;
     opacity: 0;
     transition: opacity 0.5s ease;
-    pointer-events: none;
+    z-index: 0;
 }
 
 .card:hover .ev-video-bg {
-    opacity: 0.15;
+    opacity: 0.1;
 }
 
-.ai-vid-1 { background: radial-gradient(circle, var(--primary) 1px, transparent 1px); background-size: 20px 20px; }
-.ai-vid-2 { background: repeating-linear-gradient(45deg, var(--border), var(--border) 1px, transparent 1px, transparent 10px); }
-.ai-vid-3 { background-image: radial-gradient(var(--primary) 0.5px, transparent 0.5px); background-size: 10px 10px; opacity: 0.1; }
+/* Badge Harga dengan Gradasi Emas */
+.price-tag {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--accent-gradient);
+    color: #000;
+    padding: 6px 14px;
+    border-radius: 10px;
+    font-weight: 800;
+    font-size: 0.75rem;
+    z-index: 10;
+}
 
 /* =========================
-5. THEME OVERRIDES
+4. PREMIUM BUTTONS
 ========================= */
-body.light-mode .btn-premium {
-    color: #ffffff; /* Tombol putih di atas putih? Ganti teks tombol */
+.btn-premium {
+    background: var(--primary);
+    color: #000;
+    padding: 15px;
+    border-radius: 15px;
+    width: 100%;
+    border: none;
+    font-weight: 800;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.3s var(--transition);
+    margin-top: 20px;
 }
 
-/* Perbaikan Modal */
-#modal {
-    backdrop-filter: blur(20px);
-    background: rgba(0,0,0,0.85);
+.btn-premium:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 20px var(--glow);
 }
 
-body.light-mode #modal {
-    background: rgba(255, 255, 255, 0.85);
-}
-
-/* Perbaikan Dropdown */
-.dropdown-menu {
-    background: var(--surface) !important;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3) !important;
-}
-
-body.light-mode .dropdown-menu {
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05) !important;
-}
+/* Bridge untuk Tailwind */
+.bg-surface { background-color: var(--surface) !important; }
+.text-text-main { color: var(--text-main) !important; }
