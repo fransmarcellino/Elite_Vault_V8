@@ -1,6 +1,6 @@
 /**
 * @file script.js
-* @description Master-Optimized Core for Elite Vault v8.1.1 + Neural Grid Engine
+* @description Final Master Sync - Elite Vault v8.1.3 (Tailwind Optimized)
 * @author Frans Marcellino
 */
 
@@ -29,7 +29,7 @@ const VAULT_DATA = {
 let curN = "", curP = "", selectedGateway = "PayPal";
 const cursorEl = document.getElementById("cursor");
 
-// --- UI ENGINE (High Performance) ---
+// --- UI ENGINE (Cursor & Navigation) ---
 document.addEventListener("mousemove", (e) => {
     if (cursorEl) {
         window.requestAnimationFrame(() => {
@@ -40,16 +40,12 @@ document.addEventListener("mousemove", (e) => {
 
 function navigateTo(id) {
     const pages = document.querySelectorAll(".page");
-    pages.forEach(p => {
-        p.classList.remove("active");
-        p.style.display = "none";
-    });
+    pages.forEach(p => p.classList.remove("active"));
 
     const target = document.getElementById(id);
     if (target) {
-        target.style.display = "block";
-        requestAnimationFrame(() => target.classList.add("active"));
         window.scrollTo({ top: 0, behavior: "smooth" });
+        setTimeout(() => target.classList.add("active"), 100);
     }
     toggleMenu(true);
 }
@@ -66,13 +62,11 @@ function toggleMenu(forceClose = false, event = null) {
     const dropdown = document.getElementById("dropdown");
     if (!dropdown) return;
 
-    if (forceClose || dropdown.classList.contains("active")) {
-        dropdown.classList.remove("active");
-        setTimeout(() => { if(!dropdown.classList.contains("active")) dropdown.style.display = "none"; }, 300);
+    if (forceClose || !dropdown.classList.contains("hidden")) {
+        dropdown.classList.add("hidden", "opacity-0", "-translate-y-2");
     } else {
-        dropdown.style.display = "block";
-        dropdown.offsetHeight; // Trigger reflow
-        dropdown.classList.add("active");
+        dropdown.classList.remove("hidden");
+        setTimeout(() => dropdown.classList.remove("opacity-0", "-translate-y-2"), 10);
     }
 }
 
@@ -80,57 +74,47 @@ function toggleMenu(forceClose = false, event = null) {
 document.addEventListener("click", (e) => {
     const dropdown = document.getElementById("dropdown");
     const kebabBtn = document.getElementById("kebab-menu-btn");
-    if (dropdown?.classList.contains("active") && !dropdown.contains(e.target) && !kebabBtn.contains(e.target)) {
+    if (dropdown && !dropdown.classList.contains("hidden") && !dropdown.contains(e.target) && !kebabBtn.contains(e.target)) {
         toggleMenu(true);
     }
 });
 
-// --- TYPEWRITER ---
-function typeWriter(text, i) {
-    const el = document.getElementById("hero-title");
-    if (el) {
-        if (i <= text.length) {
-            el.textContent = text.substring(0, i);
-            setTimeout(() => typeWriter(text, i + 1), 50);
-        }
-    }
-}
-
-// --- PRODUCT RENDERER (Neural Integration) ---
+// --- PRODUCT RENDERER (Tailwind Grid Sync) ---
 function renderProducts(data) {
     const grid = document.getElementById("main-grid");
     if (!grid) return;
 
-    const fragment = document.createDocumentFragment();
-
     if (data.length === 0) {
-        grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:80px 20px;"><h3>Asset Not Found</h3></div>`;
+        grid.innerHTML = `<div class="col-span-full text-center py-20"><h3 class="text-text-dim uppercase tracking-widest text-sm font-bold">Asset Not Found</h3></div>`;
         return;
     }
 
-    // Variasi Animasi AI
     const aiClasses = ["ai-vid-1", "ai-vid-2", "ai-vid-3", "ai-vid-4", "ai-vid-5", "ai-vid-6", "ai-vid-7", "ai-vid-8"];
 
-    data.forEach((p, index) => {
-        const card = document.createElement("article");
-        card.className = "card";
+    grid.innerHTML = data.map((p, index) => {
         const vidClass = aiClasses[index % aiClasses.length];
+        return `
+            <article class="group relative bg-surface border border-white/5 p-8 rounded-[32px] overflow-hidden transition-all duration-500 hover:border-primary hover:-translate-y-2 shadow-2xl">
+                <div class="ev-video-bg absolute inset-0 z-0 opacity-0 group-hover:opacity-20 transition-opacity duration-700 pointer-events-none ${vidClass}"></div>
+                
+                <div class="absolute top-6 right-6 bg-gradient-to-r from-primary to-orange-500 text-black px-4 py-1.5 rounded-xl font-black text-[0.7rem] z-10 italic shadow-lg">
+                    ${p.price}
+                </div>
 
-        const loadingStrategy = index === 0 ? "eager" : "lazy";
-        const priority = index === 0 ? "fetchpriority='high'" : "";
+                <div class="relative z-1 overflow-hidden rounded-2xl mb-6 bg-bg aspect-video flex items-center justify-center border border-white/5">
+                    <img src="${p.img}" class="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700" alt="${p.name}" loading="lazy">
+                </div>
 
-        card.innerHTML = `
-            <div class="ev-video-bg ${vidClass}"></div>
-            <div class="price-tag">${p.price}</div>
-            <img src="${p.img}" class="card-img" alt="${p.name}" width="800" height="600" loading="${loadingStrategy}" ${priority}>
-            <h3 style="margin-bottom:10px; position:relative; z-index:2;">${p.name}</h3>
-            <p style="color:var(--text-dim);margin-bottom:25px;font-size:0.9rem; position:relative; z-index:2;">${p.desc}</p>
-            <button class="btn-premium" onclick="openModal('${p.name}', '${p.price}')">Acquire License</button>`;
-        fragment.appendChild(card);
-    });
-
-    grid.innerHTML = "";
-    grid.appendChild(fragment);
+                <div class="relative z-10">
+                    <h3 class="text-xl font-bold mb-2 tracking-tight">${p.name}</h3>
+                    <p class="text-text-dim text-sm font-light mb-8 leading-relaxed">${p.desc}</p>
+                    <button class="w-full py-4 bg-primary text-black rounded-xl font-black uppercase text-[0.7rem] tracking-[2px] hover:shadow-[0_0_20px_rgba(255,215,0,0.4)] active:scale-95 transition-all" onclick="openModal('${p.name}', '${p.price}')">
+                        Acquire License
+                    </button>
+                </div>
+            </article>
+        `;
+    }).join("");
 }
 
 function handleSearch() {
@@ -146,14 +130,24 @@ function openModal(n, p) {
     curN = n; curP = p;
     document.getElementById("target-name").innerText = n.toUpperCase();
     document.getElementById("target-price").innerText = p;
-    document.getElementById("modal").style.display = "flex";
+    const modal = document.getElementById("modal");
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
 }
 
-function closeModal() { document.getElementById("modal").style.display = "none"; }
+function closeModal() { 
+    const modal = document.getElementById("modal");
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+}
 
 function selectPayment(method, element) {
-    document.querySelectorAll(".method-card").forEach(c => c.classList.remove("active"));
-    element.classList.add("active");
+    document.querySelectorAll(".method-card").forEach(c => {
+        c.classList.remove("border-primary", "bg-primary/5", "opacity-100");
+        c.classList.add("opacity-50", "border-white/10");
+    });
+    element.classList.add("border-primary", "bg-primary/5", "opacity-100");
+    element.classList.remove("opacity-50", "border-white/10");
     selectedGateway = method;
 }
 
@@ -167,30 +161,28 @@ function confirmInquiry() {
 
 // --- INITIALIZATION ---
 function init() {
+    // Theme Restoration
     if (localStorage.getItem("theme") === "light") {
         document.body.classList.add("light-mode");
         const btn = document.getElementById("theme-btn");
         if (btn) btn.innerText = "DARK MODE";
     }
 
+    // Footer Text
     const footerText = document.getElementById("footer-text");
     if (footerText) footerText.innerText = VAULT_DATA.content.footer;
 
+    // Build Social/Menu Links in Dropdown
     const linksBox = document.getElementById("social-links");
     if (linksBox) {
-        linksBox.innerHTML = "";
-        VAULT_DATA.menu.forEach(item => {
-            const a = document.createElement("a");
-            a.href = "#" + item.id;
-            a.style = "padding:18px 25px; display:block; color:var(--text-main); text-decoration:none; font-size:0.75rem; border-bottom:1px solid var(--border); font-weight:700;";
-            a.innerText = item.label.toUpperCase();
-            a.onclick = (e) => { e.preventDefault(); navigateTo(item.id); };
-            linksBox.appendChild(a);
-        });
+        linksBox.innerHTML = VAULT_DATA.menu.map(item => `
+            <a href="#${item.id}" class="py-4 px-6 text-[0.7rem] font-bold tracking-widest text-text-main border-b border-white/5 hover:bg-white/5 transition-colors block" onclick="event.preventDefault(); navigateTo('${item.id}')">
+                ${item.label.toUpperCase()}
+            </a>
+        `).join("");
     }
 
     renderProducts(VAULT_DATA.products);
-    typeWriter(VAULT_DATA.content.heroTitle, 0);
 }
 
 window.addEventListener('DOMContentLoaded', init);
