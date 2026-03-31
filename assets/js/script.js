@@ -1,6 +1,6 @@
 /**
 * @file script.js
-* @description Final Master Sync - Elite Vault v8.1.3 (Tailwind Optimized)
+* @description Final Master Sync - Elite Vault v8.1.3 (CSS Variable + Tailwind Hybrid)
 * @author Frans Marcellino
 */
 
@@ -41,7 +41,6 @@ document.addEventListener("mousemove", (e) => {
 function navigateTo(id) {
     const pages = document.querySelectorAll(".page");
     pages.forEach(p => p.classList.remove("active"));
-
     const target = document.getElementById(id);
     if (target) {
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -50,71 +49,53 @@ function navigateTo(id) {
     toggleMenu(true);
 }
 
+// --- THEME ENGINE (FIXED FOR CSS VARIABLES) ---
 function toggleTheme() {
     const isLight = document.body.classList.toggle("light-mode");
-    localStorage.setItem("theme", isLight ? "light" : "dark");
     const btn = document.getElementById("theme-btn");
-    if (btn) btn.innerText = isLight ? "DARK MODE" : "LIGHT MODE";
+    
+    // Logika Force Overwrite Warna Tailwind
+    if (isLight) {
+        document.body.style.backgroundColor = "var(--bg)";
+        document.body.style.color = "var(--text-main)";
+        if (btn) btn.innerText = "DARK MODE";
+        localStorage.setItem("theme", "light");
+    } else {
+        document.body.style.backgroundColor = "";
+        document.body.style.color = "";
+        if (btn) btn.innerText = "LIGHT MODE";
+        localStorage.setItem("theme", "dark");
+    }
 }
 
 function toggleMenu(forceClose = false, event = null) {
     if (event) event.stopPropagation();
-    const dropdown = document.getElementById("dropdown");
+    const dropdown = document.getElementById("dropdown-menu") || document.getElementById("dropdown");
     if (!dropdown) return;
-
-    if (forceClose || !dropdown.classList.contains("hidden")) {
-        dropdown.classList.add("hidden", "opacity-0", "-translate-y-2");
+    if (forceClose || dropdown.classList.contains("active") || !dropdown.classList.contains("hidden")) {
+        dropdown.classList.add("hidden");
+        dropdown.classList.remove("active");
     } else {
         dropdown.classList.remove("hidden");
-        setTimeout(() => dropdown.classList.remove("opacity-0", "-translate-y-2"), 10);
+        dropdown.classList.add("active");
     }
 }
 
-// Click outside menu fix
-document.addEventListener("click", (e) => {
-    const dropdown = document.getElementById("dropdown");
-    const kebabBtn = document.getElementById("kebab-menu-btn");
-    if (dropdown && !dropdown.classList.contains("hidden") && !dropdown.contains(e.target) && !kebabBtn.contains(e.target)) {
-        toggleMenu(true);
-    }
-});
-
-// --- PRODUCT RENDERER (Tailwind Grid Sync) ---
+// --- PRODUCT RENDERER ---
 function renderProducts(data) {
     const grid = document.getElementById("main-grid");
     if (!grid) return;
-
-    if (data.length === 0) {
-        grid.innerHTML = `<div class="col-span-full text-center py-20"><h3 class="text-text-dim uppercase tracking-widest text-sm font-bold">Asset Not Found</h3></div>`;
-        return;
-    }
-
-    const aiClasses = ["ai-vid-1", "ai-vid-2", "ai-vid-3", "ai-vid-4", "ai-vid-5", "ai-vid-6", "ai-vid-7", "ai-vid-8"];
-
-    grid.innerHTML = data.map((p, index) => {
-        const vidClass = aiClasses[index % aiClasses.length];
-        return `
-            <article class="group relative bg-surface border border-white/5 p-8 rounded-[32px] overflow-hidden transition-all duration-500 hover:border-primary hover:-translate-y-2 shadow-2xl">
-                <div class="ev-video-bg absolute inset-0 z-0 opacity-0 group-hover:opacity-20 transition-opacity duration-700 pointer-events-none ${vidClass}"></div>
-                
-                <div class="absolute top-6 right-6 bg-gradient-to-r from-primary to-orange-500 text-black px-4 py-1.5 rounded-xl font-black text-[0.7rem] z-10 italic shadow-lg">
-                    ${p.price}
-                </div>
-
-                <div class="relative z-1 overflow-hidden rounded-2xl mb-6 bg-bg aspect-video flex items-center justify-center border border-white/5">
-                    <img src="${p.img}" class="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700" alt="${p.name}" loading="lazy">
-                </div>
-
-                <div class="relative z-10">
-                    <h3 class="text-xl font-bold mb-2 tracking-tight">${p.name}</h3>
-                    <p class="text-text-dim text-sm font-light mb-8 leading-relaxed">${p.desc}</p>
-                    <button class="w-full py-4 bg-primary text-black rounded-xl font-black uppercase text-[0.7rem] tracking-[2px] hover:shadow-[0_0_20px_rgba(255,215,0,0.4)] active:scale-95 transition-all" onclick="openModal('${p.name}', '${p.price}')">
-                        Acquire License
-                    </button>
-                </div>
-            </article>
-        `;
-    }).join("");
+    grid.innerHTML = data.map((p) => `
+        <article class="card group relative">
+            <div class="price-tag">${p.price}</div>
+            <img src="${p.img}" class="card-img" alt="${p.name}">
+            <h3 class="text-xl font-bold mb-2 tracking-tight">${p.name}</h3>
+            <p class="text-text-dim text-sm font-light mb-8">${p.desc}</p>
+            <button class="btn-premium" onclick="openModal('${p.name}', '${p.price}')">
+                Acquire License
+            </button>
+        </article>
+    `).join("");
 }
 
 function handleSearch() {
@@ -131,23 +112,16 @@ function openModal(n, p) {
     document.getElementById("target-name").innerText = n.toUpperCase();
     document.getElementById("target-price").innerText = p;
     const modal = document.getElementById("modal");
-    modal.classList.remove("hidden");
-    modal.classList.add("flex");
+    modal.style.display = "flex";
 }
 
 function closeModal() { 
-    const modal = document.getElementById("modal");
-    modal.classList.add("hidden");
-    modal.classList.remove("flex");
+    document.getElementById("modal").style.display = "none";
 }
 
 function selectPayment(method, element) {
-    document.querySelectorAll(".method-card").forEach(c => {
-        c.classList.remove("border-primary", "bg-primary/5", "opacity-100");
-        c.classList.add("opacity-50", "border-white/10");
-    });
-    element.classList.add("border-primary", "bg-primary/5", "opacity-100");
-    element.classList.remove("opacity-50", "border-white/10");
+    document.querySelectorAll(".method-card").forEach(c => c.classList.remove("active"));
+    element.classList.add("active");
     selectedGateway = method;
 }
 
@@ -161,26 +135,16 @@ function confirmInquiry() {
 
 // --- INITIALIZATION ---
 function init() {
-    // Theme Restoration
     if (localStorage.getItem("theme") === "light") {
         document.body.classList.add("light-mode");
+        document.body.style.backgroundColor = "var(--bg)";
+        document.body.style.color = "var(--text-main)";
         const btn = document.getElementById("theme-btn");
         if (btn) btn.innerText = "DARK MODE";
     }
 
-    // Footer Text
     const footerText = document.getElementById("footer-text");
     if (footerText) footerText.innerText = VAULT_DATA.content.footer;
-
-    // Build Social/Menu Links in Dropdown
-    const linksBox = document.getElementById("social-links");
-    if (linksBox) {
-        linksBox.innerHTML = VAULT_DATA.menu.map(item => `
-            <a href="#${item.id}" class="py-4 px-6 text-[0.7rem] font-bold tracking-widest text-text-main border-b border-white/5 hover:bg-white/5 transition-colors block" onclick="event.preventDefault(); navigateTo('${item.id}')">
-                ${item.label.toUpperCase()}
-            </a>
-        `).join("");
-    }
 
     renderProducts(VAULT_DATA.products);
 }
