@@ -1,7 +1,13 @@
+/**
+* @file script.js
+* @description Master-Optimized Core for Elite Vault v8.1.1 + Neural Grid Engine
+* @author Frans Marcellino
+*/
+
 "use strict";
 
 const VAULT_DATA = {
-    owner: { email: "fransmarselinosroyer@gmail.com" },
+    owner: { firstName: "FRANS", lastName: "MARCELLINO", email: "fransmarselinosroyer@gmail.com" },
     content: { heroTitle: "Architecting Digital Sovereignty.", footer: "© 2026 FRANS MARCELLINO — ALL RIGHTS RESERVED" },
     products: [
         { name: "Titan Core", price: "$1,290", desc: "Enterprise SaaS Framework.", img: "https://placehold.co/800x600/0f0f0f/ffd700?text=Titan+Core" },
@@ -23,7 +29,7 @@ const VAULT_DATA = {
 let curN = "", curP = "", selectedGateway = "PayPal";
 const cursorEl = document.getElementById("cursor");
 
-// UI Engine
+// --- UI ENGINE (High Performance) ---
 document.addEventListener("mousemove", (e) => {
     if (cursorEl) {
         window.requestAnimationFrame(() => {
@@ -33,10 +39,12 @@ document.addEventListener("mousemove", (e) => {
 }, { passive: true });
 
 function navigateTo(id) {
-    document.querySelectorAll(".page").forEach(p => {
+    const pages = document.querySelectorAll(".page");
+    pages.forEach(p => {
         p.classList.remove("active");
         p.style.display = "none";
     });
+
     const target = document.getElementById(id);
     if (target) {
         target.style.display = "block";
@@ -49,84 +57,140 @@ function navigateTo(id) {
 function toggleTheme() {
     const isLight = document.body.classList.toggle("light-mode");
     localStorage.setItem("theme", isLight ? "light" : "dark");
-    document.getElementById("theme-btn").innerText = isLight ? "DARK MODE" : "LIGHT MODE";
+    const btn = document.getElementById("theme-btn");
+    if (btn) btn.innerText = isLight ? "DARK MODE" : "LIGHT MODE";
 }
 
 function toggleMenu(forceClose = false, event = null) {
     if (event) event.stopPropagation();
     const dropdown = document.getElementById("dropdown");
     if (!dropdown) return;
+
     if (forceClose || dropdown.classList.contains("active")) {
         dropdown.classList.remove("active");
         setTimeout(() => { if(!dropdown.classList.contains("active")) dropdown.style.display = "none"; }, 300);
     } else {
         dropdown.style.display = "block";
-        dropdown.offsetHeight;
+        dropdown.offsetHeight; // Trigger reflow
         dropdown.classList.add("active");
     }
 }
 
-// Close on outside click
-document.addEventListener("click", () => toggleMenu(true));
+// Click outside menu fix
+document.addEventListener("click", (e) => {
+    const dropdown = document.getElementById("dropdown");
+    const kebabBtn = document.getElementById("kebab-menu-btn");
+    if (dropdown?.classList.contains("active") && !dropdown.contains(e.target) && !kebabBtn.contains(e.target)) {
+        toggleMenu(true);
+    }
+});
 
-// Typewriter
+// --- TYPEWRITER ---
 function typeWriter(text, i) {
     const el = document.getElementById("hero-title");
-    if (el && i <= text.length) {
-        el.textContent = text.substring(0, i);
-        setTimeout(() => typeWriter(text, i + 1), 50);
+    if (el) {
+        if (i <= text.length) {
+            el.textContent = text.substring(0, i);
+            setTimeout(() => typeWriter(text, i + 1), 50);
+        }
     }
 }
 
-// Render Products
+// --- PRODUCT RENDERER (Neural Integration) ---
 function renderProducts(data) {
     const grid = document.getElementById("main-grid");
     if (!grid) return;
+
+    const fragment = document.createDocumentFragment();
+
+    if (data.length === 0) {
+        grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:80px 20px;"><h3>Asset Not Found</h3></div>`;
+        return;
+    }
+
+    // Variasi Animasi AI
     const aiClasses = ["ai-vid-1", "ai-vid-2", "ai-vid-3", "ai-vid-4", "ai-vid-5", "ai-vid-6", "ai-vid-7", "ai-vid-8"];
-    
-    grid.innerHTML = data.map((p, i) => `
-        <article class="card">
-            <div class="ev-video-bg ${aiClasses[i % aiClasses.length]}"></div>
+
+    data.forEach((p, index) => {
+        const card = document.createElement("article");
+        card.className = "card";
+        const vidClass = aiClasses[index % aiClasses.length];
+
+        const loadingStrategy = index === 0 ? "eager" : "lazy";
+        const priority = index === 0 ? "fetchpriority='high'" : "";
+
+        card.innerHTML = `
+            <div class="ev-video-bg ${vidClass}"></div>
             <div class="price-tag">${p.price}</div>
-            <img src="${p.img}" class="card-img" alt="${p.name}" loading="lazy">
-            <h3>${p.name}</h3>
-            <p style="color:var(--text-dim); font-size:0.9rem; margin-bottom:20px;">${p.desc}</p>
-            <button class="btn-premium" onclick="openModal('${p.name}', '${p.price}')">Acquire License</button>
-        </article>
-    `).join("");
+            <img src="${p.img}" class="card-img" alt="${p.name}" width="800" height="600" loading="${loadingStrategy}" ${priority}>
+            <h3 style="margin-bottom:10px; position:relative; z-index:2;">${p.name}</h3>
+            <p style="color:var(--text-dim);margin-bottom:25px;font-size:0.9rem; position:relative; z-index:2;">${p.desc}</p>
+            <button class="btn-premium" onclick="openModal('${p.name}', '${p.price}')">Acquire License</button>`;
+        fragment.appendChild(card);
+    });
+
+    grid.innerHTML = "";
+    grid.appendChild(fragment);
 }
 
 function handleSearch() {
     const q = document.getElementById("search-bar").value.toLowerCase();
-    const filtered = VAULT_DATA.products.filter(p => p.name.toLowerCase().includes(q));
+    const filtered = VAULT_DATA.products.filter(p => 
+        p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q)
+    );
     renderProducts(filtered);
 }
 
-// Modal Engine
+// --- MODAL & PAYMENT ---
 function openModal(n, p) {
     curN = n; curP = p;
     document.getElementById("target-name").innerText = n.toUpperCase();
     document.getElementById("target-price").innerText = p;
     document.getElementById("modal").style.display = "flex";
 }
+
 function closeModal() { document.getElementById("modal").style.display = "none"; }
-function selectPayment(m, el) {
+
+function selectPayment(method, element) {
     document.querySelectorAll(".method-card").forEach(c => c.classList.remove("active"));
-    el.classList.add("active");
-    selectedGateway = m;
-}
-function confirmInquiry() {
-    const name = document.getElementById("client-name").value;
-    if (!name) return alert("Verification Required.");
-    window.location.href = `mailto:${VAULT_DATA.owner.email}?subject=Inquiry: ${curN}&body=Name: ${name}%0AAsset: ${curN}%0APrice: ${curP}%0AGateway: ${selectedGateway}`;
+    element.classList.add("active");
+    selectedGateway = method;
 }
 
-// Init
-window.addEventListener('DOMContentLoaded', () => {
-    if (localStorage.getItem("theme") === "light") toggleTheme();
-    document.getElementById("footer-text").innerText = VAULT_DATA.content.footer;
+function confirmInquiry() {
+    const clientName = document.getElementById("client-name").value;
+    if (!clientName) return alert("Identity Verification Required.");
+    const body = `CLIENT: ${clientName}\nASSET: ${curN}\nVALUE: ${curP}\nGATEWAY: ${selectedGateway}`;
+    window.location.href = `mailto:${VAULT_DATA.owner.email}?subject=Inquiry: ${curN}&body=${encodeURIComponent(body)}`;
+    closeModal();
+}
+
+// --- INITIALIZATION ---
+function init() {
+    if (localStorage.getItem("theme") === "light") {
+        document.body.classList.add("light-mode");
+        const btn = document.getElementById("theme-btn");
+        if (btn) btn.innerText = "DARK MODE";
+    }
+
+    const footerText = document.getElementById("footer-text");
+    if (footerText) footerText.innerText = VAULT_DATA.content.footer;
+
     const linksBox = document.getElementById("social-links");
-    linksBox.innerHTML = VAULT_DATA.menu.map(m => `<a href="#" onclick="navigateTo('${m.id}')" style="padding:18px 25px; display:block; color:var(--text-main); text-decoration:none; font-size:0.75rem; border-bottom:1px solid var(--border); font-weight:700;">${m.label.toUpperCase()}</a>`).join("");
+    if (linksBox) {
+        linksBox.innerHTML = "";
+        VAULT_DATA.menu.forEach(item => {
+            const a = document.createElement("a");
+            a.href = "#" + item.id;
+            a.style = "padding:18px 25px; display:block; color:var(--text-main); text-decoration:none; font-size:0.75rem; border-bottom:1px solid var(--border); font-weight:700;";
+            a.innerText = item.label.toUpperCase();
+            a.onclick = (e) => { e.preventDefault(); navigateTo(item.id); };
+            linksBox.appendChild(a);
+        });
+    }
+
     renderProducts(VAULT_DATA.products);
     typeWriter(VAULT_DATA.content.heroTitle, 0);
-});
+}
+
+window.addEventListener('DOMContentLoaded', init);
