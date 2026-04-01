@@ -10,14 +10,14 @@ const VAULT_DATA = {
     owner: { firstName: "FRANS", lastName: "MARCELLINO", email: "fransmarselinosroyer@gmail.com" },
     content: { heroTitle: "Architecting Digital Sovereignty.", footer: "© 2026 FRANS MARCELLINO — ALL RIGHTS RESERVED" },
     products: [
-        { name: "Titan Core", price: "$1,290", desc: "Enterprise SaaS Framework.", img: "https://placehold.co/800x600/0f0f0f/ffd700?text=Titan+Core" },
-        { name: "Quantum UI", price: "$750", desc: "Kinetic React Components.", img: "https://placehold.co/800x600/0f0f0f/ffd700?text=Quantum+UI" },
-        { name: "SecureAuth X", price: "$490", desc: "Zero-Knowledge Auth Suite.", img: "https://placehold.co/800x600/0f0f0f/ffd700?text=SecureAuth+X" },
-        { name: "Nebula AI", price: "$2,999", desc: "Neural Integration Engine.", img: "https://placehold.co/800x600/0f0f0f/ffd700?text=Nebula+AI" },
-        { name: "Apex CMS", price: "$1,800", desc: "Headless Content Engine.", img: "https://placehold.co/800x600/0f0f0f/ffd700?text=Apex+CMS" },
-        { name: "Zenith ERP", price: "$4,500", desc: "Global Logistics Logic.", img: "https://placehold.co/800x600/0f0f0f/ffd700?text=Zenith+ERP" },
-        { name: "Vortex DB", price: "$980", desc: "Real-time Vector Database.", img: "https://placehold.co/800x600/0f0f0f/ffd700?text=Vortex+DB" },
-        { name: "Cipher Mesh", price: "$1,100", desc: "P2P Encryption Layer.", img: "https://placehold.co/800x600/0f0f0f/ffd700?text=Cipher+Mesh" }
+        { name: "Titan Core", price: "$1,290", desc: "Enterprise SaaS Framework.", img: "assets/img/Titan Core.webp" },
+        { name: "Quantum UI", price: "$750", desc: "Kinetic React Components.", img: "assets/img/Quantum UI.webp" },
+        { name: "SecureAuth X", price: "$490", desc: "Zero-Knowledge Auth Suite.", img: "assets/img/SecureAuth X.webp" },
+        { name: "Nebula AI", price: "$2,999", desc: "Neural Integration Engine.", img: "assets/img/Nebula AI.webp" },
+        { name: "Apex CMS", price: "$1,800", desc: "Headless Content Engine.", img: "assets/img/Apex CMS.webp" },
+        { name: "Zenith ERP", price: "$4,500", desc: "Global Logistics Logic.", img: "assets/img/Zenith ERP.webp" },
+        { name: "Vortex DB", price: "$980", desc: "Real-time Vector Database.", img: "assets/img/Vortex DB.webp" },
+        { name: "Cipher Mesh", price: "$1,100", desc: "P2P Encryption Layer.", img: "assets/img/Cipher Mesh.webp" }
     ],
     menu: [
         { label: "Home", id: "home" },
@@ -119,6 +119,7 @@ function renderProducts(data) {
         const loadingStrategy = index === 0 ? "eager" : "lazy";
         const priority = index === 0 ? "fetchpriority='high'" : "";
 
+        // Menggunakan p.img dari objek produk yang sudah diperbarui jalurnya
         card.innerHTML = `
             <div class="ev-video-bg ${vidClass}"></div>
             <div class="price-tag">${p.price}</div>
@@ -144,12 +145,19 @@ function handleSearch() {
 // --- MODAL & PAYMENT ---
 function openModal(n, p) {
     curN = n; curP = p;
-    document.getElementById("target-name").innerText = n.toUpperCase();
-    document.getElementById("target-price").innerText = p;
-    document.getElementById("modal").style.display = "flex";
+    const targetName = document.getElementById("target-name");
+    const targetPrice = document.getElementById("target-price");
+    const modal = document.getElementById("modal");
+
+    if(targetName) targetName.innerText = n.toUpperCase();
+    if(targetPrice) targetPrice.innerText = p;
+    if(modal) modal.style.display = "flex";
 }
 
-function closeModal() { document.getElementById("modal").style.display = "none"; }
+function closeModal() { 
+    const modal = document.getElementById("modal");
+    if(modal) modal.style.display = "none"; 
+}
 
 function selectPayment(method, element) {
     document.querySelectorAll(".method-card").forEach(c => c.classList.remove("active"));
@@ -158,7 +166,9 @@ function selectPayment(method, element) {
 }
 
 function confirmInquiry() {
-    const clientName = document.getElementById("client-name").value;
+    const clientNameInput = document.getElementById("client-name");
+    const clientName = clientNameInput ? clientNameInput.value : "";
+    
     if (!clientName) return alert("Identity Verification Required.");
     const body = `CLIENT: ${clientName}\nASSET: ${curN}\nVALUE: ${curP}\nGATEWAY: ${selectedGateway}`;
     window.location.href = `mailto:${VAULT_DATA.owner.email}?subject=Inquiry: ${curN}&body=${encodeURIComponent(body)}`;
@@ -190,7 +200,11 @@ function init() {
     }
 
     renderProducts(VAULT_DATA.products);
-    typeWriter(VAULT_DATA.content.heroTitle, 0);
+    
+    const heroTitleEl = document.getElementById("hero-title");
+    if (heroTitleEl) {
+        typeWriter(VAULT_DATA.content.heroTitle, 0);
+    }
 }
 
 window.addEventListener('DOMContentLoaded', init);
