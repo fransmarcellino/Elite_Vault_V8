@@ -56,7 +56,8 @@ nav{padding:20px 0;display:flex;justify-content:space-between;align-items:center
 
 /* HERO */
 .hero{text-align:center;position:relative;padding:120px 0}
-.hero h1{font-family:"Playfair Display",serif!important;font-size:clamp(2.5rem,8vw,5.5rem);font-weight:900;margin-bottom:24px;line-height:1.1;font-style:italic}
+/* Update: Changed from h1 to h2 selector for consistency */
+.hero h2{font-family:"Playfair Display",serif!important;font-size:clamp(2.5rem,8vw,5.5rem);font-weight:900;margin-bottom:24px;line-height:1.1;font-style:italic}
 .hero-badge-style{font-size:.7rem;letter-spacing:8px;color:var(--primary);margin-bottom:30px;font-weight:800;text-transform:uppercase}
 .hero-desc-style{color:var(--text-dim);max-width:750px;margin:0 auto 50px;font-size:1.15rem;font-weight:300}
 
@@ -117,9 +118,11 @@ footer{text-align:center;padding:100px 0 60px;color:var(--text-dim);border-top:1
 <div class="container">
 <header>
 <nav aria-label="Main Navigation">
-<a href="#top" class="logo" style="text-decoration: none; color: inherit;" aria-label="Frans Marcellino Home">
-FRANS <span>MARCELLINO</span>
-</a>
+<h1 class="logo">
+    <a href="#top" style="text-decoration: none; color: inherit;" aria-label="Frans Marcellino Home">
+    FRANS <span>MARCELLINO</span>
+    </a>
+</h1>
 
 <div class="nav-controls">
 <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">LIGHT MODE</button>
@@ -140,7 +143,7 @@ FRANS <span>MARCELLINO</span>
 <h2 class="visually-hidden">Home Section</h2>
 <article class="hero">
 <div class="hero-badge-style">ESTABLISHED 2026</div>
-<h1 id="hero-title">Architecting Digital Sovereignty.</h1>
+<h2 id="hero-title">Architecting Digital Sovereignty.</h2>
 <p class="hero-desc-style">Industrial-grade software assets designed for absolute performance.</p>
 <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 30px;">
 <button class="btn-premium" style="max-width: 280px" onclick="navigateTo('market')">VIEW REPOSITORY</button>
