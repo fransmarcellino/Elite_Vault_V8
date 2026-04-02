@@ -1,8 +1,8 @@
 /**
 * @file script.js
-* @description Master-Optimized Core for Elite Vault v8.2.1 + Product Typography Sync
+* @description Master-Optimized Core for Elite Vault v8.2.5 + UX Refinement
 * @author Frans Marcellino
-* @status W3C Compliant & PageSpeed Optimized (Visual Excellence Edition)
+* @status W3C Compliant & PageSpeed Optimized (Layout Excellence Edition)
 */
 
 "use strict";
@@ -139,12 +139,11 @@ function applyStructuralColoring() {
         });
     }
 
-    // 2. High-End Typography Sync (Product Title & FAQ Title)
-    // Target both 'repo-title' (The Repository) and 'faq-title'
+    // 2. High-End Typography Sync (Center Aligned)
     const titles = [
         document.getElementById("repo-title"), 
         document.getElementById("faq-title"),
-        document.querySelector("#market h2") // Fallback for product title tag
+        document.querySelector("#market h2")
     ];
 
     titles.forEach(title => {
@@ -155,10 +154,11 @@ function applyStructuralColoring() {
                 fontWeight: "900",
                 letterSpacing: "-1.5px",
                 textTransform: "none",
-                fontSize: "clamp(2rem, 8vw, 3.5rem)", // Responsive sizing
+                fontSize: "clamp(2.2rem, 8vw, 3.8rem)",
                 textShadow: `0 4px 15px ${shadowCol}`,
-                marginBottom: "40px",
-                textAlign: "left",
+                marginBottom: "50px",
+                textAlign: "center", // MASTER FIX: Center Alignment
+                width: "100%",
                 transition: "all 0.4s ease"
             });
         }
@@ -258,10 +258,16 @@ function confirmInquiry() {
 }
 
 function init() {
+    // DEFAULT DARK MODE LOGIC: Hanya aktifkan light-mode jika localStorage secara eksplisit bernilai "light"
     if (localStorage.getItem("theme") === "light") {
         document.body.classList.add("light-mode");
         const btn = document.getElementById("theme-btn");
         if (btn) btn.innerText = "DARK MODE";
+    } else {
+        // Pastikan default tetap Dark jika tidak ada data di localStorage
+        document.body.classList.remove("light-mode");
+        const btn = document.getElementById("theme-btn");
+        if (btn) btn.innerText = "LIGHT MODE";
     }
 
     const footerText = document.getElementById("footer-text");
