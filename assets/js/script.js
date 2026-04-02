@@ -2,7 +2,7 @@
 * @file script.js
 * @description Master-Optimized Core for Elite Vault v8.1.1 + Neural Grid Engine
 * @author Frans Marcellino
-* @status W3C Compliant & PageSpeed Optimized
+* @status W3C Compliant & PageSpeed Optimized (Typography Sync Edition)
 */
 
 "use strict";
@@ -122,8 +122,22 @@ function typeWriter(text, i) {
     }
 }
 
+// --- PRODUCT RENDERER (With Synchronized Typography) ---
 function renderProducts(data) {
     const grid = document.getElementById("main-grid");
+    const repoTitle = document.getElementById("repo-title");
+
+    // 1. Typography Synchronization for 'The Repository'
+    if (repoTitle) {
+        Object.assign(repoTitle.style, {
+            fontFamily: "'Playfair Display', serif",
+            fontStyle: "italic",
+            fontWeight: "900",
+            letterSpacing: "-1.5px",
+            textTransform: "none"
+        });
+    }
+
     if (!grid) return;
     const fragment = document.createDocumentFragment();
     if (data.length === 0) {
@@ -150,25 +164,24 @@ function renderProducts(data) {
     grid.appendChild(fragment);
 }
 
-// --- PREMIUM FAQ ENGINE (MODERN TYPOGRAPHY & EDITORIAL STYLE) ---
+// --- PREMIUM FAQ ENGINE (With Synchronized Typography) ---
 function renderFAQ() {
     const faqGrid = document.getElementById("faq-grid");
     const faqTitle = document.getElementById("faq-title");
     
-    // 1. Dynamic Typography Upgrade (W3C Compliant)
+    // 2. Typography Synchronization for 'Knowledge Base'
     if (faqTitle) {
         Object.assign(faqTitle.style, {
             fontFamily: "'Playfair Display', serif",
             fontStyle: "italic",
             fontWeight: "900",
-            letterSpacing: "-1px"
+            letterSpacing: "-1.5px"
         });
     }
 
     if (!faqGrid) return;
     const aiClasses = ["ai-vid-1", "ai-vid-2", "ai-vid-3", "ai-vid-4"];
     
-    // 2. Optimized Rendering via Template Literals & String Joining
     faqGrid.innerHTML = VAULT_DATA.faq.map((item, i) => `
         <article class="card" style="border: 1px solid rgba(255,215,0,0.08); backdrop-filter: blur(20px); transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); position:relative; overflow:hidden;">
             <div class="ev-video-bg ${aiClasses[i % 4]}" style="opacity: 0.04; pointer-events: none;"></div>
