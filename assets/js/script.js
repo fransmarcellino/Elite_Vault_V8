@@ -1,8 +1,8 @@
 /**
 * @file script.js
-* @description Master-Optimized Core for Elite Vault v8.2.0 + High-End Typography Sync
+* @description Master-Optimized Core for Elite Vault v8.2.1 + Product Typography Sync
 * @author Frans Marcellino
-* @status W3C Compliant & PageSpeed Optimized (Typography Excellence Edition)
+* @status W3C Compliant & PageSpeed Optimized (Visual Excellence Edition)
 */
 
 "use strict";
@@ -125,9 +125,9 @@ function typeWriter(text, i) {
 function applyStructuralColoring() {
     const isLight = document.body.classList.contains("light-mode");
     const bgCol = isLight ? "#f5f5f5" : "#1a1a1a";
-    const shadowCol = isLight ? "rgba(0,0,0,0.1)" : "rgba(255,215,0,0.2)";
+    const shadowCol = isLight ? "rgba(0,0,0,0.15)" : "rgba(255,215,0,0.25)";
     
-    // 1. Unified Header (Fix Double Header)
+    // 1. Unified Header Optimization
     const header = document.querySelector("header") || document.querySelector(".nav-main-wrapper");
     if (header) {
         Object.assign(header.style, {
@@ -137,16 +137,16 @@ function applyStructuralColoring() {
             padding: "0",
             margin: "0"
         });
-        const innerRows = header.querySelectorAll(".nav-row, .logo-row, .nav-container");
-        innerRows.forEach(row => {
-            row.style.backgroundColor = "transparent";
-            row.style.border = "none";
-            row.style.margin = "0";
-        });
     }
 
-    // 2. High-End Typography (Titles)
-    const titles = [document.getElementById("repo-title"), document.getElementById("faq-title")];
+    // 2. High-End Typography Sync (Product Title & FAQ Title)
+    // Target both 'repo-title' (The Repository) and 'faq-title'
+    const titles = [
+        document.getElementById("repo-title"), 
+        document.getElementById("faq-title"),
+        document.querySelector("#market h2") // Fallback for product title tag
+    ];
+
     titles.forEach(title => {
         if (title) {
             Object.assign(title.style, {
@@ -155,7 +155,10 @@ function applyStructuralColoring() {
                 fontWeight: "900",
                 letterSpacing: "-1.5px",
                 textTransform: "none",
-                textShadow: `0 2px 10px ${shadowCol}`,
+                fontSize: "clamp(2rem, 8vw, 3.5rem)", // Responsive sizing
+                textShadow: `0 4px 15px ${shadowCol}`,
+                marginBottom: "40px",
+                textAlign: "left",
                 transition: "all 0.4s ease"
             });
         }
