@@ -2,7 +2,7 @@
 * @file script.js
 * @description Master-Optimized Core for Elite Vault v8.1.1 + Neural Grid Engine
 * @author Frans Marcellino
-* @status W3C Compliant & PageSpeed Optimized (Typography Sync Edition)
+* @status W3C Compliant & PageSpeed Optimized (Structural UI Refinement Edition)
 */
 
 "use strict";
@@ -87,6 +87,9 @@ function toggleTheme() {
     localStorage.setItem("theme", isLight ? "light" : "dark");
     const btn = document.getElementById("theme-btn");
     if (btn) btn.innerText = isLight ? "DARK MODE" : "LIGHT MODE";
+    
+    // Re-sync structural coloring on theme toggle
+    applyStructuralColoring();
 }
 
 function toggleMenu(forceClose = false, event = null) {
@@ -122,12 +125,47 @@ function typeWriter(text, i) {
     }
 }
 
-// --- PRODUCT RENDERER (With Synchronized Typography) ---
+// --- STRUCTURAL UI REFINEMENT (HEADER & FOOTER BLOCKING) ---
+function applyStructuralColoring() {
+    const isLight = document.body.classList.contains("light-mode");
+    const deepCharcoal = "#1a1a1a";
+    const lightGrey = "#f5f5f5";
+    const targetColor = isLight ? lightGrey : deepCharcoal;
+
+    // 1. Top Navigation Block Alignment
+    const navHeader = document.querySelector(".nav-container") || document.querySelector("header");
+    if (navHeader) {
+        Object.assign(navHeader.style, {
+            backgroundColor: targetColor,
+            padding: "15px 25px",
+            transition: "all 0.4s cubic-bezier(0.23, 1, 0.32, 1)",
+            borderBottom: "1px solid var(--border)",
+            position: "relative",
+            zIndex: "100"
+        });
+    }
+
+    // 2. Social Media Block Refinement (Footer)
+    const socialWrapper = document.querySelector(".social-icons-wrapper") || document.getElementById("social-icons-container");
+    if (socialWrapper) {
+        Object.assign(socialWrapper.style, {
+            backgroundColor: targetColor,
+            padding: "15px 30px",
+            borderRadius: "14px",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "20px",
+            transition: "all 0.4s cubic-bezier(0.23, 1, 0.32, 1)",
+            border: `1px solid ${isLight ? "rgba(0,0,0,0.05)" : "rgba(255,215,0,0.08)"}`,
+            marginTop: "20px"
+        });
+    }
+}
+
 function renderProducts(data) {
     const grid = document.getElementById("main-grid");
     const repoTitle = document.getElementById("repo-title");
 
-    // 1. Typography Synchronization for 'The Repository'
     if (repoTitle) {
         Object.assign(repoTitle.style, {
             fontFamily: "'Playfair Display', serif",
@@ -164,12 +202,10 @@ function renderProducts(data) {
     grid.appendChild(fragment);
 }
 
-// --- PREMIUM FAQ ENGINE (With Synchronized Typography) ---
 function renderFAQ() {
     const faqGrid = document.getElementById("faq-grid");
     const faqTitle = document.getElementById("faq-title");
     
-    // 2. Typography Synchronization for 'Knowledge Base'
     if (faqTitle) {
         Object.assign(faqTitle.style, {
             fontFamily: "'Playfair Display', serif",
@@ -259,6 +295,7 @@ function init() {
     
     renderProducts(VAULT_DATA.products);
     renderFAQ();
+    applyStructuralColoring(); // Initial structural refinement
     
     const heroTitleEl = document.getElementById("hero-title");
     if (heroTitleEl) {
