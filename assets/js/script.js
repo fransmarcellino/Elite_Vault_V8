@@ -1,9 +1,3 @@
-/**
-* @file script.js
-* @description Master-Optimized Core for Elite Vault v8.1.1 + Neural Grid Engine
-* @author Frans Marcellino
-*/
-
 "use strict";
 
 const VAULT_DATA = {
@@ -19,17 +13,23 @@ const VAULT_DATA = {
         { name: "Vortex DB", price: "$980", desc: "Real-time Vector Database.", img: "assets/img/Vortex DB.webp" },
         { name: "Cipher Mesh", price: "$1,100", desc: "P2P Encryption Layer.", img: "assets/img/Cipher Mesh.webp" }
     ],
+    faq: [
+        { q: "How secure is the acquisition?", a: "Transactions are processed via industrial-grade encrypted gateways with full buyer protection." },
+        { q: "Is the source code obfuscated?", a: "No. You receive clean, modular, and fully documented production-ready source code." },
+        { q: "Do you provide integration support?", a: "Every license includes 30 days of technical consulting for seamless implementation." }
+    ],
     menu: [
         { label: "Home", id: "home" },
         { label: "Vault", id: "market" },
-        { label: "About", id: "about" }
+        { label: "About", id: "about" },
+        { label: "FAQ", id: "faq" }
     ]
 };
 
 let curN = "", curP = "", selectedGateway = "PayPal";
 const cursorEl = document.getElementById("cursor");
 
-// --- UI ENGINE (High Performance) ---
+// --- UI ENGINE ---
 document.addEventListener("mousemove", (e) => {
     if (cursorEl) {
         window.requestAnimationFrame(() => {
@@ -71,12 +71,11 @@ function toggleMenu(forceClose = false, event = null) {
         setTimeout(() => { if(!dropdown.classList.contains("active")) dropdown.style.display = "none"; }, 300);
     } else {
         dropdown.style.display = "block";
-        dropdown.offsetHeight; // Trigger reflow
+        dropdown.offsetHeight;
         dropdown.classList.add("active");
     }
 }
 
-// Click outside menu fix
 document.addEventListener("click", (e) => {
     const dropdown = document.getElementById("dropdown");
     const kebabBtn = document.getElementById("kebab-menu-btn");
@@ -88,76 +87,71 @@ document.addEventListener("click", (e) => {
 // --- TYPEWRITER ---
 function typeWriter(text, i) {
     const el = document.getElementById("hero-title");
-    if (el) {
-        if (i <= text.length) {
-            el.textContent = text.substring(0, i);
-            setTimeout(() => typeWriter(text, i + 1), 50);
-        }
+    if (el && i <= text.length) {
+        el.textContent = text.substring(0, i);
+        setTimeout(() => typeWriter(text, i + 1), 50);
     }
 }
 
-// --- PRODUCT RENDERER (Neural Integration) ---
+// --- RENDERERS (RESTORASI LENGKAP) ---
 function renderProducts(data) {
     const grid = document.getElementById("main-grid");
     if (!grid) return;
-
     const fragment = document.createDocumentFragment();
-
     if (data.length === 0) {
         grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:80px 20px;"><h3>Asset Not Found</h3></div>`;
         return;
     }
-
-    // Variasi Animasi AI
     const aiClasses = ["ai-vid-1", "ai-vid-2", "ai-vid-3", "ai-vid-4", "ai-vid-5", "ai-vid-6", "ai-vid-7", "ai-vid-8"];
 
     data.forEach((p, index) => {
         const card = document.createElement("article");
         card.className = "card";
         const vidClass = aiClasses[index % aiClasses.length];
-
         const loadingStrategy = index === 0 ? "eager" : "lazy";
-        const priority = index === 0 ? "fetchpriority='high'" : "";
-
-        // Menggunakan p.img dari objek produk yang sudah diperbarui jalurnya
+        
         card.innerHTML = `
             <div class="ev-video-bg ${vidClass}"></div>
             <div class="price-tag">${p.price}</div>
-            <img src="${p.img}" class="card-img" alt="${p.name}" width="800" height="600" loading="${loadingStrategy}" ${priority}>
+            <img src="${p.img}" class="card-img" alt="${p.name}" width="800" height="600" loading="${loadingStrategy}">
             <h3 style="margin-bottom:10px; position:relative; z-index:2;">${p.name}</h3>
             <p style="color:var(--text-dim);margin-bottom:25px;font-size:0.9rem; position:relative; z-index:2;">${p.desc}</p>
             <button class="btn-premium" onclick="openModal('${p.name}', '${p.price}')">Acquire License</button>`;
         fragment.appendChild(card);
     });
-
     grid.innerHTML = "";
     grid.appendChild(fragment);
 }
 
+function renderFAQ() {
+    const faqGrid = document.getElementById("faq-grid");
+    if (!faqGrid) return;
+    const aiClasses = ["ai-vid-1", "ai-vid-2", "ai-vid-3", "ai-vid-4", "ai-vid-5", "ai-vid-6", "ai-vid-7", "ai-vid-8"];
+
+    faqGrid.innerHTML = VAULT_DATA.faq.map((item, index) => `
+        <article class="card">
+            <div class="ev-video-bg ${aiClasses[index % aiClasses.length]}"></div>
+            <h3 style="color:var(--primary); margin-bottom:15px; font-size:1.2rem; position:relative; z-index:2;">${item.q}</h3>
+            <p style="color:var(--text-dim); font-size:0.9rem; position:relative; z-index:2;">${item.a}</p>
+        </article>
+    `).join('');
+}
+
 function handleSearch() {
     const q = document.getElementById("search-bar").value.toLowerCase();
-    const filtered = VAULT_DATA.products.filter(p => 
-        p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q)
-    );
+    const filtered = VAULT_DATA.products.filter(p => p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q));
     renderProducts(filtered);
 }
 
-// --- MODAL & PAYMENT ---
+// --- MODAL ---
 function openModal(n, p) {
     curN = n; curP = p;
-    const targetName = document.getElementById("target-name");
-    const targetPrice = document.getElementById("target-price");
-    const modal = document.getElementById("modal");
-
-    if(targetName) targetName.innerText = n.toUpperCase();
-    if(targetPrice) targetPrice.innerText = p;
-    if(modal) modal.style.display = "flex";
+    document.getElementById("target-name").innerText = n.toUpperCase();
+    document.getElementById("target-price").innerText = p;
+    document.getElementById("modal").style.display = "flex";
 }
 
-function closeModal() { 
-    const modal = document.getElementById("modal");
-    if(modal) modal.style.display = "none"; 
-}
+function closeModal() { document.getElementById("modal").style.display = "none"; }
 
 function selectPayment(method, element) {
     document.querySelectorAll(".method-card").forEach(c => c.classList.remove("active"));
@@ -166,9 +160,7 @@ function selectPayment(method, element) {
 }
 
 function confirmInquiry() {
-    const clientNameInput = document.getElementById("client-name");
-    const clientName = clientNameInput ? clientNameInput.value : "";
-    
+    const clientName = document.getElementById("client-name")?.value;
     if (!clientName) return alert("Identity Verification Required.");
     const body = `CLIENT: ${clientName}\nASSET: ${curN}\nVALUE: ${curP}\nGATEWAY: ${selectedGateway}`;
     window.location.href = `mailto:${VAULT_DATA.owner.email}?subject=Inquiry: ${curN}&body=${encodeURIComponent(body)}`;
@@ -200,11 +192,9 @@ function init() {
     }
 
     renderProducts(VAULT_DATA.products);
-    
+    renderFAQ();
     const heroTitleEl = document.getElementById("hero-title");
-    if (heroTitleEl) {
-        typeWriter(VAULT_DATA.content.heroTitle, 0);
-    }
+    if (heroTitleEl) typeWriter(VAULT_DATA.content.heroTitle, 0);
 }
 
 window.addEventListener('DOMContentLoaded', init);
