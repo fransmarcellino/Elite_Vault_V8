@@ -26,10 +26,30 @@ const VAULT_DATA = {
         { label: "FAQ", id: "faq" }
     ],
     faq: [
-        { q: "Apa itu Elite Vault License?", a: "Lisensi eksklusif untuk penggunaan aset digital industri dengan dukungan update seumur hidup." },
-        { q: "Bagaimana sistem pembayarannya?", a: "Kami mendukung PayPal, Kartu Kredit, dan Crypto melalui sistem Escrow yang aman." },
-        { q: "Apakah aset AI dapat dikustomisasi?", a: "Ya, semua aset dirancang secara modular sehingga mudah diintegrasikan ke berbagai proyek." },
-        { q: "Bagaimana cara verifikasi identitas?", a: "Cukup masukkan nama lengkap Anda pada kolom verifikasi saat melakukan permintaan lisensi." }
+        { 
+            q: "How is the code architecture and performance verified?", 
+            a: "Our technical integrity is paramount. This website has passed rigorous W3C Validation (HTML5 & CSS3) and is optimized for maximum Google PageSpeed scores. Verify directly: [W3C HTML](https://validator.w3.org/nu/?doc=https://fransmarcellino.github.io/Elite_Vault_V8/), [W3C CSS](https://jigsaw.w3.org/css-validator/validator?uri=https://fransmarcellino.github.io/Elite_Vault_V8/), [Google PageSpeed](https://pagespeed.web.dev/analysis?url=https://fransmarcellino.github.io/Elite_Vault_V8/)." 
+        },
+        { 
+            q: "What components are included in the acquisition package?", 
+            a: "Upon a successful transaction, you will receive a structured .ZIP Digital Archive containing: Optimized Core Source Code (HTML5, CSS3, JS), Operational Documentation (README) for implementation, and an Official License Certificate." 
+        },
+        { 
+            q: "What are the legal restrictions of this license?", 
+            a: "This license is exclusive for personal use or client projects. RESELLING, redistributing, or broadcasting this asset as a standalone product on any marketplace is STRICTLY PROHIBITED. Violations will result in immediate license revocation." 
+        },
+        { 
+            q: "How secure is my financial data during the transaction?", 
+            a: "All payments are managed by Trusted Digital Marketplaces via global security infrastructure (SSL/TLS). We do not store or have access to your sensitive banking data. Security is guaranteed by the marketplace's consumer protection protocols." 
+        },
+        { 
+            q: "Why is the initial procedure conducted via Email?", 
+            a: "We implement Email-Inquiry protocols to guarantee client privacy and prevent data exposure on public forms. This ensures a secure, private, and personal assistance path for every prospective license holder." 
+        },
+        { 
+            q: "How can I contact technical support or the operator?", 
+            a: "We are committed to professional support. For specific asset inquiries or technical assistance, contact our operator directly at: fransmarcellinosroyer@gmail.com." 
+        }
     ]
 };
 
