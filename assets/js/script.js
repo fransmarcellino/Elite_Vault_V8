@@ -2,7 +2,7 @@
 * @file script.js
 * @description Master-Optimized Core for Elite Vault v8.1.1 + Neural Grid Engine
 * @author Frans Marcellino
-* @status W3C Compliant & PageSpeed Optimized (Structural UI Refinement Edition)
+* @status W3C Compliant & PageSpeed Optimized (Ultra-Precise Structural Coloring)
 */
 
 "use strict";
@@ -88,7 +88,7 @@ function toggleTheme() {
     const btn = document.getElementById("theme-btn");
     if (btn) btn.innerText = isLight ? "DARK MODE" : "LIGHT MODE";
     
-    // Re-sync structural coloring on theme toggle
+    // Immediate structural color sync
     applyStructuralColoring();
 }
 
@@ -125,39 +125,43 @@ function typeWriter(text, i) {
     }
 }
 
-// --- STRUCTURAL UI REFINEMENT (HEADER & FOOTER BLOCKING) ---
+// --- ULTRA-PRECISE STRUCTURAL COLORING ---
 function applyStructuralColoring() {
     const isLight = document.body.classList.contains("light-mode");
-    const deepCharcoal = "#1a1a1a";
-    const lightGrey = "#f5f5f5";
-    const targetColor = isLight ? lightGrey : deepCharcoal;
-
-    // 1. Top Navigation Block Alignment
-    const navHeader = document.querySelector(".nav-container") || document.querySelector("header");
-    if (navHeader) {
-        Object.assign(navHeader.style, {
-            backgroundColor: targetColor,
-            padding: "15px 25px",
-            transition: "all 0.4s cubic-bezier(0.23, 1, 0.32, 1)",
+    const bgCol = isLight ? "#f5f5f5" : "#1a1a1a";
+    
+    // 1. Unified Header Alignment (Nama + Nav Row)
+    // Target the entire top area container before the main content starts
+    const headerElement = document.querySelector("header") || document.querySelector(".nav-main-wrapper");
+    if (headerElement) {
+        Object.assign(headerElement.style, {
+            backgroundColor: bgCol,
+            transition: "background 0.4s cubic-bezier(0.23, 1, 0.32, 1)",
             borderBottom: "1px solid var(--border)",
-            position: "relative",
-            zIndex: "100"
+            paddingBottom: "10px"
+        });
+        
+        // Ensure child rows (Name row and Nav row) have transparent backgrounds to show unified color
+        const topRows = headerElement.querySelectorAll(".nav-row, .logo-row, .nav-container");
+        topRows.forEach(row => {
+            row.style.backgroundColor = "transparent";
+            row.style.border = "none";
         });
     }
 
-    // 2. Social Media Block Refinement (Footer)
-    const socialWrapper = document.querySelector(".social-icons-wrapper") || document.getElementById("social-icons-container");
-    if (socialWrapper) {
-        Object.assign(socialWrapper.style, {
-            backgroundColor: targetColor,
-            padding: "15px 30px",
-            borderRadius: "14px",
+    // 2. Social Media Dock (Footer Area)
+    const socialDock = document.querySelector(".social-icons-wrapper") || document.getElementById("social-icons-container");
+    if (socialDock) {
+        Object.assign(socialDock.style, {
+            backgroundColor: bgCol,
+            padding: "15px 35px",
+            borderRadius: "12px",
             display: "inline-flex",
             alignItems: "center",
             gap: "20px",
-            transition: "all 0.4s cubic-bezier(0.23, 1, 0.32, 1)",
-            border: `1px solid ${isLight ? "rgba(0,0,0,0.05)" : "rgba(255,215,0,0.08)"}`,
-            marginTop: "20px"
+            transition: "all 0.4s ease",
+            border: `1px solid ${isLight ? "rgba(0,0,0,0.05)" : "rgba(255,215,0,0.1)"}`,
+            marginTop: "15px"
         });
     }
 }
