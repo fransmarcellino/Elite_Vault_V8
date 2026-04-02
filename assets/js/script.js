@@ -22,7 +22,14 @@ const VAULT_DATA = {
     menu: [
         { label: "Home", id: "home" },
         { label: "Vault", id: "market" },
-        { label: "About", id: "about" }
+        { label: "About", id: "about" },
+        { label: "FAQ", id: "faq" }
+    ],
+    faq: [
+        { q: "Apa itu Elite Vault License?", a: "Lisensi eksklusif untuk penggunaan aset digital industri dengan dukungan update seumur hidup." },
+        { q: "Bagaimana sistem pembayarannya?", a: "Kami mendukung PayPal, Kartu Kredit, dan Crypto melalui sistem Escrow yang aman." },
+        { q: "Apakah aset AI dapat dikustomisasi?", a: "Ya, semua aset dirancang secara modular sehingga mudah diintegrasikan ke berbagai proyek." },
+        { q: "Bagaimana cara verifikasi identitas?", a: "Cukup masukkan nama lengkap Anda pada kolom verifikasi saat melakukan permintaan lisensi." }
     ]
 };
 
@@ -134,6 +141,20 @@ function renderProducts(data) {
     grid.appendChild(fragment);
 }
 
+// --- FAQ RENDERER ---
+function renderFAQ() {
+    const faqGrid = document.getElementById("faq-grid");
+    if (!faqGrid) return;
+    const aiClasses = ["ai-vid-1", "ai-vid-2", "ai-vid-3", "ai-vid-4"];
+    faqGrid.innerHTML = VAULT_DATA.faq.map((item, i) => `
+        <article class="card">
+            <div class="ev-video-bg ${aiClasses[i % 4]}"></div>
+            <h3 style="color:var(--primary); margin-bottom:15px; font-size:1.2rem; position:relative; z-index:2;">${item.q}</h3>
+            <p style="color:var(--text-dim); font-size:0.9rem; position:relative; z-index:2;">${item.a}</p>
+        </article>
+    `).join('');
+}
+
 function handleSearch() {
     const q = document.getElementById("search-bar").value.toLowerCase();
     const filtered = VAULT_DATA.products.filter(p => 
@@ -200,6 +221,7 @@ function init() {
     }
 
     renderProducts(VAULT_DATA.products);
+    renderFAQ();
     
     const heroTitleEl = document.getElementById("hero-title");
     if (heroTitleEl) {
