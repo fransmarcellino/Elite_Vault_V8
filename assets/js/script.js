@@ -2,7 +2,6 @@
 * @file script.js
 * @description Master-Optimized Core for Elite Vault v8.1.1 + Neural Grid Engine
 * @author Frans Marcellino
-* @status W3C Compliant & PageSpeed Optimized (Ultra-Precise Structural Coloring)
 */
 
 "use strict";
@@ -87,9 +86,6 @@ function toggleTheme() {
     localStorage.setItem("theme", isLight ? "light" : "dark");
     const btn = document.getElementById("theme-btn");
     if (btn) btn.innerText = isLight ? "DARK MODE" : "LIGHT MODE";
-    
-    // Immediate structural color sync
-    applyStructuralColoring();
 }
 
 function toggleMenu(forceClose = false, event = null) {
@@ -102,11 +98,12 @@ function toggleMenu(forceClose = false, event = null) {
         setTimeout(() => { if(!dropdown.classList.contains("active")) dropdown.style.display = "none"; }, 300);
     } else {
         dropdown.style.display = "block";
-        dropdown.offsetHeight; 
+        dropdown.offsetHeight; // Trigger reflow
         dropdown.classList.add("active");
     }
 }
 
+// Click outside menu fix
 document.addEventListener("click", (e) => {
     const dropdown = document.getElementById("dropdown");
     const kebabBtn = document.getElementById("kebab-menu-btn");
@@ -115,6 +112,7 @@ document.addEventListener("click", (e) => {
     }
 });
 
+// --- TYPEWRITER ---
 function typeWriter(text, i) {
     const el = document.getElementById("hero-title");
     if (el) {
@@ -125,74 +123,30 @@ function typeWriter(text, i) {
     }
 }
 
-// --- ULTRA-PRECISE STRUCTURAL COLORING ---
-function applyStructuralColoring() {
-    const isLight = document.body.classList.contains("light-mode");
-    const bgCol = isLight ? "#f5f5f5" : "#1a1a1a";
-    
-    // 1. Unified Header Alignment (Nama + Nav Row)
-    // Target the entire top area container before the main content starts
-    const headerElement = document.querySelector("header") || document.querySelector(".nav-main-wrapper");
-    if (headerElement) {
-        Object.assign(headerElement.style, {
-            backgroundColor: bgCol,
-            transition: "background 0.4s cubic-bezier(0.23, 1, 0.32, 1)",
-            borderBottom: "1px solid var(--border)",
-            paddingBottom: "10px"
-        });
-        
-        // Ensure child rows (Name row and Nav row) have transparent backgrounds to show unified color
-        const topRows = headerElement.querySelectorAll(".nav-row, .logo-row, .nav-container");
-        topRows.forEach(row => {
-            row.style.backgroundColor = "transparent";
-            row.style.border = "none";
-        });
-    }
-
-    // 2. Social Media Dock (Footer Area)
-    const socialDock = document.querySelector(".social-icons-wrapper") || document.getElementById("social-icons-container");
-    if (socialDock) {
-        Object.assign(socialDock.style, {
-            backgroundColor: bgCol,
-            padding: "15px 35px",
-            borderRadius: "12px",
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "20px",
-            transition: "all 0.4s ease",
-            border: `1px solid ${isLight ? "rgba(0,0,0,0.05)" : "rgba(255,215,0,0.1)"}`,
-            marginTop: "15px"
-        });
-    }
-}
-
+// --- PRODUCT RENDERER (Neural Integration) ---
 function renderProducts(data) {
     const grid = document.getElementById("main-grid");
-    const repoTitle = document.getElementById("repo-title");
-
-    if (repoTitle) {
-        Object.assign(repoTitle.style, {
-            fontFamily: "'Playfair Display', serif",
-            fontStyle: "italic",
-            fontWeight: "900",
-            letterSpacing: "-1.5px",
-            textTransform: "none"
-        });
-    }
-
     if (!grid) return;
+
     const fragment = document.createDocumentFragment();
+
     if (data.length === 0) {
         grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:80px 20px;"><h3>Asset Not Found</h3></div>`;
         return;
     }
+
+    // Variasi Animasi AI
     const aiClasses = ["ai-vid-1", "ai-vid-2", "ai-vid-3", "ai-vid-4", "ai-vid-5", "ai-vid-6", "ai-vid-7", "ai-vid-8"];
+
     data.forEach((p, index) => {
         const card = document.createElement("article");
         card.className = "card";
         const vidClass = aiClasses[index % aiClasses.length];
+
         const loadingStrategy = index === 0 ? "eager" : "lazy";
         const priority = index === 0 ? "fetchpriority='high'" : "";
+
+        // Menggunakan p.img dari objek produk yang sudah diperbarui jalurnya
         card.innerHTML = `
             <div class="ev-video-bg ${vidClass}"></div>
             <div class="price-tag">${p.price}</div>
@@ -202,36 +156,21 @@ function renderProducts(data) {
             <button class="btn-premium" onclick="openModal('${p.name}', '${p.price}')">Acquire License</button>`;
         fragment.appendChild(card);
     });
+
     grid.innerHTML = "";
     grid.appendChild(fragment);
 }
 
+// --- FAQ RENDERER ---
 function renderFAQ() {
     const faqGrid = document.getElementById("faq-grid");
-    const faqTitle = document.getElementById("faq-title");
-    
-    if (faqTitle) {
-        Object.assign(faqTitle.style, {
-            fontFamily: "'Playfair Display', serif",
-            fontStyle: "italic",
-            fontWeight: "900",
-            letterSpacing: "-1.5px"
-        });
-    }
-
     if (!faqGrid) return;
     const aiClasses = ["ai-vid-1", "ai-vid-2", "ai-vid-3", "ai-vid-4"];
-    
     faqGrid.innerHTML = VAULT_DATA.faq.map((item, i) => `
-        <article class="card" style="border: 1px solid rgba(255,215,0,0.08); backdrop-filter: blur(20px); transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); position:relative; overflow:hidden;">
-            <div class="ev-video-bg ${aiClasses[i % 4]}" style="opacity: 0.04; pointer-events: none;"></div>
-            <h3 style="color:var(--text-main); margin-bottom:20px; font-size:1.05rem; position:relative; z-index:2; line-height:1.5; display:flex; align-items:flex-start; gap:12px;">
-                <span style="color:var(--primary); font-family:'Playfair Display', serif; font-size:1.6rem; line-height:1; font-style:italic; font-weight:900;">Q.</span> 
-                ${item.q}
-            </h3>
-            <div style="color:var(--text-dim); font-size:0.85rem; position:relative; z-index:2; line-height:1.9; padding-left:34px; border-left: 1px solid var(--border);">
-                <span style="color:var(--primary); font-weight:bold; margin-right:8px; opacity:0.8;">—</span> ${item.a}
-            </div>
+        <article class="card">
+            <div class="ev-video-bg ${aiClasses[i % 4]}"></div>
+            <h3 style="color:var(--primary); margin-bottom:15px; font-size:1.2rem; position:relative; z-index:2;">${item.q}</h3>
+            <div style="color:var(--text-dim); font-size:0.9rem; position:relative; z-index:2; line-height:1.6;">${item.a}</div>
         </article>
     `).join('');
 }
@@ -244,11 +183,13 @@ function handleSearch() {
     renderProducts(filtered);
 }
 
+// --- MODAL & PAYMENT ---
 function openModal(n, p) {
     curN = n; curP = p;
     const targetName = document.getElementById("target-name");
     const targetPrice = document.getElementById("target-price");
     const modal = document.getElementById("modal");
+
     if(targetName) targetName.innerText = n.toUpperCase();
     if(targetPrice) targetPrice.innerText = p;
     if(modal) modal.style.display = "flex";
@@ -268,38 +209,39 @@ function selectPayment(method, element) {
 function confirmInquiry() {
     const clientNameInput = document.getElementById("client-name");
     const clientName = clientNameInput ? clientNameInput.value : "";
+    
     if (!clientName) return alert("Identity Verification Required.");
     const body = `CLIENT: ${clientName}\nASSET: ${curN}\nVALUE: ${curP}\nGATEWAY: ${selectedGateway}`;
     window.location.href = `mailto:${VAULT_DATA.owner.email}?subject=Inquiry: ${curN}&body=${encodeURIComponent(body)}`;
     closeModal();
 }
 
+// --- INITIALIZATION ---
 function init() {
     if (localStorage.getItem("theme") === "light") {
         document.body.classList.add("light-mode");
         const btn = document.getElementById("theme-btn");
         if (btn) btn.innerText = "DARK MODE";
     }
-    
+
     const footerText = document.getElementById("footer-text");
     if (footerText) footerText.innerText = VAULT_DATA.content.footer;
-    
+
     const linksBox = document.getElementById("social-links");
     if (linksBox) {
         linksBox.innerHTML = "";
         VAULT_DATA.menu.forEach(item => {
             const a = document.createElement("a");
             a.href = "#" + item.id;
-            a.style = "padding:18px 25px; display:block; color:var(--text-main); text-decoration:none; font-size:0.75rem; border-bottom:1px solid var(--border); font-weight:700; transition: background 0.3s;";
+            a.style = "padding:18px 25px; display:block; color:var(--text-main); text-decoration:none; font-size:0.75rem; border-bottom:1px solid var(--border); font-weight:700;";
             a.innerText = item.label.toUpperCase();
             a.onclick = (e) => { e.preventDefault(); navigateTo(item.id); };
             linksBox.appendChild(a);
         });
     }
-    
+
     renderProducts(VAULT_DATA.products);
     renderFAQ();
-    applyStructuralColoring(); // Initial structural refinement
     
     const heroTitleEl = document.getElementById("hero-title");
     if (heroTitleEl) {
