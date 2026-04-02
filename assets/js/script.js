@@ -1,7 +1,8 @@
 /**
 * @file script.js
-* @description Master-Optimized Core for Elite Vault v8.1.1 + Neural Grid Engine
+* @description Master-Optimized Core for Elite Vault v8.2.0 + High-End Typography Sync
 * @author Frans Marcellino
+* @status W3C Compliant & PageSpeed Optimized (Typography Excellence Edition)
 */
 
 "use strict";
@@ -36,15 +37,15 @@ const VAULT_DATA = {
         },
         { 
             q: "What are the legal restrictions of this license?", 
-            a: "This license is exclusive for personal use or client projects. RESELLING, redistributing, or broadcasting this asset as a standalone product on any marketplace is STRICTLY PROHIBITED. Violations will result in immediate license revocation." 
+            a: "This license is exclusive for personal use or client projects. RESELLING, redistributing, or broadcasting this asset as a standalone product on any marketplace is STRICTLY PROHIBITED." 
         },
         { 
             q: "How secure is my financial data during the transaction?", 
-            a: "All payments are managed by Trusted Digital Marketplaces via global security infrastructure (SSL/TLS). We do not store or have access to your sensitive banking data. Security is guaranteed by the marketplace's consumer protection protocols." 
+            a: "All payments are managed by Trusted Digital Marketplaces via global security infrastructure (SSL/TLS). We do not store or have access to your sensitive banking data." 
         },
         { 
             q: "Why is the initial procedure conducted via Email?", 
-            a: "We implement Email-Inquiry protocols to guarantee client privacy and prevent data exposure on public forms. This ensures a secure, private, and personal assistance path for every prospective license holder." 
+            a: "We implement Email-Inquiry protocols to guarantee client privacy and prevent data exposure on public forms. This ensures a secure, private, and personal assistance path." 
         },
         { 
             q: "How can I contact technical support or the operator?", 
@@ -86,6 +87,7 @@ function toggleTheme() {
     localStorage.setItem("theme", isLight ? "light" : "dark");
     const btn = document.getElementById("theme-btn");
     if (btn) btn.innerText = isLight ? "DARK MODE" : "LIGHT MODE";
+    applyStructuralColoring();
 }
 
 function toggleMenu(forceClose = false, event = null) {
@@ -98,12 +100,11 @@ function toggleMenu(forceClose = false, event = null) {
         setTimeout(() => { if(!dropdown.classList.contains("active")) dropdown.style.display = "none"; }, 300);
     } else {
         dropdown.style.display = "block";
-        dropdown.offsetHeight; // Trigger reflow
+        dropdown.offsetHeight; 
         dropdown.classList.add("active");
     }
 }
 
-// Click outside menu fix
 document.addEventListener("click", (e) => {
     const dropdown = document.getElementById("dropdown");
     const kebabBtn = document.getElementById("kebab-menu-btn");
@@ -112,65 +113,105 @@ document.addEventListener("click", (e) => {
     }
 });
 
-// --- TYPEWRITER ---
 function typeWriter(text, i) {
     const el = document.getElementById("hero-title");
-    if (el) {
-        if (i <= text.length) {
-            el.textContent = text.substring(0, i);
-            setTimeout(() => typeWriter(text, i + 1), 50);
-        }
+    if (el && i <= text.length) {
+        el.textContent = text.substring(0, i);
+        setTimeout(() => typeWriter(text, i + 1), 50);
     }
 }
 
-// --- PRODUCT RENDERER (Neural Integration) ---
+// --- VISUAL EXCELLENCE ENGINE (Typography & Flattening) ---
+function applyStructuralColoring() {
+    const isLight = document.body.classList.contains("light-mode");
+    const bgCol = isLight ? "#f5f5f5" : "#1a1a1a";
+    const shadowCol = isLight ? "rgba(0,0,0,0.1)" : "rgba(255,215,0,0.2)";
+    
+    // 1. Unified Header (Fix Double Header)
+    const header = document.querySelector("header") || document.querySelector(".nav-main-wrapper");
+    if (header) {
+        Object.assign(header.style, {
+            backgroundColor: bgCol,
+            transition: "all 0.4s ease",
+            borderBottom: "1px solid var(--border)",
+            padding: "0",
+            margin: "0"
+        });
+        const innerRows = header.querySelectorAll(".nav-row, .logo-row, .nav-container");
+        innerRows.forEach(row => {
+            row.style.backgroundColor = "transparent";
+            row.style.border = "none";
+            row.style.margin = "0";
+        });
+    }
+
+    // 2. High-End Typography (Titles)
+    const titles = [document.getElementById("repo-title"), document.getElementById("faq-title")];
+    titles.forEach(title => {
+        if (title) {
+            Object.assign(title.style, {
+                fontFamily: "'Playfair Display', serif",
+                fontStyle: "italic",
+                fontWeight: "900",
+                letterSpacing: "-1.5px",
+                textTransform: "none",
+                textShadow: `0 2px 10px ${shadowCol}`,
+                transition: "all 0.4s ease"
+            });
+        }
+    });
+
+    // 3. Social Media Dock Sync
+    const socialDock = document.querySelector(".social-icons-wrapper") || document.getElementById("social-icons-container");
+    if (socialDock) {
+        Object.assign(socialDock.style, {
+            backgroundColor: bgCol,
+            padding: "15px 35px",
+            borderRadius: "12px",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "20px",
+            border: `1px solid ${isLight ? "rgba(0,0,0,0.05)" : "rgba(255,215,0,0.1)"}`
+        });
+    }
+}
+
 function renderProducts(data) {
     const grid = document.getElementById("main-grid");
     if (!grid) return;
-
     const fragment = document.createDocumentFragment();
-
-    if (data.length === 0) {
-        grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:80px 20px;"><h3>Asset Not Found</h3></div>`;
-        return;
-    }
-
-    // Variasi Animasi AI
     const aiClasses = ["ai-vid-1", "ai-vid-2", "ai-vid-3", "ai-vid-4", "ai-vid-5", "ai-vid-6", "ai-vid-7", "ai-vid-8"];
 
     data.forEach((p, index) => {
         const card = document.createElement("article");
         card.className = "card";
-        const vidClass = aiClasses[index % aiClasses.length];
-
         const loadingStrategy = index === 0 ? "eager" : "lazy";
-        const priority = index === 0 ? "fetchpriority='high'" : "";
-
-        // Menggunakan p.img dari objek produk yang sudah diperbarui jalurnya
         card.innerHTML = `
-            <div class="ev-video-bg ${vidClass}"></div>
+            <div class="ev-video-bg ${aiClasses[index % 8]}"></div>
             <div class="price-tag">${p.price}</div>
-            <img src="${p.img}" class="card-img" alt="${p.name}" width="800" height="600" loading="${loadingStrategy}" ${priority}>
+            <img src="${p.img}" class="card-img" alt="${p.name}" loading="${loadingStrategy}">
             <h3 style="margin-bottom:10px; position:relative; z-index:2;">${p.name}</h3>
             <p style="color:var(--text-dim);margin-bottom:25px;font-size:0.9rem; position:relative; z-index:2;">${p.desc}</p>
             <button class="btn-premium" onclick="openModal('${p.name}', '${p.price}')">Acquire License</button>`;
         fragment.appendChild(card);
     });
-
     grid.innerHTML = "";
     grid.appendChild(fragment);
 }
 
-// --- FAQ RENDERER ---
 function renderFAQ() {
     const faqGrid = document.getElementById("faq-grid");
     if (!faqGrid) return;
     const aiClasses = ["ai-vid-1", "ai-vid-2", "ai-vid-3", "ai-vid-4"];
     faqGrid.innerHTML = VAULT_DATA.faq.map((item, i) => `
-        <article class="card">
-            <div class="ev-video-bg ${aiClasses[i % 4]}"></div>
-            <h3 style="color:var(--primary); margin-bottom:15px; font-size:1.2rem; position:relative; z-index:2;">${item.q}</h3>
-            <div style="color:var(--text-dim); font-size:0.9rem; position:relative; z-index:2; line-height:1.6;">${item.a}</div>
+        <article class="card" style="position:relative; overflow:hidden;">
+            <div class="ev-video-bg ${aiClasses[i % 4]}" style="opacity: 0.05;"></div>
+            <h3 style="color:var(--text-main); margin-bottom:20px; font-size:1.05rem; position:relative; z-index:2; display:flex; gap:10px;">
+                <span style="color:var(--primary); font-family:'Playfair Display', serif; font-style:italic; font-weight:900;">Q.</span> ${item.q}
+            </h3>
+            <div style="color:var(--text-dim); font-size:0.85rem; position:relative; z-index:2; line-height:1.8; padding-left:30px; border-left: 1px solid var(--border);">
+                ${item.a}
+            </div>
         </article>
     `).join('');
 }
@@ -183,13 +224,11 @@ function handleSearch() {
     renderProducts(filtered);
 }
 
-// --- MODAL & PAYMENT ---
 function openModal(n, p) {
     curN = n; curP = p;
     const targetName = document.getElementById("target-name");
     const targetPrice = document.getElementById("target-price");
     const modal = document.getElementById("modal");
-
     if(targetName) targetName.innerText = n.toUpperCase();
     if(targetPrice) targetPrice.innerText = p;
     if(modal) modal.style.display = "flex";
@@ -209,14 +248,12 @@ function selectPayment(method, element) {
 function confirmInquiry() {
     const clientNameInput = document.getElementById("client-name");
     const clientName = clientNameInput ? clientNameInput.value : "";
-    
     if (!clientName) return alert("Identity Verification Required.");
     const body = `CLIENT: ${clientName}\nASSET: ${curN}\nVALUE: ${curP}\nGATEWAY: ${selectedGateway}`;
     window.location.href = `mailto:${VAULT_DATA.owner.email}?subject=Inquiry: ${curN}&body=${encodeURIComponent(body)}`;
     closeModal();
 }
 
-// --- INITIALIZATION ---
 function init() {
     if (localStorage.getItem("theme") === "light") {
         document.body.classList.add("light-mode");
@@ -242,11 +279,10 @@ function init() {
 
     renderProducts(VAULT_DATA.products);
     renderFAQ();
+    applyStructuralColoring(); 
     
     const heroTitleEl = document.getElementById("hero-title");
-    if (heroTitleEl) {
-        typeWriter(VAULT_DATA.content.heroTitle, 0);
-    }
+    if (heroTitleEl) typeWriter(VAULT_DATA.content.heroTitle, 0);
 }
 
 window.addEventListener('DOMContentLoaded', init);
