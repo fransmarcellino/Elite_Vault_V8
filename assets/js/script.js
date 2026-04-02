@@ -28,7 +28,7 @@ const VAULT_DATA = {
     faq: [
         { 
             q: "How is the code architecture and performance verified?", 
-            a: "Our technical integrity is paramount. This website has passed rigorous W3C Validation (HTML5 & CSS3) and is optimized for maximum Google PageSpeed scores. Verify directly: [W3C HTML](https://validator.w3.org/nu/?doc=https://fransmarcellino.github.io/Elite_Vault_V8/), [W3C CSS](https://jigsaw.w3.org/css-validator/validator?uri=https://fransmarcellino.github.io/Elite_Vault_V8/), [Google PageSpeed](https://pagespeed.web.dev/analysis?url=https://fransmarcellino.github.io/Elite_Vault_V8/)." 
+            a: "Our technical integrity is paramount. This website has passed rigorous W3C Validation (HTML5 & CSS3) and is optimized for maximum Google PageSpeed scores. Verify directly: <a href='https://validator.w3.org/nu/?doc=https://fransmarcellino.github.io/Elite_Vault_V8/' target='_blank' style='color:var(--primary); font-weight:bold; text-decoration:underline;'>[W3C HTML]</a>, <a href='https://jigsaw.w3.org/css-validator/validator?uri=https://fransmarcellino.github.io/Elite_Vault_V8/' target='_blank' style='color:var(--primary); font-weight:bold; text-decoration:underline;'>[W3C CSS]</a>, and <a href='https://pagespeed.web.dev/analysis?url=https://fransmarcellino.github.io/Elite_Vault_V8/' target='_blank' style='color:var(--primary); font-weight:bold; text-decoration:underline;'>[Google PageSpeed]</a>." 
         },
         { 
             q: "What components are included in the acquisition package?", 
@@ -48,7 +48,7 @@ const VAULT_DATA = {
         },
         { 
             q: "How can I contact technical support or the operator?", 
-            a: "We are committed to professional support. For specific asset inquiries or technical assistance, contact our operator directly at: fransmarcellinosroyer@gmail.com." 
+            a: "We are committed to professional support. For specific asset inquiries or technical assistance, contact our operator directly at: <a href='mailto:fransmarselinosroyer@gmail.com' style='color:var(--primary); font-weight:bold; text-decoration:underline;'>fransmarselinosroyer@gmail.com</a>." 
         }
     ]
 };
@@ -170,7 +170,7 @@ function renderFAQ() {
         <article class="card">
             <div class="ev-video-bg ${aiClasses[i % 4]}"></div>
             <h3 style="color:var(--primary); margin-bottom:15px; font-size:1.2rem; position:relative; z-index:2;">${item.q}</h3>
-            <p style="color:var(--text-dim); font-size:0.9rem; position:relative; z-index:2;">${item.a}</p>
+            <div style="color:var(--text-dim); font-size:0.9rem; position:relative; z-index:2; line-height:1.6;">${item.a}</div>
         </article>
     `).join('');
 }
