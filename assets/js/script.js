@@ -1,144 +1,117 @@
+/**
+* @file script.js
+* @description Master-Optimized Core for Elite Vault v8.2.9 + Search Feedback & Instant Sync
+* @author Frans Marcellino
+* @status W3C Compliant & PageSpeed Optimized (Universal Excellence Edition)
+*/
+
 "use strict";
 
+const VAULT_DATA = {
+    owner: { firstName: "FRANS", lastName: "MARCELLINO", email: "fransmarselinosroyer@gmail.com" },
+    content: { heroTitle: "Architecting Digital Sovereignty.", footer: "© 2026 FRANS MARCELLINO — ALL RIGHTS RESERVED" },
+    products: [
+        { name: "Titan Core", price: "$1,290", desc: "Enterprise SaaS Framework.", img: "assets/img/Titan Core.webp" },
+        { name: "Quantum UI", price: "$750", desc: "Kinetic React Components.", img: "assets/img/Quantum UI.webp" },
+        { name: "SecureAuth X", price: "$490", desc: "Zero-Knowledge Auth Suite.", img: "assets/img/SecureAuth X.webp" },
+        { name: "Nebula AI", price: "$2,999", desc: "Neural Integration Engine.", img: "assets/img/Nebula AI.webp" },
+        { name: "Apex CMS", price: "$1,800", desc: "Headless Content Engine.", img: "assets/img/Apex CMS.webp" },
+        { name: "Zenith ERP", price: "$4,500", desc: "Global Logistics Logic.", img: "assets/img/Zenith ERP.webp" },
+        { name: "Vortex DB", price: "$980", desc: "Real-time Vector Database.", img: "assets/img/Vortex DB.webp" },
+        { name: "Cipher Mesh", price: "$1,100", desc: "P2P Encryption Layer.", img: "assets/img/Cipher Mesh.webp" }
+    ],
+    menu: [
+        { label: "Home", id: "home" },
+        { label: "Vault", id: "market" },
+        { label: "About", id: "about" },
+        { label: "FAQ", id: "faq" }
+    ],
+    faq: [
+        { 
+            q: "How is the code architecture and performance verified?", 
+            a: "Our technical integrity is paramount. This website has passed rigorous W3C Validation (HTML5 & CSS3) and is optimized for maximum Google PageSpeed scores." 
+        },
+        { 
+            q: "What components are included in the acquisition package?", 
+            a: "Upon a successful transaction, you will receive a structured .ZIP Digital Archive containing: Optimized Core Source Code (HTML5, CSS3, JS), Operational Documentation (README) for implementation, and an Official License Certificate." 
+        },
+        { 
+            q: "What are the legal restrictions of this license?", 
+            a: "This license is exclusive for personal use or client projects. RESELLING, redistributing, or broadcasting this asset as a standalone product on any marketplace is STRICTLY PROHIBITED." 
+        },
+        { 
+            q: "How secure is my financial data during the transaction?", 
+            a: "All payments are managed by Trusted Digital Marketplaces via global security infrastructure (SSL/TLS). We do not store or have access to your sensitive banking data." 
+        },
+        { 
+            q: "Why is the initial procedure conducted via Email?", 
+            a: "We implement Email-Inquiry protocols to guarantee client privacy and prevent data exposure on public forms. This ensures a secure, private, and personal assistance path." 
+        },
+        { 
+            q: "How can I contact technical support or the operator?", 
+            a: "We are committed to professional support. For specific asset inquiries or technical assistance, contact our operator directly at: <a href='mailto:fransmarselinosroyer@gmail.com' style='color:var(--primary); font-weight:bold; text-decoration:underline;'>fransmarselinosroyer@gmail.com</a>." 
+        }
+    ]
+};
+
+let curN = "", curP = "", selectedGateway = "PayPal";
 const cursorEl = document.getElementById("cursor");
-let selectedGateway = "";
 
-// --- CORE INITIALIZER ---
-function init() {
-    // 1. Sync Colors from Config
-    const root = document.documentElement;
-    root.style.setProperty('--primary', CONFIG.colors.primary);
-    root.style.setProperty('--bg', CONFIG.colors.bg);
-    root.style.setProperty('--surface', CONFIG.colors.surface);
-
-    // 2. Load Home Content
-    document.getElementById("nav-logo-text").innerHTML = `${CONFIG.owner.firstName} <span>${CONFIG.owner.lastName}</span>`;
-    document.getElementById("hero-badge").innerText = CONFIG.home.badge;
-    document.getElementById("hero-desc").innerText = CONFIG.home.description;
-    document.getElementById("contact-btn").href = `mailto:${CONFIG.owner.email}`;
-    
-    // 3. Load Section Headers
-    document.getElementById("repo-title").innerText = CONFIG.sections.repo.title;
-    document.getElementById("repo-subtitle").innerText = CONFIG.sections.repo.subtitle;
-    document.getElementById("about-title").innerText = CONFIG.sections.about.title;
-    document.getElementById("faq-title").innerText = CONFIG.sections.faq.title;
-    document.getElementById("faq-subtitle").innerText = CONFIG.sections.faq.subtitle;
-    document.getElementById("footer-text").innerText = CONFIG.home.footer;
-
-    // 4. Render Dynamic Components
-    renderMenu();
-    renderAbout();
-    renderProducts(CONFIG.products);
-    renderFAQ();
-    renderPaymentMethods();
-    
-    // Start Typewriter
-    typeWriter(CONFIG.home.heroTitle, 0);
-}
-
-// --- RENDERING ENGINES ---
-function renderMenu() {
-    const box = document.getElementById("social-links");
-    box.innerHTML = CONFIG.menu.map(m => `
-        <a href="#${m.id}" onclick="navigateTo('${m.id}'); return false;" 
-           style="padding:18px 25px; display:block; color:var(--text-main); text-decoration:none; font-size:0.75rem; border-bottom:1px solid var(--border); font-weight:700;">
-           ${m.label.toUpperCase()}
-        </a>
-    `).join('');
-}
-
-function renderAbout() {
-    const grid = document.getElementById("about-grid");
-    grid.innerHTML = CONFIG.aboutCards.map(c => `
-        <article class="card">
-            <h3 style="color: var(--primary); margin-bottom: 15px; font-size: 1.5rem;">${c.title}</h3>
-            <p style="color: var(--text-dim)">${c.desc}</p>
-        </article>
-    `).join('');
-}
-
-function renderProducts(data) {
-    const grid = document.getElementById("main-grid");
-    if (data.length === 0) {
-        grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:50px; opacity:0.5;">No Assets Found</div>`;
-        return;
+// --- UI ENGINE (High Performance) ---
+document.addEventListener("mousemove", (e) => {
+    if (cursorEl) {
+        window.requestAnimationFrame(() => {
+            cursorEl.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+        });
     }
-    grid.innerHTML = data.map((p, i) => `
-        <article class="card">
-            <div class="ev-video-bg ai-vid-${(i % 8) + 1}"></div>
-            <div class="price-tag">${p.price}</div>
-            <img src="${p.img}" class="card-img" alt="${p.name}" loading="lazy">
-            <h3 style="position:relative; z-index:2; margin-bottom:10px;">${p.name}</h3>
-            <p style="position:relative; z-index:2; color:var(--text-dim); margin-bottom:25px; font-size:0.9rem;">${p.desc}</p>
-            <button class="btn-premium" onclick="openModal('${p.name}', '${p.price}')">Acquire License</button>
-        </article>
-    `).join('');
-}
+}, { passive: true });
 
-function renderFAQ() {
-    const grid = document.getElementById("faq-grid");
-    grid.innerHTML = CONFIG.faq.map((f, i) => `
-        <article class="card">
-            <div class="ev-video-bg ai-vid-${(i % 4) + 1}" style="opacity:0.05"></div>
-            <h3 style="color:var(--text-main); margin-bottom:15px; font-size:1.05rem; position:relative; z-index:2;">
-                <span style="color:var(--primary); font-style:italic;">Q.</span> ${f.q}
-            </h3>
-            <p style="color:var(--text-dim); font-size:0.85rem; position:relative; z-index:2; line-height:1.8; padding-left:20px; border-left:1px solid var(--border);">
-                ${f.a}
-            </p>
-        </article>
-    `).join('');
-}
-
-function renderPaymentMethods() {
-    const grid = document.getElementById("payment-grid");
-    selectedGateway = CONFIG.paymentMethods[0];
-    grid.innerHTML = CONFIG.paymentMethods.map((m, i) => `
-        <div class="method-card ${i===0?'active':''}" onclick="selectPayment('${m}', this)">
-            <span>${m}</span>
-        </div>
-    `).join('');
-}
-
-// --- UTILITIES ---
 function navigateTo(id) {
-    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+    const pages = document.querySelectorAll(".page");
+    pages.forEach(p => {
+        p.classList.remove("active");
+        p.style.display = "none";
+    });
+
     const target = document.getElementById(id);
-    if(target) {
-        target.classList.add("active");
-        window.scrollTo({top:0, behavior:'smooth'});
+    if (target) {
+        target.style.display = "block";
+        requestAnimationFrame(() => target.classList.add("active"));
+        window.scrollTo({ top: 0, behavior: "smooth" });
     }
     toggleMenu(true);
 }
 
-function handleSearch() {
-    const q = document.getElementById("search-bar").value.toLowerCase();
-    const filtered = CONFIG.products.filter(p => p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q));
-    renderProducts(filtered);
+function toggleTheme() {
+    const isLight = document.body.classList.toggle("light-mode");
+    localStorage.setItem("theme", isLight ? "light" : "dark");
+    const btn = document.getElementById("theme-btn");
+    if (btn) btn.innerText = isLight ? "DARK MODE" : "LIGHT MODE";
+    applyStructuralColoring();
 }
 
-function openModal(n, p) {
-    document.getElementById("target-name").innerText = n.toUpperCase();
-    document.getElementById("target-price").innerText = p;
-    document.getElementById("modal").style.display = "flex";
+function toggleMenu(forceClose = false, event = null) {
+    if (event) event.stopPropagation();
+    const dropdown = document.getElementById("dropdown");
+    if (!dropdown) return;
+
+    if (forceClose || dropdown.classList.contains("active")) {
+        dropdown.classList.remove("active");
+        setTimeout(() => { if(!dropdown.classList.contains("active")) dropdown.style.display = "none"; }, 300);
+    } else {
+        dropdown.style.display = "block";
+        dropdown.offsetHeight; 
+        dropdown.classList.add("active");
+    }
 }
 
-function closeModal() { document.getElementById("modal").style.display = "none"; }
-
-function selectPayment(m, el) {
-    document.querySelectorAll(".method-card").forEach(c => c.classList.remove("active"));
-    el.classList.add("active");
-    selectedGateway = m;
-}
-
-function confirmInquiry() {
-    const name = document.getElementById("client-name").value;
-    if(!name) return alert("Verification Required.");
-    const asset = document.getElementById("target-name").innerText;
-    const price = document.getElementById("target-price").innerText;
-    const mailBody = `CLIENT: ${name}\nASSET: ${asset}\nVALUE: ${price}\nGATEWAY: ${selectedGateway}`;
-    window.location.href = `mailto:${CONFIG.owner.email}?subject=Inquiry: ${asset}&body=${encodeURIComponent(mailBody)}`;
-}
+document.addEventListener("click", (e) => {
+    const dropdown = document.getElementById("dropdown");
+    const kebabBtn = document.getElementById("kebab-menu-btn");
+    if (dropdown?.classList.contains("active") && !dropdown.contains(e.target) && !kebabBtn.contains(e.target)) {
+        toggleMenu(true);
+    }
+});
 
 function typeWriter(text, i) {
     const el = document.getElementById("hero-title");
@@ -148,20 +121,194 @@ function typeWriter(text, i) {
     }
 }
 
-function toggleMenu(close = false, e = null) {
-    if(e) e.stopPropagation();
-    const d = document.getElementById("dropdown");
-    if(close) d.classList.remove("active");
-    else d.classList.toggle("active");
+// --- VISUAL EXCELLENCE ENGINE (Typography & Flattening) ---
+function applyStructuralColoring() {
+    const isLight = document.body.classList.contains("light-mode");
+    const bgCol = isLight ? "#f5f5f5" : "#1a1a1a";
+    const shadowCol = isLight ? "rgba(0,0,0,0.15)" : "rgba(255,215,0,0.25)";
+    
+    const header = document.querySelector("header") || document.querySelector(".nav-main-wrapper");
+    if (header) {
+        Object.assign(header.style, {
+            backgroundColor: bgCol,
+            transition: "all 0.4s ease",
+            borderBottom: "1px solid var(--border)",
+            padding: "0",
+            margin: "0"
+        });
+    }
+
+    const titles = [
+        document.getElementById("repo-title"), 
+        document.getElementById("faq-title"),
+        document.querySelector("#market h2")
+    ];
+
+    titles.forEach(title => {
+        if (title) {
+            Object.assign(title.style, {
+                fontFamily: "'Playfair Display', serif",
+                fontStyle: "italic",
+                fontWeight: "900",
+                letterSpacing: "-1.5px",
+                textTransform: "none",
+                fontSize: "clamp(2.2rem, 8vw, 3.8rem)",
+                textShadow: `0 4px 15px ${shadowCol}`,
+                marginBottom: "50px",
+                textAlign: "center",
+                width: "100%",
+                transition: "all 0.4s ease"
+            });
+        }
+    });
+
+    const socialDock = document.querySelector(".social-icons-wrapper") || document.getElementById("social-icons-container");
+    if (socialDock) {
+        Object.assign(socialDock.style, {
+            backgroundColor: bgCol,
+            padding: "15px 35px",
+            borderRadius: "12px",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "20px",
+            border: `1px solid ${isLight ? "rgba(0,0,0,0.05)" : "rgba(255,215,0,0.1)"}`
+        });
+    }
 }
 
-function toggleTheme() {
-    const isLight = document.body.classList.toggle("light-mode");
-    document.getElementById("theme-btn").innerText = isLight ? "DARK MODE" : "LIGHT MODE";
+// --- OPTIMIZED RENDERER (Search Feedback & Sync Loading) ---
+function renderProducts(data) {
+    const grid = document.getElementById("main-grid");
+    if (!grid) return;
+    const fragment = document.createDocumentFragment();
+    const aiClasses = ["ai-vid-1", "ai-vid-2", "ai-vid-3", "ai-vid-4", "ai-vid-5", "ai-vid-6", "ai-vid-7", "ai-vid-8"];
+
+    // SEARCH FEEDBACK: Menampilkan pesan jika barang tidak ditemukan
+    if (data.length === 0) {
+        const noResults = document.createElement("div");
+        noResults.style = "grid-column: 1 / -1; text-align: center; padding: 80px 20px; color: var(--text-dim); border: 1px dashed var(--border); border-radius: 20px; background: rgba(255,255,255,0.02);";
+        noResults.innerHTML = `
+            <div style="font-size: 3.5rem; margin-bottom: 20px; filter: grayscale(1);">🔍</div>
+            <h3 style="color: var(--text-main); margin-bottom: 10px; font-family: 'Playfair Display', serif; font-style: italic;">Asset Not Found</h3>
+            <p style="font-size: 0.9rem; opacity: 0.8;">Maaf, barang yang Anda cari tidak tersedia dalam repository ini.</p>
+        `;
+        grid.innerHTML = "";
+        grid.appendChild(noResults);
+        return;
+    }
+
+    data.forEach((p, index) => {
+        const card = document.createElement("article");
+        card.className = "card";
+        
+        // PERFORMANCE SYNC: 4 kartu pertama muat serentak
+        const loadingStrategy = index < 4 ? "eager" : "lazy";
+        const priorityAttr = index < 4 ? 'fetchpriority="high"' : '';
+
+        card.innerHTML = `
+            <div class="ev-video-bg ${aiClasses[index % 8]}"></div>
+            <div class="price-tag">${p.price}</div>
+            <img src="${p.img}" class="card-img" alt="${p.name}" loading="${loadingStrategy}" ${priorityAttr}>
+            <h3 style="margin-bottom:10px; position:relative; z-index:2;">${p.name}</h3>
+            <p style="color:var(--text-dim);margin-bottom:25px;font-size:0.9rem; position:relative; z-index:2;">${p.desc}</p>
+            <button class="btn-premium" onclick="openModal('${p.name}', '${p.price}')">Acquire License</button>`;
+        fragment.appendChild(card);
+    });
+    grid.innerHTML = "";
+    grid.appendChild(fragment);
 }
 
-document.addEventListener("mousemove", (e) => {
-    if(cursorEl) cursorEl.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
-});
+function handleSearch() {
+    const searchBar = document.getElementById("search-bar");
+    if (!searchBar) return;
+    const q = searchBar.value.toLowerCase().trim();
+    const filtered = VAULT_DATA.products.filter(p => 
+        p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q)
+    );
+    renderProducts(filtered);
+}
+
+function renderFAQ() {
+    const faqGrid = document.getElementById("faq-grid");
+    if (!faqGrid) return;
+    const aiClasses = ["ai-vid-1", "ai-vid-2", "ai-vid-3", "ai-vid-4"];
+    faqGrid.innerHTML = VAULT_DATA.faq.map((item, i) => `
+        <article class="card" style="position:relative; overflow:hidden;">
+            <div class="ev-video-bg ${aiClasses[i % 4]}" style="opacity: 0.05;"></div>
+            <h3 style="color:var(--text-main); margin-bottom:20px; font-size:1.05rem; position:relative; z-index:2; display:flex; gap:10px;">
+                <span style="color:var(--primary); font-family:'Playfair Display', serif; font-style:italic; font-weight:900;">Q.</span> ${item.q}
+            </h3>
+            <div style="color:var(--text-dim); font-size:0.85rem; position:relative; z-index:2; line-height:1.8; padding-left:30px; border-left: 1px solid var(--border);">
+                ${item.a}
+            </div>
+        </article>
+    `).join('');
+}
+
+function openModal(n, p) {
+    curN = n; curP = p;
+    const modal = document.getElementById("modal");
+    if(modal) {
+        document.getElementById("target-name").innerText = n.toUpperCase();
+        document.getElementById("target-price").innerText = p;
+        modal.style.display = "flex";
+    }
+}
+
+function closeModal() { 
+    const modal = document.getElementById("modal");
+    if(modal) modal.style.display = "none"; 
+}
+
+function selectPayment(method, element) {
+    document.querySelectorAll(".method-card").forEach(c => c.classList.remove("active"));
+    element.classList.add("active");
+    selectedGateway = method;
+}
+
+function confirmInquiry() {
+    const clientNameInput = document.getElementById("client-name");
+    const clientName = clientNameInput ? clientNameInput.value : "";
+    if (!clientName) return alert("Identity Verification Required.");
+    const body = `CLIENT: ${clientName}\nASSET: ${curN}\nVALUE: ${curP}\nGATEWAY: ${selectedGateway}`;
+    window.location.href = `mailto:${VAULT_DATA.owner.email}?subject=Inquiry: ${curN}&body=${encodeURIComponent(body)}`;
+    closeModal();
+}
+
+function init() {
+    // DARK MODE DEFAULT LOGIC
+    if (localStorage.getItem("theme") === "light") {
+        document.body.classList.add("light-mode");
+        const btn = document.getElementById("theme-btn");
+        if (btn) btn.innerText = "DARK MODE";
+    } else {
+        document.body.classList.remove("light-mode");
+        const btn = document.getElementById("theme-btn");
+        if (btn) btn.innerText = "LIGHT MODE";
+    }
+
+    const footerText = document.getElementById("footer-text");
+    if (footerText) footerText.innerText = VAULT_DATA.content.footer;
+
+    const linksBox = document.getElementById("social-links");
+    if (linksBox) {
+        linksBox.innerHTML = "";
+        VAULT_DATA.menu.forEach(item => {
+            const a = document.createElement("a");
+            a.href = "#" + item.id;
+            a.style = "padding:18px 25px; display:block; color:var(--text-main); text-decoration:none; font-size:0.75rem; border-bottom:1px solid var(--border); font-weight:700;";
+            a.innerText = item.label.toUpperCase();
+            a.onclick = (e) => { e.preventDefault(); navigateTo(item.id); };
+            linksBox.appendChild(a);
+        });
+    }
+
+    renderProducts(VAULT_DATA.products);
+    renderFAQ();
+    applyStructuralColoring(); 
+    
+    const heroTitleEl = document.getElementById("hero-title");
+    if (heroTitleEl) typeWriter(VAULT_DATA.content.heroTitle, 0);
+}
 
 window.addEventListener('DOMContentLoaded', init);
