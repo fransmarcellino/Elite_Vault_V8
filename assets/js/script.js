@@ -1,8 +1,8 @@
 /**
 * @file script.js
-* @description Master-Optimized Core for Elite Vault v8.2.7 + Instant Asset Sync
+* @description Master-Optimized Core for Elite Vault v8.2.9 + Search Feedback & Instant Sync
 * @author Frans Marcellino
-* @status W3C Compliant & PageSpeed Optimized (Performance Purge Edition)
+* @status W3C Compliant & PageSpeed Optimized (Universal Excellence Edition)
 */
 
 "use strict";
@@ -29,7 +29,7 @@ const VAULT_DATA = {
     faq: [
         { 
             q: "How is the code architecture and performance verified?", 
-            a: "Our technical integrity is paramount. This website has passed rigorous W3C Validation (HTML5 & CSS3) and is optimized for maximum Google PageSpeed scores. Verify directly: <a href='https://validator.w3.org/nu/?doc=https://fransmarcellino.github.io/Elite_Vault_V8/' target='_blank' style='color:var(--primary); font-weight:bold; text-decoration:underline;'>[W3C HTML]</a>, <a href='https://jigsaw.w3.org/css-validator/validator?uri=https://fransmarcellino.github.io/Elite_Vault_V8/' target='_blank' style='color:var(--primary); font-weight:bold; text-decoration:underline;'>[W3C CSS]</a>, and <a href='https://pagespeed.web.dev/analysis?url=https://fransmarcellino.github.io/Elite_Vault_V8/' target='_blank' style='color:var(--primary); font-weight:bold; text-decoration:underline;'>[Google PageSpeed]</a>." 
+            a: "Our technical integrity is paramount. This website has passed rigorous W3C Validation (HTML5 & CSS3) and is optimized for maximum Google PageSpeed scores." 
         },
         { 
             q: "What components are included in the acquisition package?", 
@@ -138,7 +138,6 @@ function applyStructuralColoring() {
         });
     }
 
-    // 2. High-End Typography Sync (Center Aligned)
     const titles = [
         document.getElementById("repo-title"), 
         document.getElementById("faq-title"),
@@ -156,7 +155,7 @@ function applyStructuralColoring() {
                 fontSize: "clamp(2.2rem, 8vw, 3.8rem)",
                 textShadow: `0 4px 15px ${shadowCol}`,
                 marginBottom: "50px",
-                textAlign: "center", // MASTER FIX: Center Alignment
+                textAlign: "center",
                 width: "100%",
                 transition: "all 0.4s ease"
             });
@@ -177,19 +176,33 @@ function applyStructuralColoring() {
     }
 }
 
+// --- OPTIMIZED RENDERER (Search Feedback & Sync Loading) ---
 function renderProducts(data) {
     const grid = document.getElementById("main-grid");
     if (!grid) return;
     const fragment = document.createDocumentFragment();
     const aiClasses = ["ai-vid-1", "ai-vid-2", "ai-vid-3", "ai-vid-4", "ai-vid-5", "ai-vid-6", "ai-vid-7", "ai-vid-8"];
 
+    // SEARCH FEEDBACK: Menampilkan pesan jika barang tidak ditemukan
+    if (data.length === 0) {
+        const noResults = document.createElement("div");
+        noResults.style = "grid-column: 1 / -1; text-align: center; padding: 80px 20px; color: var(--text-dim); border: 1px dashed var(--border); border-radius: 20px; background: rgba(255,255,255,0.02);";
+        noResults.innerHTML = `
+            <div style="font-size: 3.5rem; margin-bottom: 20px; filter: grayscale(1);">🔍</div>
+            <h3 style="color: var(--text-main); margin-bottom: 10px; font-family: 'Playfair Display', serif; font-style: italic;">Asset Not Found</h3>
+            <p style="font-size: 0.9rem; opacity: 0.8;">Maaf, barang yang Anda cari tidak tersedia dalam repository ini.</p>
+        `;
+        grid.innerHTML = "";
+        grid.appendChild(noResults);
+        return;
+    }
+
     data.forEach((p, index) => {
         const card = document.createElement("article");
         card.className = "card";
         
-        // PERFORMANCE FIX: 4 Kartu pertama dimuat 'eager' secara serentak
+        // PERFORMANCE SYNC: 4 kartu pertama muat serentak
         const loadingStrategy = index < 4 ? "eager" : "lazy";
-        // FETCH PRIORITY: Memberi sinyal prioritas tinggi pada browser untuk 4 kartu pertama
         const priorityAttr = index < 4 ? 'fetchpriority="high"' : '';
 
         card.innerHTML = `
@@ -203,6 +216,16 @@ function renderProducts(data) {
     });
     grid.innerHTML = "";
     grid.appendChild(fragment);
+}
+
+function handleSearch() {
+    const searchBar = document.getElementById("search-bar");
+    if (!searchBar) return;
+    const q = searchBar.value.toLowerCase().trim();
+    const filtered = VAULT_DATA.products.filter(p => 
+        p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q)
+    );
+    renderProducts(filtered);
 }
 
 function renderFAQ() {
@@ -222,22 +245,14 @@ function renderFAQ() {
     `).join('');
 }
 
-function handleSearch() {
-    const q = document.getElementById("search-bar").value.toLowerCase();
-    const filtered = VAULT_DATA.products.filter(p => 
-        p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q)
-    );
-    renderProducts(filtered);
-}
-
 function openModal(n, p) {
     curN = n; curP = p;
-    const targetName = document.getElementById("target-name");
-    const targetPrice = document.getElementById("target-price");
     const modal = document.getElementById("modal");
-    if(targetName) targetName.innerText = n.toUpperCase();
-    if(targetPrice) targetPrice.innerText = p;
-    if(modal) modal.style.display = "flex";
+    if(modal) {
+        document.getElementById("target-name").innerText = n.toUpperCase();
+        document.getElementById("target-price").innerText = p;
+        modal.style.display = "flex";
+    }
 }
 
 function closeModal() { 
@@ -261,13 +276,12 @@ function confirmInquiry() {
 }
 
 function init() {
-    // DEFAULT DARK MODE LOGIC: Hanya aktifkan light-mode jika localStorage secara eksplisit bernilai "light"
+    // DARK MODE DEFAULT LOGIC
     if (localStorage.getItem("theme") === "light") {
         document.body.classList.add("light-mode");
         const btn = document.getElementById("theme-btn");
         if (btn) btn.innerText = "DARK MODE";
     } else {
-        // Mode gelap paksa sebagai default
         document.body.classList.remove("light-mode");
         const btn = document.getElementById("theme-btn");
         if (btn) btn.innerText = "LIGHT MODE";
