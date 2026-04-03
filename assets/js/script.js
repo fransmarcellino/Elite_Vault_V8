@@ -1,8 +1,8 @@
 /**
 * @file script.js
-* @description Master-Optimized Core for Elite Vault v8.2.9 + Search Feedback & Instant Sync
+* @description Master-Optimized Core for Elite Vault v8.3.0 + Instant Octa-Sync
 * @author Frans Marcellino
-* @status W3C Compliant & PageSpeed Optimized (Universal Excellence Edition)
+* @status W3C Compliant & PageSpeed Optimized (Octa-Loading Edition)
 */
 
 "use strict";
@@ -33,7 +33,7 @@ const VAULT_DATA = {
         },
         { 
             q: "What components are included in the acquisition package?", 
-            a: "Upon a successful transaction, you will receive a structured .ZIP Digital Archive containing: Optimized Core Source Code (HTML5, CSS3, JS), Operational Documentation (README) for implementation, and an Official License Certificate." 
+            a: "Upon a successful transaction, you will receive a structured .ZIP Digital Archive containing: Optimized Core Source Code (HTML5, CSS3, JS), Operational Documentation (README), and an Official License Certificate." 
         },
         { 
             q: "What are the legal restrictions of this license?", 
@@ -121,7 +121,7 @@ function typeWriter(text, i) {
     }
 }
 
-// --- VISUAL EXCELLENCE ENGINE (Typography & Flattening) ---
+// --- VISUAL EXCELLENCE ENGINE ---
 function applyStructuralColoring() {
     const isLight = document.body.classList.contains("light-mode");
     const bgCol = isLight ? "#f5f5f5" : "#1a1a1a";
@@ -150,8 +150,6 @@ function applyStructuralColoring() {
                 fontFamily: "'Playfair Display', serif",
                 fontStyle: "italic",
                 fontWeight: "900",
-                letterSpacing: "-1.5px",
-                textTransform: "none",
                 fontSize: "clamp(2.2rem, 8vw, 3.8rem)",
                 textShadow: `0 4px 15px ${shadowCol}`,
                 marginBottom: "50px",
@@ -161,29 +159,15 @@ function applyStructuralColoring() {
             });
         }
     });
-
-    const socialDock = document.querySelector(".social-icons-wrapper") || document.getElementById("social-icons-container");
-    if (socialDock) {
-        Object.assign(socialDock.style, {
-            backgroundColor: bgCol,
-            padding: "15px 35px",
-            borderRadius: "12px",
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "20px",
-            border: `1px solid ${isLight ? "rgba(0,0,0,0.05)" : "rgba(255,215,0,0.1)"}`
-        });
-    }
 }
 
-// --- OPTIMIZED RENDERER (Search Feedback & Sync Loading) ---
+// --- OCTA-SYNC RENDERER (Master Speed Optimization) ---
 function renderProducts(data) {
     const grid = document.getElementById("main-grid");
     if (!grid) return;
     const fragment = document.createDocumentFragment();
     const aiClasses = ["ai-vid-1", "ai-vid-2", "ai-vid-3", "ai-vid-4", "ai-vid-5", "ai-vid-6", "ai-vid-7", "ai-vid-8"];
 
-    // SEARCH FEEDBACK: Menampilkan pesan jika barang tidak ditemukan
     if (data.length === 0) {
         const noResults = document.createElement("div");
         noResults.style = "grid-column: 1 / -1; text-align: center; padding: 80px 20px; color: var(--text-dim); border: 1px dashed var(--border); border-radius: 20px; background: rgba(255,255,255,0.02);";
@@ -201,9 +185,10 @@ function renderProducts(data) {
         const card = document.createElement("article");
         card.className = "card";
         
-        // PERFORMANCE SYNC: 4 kartu pertama muat serentak
-        const loadingStrategy = index < 4 ? "eager" : "lazy";
-        const priorityAttr = index < 4 ? 'fetchpriority="high"' : '';
+        // PROTOCOL OCTA-SYNC: Forced Eager & High Fetch Priority for all 8 base assets
+        // Memastikan browser memproses semua request gambar di awal tanpa antrean (Performance Sync)
+        const loadingStrategy = "eager"; 
+        const priorityAttr = 'fetchpriority="high"';
 
         card.innerHTML = `
             <div class="ev-video-bg ${aiClasses[index % 8]}"></div>
@@ -276,7 +261,6 @@ function confirmInquiry() {
 }
 
 function init() {
-    // DARK MODE DEFAULT LOGIC
     if (localStorage.getItem("theme") === "light") {
         document.body.classList.add("light-mode");
         const btn = document.getElementById("theme-btn");
