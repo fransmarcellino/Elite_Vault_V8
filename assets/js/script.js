@@ -1,8 +1,8 @@
 /**
 * @file script.js
-* @description Master-Optimized Core for Elite Vault v8.2.5 + UX Refinement
+* @description Master-Optimized Core for Elite Vault v8.2.7 + Instant Asset Sync
 * @author Frans Marcellino
-* @status W3C Compliant & PageSpeed Optimized (Layout Excellence Edition)
+* @status W3C Compliant & PageSpeed Optimized (Performance Purge Edition)
 */
 
 "use strict";
@@ -127,7 +127,6 @@ function applyStructuralColoring() {
     const bgCol = isLight ? "#f5f5f5" : "#1a1a1a";
     const shadowCol = isLight ? "rgba(0,0,0,0.15)" : "rgba(255,215,0,0.25)";
     
-    // 1. Unified Header Optimization
     const header = document.querySelector("header") || document.querySelector(".nav-main-wrapper");
     if (header) {
         Object.assign(header.style, {
@@ -164,7 +163,6 @@ function applyStructuralColoring() {
         }
     });
 
-    // 3. Social Media Dock Sync
     const socialDock = document.querySelector(".social-icons-wrapper") || document.getElementById("social-icons-container");
     if (socialDock) {
         Object.assign(socialDock.style, {
@@ -188,11 +186,16 @@ function renderProducts(data) {
     data.forEach((p, index) => {
         const card = document.createElement("article");
         card.className = "card";
-        const loadingStrategy = index === 0 ? "eager" : "lazy";
+        
+        // PERFORMANCE FIX: 4 Kartu pertama dimuat 'eager' secara serentak
+        const loadingStrategy = index < 4 ? "eager" : "lazy";
+        // FETCH PRIORITY: Memberi sinyal prioritas tinggi pada browser untuk 4 kartu pertama
+        const priorityAttr = index < 4 ? 'fetchpriority="high"' : '';
+
         card.innerHTML = `
             <div class="ev-video-bg ${aiClasses[index % 8]}"></div>
             <div class="price-tag">${p.price}</div>
-            <img src="${p.img}" class="card-img" alt="${p.name}" loading="${loadingStrategy}">
+            <img src="${p.img}" class="card-img" alt="${p.name}" loading="${loadingStrategy}" ${priorityAttr}>
             <h3 style="margin-bottom:10px; position:relative; z-index:2;">${p.name}</h3>
             <p style="color:var(--text-dim);margin-bottom:25px;font-size:0.9rem; position:relative; z-index:2;">${p.desc}</p>
             <button class="btn-premium" onclick="openModal('${p.name}', '${p.price}')">Acquire License</button>`;
@@ -264,7 +267,7 @@ function init() {
         const btn = document.getElementById("theme-btn");
         if (btn) btn.innerText = "DARK MODE";
     } else {
-        // Pastikan default tetap Dark jika tidak ada data di localStorage
+        // Mode gelap paksa sebagai default
         document.body.classList.remove("light-mode");
         const btn = document.getElementById("theme-btn");
         if (btn) btn.innerText = "LIGHT MODE";
