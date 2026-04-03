@@ -1,8 +1,8 @@
 /**
 * @file script.js
-* @description Master-Optimized Core for Elite Vault v8.2.0 + High-End Typography Sync
+* @description Master-Optimized Core for Elite Vault v8.2.9 + Search Feedback & Instant Sync
 * @author Frans Marcellino
-* @status W3C Compliant & PageSpeed Optimized (Typography Excellence Edition)
+* @status W3C Compliant & PageSpeed Optimized (Universal Excellence Edition)
 */
 
 "use strict";
@@ -29,7 +29,7 @@ const VAULT_DATA = {
     faq: [
         { 
             q: "How is the code architecture and performance verified?", 
-            a: "Our technical integrity is paramount. This website has passed rigorous W3C Validation (HTML5 & CSS3) and is optimized for maximum Google PageSpeed scores. Verify directly: <a href='https://validator.w3.org/nu/?doc=https://fransmarcellino.github.io/Elite_Vault_V8/' target='_blank' style='color:var(--primary); font-weight:bold; text-decoration:underline;'>[W3C HTML]</a>, <a href='https://jigsaw.w3.org/css-validator/validator?uri=https://fransmarcellino.github.io/Elite_Vault_V8/' target='_blank' style='color:var(--primary); font-weight:bold; text-decoration:underline;'>[W3C CSS]</a>, and <a href='https://pagespeed.web.dev/analysis?url=https://fransmarcellino.github.io/Elite_Vault_V8/' target='_blank' style='color:var(--primary); font-weight:bold; text-decoration:underline;'>[Google PageSpeed]</a>." 
+            a: "Our technical integrity is paramount. This website has passed rigorous W3C Validation (HTML5 & CSS3) and is optimized for maximum Google PageSpeed scores." 
         },
         { 
             q: "What components are included in the acquisition package?", 
@@ -125,9 +125,8 @@ function typeWriter(text, i) {
 function applyStructuralColoring() {
     const isLight = document.body.classList.contains("light-mode");
     const bgCol = isLight ? "#f5f5f5" : "#1a1a1a";
-    const shadowCol = isLight ? "rgba(0,0,0,0.1)" : "rgba(255,215,0,0.2)";
+    const shadowCol = isLight ? "rgba(0,0,0,0.15)" : "rgba(255,215,0,0.25)";
     
-    // 1. Unified Header (Fix Double Header)
     const header = document.querySelector("header") || document.querySelector(".nav-main-wrapper");
     if (header) {
         Object.assign(header.style, {
@@ -137,16 +136,14 @@ function applyStructuralColoring() {
             padding: "0",
             margin: "0"
         });
-        const innerRows = header.querySelectorAll(".nav-row, .logo-row, .nav-container");
-        innerRows.forEach(row => {
-            row.style.backgroundColor = "transparent";
-            row.style.border = "none";
-            row.style.margin = "0";
-        });
     }
 
-    // 2. High-End Typography (Titles)
-    const titles = [document.getElementById("repo-title"), document.getElementById("faq-title")];
+    const titles = [
+        document.getElementById("repo-title"), 
+        document.getElementById("faq-title"),
+        document.querySelector("#market h2")
+    ];
+
     titles.forEach(title => {
         if (title) {
             Object.assign(title.style, {
@@ -155,13 +152,16 @@ function applyStructuralColoring() {
                 fontWeight: "900",
                 letterSpacing: "-1.5px",
                 textTransform: "none",
-                textShadow: `0 2px 10px ${shadowCol}`,
+                fontSize: "clamp(2.2rem, 8vw, 3.8rem)",
+                textShadow: `0 4px 15px ${shadowCol}`,
+                marginBottom: "50px",
+                textAlign: "center",
+                width: "100%",
                 transition: "all 0.4s ease"
             });
         }
     });
 
-    // 3. Social Media Dock Sync
     const socialDock = document.querySelector(".social-icons-wrapper") || document.getElementById("social-icons-container");
     if (socialDock) {
         Object.assign(socialDock.style, {
@@ -176,20 +176,39 @@ function applyStructuralColoring() {
     }
 }
 
+// --- OPTIMIZED RENDERER (Search Feedback & Sync Loading) ---
 function renderProducts(data) {
     const grid = document.getElementById("main-grid");
     if (!grid) return;
     const fragment = document.createDocumentFragment();
     const aiClasses = ["ai-vid-1", "ai-vid-2", "ai-vid-3", "ai-vid-4", "ai-vid-5", "ai-vid-6", "ai-vid-7", "ai-vid-8"];
 
+    // SEARCH FEEDBACK: Menampilkan pesan jika barang tidak ditemukan
+    if (data.length === 0) {
+        const noResults = document.createElement("div");
+        noResults.style = "grid-column: 1 / -1; text-align: center; padding: 80px 20px; color: var(--text-dim); border: 1px dashed var(--border); border-radius: 20px; background: rgba(255,255,255,0.02);";
+        noResults.innerHTML = `
+            <div style="font-size: 3.5rem; margin-bottom: 20px; filter: grayscale(1);">🔍</div>
+            <h3 style="color: var(--text-main); margin-bottom: 10px; font-family: 'Playfair Display', serif; font-style: italic;">Asset Not Found</h3>
+            <p style="font-size: 0.9rem; opacity: 0.8;">Maaf, barang yang Anda cari tidak tersedia dalam repository ini.</p>
+        `;
+        grid.innerHTML = "";
+        grid.appendChild(noResults);
+        return;
+    }
+
     data.forEach((p, index) => {
         const card = document.createElement("article");
         card.className = "card";
-        const loadingStrategy = index === 0 ? "eager" : "lazy";
+        
+        // PERFORMANCE SYNC: 4 kartu pertama muat serentak
+        const loadingStrategy = index < 4 ? "eager" : "lazy";
+        const priorityAttr = index < 4 ? 'fetchpriority="high"' : '';
+
         card.innerHTML = `
             <div class="ev-video-bg ${aiClasses[index % 8]}"></div>
             <div class="price-tag">${p.price}</div>
-            <img src="${p.img}" class="card-img" alt="${p.name}" loading="${loadingStrategy}">
+            <img src="${p.img}" class="card-img" alt="${p.name}" loading="${loadingStrategy}" ${priorityAttr}>
             <h3 style="margin-bottom:10px; position:relative; z-index:2;">${p.name}</h3>
             <p style="color:var(--text-dim);margin-bottom:25px;font-size:0.9rem; position:relative; z-index:2;">${p.desc}</p>
             <button class="btn-premium" onclick="openModal('${p.name}', '${p.price}')">Acquire License</button>`;
@@ -197,6 +216,16 @@ function renderProducts(data) {
     });
     grid.innerHTML = "";
     grid.appendChild(fragment);
+}
+
+function handleSearch() {
+    const searchBar = document.getElementById("search-bar");
+    if (!searchBar) return;
+    const q = searchBar.value.toLowerCase().trim();
+    const filtered = VAULT_DATA.products.filter(p => 
+        p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q)
+    );
+    renderProducts(filtered);
 }
 
 function renderFAQ() {
@@ -216,22 +245,14 @@ function renderFAQ() {
     `).join('');
 }
 
-function handleSearch() {
-    const q = document.getElementById("search-bar").value.toLowerCase();
-    const filtered = VAULT_DATA.products.filter(p => 
-        p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q)
-    );
-    renderProducts(filtered);
-}
-
 function openModal(n, p) {
     curN = n; curP = p;
-    const targetName = document.getElementById("target-name");
-    const targetPrice = document.getElementById("target-price");
     const modal = document.getElementById("modal");
-    if(targetName) targetName.innerText = n.toUpperCase();
-    if(targetPrice) targetPrice.innerText = p;
-    if(modal) modal.style.display = "flex";
+    if(modal) {
+        document.getElementById("target-name").innerText = n.toUpperCase();
+        document.getElementById("target-price").innerText = p;
+        modal.style.display = "flex";
+    }
 }
 
 function closeModal() { 
@@ -255,10 +276,15 @@ function confirmInquiry() {
 }
 
 function init() {
+    // DARK MODE DEFAULT LOGIC
     if (localStorage.getItem("theme") === "light") {
         document.body.classList.add("light-mode");
         const btn = document.getElementById("theme-btn");
         if (btn) btn.innerText = "DARK MODE";
+    } else {
+        document.body.classList.remove("light-mode");
+        const btn = document.getElementById("theme-btn");
+        if (btn) btn.innerText = "LIGHT MODE";
     }
 
     const footerText = document.getElementById("footer-text");
