@@ -55,17 +55,11 @@
         .ai-vid-2 { background: repeating-linear-gradient(0deg, transparent, #00ffff 1px, transparent 2px); background-size: 100% 4px; animation: aiStream 5s linear infinite; }
         .ai-vid-3 { background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 20px 20px; animation: aiGrid 15s linear infinite; }
         .ai-vid-4 { background: conic-gradient(from 0deg, transparent, var(--primary), transparent); animation: aiRotate 6s linear infinite; filter: blur(25px); }
-        .ai-vid-5 { background: linear-gradient(transparent, #00ffff, transparent); height: 20%; width: 100%; animation: aiScan 2.5s ease-in-out infinite; top: 0; }
-        .ai-vid-6 { background: radial-gradient(circle, #00ffff 10%, transparent 80%); animation: aiVortex 8s linear infinite; }
-        .ai-vid-7 { background: repeating-conic-gradient(var(--primary) 0% 1%, transparent 1% 2%); animation: aiRotate 12s linear infinite; opacity: 0.1; }
-        .ai-vid-8 { background: linear-gradient(45deg, var(--primary) 25%, transparent 25%); background-size: 30px 30px; animation: aiGrid 8s linear infinite; }
 
         @keyframes aiPulse { 0%,100%{transform:scale(1);opacity:0.05} 50%{transform:scale(1.2);opacity:0.2} }
         @keyframes aiStream { from{transform:translateY(0)} to{transform:translateY(-40px)} }
         @keyframes aiGrid { from{background-position:0 0} to{background-position:20px 20px} }
         @keyframes aiRotate { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
-        @keyframes aiScan { 0%{top:-20%} 100%{top:100%} }
-        @keyframes aiVortex { 0%{transform:scale(1) rotate(0)} 50%{transform:scale(1.3) rotate(180deg)} 100%{transform:scale(1) rotate(360deg)} }
 
         .card-img{width:100%;height:auto;aspect-ratio:4/3;border-radius:20px;object-fit:cover;margin-bottom:25px;filter:grayscale(1);transition:.8s var(--transition);background:#1a1a1a;position:relative;z-index:2}
         .card:hover .card-img{filter:grayscale(0);transform:scale(1.05)}
@@ -88,7 +82,6 @@
         .method-card{padding:15px 10px;border:1px solid var(--border);border-radius:15px;cursor:pointer;transition:all .3s var(--transition);display:flex;flex-direction:column;align-items:center;gap:8px;background:var(--bg)}
         .method-card span{font-size:.6rem;font-weight:800;color:var(--text-dim);text-transform:uppercase}
         .method-card.active{border-color:var(--primary);background:rgba(255,215,0,.05);box-shadow:0 0 15px var(--glow);transform:translateY(-5px)}
-        .method-card.active span{color:var(--primary)}
     </style>
 </head>
 <body>
@@ -97,11 +90,11 @@
     <div class="container">
         <header>
             <nav aria-label="Main Navigation">
-                <h1 class="logo">
+                <div class="logo">
                     <a href="#top" style="text-decoration: none; color: inherit;" aria-label="Frans Marcellino Home">
                         FRANS <span>MARCELLINO</span>
                     </a>
-                </h1>
+                </div>
 
                 <div class="nav-controls">
                     <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">LIGHT MODE</button>
@@ -118,11 +111,12 @@
         </header>
 
         <main id="main-content">
-            <section id="home" class="page active" aria-labelledby="hero-title">
-                <h2 id="hero-title" style="display:none;">Elite Vault Home</h2> 
+            <section id="home" class="page active" aria-labelledby="home-heading">
+                <h2 id="home-heading" style="position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0;">Elite Vault Home</h2> 
+                
                 <article class="hero">
                     <div class="hero-badge-style">ESTABLISHED 2026</div>
-                    <div class="main-heading" style="font-family:'Playfair Display',serif; font-size:clamp(2.5rem,8vw,5.5rem); font-weight:900; margin-bottom:24px; line-height:1.1; font-style:italic;">Architecting Digital Sovereignty.</div>
+                    <h3 style="font-family:'Playfair Display',serif; font-size:clamp(2.5rem,8vw,5.5rem); font-weight:900; margin-bottom:24px; line-height:1.1; font-style:italic;">Architecting Digital Sovereignty.</h3>
                     <p class="hero-desc-style">Industrial-grade software assets designed for absolute performance.</p>
                     <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 30px;">
                         <button class="btn-premium" style="max-width: 280px" onclick="navigateTo('market')">VIEW REPOSITORY</button>
