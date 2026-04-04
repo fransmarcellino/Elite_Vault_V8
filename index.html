@@ -66,9 +66,14 @@
         .page.active{display:block;opacity:1;transform:translateY(0);filter:blur(0)}
 
         .hero{text-align:center;position:relative;padding:120px 0}
-        .hero h2{font-family:"Playfair Display",serif!important;font-size:clamp(2.5rem,8vw,5.5rem);font-weight:900;margin-bottom:24px;line-height:1.1;font-style:italic}
         
-        /* [MASTER WAVE IMPLEMENTATION] */
+        /* [MASTER TYPOGRAPHY & WAVE INTEGRATION] */
+        #hero-title, #about-title {
+            font-family: "Playfair Display", serif !important;
+            font-style: italic !important;
+            font-weight: 900 !important;
+        }
+
         #hero-title, #market-title, #about-title, #faq-title {
             background: linear-gradient(90deg, var(--wave-1) 35%, var(--wave-2) 50%, var(--wave-3) 65%);
             background-size: 200% auto;
@@ -85,6 +90,7 @@
             100% { background-position: -200% center; }
         }
 
+        .hero h2{font-size:clamp(2.5rem,8vw,5.5rem);margin-bottom:24px;line-height:1.1}
         .hero-badge-style{font-size:.7rem;letter-spacing:8px;color:var(--primary);margin-bottom:30px;font-weight:800;text-transform:uppercase}
         .hero-desc-style{color:var(--text-dim);max-width:750px;margin:0 auto 50px;font-size:1.15rem;font-weight:300}
 
@@ -163,7 +169,7 @@
 
             <section id="market" class="page" aria-labelledby="market-title">
                 <header style="text-align: center; margin-bottom: 50px">
-                    <h2 id="market-title">The Repository</h2>
+                    <h2 id="market-title" style="font-size: 2.8rem; letter-spacing: -2px; font-weight: 900;">The Repository</h2>
                     <p style="color: var(--text-dim); font-weight: 300">CURATED ASSETS BY FRANS MARCELLINO</p>
                 </header>
                 <div class="search-container" style="max-width: 500px; margin: 0 auto 40px">
@@ -174,7 +180,9 @@
 
             <section id="about" class="page" aria-labelledby="about-title">
                 <header style="text-align: center; margin-bottom: 50px; padding: 0 20px;">
-                    <h2 id="about-title">The Architecture of Absolute Precision</h2>
+                    <h2 id="about-title" style="font-size: clamp(2rem, 8vw, 2.8rem); letter-spacing: -1px; margin-bottom: 10px; line-height: 1.1;">
+                        The Architecture of Absolute Precision
+                    </h2>
                     <p style="color: var(--text-dim); font-weight: 300; text-transform: uppercase; letter-spacing: 2px; font-size: 0.7rem;">VALIDATED CORE & EMPIRICAL PERFORMANCE</p>
                 </header>
                 <div style="max-width: 1100px; margin: 0 auto;">
@@ -195,7 +203,7 @@
 
             <section id="faq" class="page" aria-labelledby="faq-title">
                 <header style="text-align: center; margin-bottom: 50px">
-                    <h2 id="faq-title">Knowledge Base</h2>
+                    <h2 id="faq-title" style="font-size: 2.8rem; letter-spacing: -2px; font-weight: 900;">Knowledge Base</h2>
                     <p style="color: var(--text-dim); font-weight: 300">ACQUISITION PROTOCOLS & INTEL</p>
                 </header>
                 <div class="grid" id="faq-grid"></div>
