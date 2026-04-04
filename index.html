@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Frans Marcellino | Elite Vault v8.2.3 — Digital Architect Portfolio</title>
+    <title>Frans Marcellino | Elite Vault v8.1.1 — Digital Architect Portfolio</title>
     <meta name="description" content="Official repository of Frans Marcellino. Industrial-grade software assets and AI Cinematic Artistry. Established 2026.">
     <meta name="author" content="Frans Marcellino">
 
@@ -14,35 +14,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" media="print" onload="this.media='all'">
 
     <style>
-        /* CORE SYSTEM - Elite Vault v8.2.3 */
-        :root {
-            --primary: #ffd700;
-            --bg: #050505;
-            --surface: #0f0f0f;
-            --text-main: #fff;
-            --text-dim: #888;
-            --border: rgba(255,255,255,0.05);
-            --transition: cubic-bezier(.23,1,.32,1);
-            --glow: rgba(255,215,0,0.15);
-            --accent-gradient: linear-gradient(45deg,#ffd700,#ff8c00);
-            /* Master Wave Variables - Dark Mode */
-            --wave-1: #ffffff;
-            --wave-2: #ffd700;
-            --wave-3: #ffffff;
-        }
-
-        body.light-mode {
-            --bg: #f5f5f7;
-            --surface: #fff;
-            --text-main: #1d1d1f;
-            --text-dim: #6e6e73;
-            --border: rgba(0,0,0,0.1);
-            --glow: rgba(255,215,0,0.3);
-            /* Master Wave Variables - Light Mode (High Contrast) */
-            --wave-1: #1d1d1f;
-            --wave-2: #b8860b;
-            --wave-3: #1d1d1f;
-        }
+        /* CORE SYSTEM - Elite Vault v8.1.1 */
+        :root{--primary:#ffd700;--bg:#050505;--surface:#0f0f0f;--text-main:#fff;--text-dim:#888;--border:rgba(255,255,255,0.05);--transition:cubic-bezier(.23,1,.32,1);--glow:rgba(255,215,0,0.15);--accent-gradient:linear-gradient(45deg,#ffd700,#ff8c00)}
+        body.light-mode{--bg:#f5f5f7;--surface:#fff;--text-main:#1d1d1f;--text-dim:#6e6e73;--border:rgba(0,0,0,0.1);--glow:rgba(255,215,0,0.3)}
 
         *{margin:0;padding:0;box-sizing:border-box;font-family:"Plus Jakarta Sans",sans-serif;cursor:none}
 
@@ -65,25 +39,9 @@
         .page{display:none;opacity:0;transform:translateY(20px);filter:blur(5px);transition:opacity .6s var(--transition),transform .6s var(--transition),filter .6s var(--transition);padding:60px 0;min-height:80vh}
         .page.active{display:block;opacity:1;transform:translateY(0);filter:blur(0)}
 
-        /* [UNIFIED TYPOGRAPHY ANIMATION PROTOCOL] */
-        #hero-title, #market-title, #about-title, #faq-title {
-            background: linear-gradient(90deg, var(--wave-1) 0%, var(--wave-2) 50%, var(--wave-1) 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            color: transparent;
-            animation: masterWaveEffect 4s linear infinite;
-            will-change: background-position;
-        }
-
-        @keyframes masterWaveEffect {
-            0% { background-position: 200% center; }
-            100% { background-position: -200% center; }
-        }
-
         .hero{text-align:center;position:relative;padding:120px 0}
         .hero h2{font-family:"Playfair Display",serif!important;font-size:clamp(2.5rem,8vw,5.5rem);font-weight:900;margin-bottom:24px;line-height:1.1;font-style:italic}
+        .hero-badge-style{font-size:.7rem;letter-spacing:8px;color:var(--primary);margin-bottom:30px;font-weight:800;text-transform:uppercase}
         .hero-badge-style{font-size:.7rem;letter-spacing:8px;color:var(--primary);margin-bottom:30px;font-weight:800;text-transform:uppercase}
         .hero-desc-style{color:var(--text-dim);max-width:750px;margin:0 auto 50px;font-size:1.15rem;font-weight:300}
 
@@ -98,11 +56,17 @@
         .ai-vid-2 { background: repeating-linear-gradient(0deg, transparent, #00ffff 1px, transparent 2px); background-size: 100% 4px; animation: aiStream 5s linear infinite; }
         .ai-vid-3 { background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 20px 20px; animation: aiGrid 15s linear infinite; }
         .ai-vid-4 { background: conic-gradient(from 0deg, transparent, var(--primary), transparent); animation: aiRotate 6s linear infinite; filter: blur(25px); }
+        .ai-vid-5 { background: linear-gradient(transparent, #00ffff, transparent); height: 20%; width: 100%; animation: aiScan 2.5s ease-in-out infinite; top: 0; }
+        .ai-vid-6 { background: radial-gradient(circle, #00ffff 10%, transparent 80%); animation: aiVortex 8s linear infinite; }
+        .ai-vid-7 { background: repeating-conic-gradient(var(--primary) 0% 1%, transparent 1% 2%); animation: aiRotate 12s linear infinite; opacity: 0.1; }
+        .ai-vid-8 { background: linear-gradient(45deg, var(--primary) 25%, transparent 25%); background-size: 30px 30px; animation: aiGrid 8s linear infinite; }
 
         @keyframes aiPulse { 0%,100%{transform:scale(1);opacity:0.05} 50%{transform:scale(1.2);opacity:0.2} }
         @keyframes aiStream { from{transform:translateY(0)} to{transform:translateY(-40px)} }
         @keyframes aiGrid { from{background-position:0 0} to{background-position:20px 20px} }
         @keyframes aiRotate { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+        @keyframes aiScan { 0%{top:-20%} 100%{top:100%} }
+        @keyframes aiVortex { 0%{transform:scale(1) rotate(0)} 50%{transform:scale(1.3) rotate(180deg)} 100%{transform:scale(1) rotate(360deg)} }
 
         .card-img{width:100%;height:auto;aspect-ratio:4/3;border-radius:20px;object-fit:cover;margin-bottom:25px;filter:grayscale(1);transition:.8s var(--transition);background:#1a1a1a;position:relative;z-index:2}
         .card:hover .card-img{filter:grayscale(0);transform:scale(1.05)}
@@ -113,22 +77,36 @@
         .m-box{background:var(--surface);padding:50px 30px;border-radius:32px;border:1px solid var(--border);width:100%;max-width:450px;text-align:center}
         .modal-price{font-size:3.5rem;margin:20px 0;background:var(--accent-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900}
         .modal-input{width:100%;padding:18px;margin-bottom:20px;background:var(--bg);border:1px solid var(--border);color:var(--text-main);border-radius:16px;text-align:center;font-size:1rem;outline:none}
-
         footer{text-align:center;padding:100px 0 60px;color:var(--text-dim);border-top:1px solid var(--border);position:relative;margin-top:80px}
         .social-strip{display:flex;justify-content:center;gap:30px;margin:30px 0}
         .social-strip a{color:var(--text-main);font-size:1.4rem;opacity:.4;transition:all .3s var(--transition);text-decoration:none}
         .social-strip a:hover{opacity:1;color:var(--primary)}
-        
         .validation-logos { display: flex; justify-content: center; gap: 15px; margin-top: 25px; opacity: 0.6; }
         .validation-logos img { filter: grayscale(1) invert(1); transition: 0.3s; }
         .validation-logos a:hover img { filter: grayscale(0) invert(0); opacity: 1; }
-
         .payment-methods{margin:25px 0;padding:20px;background:rgba(255,255,255,.02);border-radius:20px;border:1px solid var(--border)}
         .method-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
         .method-card{padding:15px 10px;border:1px solid var(--border);border-radius:15px;cursor:pointer;transition:all .3s var(--transition);display:flex;flex-direction:column;align-items:center;gap:8px;background:var(--bg)}
         .method-card span{font-size:.6rem;font-weight:800;color:var(--text-dim);text-transform:uppercase}
         .method-card.active{border-color:var(--primary);background:rgba(255,215,0,.05);box-shadow:0 0 15px var(--glow);transform:translateY(-5px)}
         .method-card.active span{color:var(--primary)}
+
+        /* [INJECTED TYPOGRAPHY ANIMATION PROTOCOL] */
+        #market-title, #about-title, #faq-title {
+            background: linear-gradient(90deg, #ffffff 35%, #ffd700 50%, #ffffff 65%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            animation: lightWaveEffect 5s linear infinite;
+            will-change: background-position;
+        }
+
+        @keyframes lightWaveEffect {
+            0% { background-position: 200% center; }
+            100% { background-position: -200% center; }
+        }
     </style>
 </head>
 <body>
@@ -195,12 +173,28 @@
                         <article class="card">
                             <div class="ev-video-bg ai-vid-1"></div>
                             <h3 style="color: var(--primary); margin-bottom: 15px; font-size: 1.5rem;">Zero-Error Technical Integrity</h3>
-                            <p style="color: var(--text-dim); font-size: 1rem;">Elite Vault V8 is engineered for those who demand absolute stability. Every line of code has been meticulously audited.</p>
+                            <p style="color: var(--text-dim); font-size: 1rem; line-height: 1.6; font-weight: 400; letter-spacing: 0px;">Elite Vault V8 is engineered for those who demand absolute stability. Every line of code has been meticulously audited to ensure a zero-error environment.</p>
                         </article>
                         <article class="card">
                             <div class="ev-video-bg ai-vid-2"></div>
-                            <h3 style="color: var(--primary); margin-bottom: 15px; font-size: 1.5rem;">Validated Standards</h3>
-                            <p style="color: var(--text-dim); font-size: 1rem;">Built upon a strictly W3C-validated framework. We encourage verification of our architectural integrity.</p>
+                            <h3 style="color: var(--primary); margin-bottom: 15px; font-size: 1.5rem;">Validated by Global Standards</h3>
+                            <p style="color: var(--text-dim); font-size: 1rem; line-height: 1.6; font-weight: 400; letter-spacing: 0px;">Built upon a strictly W3C-validated framework. We encourage users to verify our architectural integrity through the official W3C Validation Service.</p>
+                            <div style="margin-top: 20px;">
+                                <a href="https://validator.w3.org/" target="_blank" rel="noopener" style="color: var(--primary); text-decoration: none; font-size: 0.65rem; font-weight: 800; letter-spacing: 1px; border: 1px solid var(--border); padding: 8px 12px; border-radius: 10px;">VERIFY VIA W3C</a>
+                            </div>
+                        </article>
+                        <article class="card">
+                            <div class="ev-video-bg ai-vid-3"></div>
+                            <h3 style="color: var(--primary); margin-bottom: 15px; font-size: 1.5rem;">Peak Performance Documentation</h3>
+                            <p style="color: var(--text-dim); font-size: 1rem; line-height: 1.6; font-weight: 400; letter-spacing: 0px;">Achieve the highest tier of Lighthouse benchmarks. Perform a real-time audit via Google PageSpeed Insights to observe near-instantaneous load times.</p>
+                            <div style="margin-top: 20px;">
+                                <a href="https://pagespeed.web.dev/" target="_blank" rel="noopener" style="color: var(--primary); text-decoration: none; font-size: 0.65rem; font-weight: 800; letter-spacing: 1px; border: 1px solid var(--border); padding: 8px 12px; border-radius: 10px;">AUDIT VIA GOOGLE SPEED</a>
+                            </div>
+                        </article>
+                        <article class="card">
+                            <div class="ev-video-bg ai-vid-4"></div>
+                            <h3 style="color: var(--primary); margin-bottom: 15px; font-size: 1.5rem;">Industrial-Grade Reliability</h3>
+                            <p style="color: var(--text-dim); font-size: 1rem; line-height: 1.6; font-weight: 400; letter-spacing: 0px;">Curated for tech-forward agencies, providing an Immutable Digital Fortress. Combining zero-error code with peak performance dynamics.</p>
                         </article>
                     </div>
                 </div>
@@ -211,21 +205,33 @@
                     <h2 id="faq-title" style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 2.8rem; letter-spacing: -2px; margin-bottom: 10px; font-weight: 900;">Knowledge Base</h2>
                     <p style="color: var(--text-dim); font-weight: 300">ACQUISITION PROTOCOLS & INTEL</p>
                 </header>
-                <div class="grid" id="faq-grid"></div>
+                <div class="grid" id="faq-grid">
+                    </div>
             </section>
         </main>
 
         <footer>
             <div class="social-strip">
-                <a href="https://instagram.com/frans_marcellino" target="_blank" rel="noopener">INSTAGRAM</a>
-                <a href="mailto:fransmarselinosroyer@gmail.com">EMAIL</a>
-                <a href="https://linkedin.com/in/frans-marcellino" target="_blank" rel="noopener">LINKEDIN</a>
+                <a href="https://instagram.com/frans_marcellino" target="_blank" rel="noopener" aria-label="Instagram">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.332 3.608 1.308.975.975 1.247 2.242 1.308 3.607.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.332 2.633-1.308 3.608-.975.975-2.242 1.247-3.607 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.332-3.608-1.308-.975-.975-1.247-2.242-1.308-3.607-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.062-1.366.332-2.633 1.308-3.608.975-.975 2.242-1.247 3.607-1.308 1.266-.058 1.646-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.337 2.617 6.78 6.979 6.98 1.281.059 1.689.073 4.948.073s3.667-.014 4.947-.072c4.357-.2 6.78-2.618 6.98-6.98.058-1.281.072-1.689.072-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.059-1.69-.072-4.949-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                </a>
+                <a href="mailto:fransmarselinosroyer@gmail.com" aria-label="Email">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12.713l-11.985-9.713h23.97l-11.985 9.713zm0 2.574l12-9.725v15.438h-24v-15.438l12 9.725z"/></svg>
+                </a>
+                <a href="https://linkedin.com/in/frans-marcellino" target="_blank" rel="noopener" aria-label="LinkedIn">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"/></svg>
+                </a>
             </div>
+            <p id="footer-text" style="margin-top:20px; font-size:0.8rem; color:var(--text-dim);"></p>
+
             <div class="validation-logos">
-                <img src="https://www.w3.org/Icons/valid-html401" alt="Valid HTML" height="31" width="88">
-                <img src="https://www.w3.org/Icons/valid-css" alt="Valid CSS!" height="31" width="88">
+                <a href="https://validator.w3.org/nu/?doc=https://fransmarcellino.github.io/Elite_Vault_V8/" target="_blank" rel="noopener" aria-label="W3C HTML Validator">
+                    <img src="https://www.w3.org/Icons/valid-html401" alt="Valid HTML" height="31" width="88">
+                </a>
+                <a href="https://jigsaw.w3.org/css-validator/validator?uri=https://fransmarcellino.github.io/Elite_Vault_V8/" target="_blank" rel="noopener" aria-label="W3C CSS Validator">
+                    <img src="https://www.w3.org/Icons/valid-css" alt="Valid CSS!" height="31" width="88">
+                </a>
             </div>
-            <p style="margin-top:20px; font-size:0.8rem; color:var(--text-dim); text-align:center;">&copy; 2026 FRANS MARCELLINO. ALL RIGHTS RESERVED.</p>
         </footer>
     </div>
 
@@ -236,54 +242,17 @@
             <p id="target-price" class="modal-price">$0</p>
             <div class="payment-methods">
                 <div class="method-grid">
-                    <div class="method-card active" onclick="selectPayment('PayPal', this)"><span>PayPal</span></div>
-                    <div class="method-card" onclick="selectPayment('Card', this)"><span>Card</span></div>
-                    <div class="method-card" onclick="selectPayment('Crypto', this)"><span>Crypto</span></div>
+                    <div class="method-card active" onclick="selectPayment('PayPal', this)" role="button" tabindex="0"><span>PayPal</span></div>
+                    <div class="method-card" onclick="selectPayment('Card', this)" role="button" tabindex="0"><span>Card</span></div>
+                    <div class="method-card" onclick="selectPayment('Crypto', this)" role="button" tabindex="0"><span>Crypto</span></div>
                 </div>
             </div>
-            <input type="text" id="client-name" placeholder="VERIFY FULL NAME" class="modal-input">
+            <input type="text" id="client-name" placeholder="VERIFY FULL NAME" class="modal-input" aria-label="Your Name">
             <button class="btn-premium" onclick="confirmInquiry()">REQUEST LICENSE</button>
             <button onclick="closeModal()" style="background:none; border:none; color:inherit; cursor:pointer; margin-top:25px; opacity:0.5; font-size:0.7rem; letter-spacing:2px; font-weight:800; display:block; width:100%;">CANCEL PROTOCOL</button>
         </div>
     </div>
 
-    <script>
-        // Elite Vault v8.2.3 CORE LOGIC
-        const state = { currentTheme: 'dark', currentPage: 'home' };
-
-        function toggleTheme() {
-            const body = document.body;
-            const btn = document.getElementById('theme-btn');
-            if(body.classList.contains('light-mode')) {
-                body.classList.remove('light-mode');
-                btn.textContent = 'LIGHT MODE';
-                state.currentTheme = 'dark';
-            } else {
-                body.classList.add('light-mode');
-                btn.textContent = 'DARK MODE';
-                state.currentTheme = 'light';
-            }
-        }
-
-        function navigateTo(pageId) {
-            document.querySelectorAll('.page').forEach(p => {
-                p.classList.remove('active');
-                p.style.display = 'none';
-            });
-            const target = document.getElementById(pageId);
-            if(target) {
-                target.style.display = 'block';
-                setTimeout(() => target.classList.add('active'), 50);
-            }
-            window.scrollTo(0,0);
-        }
-
-        const cursor = document.getElementById('cursor');
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
-        });
-
-        window.onload = () => { navigateTo('home'); };
-    </script>
+    <script src="assets/js/script.js" defer></script>
 </body>
 </html>
