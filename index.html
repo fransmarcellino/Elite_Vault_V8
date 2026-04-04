@@ -25,10 +25,10 @@
             --transition:cubic-bezier(.23,1,.32,1);
             --glow:rgba(255,215,0,0.15);
             --accent-gradient:linear-gradient(45deg,#ffd700,#ff8c00);
-            /* Wave Animation Colors */
-            --wave-c1: #ffffff;
-            --wave-c2: #ffd700;
-            --wave-c3: #ffffff;
+            /* Wave Animation Protocol Variables */
+            --wave-1: #ffffff;
+            --wave-2: #ffd700;
+            --wave-3: #ffffff;
         }
 
         body.light-mode {
@@ -38,9 +38,9 @@
             --text-dim:#6e6e73;
             --border:rgba(0,0,0,0.1);
             --glow:rgba(255,215,0,0.3);
-            --wave-c1: #1d1d1f;
-            --wave-c2: #ffd700;
-            --wave-c3: #1d1d1f;
+            --wave-1: #1d1d1f;
+            --wave-2: #ffd700;
+            --wave-3: #1d1d1f;
         }
 
         *{margin:0;padding:0;box-sizing:border-box;font-family:"Plus Jakarta Sans",sans-serif;cursor:none}
@@ -51,23 +51,26 @@
         body{background:var(--bg);color:var(--text-main);line-height:1.6;transition:background .5s var(--transition);overflow-x:hidden}
         .container{max-width:1300px;margin:0 auto;padding:0 5%}
 
+        /* NAVIGATION ARCHITECTURE */
         nav{padding:20px 0;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:1000;background:var(--bg);backdrop-filter:blur(25px);border-bottom:1px solid var(--border)}
         .logo{font-weight:800;letter-spacing:4px;font-size:1rem;text-transform:uppercase;cursor:pointer}
         .logo span{color:var(--primary);text-shadow:0 0 10px var(--glow)}
-        .nav-controls{display:flex;align-items:center;gap:15px}
+        .nav-controls{display:flex;align-items:center;gap:15px;position:relative}
         .theme-toggle{background:var(--surface);border:1px solid var(--border);color:var(--text-main);padding:10px 18px;border-radius:12px;font-weight:700;font-size:.65rem;transition:.3s var(--transition);cursor:pointer}
-        .kebab-btn{background:none;border:1px solid var(--border);padding:12px;border-radius:14px;display:flex;flex-direction:column;gap:4px;cursor:pointer;z-index:1002}
+        .kebab-btn{background:none;border:1px solid var(--border);padding:12px;border-radius:14px;display:flex;flex-direction:column;gap:4px;cursor:pointer;z-index:1002;position:relative}
         .dot{width:4px;height:4px;background:var(--text-main);border-radius:50%}
 
-        .dropdown-menu{position:absolute;right:0;top:100%;background:var(--surface);border:1px solid var(--border);border-radius:20px;width:220px;z-index:1001;box-shadow:0 20px 40px rgba(0,0,0,.4);display:none;opacity:0;transform:translateY(-10px);transition:opacity .3s var(--transition),transform .3s var(--transition);overflow:hidden}
+        .dropdown-menu{position:absolute;right:0;top:120%;background:var(--surface);border:1px solid var(--border);border-radius:20px;width:220px;z-index:1001;box-shadow:0 20px 40px rgba(0,0,0,.4);display:none;opacity:0;transform:translateY(-10px);transition:opacity .3s var(--transition),transform .3s var(--transition);overflow:hidden}
         .dropdown-menu.active{display:block;opacity:1;transform:translateY(0)}
+        .dropdown-item{display:block;padding:15px 20px;color:var(--text-main);text-decoration:none;font-size:0.75rem;font-weight:800;letter-spacing:1px;border-bottom:1px solid var(--border);transition:0.3s}
+        .dropdown-item:hover{background:rgba(255,215,0,0.1);color:var(--primary)}
 
         .page{display:none;opacity:0;transform:translateY(20px);filter:blur(5px);transition:opacity .6s var(--transition),transform .6s var(--transition),filter .6s var(--transition);padding:60px 0;min-height:80vh}
         .page.active{display:block;opacity:1;transform:translateY(0);filter:blur(0)}
 
-        /* TITLES WITH WAVE EFFECT SYNC */
+        /* [ANIMATION PROTOCOL: LIGHT WAVE EFFECT] */
         #hero-title, #market-title, #about-title, #faq-title {
-            background: linear-gradient(90deg, var(--wave-c1) 35%, var(--wave-c2) 50%, var(--wave-c1) 65%);
+            background: linear-gradient(90deg, var(--wave-1) 35%, var(--wave-2) 50%, var(--wave-3) 65%);
             background-size: 200% auto;
             -webkit-background-clip: text;
             background-clip: text;
@@ -77,18 +80,18 @@
             will-change: background-position;
         }
 
-        #hero-title { font-family:"Playfair Display",serif!important; font-size:clamp(2.5rem,8vw,5.5rem); font-weight:900; margin-bottom:24px; line-height:1.1; font-style:italic; }
-        #about-title { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(2rem, 8vw, 2.8rem); letter-spacing: -1px; margin-bottom: 10px; line-height: 1.1; font-weight: 900; }
-
         @keyframes lightWaveEffect {
             0% { background-position: 200% center; }
             100% { background-position: -200% center; }
         }
 
+        /* HERO SECTION */
         .hero{text-align:center;position:relative;padding:120px 0}
+        .hero h2{font-family:"Playfair Display",serif!important;font-size:clamp(2.5rem, 8vw, 5.5rem);font-weight:900;margin-bottom:24px;line-height:1.1;font-style:italic}
         .hero-badge-style{font-size:.7rem;letter-spacing:8px;color:var(--primary);margin-bottom:30px;font-weight:800;text-transform:uppercase}
         .hero-desc-style{color:var(--text-dim);max-width:750px;margin:0 auto 50px;font-size:1.15rem;font-weight:300}
 
+        /* GRID & CARD ARCHITECTURE */
         .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:32px;margin-top:50px}
         .card{background:var(--surface);border:1px solid var(--border);border-radius:28px;padding:40px;position:relative;overflow:hidden;backdrop-filter:blur(10px);box-shadow:0 10px 30px rgba(0,0,0,.5);transition:.6s var(--transition);will-change:transform, border-color;z-index:1}
         .card:hover{border-color:var(--primary);transform:translateY(-12px) scale(1.02);box-shadow:0 30px 60px rgba(0,0,0,.8),0 0 20px var(--glow)}
@@ -111,13 +114,12 @@
         .price-tag{position:absolute;top:30px;right:30px;background:var(--accent-gradient);color:#000;padding:8px 18px;border-radius:12px;font-weight:900;font-size:.8rem;z-index:10}
         .btn-premium{background:var(--primary);color:#000;padding:18px;border-radius:18px;width:100%;border:none;font-weight:800;text-transform:uppercase;cursor:pointer;transition:.3s var(--transition);text-align:center;display:inline-block;text-decoration:none;position:relative;z-index:5}
 
+        /* MODAL & PAYMENT SYSTEM */
         #modal{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(15px);display:none;justify-content:center;align-items:center;z-index:2000;padding:20px}
         .m-box{background:var(--surface);padding:50px 30px;border-radius:32px;border:1px solid var(--border);width:100%;max-width:450px;text-align:center}
-        
-        /* PRICE ANIMATION GLOW RETENTION */
-        .modal-price{font-size:3.5rem;margin:20px 0;background:var(--accent-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900;text-shadow: 0 0 20px var(--glow);}
-        
+        .modal-price{font-size:3.5rem;margin:20px 0;background:var(--accent-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900;text-shadow: 0 0 25px var(--glow); filter: drop-shadow(0 0 10px var(--glow));}
         .modal-input{width:100%;padding:18px;margin-bottom:20px;background:var(--bg);border:1px solid var(--border);color:var(--text-main);border-radius:16px;text-align:center;font-size:1rem;outline:none}
+
         .payment-methods{margin:25px 0;padding:20px;background:rgba(255,255,255,.02);border-radius:20px;border:1px solid var(--border)}
         .method-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
         .method-card{padding:15px 10px;border:1px solid var(--border);border-radius:15px;cursor:pointer;transition:all .3s var(--transition);display:flex;flex-direction:column;align-items:center;gap:8px;background:var(--bg)}
@@ -140,24 +142,22 @@
         <header>
             <nav aria-label="Main Navigation">
                 <h1 class="logo">
-                    <a href="#home" style="text-decoration: none; color: inherit;" aria-label="Frans Marcellino Home">
+                    <a href="#" onclick="navigateTo('home')" style="text-decoration: none; color: inherit;" aria-label="Frans Marcellino Home">
                         FRANS <span>MARCELLINO</span>
                     </a>
                 </h1>
 
                 <div class="nav-controls">
                     <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">LIGHT MODE</button>
-                    <div class="menu-wrapper" style="position:relative;">
+                    <div class="menu-wrapper">
                         <button class="kebab-btn" id="kebab-menu-btn" onclick="toggleMenu(event)" aria-label="Open Menu">
                             <span class="dot"></span><span class="dot"></span><span class="dot"></span>
                         </button>
                         <div id="dropdown" class="dropdown-menu" role="menu">
-                            <div style="padding:10px;">
-                                <a href="#" onclick="navigateTo('home')" style="display:block; padding:12px; color:var(--text-main); text-decoration:none; font-size:0.8rem; font-weight:700;">HOME</a>
-                                <a href="#" onclick="navigateTo('market')" style="display:block; padding:12px; color:var(--text-main); text-decoration:none; font-size:0.8rem; font-weight:700;">REPOSITORY</a>
-                                <a href="#" onclick="navigateTo('about')" style="display:block; padding:12px; color:var(--text-main); text-decoration:none; font-size:0.8rem; font-weight:700;">ABOUT</a>
-                                <a href="#" onclick="navigateTo('faq')" style="display:block; padding:12px; color:var(--text-main); text-decoration:none; font-size:0.8rem; font-weight:700;">FAQ</a>
-                            </div>
+                            <a href="#" class="dropdown-item" onclick="navigateTo('home')">HOME</a>
+                            <a href="#" class="dropdown-item" onclick="navigateTo('market')">REPOSITORY</a>
+                            <a href="#" class="dropdown-item" onclick="navigateTo('about')">ABOUT</a>
+                            <a href="#" class="dropdown-item" onclick="navigateTo('faq')">FAQ</a>
                         </div>
                     </div>
                 </div>
@@ -183,14 +183,17 @@
                     <p style="color: var(--text-dim); font-weight: 300">CURATED ASSETS BY FRANS MARCELLINO</p>
                 </header>
                 <div class="search-container" style="max-width: 500px; margin: 0 auto 40px">
-                    <input type="text" id="search-bar" aria-label="Search Assets" placeholder="Filter Assets..." style="width: 100%; padding: 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; color: var(--text-main); outline: none;">
+                    <input type="text" id="search-bar" placeholder="Filter Assets..." style="width: 100%; padding: 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; color: var(--text-main); outline: none;">
                 </div>
-                <div class="grid" id="main-grid"></div>
+                <div class="grid" id="main-grid">
+                    </div>
             </section>
 
             <section id="about" class="page" aria-labelledby="about-title">
                 <header style="text-align: center; margin-bottom: 50px; padding: 0 20px;">
-                    <h2 id="about-title">The Architecture of Absolute Precision</h2>
+                    <h2 id="about-title" style="font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(2rem, 8vw, 2.8rem); letter-spacing: -1px; margin-bottom: 10px; line-height: 1.1; font-weight: 900;">
+                        The Architecture of Absolute Precision
+                    </h2>
                     <p style="color: var(--text-dim); font-weight: 300; text-transform: uppercase; letter-spacing: 2px; font-size: 0.7rem;">
                         VALIDATED CORE & EMPIRICAL PERFORMANCE
                     </p>
@@ -229,10 +232,11 @@
 
             <section id="faq" class="page" aria-labelledby="faq-title">
                 <header style="text-align: center; margin-bottom: 50px">
-                    <h2 id="faq-title" style="font-size: 2.8rem; letter-spacing: -2px; margin-bottom: 10px; font-weight: 900;">Knowledge Base</h2>
+                    <h2 id="faq-title" style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 2.8rem; letter-spacing: -2px; margin-bottom: 10px; font-weight: 900;">Knowledge Base</h2>
                     <p style="color: var(--text-dim); font-weight: 300">ACQUISITION PROTOCOLS & INTEL</p>
                 </header>
-                <div class="grid" id="faq-grid"></div>
+                <div class="grid" id="faq-grid">
+                    </div>
             </section>
         </main>
 
@@ -248,19 +252,14 @@
                     <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"/></svg>
                 </a>
             </div>
-
             <div class="validation-logos">
-                <a href="https://validator.w3.org/nu/?doc=https://fransmarcellino.github.io/Elite_Vault_V8/" target="_blank" rel="noopener" aria-label="W3C HTML Validator">
-                    <img src="https://www.w3.org/Icons/valid-html401" alt="Valid HTML" height="31" width="88">
-                </a>
-                <a href="https://jigsaw.w3.org/css-validator/validator?uri=https://fransmarcellino.github.io/Elite_Vault_V8/" target="_blank" rel="noopener" aria-label="W3C CSS Validator">
-                    <img src="https://www.w3.org/Icons/valid-css" alt="Valid CSS!" height="31" width="88">
-                </a>
+                <a href="https://validator.w3.org/nu/?doc=https://fransmarcellino.github.io/Elite_Vault_V8/" target="_blank" rel="noopener"><img src="https://www.w3.org/Icons/valid-html401" alt="Valid HTML" height="31" width="88"></a>
+                <a href="https://jigsaw.w3.org/css-validator/validator?uri=https://fransmarcellino.github.io/Elite_Vault_V8/" target="_blank" rel="noopener"><img src="https://www.w3.org/Icons/valid-css" alt="Valid CSS!" height="31" width="88"></a>
             </div>
         </footer>
     </div>
 
-    <div id="modal" role="dialog" aria-modal="true" aria-labelledby="target-name">
+    <div id="modal" role="dialog" aria-modal="true">
         <div class="m-box">
             <h3 style="font-size: 0.7rem; letter-spacing: 3px; color: var(--text-dim); text-transform: uppercase;">ASSET SELECTION</h3>
             <p id="target-name" style="font-size: 1.2rem; font-weight: 800; margin-top: 5px; color: var(--primary);"></p>
@@ -274,24 +273,28 @@
                 </div>
             </div>
 
-            <input type="text" id="client-name" placeholder="VERIFY FULL NAME" class="modal-input" aria-label="Your Name">
+            <input type="text" id="client-name" placeholder="VERIFY FULL NAME" class="modal-input">
             <button class="btn-premium" onclick="confirmInquiry()">REQUEST LICENSE</button>
             <button onclick="closeModal()" style="background:none; border:none; color:inherit; cursor:pointer; margin-top:25px; opacity:0.5; font-size:0.7rem; letter-spacing:2px; font-weight:800; display:block; width:100%;">CANCEL PROTOCOL</button>
         </div>
     </div>
 
     <script>
-        /* CORE LOGIC */
+        /* CORE ARCHITECTURE LOGIC */
         function navigateTo(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-            window.scrollTo(0, 0);
+            const target = document.getElementById(pageId);
+            if(target) {
+                target.classList.add('active');
+                window.scrollTo(0, 0);
+            }
             document.getElementById('dropdown').classList.remove('active');
         }
 
         function toggleMenu(e) {
-            e.stopPropagation();
-            document.getElementById('dropdown').classList.toggle('active');
+            if(e) e.stopPropagation();
+            const menu = document.getElementById('dropdown');
+            menu.classList.toggle('active');
         }
 
         function toggleTheme() {
@@ -304,16 +307,23 @@
             document.getElementById('modal').style.display = 'none';
         }
 
-        // Close dropdown on click outside
-        window.onclick = function() {
-            document.getElementById('dropdown').classList.remove('active');
-        };
+        // Global Event Listeners
+        window.addEventListener('click', function(e) {
+            const menu = document.getElementById('dropdown');
+            if(menu && !e.target.closest('.menu-wrapper')) {
+                menu.classList.remove('active');
+            }
+        });
 
-        // Cursor logic
         const cursor = document.getElementById('cursor');
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
+        });
+
+        // Initialize assets if script.js is missing
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log("Elite Vault v8.1.1 Kernel Ready.");
         });
     </script>
     <script src="assets/js/script.js" defer></script>
