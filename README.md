@@ -70,6 +70,7 @@ Elite Vault does not store sensitive data locally, mitigating GDPR and CCPA risk
 - **W3C Integrity:** Click the "W3C Validator" link in the footer after every update. Any red flags in the HTML structure can decrease your SEO ranking on Google/Bing.
 - **PageSpeed Audit:** Aim for a "Time to Interactive" (TTI) of <1.5s.
 - **Support:** Technical inquiries and Extended Commercial Licenses are managed via: **fransmarselinosroyer@gmail.com**.
+- LINKEDIN: https://www.linkedin.com/in/frans-marcellino-047228189?trk=contact-info
 
 ---
 *© 2026 FRANS MARCELLINO. All Rights Reserved. This documentation is part of the Elite Vault Proprietary License. Unauthorized redistribution of this manifest is strictly prohibited.*
