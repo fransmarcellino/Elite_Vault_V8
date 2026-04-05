@@ -110,8 +110,6 @@
         letter-spacing: 4px;
         font-size: 1rem;
         text-transform: uppercase;
-      }
-      .logo a {
         cursor: pointer;
       }
       .logo span {
@@ -198,8 +196,15 @@
         position: relative;
         padding: 120px 0;
       }
+      .hero h1 {
+        font-family: "Playfair Display", serif !important;
+        font-size: clamp(2.5rem, 8vw, 5.5rem);
+        font-weight: 900;
+        margin-bottom: 24px;
+        line-height: 1.1;
+        font-style: italic;
+      }
       .hero-badge-style {
-        display: block;
         font-size: 0.75rem;
         letter-spacing: 8px;
         color: var(--primary);
@@ -255,15 +260,54 @@
         opacity: 0.15;
       }
 
-      .ai-vid-1 { background: radial-gradient(circle, var(--primary) 0%, transparent 70%); animation: aiPulse 4s infinite; }
-      .ai-vid-2 { background: repeating-linear-gradient(0deg, transparent, #00ffff 1px, transparent 2px); background-size: 100% 4px; animation: aiStream 5s linear infinite; }
-      .ai-vid-3 { background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 20px 20px; animation: aiGrid 15s linear infinite; }
-      .ai-vid-4 { background: conic-gradient(from 0deg, transparent, var(--primary), transparent); animation: aiRotate 6s linear infinite; filter: blur(25px); }
+      .ai-vid-1 {
+        background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+        animation: aiPulse 4s infinite;
+      }
+      .ai-vid-2 {
+        background: repeating-linear-gradient(
+          0deg,
+          transparent,
+          #00ffff 1px,
+          transparent 2px
+        );
+        background-size: 100% 4px;
+        animation: aiStream 5s linear infinite;
+      }
+      .ai-vid-3 {
+        background-image:
+          linear-gradient(var(--border) 1px, transparent 1px),
+          linear-gradient(90deg, var(--border) 1px, transparent 1px);
+        background-size: 20px 20px;
+        animation: aiGrid 15s linear infinite;
+      }
+      .ai-vid-4 {
+        background: conic-gradient(
+          from 0deg,
+          transparent,
+          var(--primary),
+          transparent
+        );
+        animation: aiRotate 6s linear infinite;
+        filter: blur(25px);
+      }
 
-      @keyframes aiPulse { 0%, 100% { transform: scale(1); opacity: 0.05; } 50% { transform: scale(1.2); opacity: 0.2; } }
-      @keyframes aiStream { from { transform: translateY(0); } to { transform: translateY(-40px); } }
-      @keyframes aiGrid { from { background-position: 0 0; } to { background-position: 20px 20px; } }
-      @keyframes aiRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+      @keyframes aiPulse {
+        0%, 100% { transform: scale(1); opacity: 0.05; }
+        50% { transform: scale(1.2); opacity: 0.2; }
+      }
+      @keyframes aiStream {
+        from { transform: translateY(0); }
+        to { transform: translateY(-40px); }
+      }
+      @keyframes aiGrid {
+        from { background-position: 0 0; }
+        to { background-position: 20px 20px; }
+      }
+      @keyframes aiRotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
 
       .card-img {
         width: 100%;
@@ -435,12 +479,12 @@
 
     <div class="container">
       <header>
-        <nav aria-label="Navigasi Utama">
+        <nav aria-label="Main Navigation">
           <div class="logo">
             <a
               href="#top"
               style="text-decoration: none; color: inherit"
-              aria-label="Frans Marcellino Beranda"
+              aria-label="Frans Marcellino Home"
             >
               FRANS <span>MARCELLINO</span>
             </a>
@@ -455,14 +499,15 @@
                 class="kebab-btn"
                 id="kebab-menu-btn"
                 onclick="toggleMenu(false, event)"
-                aria-label="Buka Menu"
+                aria-label="Open Menu"
                 aria-haspopup="true"
                 aria-expanded="false"
               >
                 <span class="dot"></span><span class="dot"></span><span class="dot"></span>
               </button>
               <div id="dropdown" class="dropdown-menu">
-                <div id="social-links"></div>
+                <div id="social-links">
+                  </div>
               </div>
             </div>
           </div>
@@ -476,7 +521,7 @@
           </h1>
 
           <article class="hero">
-            <p class="hero-badge-style">ESTABLISHED 2026</p>
+            <h2 class="hero-badge-style">ESTABLISHED 2026</h2>
             <p
               style="
                 font-family: 'Playfair Display', serif;
@@ -540,7 +585,6 @@
               CURATED ASSETS BY FRANS MARCELLINO
             </p>
           </header>
-
           <div
             class="search-container"
             style="max-width: 500px; margin: 0 auto 40px"
@@ -548,7 +592,7 @@
             <input
               type="text"
               id="search-bar"
-              aria-label="Cari Aset"
+              aria-label="Search Assets"
               placeholder="Filter Assets..."
               onkeyup="handleSearch()"
               style="
@@ -562,68 +606,366 @@
               "
             />
           </div>
-
-          <div class="grid" id="main-grid">
-            <article class="card">
-                <span class="price-tag">$499</span>
-                <img src="assets/img/core-titan.jpg" alt="Perspektif arsitektur gedung pencakar langit modern dengan pencahayaan emas" class="card-img" />
-                <h3 style="margin-bottom: 15px;">Inti Titan</h3>
-                <p style="color: var(--text-dim); font-size: 0.9rem; margin-bottom: 25px;">Sistem manajemen basis data berperforma tinggi dengan latensi ultra rendah.</p>
-                <button class="btn-premium" onclick="openModal('Inti Titan', '$499')">Request License</button>
-            </article>
-
-            <article class="card">
-                <span class="price-tag">$299</span>
-                <img src="assets/img/quantum-ui.jpg" alt="Visualisasi gradien gelombang digital futuristik berwarna neon biru" class="card-img" />
-                <h3 style="margin-bottom: 15px;">Quantum UI</h3>
-                <p style="color: var(--text-dim); font-size: 0.9rem; margin-bottom: 25px;">Framework antarmuka pengguna yang adaptif dan sepenuhnya teroptimasi.</p>
-                <button class="btn-premium" onclick="openModal('Quantum UI', '$299')">Request License</button>
-            </article>
-          </div>
+          <div class="grid" id="main-grid"></div>
         </section>
 
         <section id="about" class="page" aria-labelledby="about-title">
-          <header style="text-align: center; margin-bottom: 50px; padding: 0 20px">
-            <h2 id="about-title" style="font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(2rem, 8vw, 2.8rem); letter-spacing: -1px; margin-bottom: 10px; line-height: 1.1; font-weight: 900; text-shadow: 0 0 15px rgba(255, 255, 255, 0.1);">
+          <header
+            style="text-align: center; margin-bottom: 50px; padding: 0 20px"
+          >
+            <h2
+              id="about-title"
+              style="
+                font-family: 'Playfair Display', serif;
+                font-style: italic;
+                font-size: clamp(2rem, 8vw, 2.8rem);
+                letter-spacing: -1px;
+                margin-bottom: 10px;
+                line-height: 1.1;
+                font-weight: 900;
+                text-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+              "
+            >
               The Architecture of Absolute Precision
             </h2>
-            <p style="color: var(--text-dim); font-weight: 300; text-transform: uppercase; letter-spacing: 2px; font-size: 0.75rem;">
+            <p
+              style="
+                color: var(--text-dim);
+                font-weight: 300;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                font-size: 0.75rem;
+              "
+            >
               VALIDATED CORE & EMPIRICAL PERFORMANCE
             </p>
           </header>
-          </section>
+          <div style="max-width: 1100px; margin: 0 auto">
+            <div class="grid">
+              <article class="card">
+                <div class="ev-video-bg ai-vid-1"></div>
+                <h3
+                  style="
+                    color: var(--primary);
+                    margin-bottom: 15px;
+                    font-size: 1.5rem;
+                  "
+                >
+                  Zero-Error Technical Integrity
+                </h3>
+                <p
+                  style="
+                    color: var(--text-dim);
+                    font-size: 1rem;
+                    line-height: 1.6;
+                    font-weight: 400;
+                    letter-spacing: 0px;
+                  "
+                >
+                  Elite Vault V8 is engineered for those who demand absolute
+                  stability. Every line of code has been meticulously audited to
+                  ensure a zero-error environment.
+                </p>
+              </article>
+              <article class="card">
+                <div class="ev-video-bg ai-vid-2"></div>
+                <h3
+                  style="
+                    color: var(--primary);
+                    margin-bottom: 15px;
+                    font-size: 1.5rem;
+                  "
+                >
+                  Validated by Global Standards
+                </h3>
+                <p
+                  style="
+                    color: var(--text-dim);
+                    font-size: 1rem;
+                    line-height: 1.6;
+                    font-weight: 400;
+                    letter-spacing: 0px;
+                  "
+                >
+                  Built upon a strictly W3C-validated framework. We encourage
+                  users to verify our architectural integrity through the
+                  official W3C Validation Service.
+                </p>
+                <div style="margin-top: 20px">
+                  <a
+                    href="https://validator.w3.org/"
+                    target="_blank"
+                    rel="noopener"
+                    style="
+                      color: var(--primary);
+                      text-decoration: none;
+                      font-size: 0.75rem;
+                      font-weight: 800;
+                      letter-spacing: 1px;
+                      border: 1px solid var(--border);
+                      padding: 8px 12px;
+                      border-radius: 10px;
+                    "
+                    >VERIFY VIA W3C</a
+                  >
+                </div>
+              </article>
+              <article class="card">
+                <div class="ev-video-bg ai-vid-3"></div>
+                <h3
+                  style="
+                    color: var(--primary);
+                    margin-bottom: 15px;
+                    font-size: 1.5rem;
+                  "
+                >
+                  Peak Performance Documentation
+                </h3>
+                <p
+                  style="
+                    color: var(--text-dim);
+                    font-size: 1rem;
+                    line-height: 1.6;
+                    font-weight: 400;
+                    letter-spacing: 0px;
+                  "
+                >
+                  Achieve the highest tier of Lighthouse benchmarks. Perform a
+                  real-time audit via Google PageSpeed Insights to observe
+                  near-instantaneous load times.
+                </p>
+                <div style="margin-top: 20px">
+                  <a
+                    href="https://pagespeed.web.dev/"
+                    target="_blank"
+                    rel="noopener"
+                    style="
+                      color: var(--primary);
+                      text-decoration: none;
+                      font-size: 0.75rem;
+                      font-weight: 800;
+                      letter-spacing: 1px;
+                      border: 1px solid var(--border);
+                      padding: 8px 12px;
+                      border-radius: 10px;
+                    "
+                    >AUDIT VIA GOOGLE SPEED</a
+                  >
+                </div>
+              </article>
+              <article class="card">
+                <div class="ev-video-bg ai-vid-4"></div>
+                <h3
+                  style="
+                    color: var(--primary);
+                    margin-bottom: 15px;
+                    font-size: 1.5rem;
+                  "
+                >
+                  Industrial-Grade Reliability
+                </h3>
+                <p
+                  style="
+                    color: var(--text-dim);
+                    font-size: 1rem;
+                    line-height: 1.6;
+                    font-weight: 400;
+                    letter-spacing: 0px;
+                  "
+                >
+                  Curated for tech-forward agencies, providing an Immutable
+                  Digital Fortress. Combining zero-error code with peak
+                  performance dynamics.
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="faq" class="page" aria-labelledby="faq-title">
+          <header style="text-align: center; margin-bottom: 50px">
+            <h2
+              id="faq-title"
+              style="
+                font-family: 'Playfair Display', serif;
+                font-style: italic;
+                font-size: 2.8rem;
+                letter-spacing: -2px;
+                margin-bottom: 10px;
+                font-weight: 900;
+              "
+            >
+              Knowledge Base
+            </h2>
+            <p style="color: var(--text-dim); font-weight: 300">
+              ACQUISITION PROTOCOLS & INTEL
+            </p>
+          </header>
+          <div class="grid" id="faq-grid"></div>
+        </section>
       </main>
 
       <footer>
         <div class="social-strip">
-          <a href="https://instagram.com/frans_marcellino" target="_blank" rel="noopener" aria-label="Ikuti Frans di Instagram">
-            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.332 3.608 1.308.975.975 1.247 2.242 1.308 3.607.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.332 2.633-1.308 3.608-.975.975-2.242 1.247-3.607 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.332-3.608-1.308-.975-.975-1.247-2.242-1.308-3.607-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.062-1.366.332-2.633 1.308-3.608.975-.975 2.242-1.247 3.607-1.308 1.266-.058 1.646-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.337 2.617 6.78 6.979 6.98 1.281.059 1.689.073 4.948.073s3.667-.014 4.947-.072c4.357-.2 6.78-2.618 6.98-6.98.058-1.281.072-1.689.072-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.059-1.69-.072-4.949-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          <a
+            href="https://instagram.com/frans_marcellino"
+            target="_blank"
+            rel="noopener"
+            aria-label="Instagram"
+          >
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.332 3.608 1.308.975.975 1.247 2.242 1.308 3.607.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.332 2.633-1.308 3.608-.975.975-2.242 1.247-3.607 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.332-3.608-1.308-.975-.975-1.247-2.242-1.308-3.607-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.062-1.366.332-2.633 1.308-3.608.975-.975 2.242-1.247 3.607-1.308 1.266-.058 1.646-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.337 2.617 6.78 6.979 6.98 1.281.059 1.689.073 4.948.073s3.667-.014 4.947-.072c4.357-.2 6.78-2.618 6.98-6.98.058-1.281.072-1.689.072-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.059-1.69-.072-4.949-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+              />
+            </svg>
           </a>
-          </div>
-
-        <div id="footer-text" style="margin-top: 20px; font-size: 0.8rem; color: var(--text-dim); font-weight: 400;">
-          &copy; 2026 Frans Marcellino. All Rights Reserved.
+          <a
+            href="https://twitter.com/frans_marcellino"
+            target="_blank"
+            rel="noopener"
+            aria-label="Twitter"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path
+                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.25 2.25h6.763l4.711 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+              ></path>
+            </svg>
+          </a>
+          <a
+            href="https://linkedin.com/in/frans-marcellino"
+            target="_blank"
+            rel="noopener"
+            aria-label="LinkedIn"
+          >
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"
+              />
+            </svg>
+          </a>
         </div>
+        
+        <div
+          id="footer-text"
+          style="margin-top: 20px; font-size: 0.8rem; color: var(--text-dim); font-weight: 400; text-transform: none;"
+        ></div>
 
         <div class="validation-logos">
-          <a href="https://validator.w3.org/nu/?doc=https://fransmarcellino.github.io/Elite_Vault_V8/" target="_blank" rel="noopener" aria-label="Validasi HTML W3C">
-            <img src="https://www.w3.org/Icons/valid-html401" alt="Logo Validasi W3C HTML 4.01" height="31" width="88" />
+          <a
+            href="https://validator.w3.org/nu/?doc=https://fransmarcellino.github.io/Elite_Vault_V8/"
+            target="_blank"
+            rel="noopener"
+            aria-label="W3C HTML Validator"
+          >
+            <img
+              src="https://www.w3.org/Icons/valid-html401"
+              alt=""
+              height="31"
+              width="88"
+            />
           </a>
-          <a href="https://jigsaw.w3.org/css-validator/validator?uri=https://fransmarcellino.github.io/Elite_Vault_V8/" target="_blank" rel="noopener" aria-label="Validasi CSS W3C">
-            <img src="https://www.w3.org/Icons/valid-css" alt="Logo Validasi W3C CSS" height="31" width="88" />
+          <a
+            href="https://jigsaw.w3.org/css-validator/validator?uri=https://fransmarcellino.github.io/Elite_Vault_V8/"
+            target="_blank"
+            rel="noopener"
+            aria-label="W3C CSS Validator"
+          >
+            <img
+              src="https://www.w3.org/Icons/valid-css"
+              alt=""
+              height="31"
+              width="88"
+            />
           </a>
         </div>
       </footer>
     </div>
 
-    <div id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-status-label">
+    <div
+      id="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-status-label"
+    >
       <div class="m-box">
-        <h3 id="modal-status-label" style="font-size: 0.75rem; letter-spacing: 3px; color: var(--text-dim); text-transform: uppercase;">
+        <h3
+          id="modal-status-label"
+          style="
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+          "
+        >
           ASSET SELECTION
         </h3>
-        <p id="target-name" style="font-size: 1.2rem; font-weight: 800; margin-top: 5px; color: var(--primary);"></p>
+        <p
+          id="target-name"
+          style="
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-top: 5px;
+            color: var(--primary);
+          "
+        ></p>
         <p id="target-price" class="modal-price">$0</p>
-        <button onclick="closeModal()" style="background: none; border: none; color: inherit; cursor: pointer; margin-top: 25px; opacity: 0.5; font-size: 0.75rem; letter-spacing: 2px; font-weight: 800; display: block; width: 100%;">
+        <div class="payment-methods">
+          <div class="method-grid" role="radiogroup" aria-label="Select Payment Method">
+            <div
+              class="method-card active"
+              onclick="selectPayment('PayPal', this)"
+              role="radio"
+              aria-checked="true"
+              tabindex="0"
+            >
+              <span>PayPal</span>
+            </div>
+            <div
+              class="method-card"
+              onclick="selectPayment('Card', this)"
+              role="radio"
+              aria-checked="false"
+              tabindex="0"
+            >
+              <span>Card</span>
+            </div>
+            <div
+              class="method-card"
+              onclick="selectPayment('Crypto', this)"
+              role="radio"
+              aria-checked="false"
+              tabindex="0"
+            >
+              <span>Crypto</span>
+            </div>
+          </div>
+        </div>
+        <input
+          type="text"
+          id="client-name"
+          placeholder="VERIFY FULL NAME"
+          class="modal-input"
+          aria-label="Your Full Name"
+        />
+        <button class="btn-premium" onclick="confirmInquiry()">
+          REQUEST LICENSE
+        </button>
+        <button
+          onclick="closeModal()"
+          style="
+            background: none;
+            border: none;
+            color: inherit;
+            cursor: pointer;
+            margin-top: 25px;
+            opacity: 0.5;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            font-weight: 800;
+            display: block;
+            width: 100%;
+          "
+        >
           CANCEL PROTOCOL
         </button>
       </div>
