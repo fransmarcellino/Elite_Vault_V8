@@ -256,7 +256,6 @@ function renderProducts(data) {
     "ai-vid-8",
   ];
 
-  // SEARCH FEEDBACK: Menampilkan pesan jika barang tidak ditemukan
   if (data.length === 0) {
     const noResults = document.createElement("div");
     noResults.style =
@@ -275,17 +274,25 @@ function renderProducts(data) {
     const card = document.createElement("article");
     card.className = "card";
 
-    // PERFORMANCE SYNC: 4 kartu pertama muat serentak
+    // PERBAIKAN VISUAL UNTUK KARTU TERTENTU (3, 5, 6, 7, 8)
+    // index 2=Kartu 3, 4=Kartu 5, 5=Kartu 6, 6=Kartu 7, 7=Kartu 8
+    const targetIndexes = [2, 4, 5, 6, 7];
+    if (targetIndexes.includes(index)) {
+        card.style.border = "1px solid var(--primary)";
+        card.style.boxShadow = "0 10px 30px rgba(255, 215, 0, 0.1)";
+        card.style.transform = "scale(1.02)";
+    }
+
     const loadingStrategy = index < 4 ? "eager" : "lazy";
     const priorityAttr = index < 4 ? 'fetchpriority="high"' : "";
 
     card.innerHTML = `
             <div class="ev-video-bg ${aiClasses[index % 8]}"></div>
-            <div class="price-tag">${p.price}</div>
-            <img src="${p.img}" class="card-img" alt="${p.name}" loading="${loadingStrategy}" ${priorityAttr}>
-            <h3 style="margin-bottom:10px; position:relative; z-index:2;">${p.name}</h3>
+            <div class="price-tag" style="${targetIndexes.includes(index) ? 'background:var(--primary); color:#000;' : ''}">${p.price}</div>
+            <img src="${p.img}" class="card-img" alt="${p.name}" loading="${loadingStrategy}" ${priorityAttr} style="${targetIndexes.includes(index) ? 'filter: brightness(1.1);' : ''}">
+            <h3 style="margin-bottom:10px; position:relative; z-index:2; ${targetIndexes.includes(index) ? 'color:var(--primary);' : ''}">${p.name}</h3>
             <p style="color:var(--text-dim);margin-bottom:25px;font-size:0.9rem; position:relative; z-index:2;">${p.desc}</p>
-            <button class="btn-premium" onclick="openModal('${p.name}', '${p.price}')">Acquire License</button>`;
+            <button class="btn-premium" onclick="openModal('${p.name}', '${p.price}')" style="${targetIndexes.includes(index) ? 'background:var(--primary); color:#000;' : ''}">Acquire License</button>`;
     fragment.appendChild(card);
   });
   grid.innerHTML = "";
@@ -357,7 +364,6 @@ function confirmInquiry() {
 }
 
 function init() {
-  // DARK MODE DEFAULT LOGIC
   if (localStorage.getItem("theme") === "light") {
     document.body.classList.add("light-mode");
     const btn = document.getElementById("theme-btn");
