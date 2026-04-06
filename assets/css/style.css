@@ -152,7 +152,7 @@ nav {
   transition:
     opacity 0.3s var(--transition),
     transform 0.3s var(--transition);
-  overflow: hidden;
+  overflow: hidden; /* Penting untuk pemisah menu baru */
 }
 
 .dropdown-menu.active {
@@ -247,50 +247,15 @@ nav {
     0 0 20px var(--glow);
 }
 
-/* Container Visual Garis (Visual Excellence Engine) */
-.card-img-container {
-  position: relative;
+.card-img {
   width: 100%;
   height: 250px;
-  margin-bottom: 25px;
-  border-radius: 20px;
-  overflow: hidden;
-  background: #000;
-}
-
-/* Pola Garis Hitam Kuning */
-.card-img-container::before {
-  content: '';
-  position: absolute;
-  inset: -5px;
-  z-index: 1;
-  background-image: repeating-linear-gradient(
-    45deg,
-    rgba(0, 0, 0, 0.95) 0px,
-    rgba(0, 0, 0, 0.95) 15px,
-    var(--primary) 15px,
-    var(--primary) 20px
-  );
-  opacity: 0.15;
-  filter: blur(0.5px);
-  transition: opacity 0.4s var(--transition), transform 0.6s var(--transition);
-}
-
-.card-img {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  height: 100%;
   border-radius: 20px;
   object-fit: cover;
+  margin-bottom: 25px;
   filter: grayscale(1);
   transition: 0.8s var(--transition);
   background: #1a1a1a;
-}
-
-.card:hover .card-img-container::before {
-  opacity: 0.4;
-  transform: scale(1.1) rotate(2deg);
 }
 
 .card:hover .card-img {
@@ -435,6 +400,7 @@ footer {
   filter: grayscale(0);
 }
 
+/* Safety for Dark/Light Mode Logos */
 body.light-mode .w3c-logo {
   filter: grayscale(1);
 }
