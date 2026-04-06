@@ -256,7 +256,6 @@ function renderProducts(data) {
     "ai-vid-8",
   ];
 
-  // SEARCH FEEDBACK: Menampilkan pesan jika barang tidak ditemukan
   if (data.length === 0) {
     const noResults = document.createElement("div");
     noResults.style =
@@ -275,14 +274,15 @@ function renderProducts(data) {
     const card = document.createElement("article");
     card.className = "card";
 
-    // PERFORMANCE SYNC: 4 kartu pertama muat serentak
     const loadingStrategy = index < 4 ? "eager" : "lazy";
     const priorityAttr = index < 4 ? 'fetchpriority="high"' : "";
 
     card.innerHTML = `
             <div class="ev-video-bg ${aiClasses[index % 8]}"></div>
             <div class="price-tag">${p.price}</div>
-            <img src="${p.img}" class="card-img" alt="${p.name}" loading="${loadingStrategy}" ${priorityAttr}>
+            <div class="card-img-container">
+                <img src="${p.img}" class="card-img" alt="${p.name}" loading="${loadingStrategy}" ${priorityAttr}>
+            </div>
             <h3 style="margin-bottom:10px; position:relative; z-index:2;">${p.name}</h3>
             <p style="color:var(--text-dim);margin-bottom:25px;font-size:0.9rem; position:relative; z-index:2;">${p.desc}</p>
             <button class="btn-premium" onclick="openModal('${p.name}', '${p.price}')">Acquire License</button>`;
@@ -357,7 +357,6 @@ function confirmInquiry() {
 }
 
 function init() {
-  // DARK MODE DEFAULT LOGIC
   if (localStorage.getItem("theme") === "light") {
     document.body.classList.add("light-mode");
     const btn = document.getElementById("theme-btn");
