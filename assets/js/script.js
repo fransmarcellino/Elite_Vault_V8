@@ -256,7 +256,6 @@ function renderProducts(data) {
     "ai-vid-8",
   ];
 
-  // SEARCH FEEDBACK: Menampilkan pesan jika barang tidak ditemukan
   if (data.length === 0) {
     const noResults = document.createElement("div");
     noResults.style =
@@ -275,7 +274,13 @@ function renderProducts(data) {
     const card = document.createElement("article");
     card.className = "card";
 
-    // PERFORMANCE SYNC: 4 kartu pertama muat serentak
+    // --- PENERAPAN VISUAL KHUSUS KARTU 6, 7, 8 (Index 5, 6, 7) ---
+    if (index === 5 || index === 6 || index === 7) {
+      card.style.border = "1px solid var(--primary)";
+      card.style.boxShadow = "0 10px 30px rgba(255, 215, 0, 0.15)";
+      card.style.transform = "translateY(-5px)";
+    }
+
     const loadingStrategy = index < 4 ? "eager" : "lazy";
     const priorityAttr = index < 4 ? 'fetchpriority="high"' : "";
 
@@ -357,7 +362,6 @@ function confirmInquiry() {
 }
 
 function init() {
-  // DARK MODE DEFAULT LOGIC
   if (localStorage.getItem("theme") === "light") {
     document.body.classList.add("light-mode");
     const btn = document.getElementById("theme-btn");
