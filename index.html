@@ -1,260 +1,217 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>FRANS MARCELLINO | Elite Vault v8.2.9</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Frans Marcellino | Elite Vault v8.1.1 — Digital Architect Portfolio</title>
+    <meta name="description" content="Official repository of Frans Marcellino. Industrial-grade software assets and AI Cinematic Artistry. Established 2026." />
+    <meta name="author" content="Frans Marcellino" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     
-    <meta name="description" content="Engineering Digital Authority - Premium Digital Assets & AI Cinematic Architect.">
-    <meta name="author" content="Frans Marcellino">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Playfair+Display:ital,wght@1,900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" media="print" onload="this.media='all'" />
+
     <style>
+        /* CORE SYSTEM - Elite Vault v8.1.1 */
         :root {
             --primary: #ffd700;
-            --primary-rgb: 255, 215, 0;
-            --bg-dark: #0a0a0a;
-            --bg-card: rgba(255, 255, 255, 0.03);
-            --text-main: #ffffff;
-            --text-dim: rgba(255, 255, 255, 0.6);
-            --border: rgba(255, 215, 0, 0.15);
-            --transition-smooth: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-            --glass: blur(20px) saturate(180%);
+            --bg: #050505;
+            --surface: #0f0f0f;
+            --text-main: #fff;
+            --text-dim: #888;
+            --border: rgba(255, 255, 255, 0.05);
+            --transition: cubic-bezier(0.23, 1, 0.32, 1);
+            --glow: rgba(255, 215, 0, 0.15);
+            --accent-gradient: linear-gradient(45deg, #ffd700, #ff8c00);
         }
 
-        .light-mode {
-            --bg-dark: #f5f5f5;
-            --bg-card: rgba(0, 0, 0, 0.04);
-            --text-main: #121212;
-            --text-dim: rgba(0, 0, 0, 0.6);
+        body.light-mode {
+            --bg: #f5f5f7;
+            --surface: #fff;
+            --text-main: #1d1d1f;
+            --text-dim: #6e6e73;
             --border: rgba(0, 0, 0, 0.1);
+            --glow: rgba(255, 215, 0, 0.3);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-        
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-            transition: background 0.6s ease;
-            line-height: 1.6;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Plus Jakarta Sans", sans-serif;
         }
 
-        /* Interactive Cursor */
-        #cursor {
-            width: 25px; height: 25px; background: var(--primary);
-            border-radius: 50%; position: fixed; pointer-events: none;
-            z-index: 9999; mix-blend-mode: difference; transition: transform 0.1s ease-out;
-            display: none;
-        }
-        @media (min-width: 1024px) { #cursor { display: block; } }
+        /* Cursor Management */
+        body { cursor: none; background: var(--bg); color: var(--text-main); line-height: 1.6; transition: background 0.5s var(--transition); overflow-x: hidden; }
+        #cursor { width: 20px; height: 20px; background: var(--primary); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; mix-blend-mode: difference; transition: transform 0.15s ease-out; transform: translate3d(-50%, -50%, 0); box-shadow: 0 0 20px var(--primary); will-change: transform; }
+        @media (max-width: 768px) { #cursor { display: none; } * { cursor: auto !important; } }
 
-        /* Navigation Header */
-        header {
-            position: fixed; top: 0; width: 100%; z-index: 1000;
-            padding: 25px 6%; display: flex; justify-content: space-between; align-items: center;
-            background: rgba(10, 10, 10, 0.7); backdrop-filter: var(--glass);
-            border-bottom: 1px solid var(--border);
-        }
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 5%; }
 
-        .nav-brand {
-            font-weight: 900; font-size: 1.3rem; letter-spacing: 3px; 
-            cursor: pointer; text-transform: uppercase;
-        }
-        .nav-brand span { color: var(--primary); text-shadow: 0 0 15px rgba(255, 215, 0, 0.3); }
+        /* Navigation */
+        nav { padding: 20px 0; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; background: var(--bg); backdrop-filter: blur(25px); border-bottom: 1px solid var(--border); }
+        .logo { font-weight: 800; letter-spacing: 4px; font-size: 1rem; text-transform: uppercase; }
+        .logo a { text-decoration: none; color: inherit; }
+        .logo span { color: var(--primary); text-shadow: 0 0 10px var(--glow); }
+        .nav-controls { display: flex; align-items: center; gap: 15px; }
+        .theme-toggle { background: var(--surface); border: 1px solid var(--border); color: var(--text-main); padding: 10px 18px; border-radius: 12px; font-weight: 700; font-size: 0.75rem; transition: 0.3s var(--transition); cursor: pointer; }
 
-        .kebab-menu { cursor: pointer; padding: 10px; display: flex; flex-direction: column; gap: 5px; }
-        .kebab-menu span { width: 5px; height: 5px; background: var(--text-main); border-radius: 50%; }
-        
-        .dropdown {
-            position: absolute; top: 90px; right: 6%; background: var(--bg-dark);
-            border: 1px solid var(--border); border-radius: 20px; width: 260px;
-            display: none; box-shadow: 0 40px 80px rgba(0,0,0,0.6); overflow: hidden;
-            z-index: 1100; animation: slideIn 0.4s ease forwards;
-        }
-        @keyframes slideIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        /* Kebab Menu */
+        .kebab-btn { background: none; border: 1px solid var(--border); padding: 12px; border-radius: 14px; display: flex; flex-direction: column; gap: 4px; cursor: pointer; }
+        .dot { width: 4px; height: 4px; background: var(--text-main); border-radius: 50%; }
+        .dropdown-menu { position: absolute; right: 0; top: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 20px; width: 220px; z-index: 1001; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); display: none; opacity: 0; transform: translateY(-10px); transition: opacity 0.3s var(--transition), transform 0.3s var(--transition); overflow: hidden; }
+        .dropdown-menu.active { display: block; opacity: 1; transform: translateY(0); }
 
-        .dropdown a {
-            display: block; padding: 20px 25px; color: var(--text-main);
-            text-decoration: none; font-weight: 700; font-size: 0.85rem;
-            border-bottom: 1px solid var(--border); transition: 0.3s;
-        }
-        .dropdown a:hover { background: rgba(255, 215, 0, 0.08); color: var(--primary); }
+        /* Page Layout */
+        .page { display: none; opacity: 0; transform: translateY(20px); filter: blur(5px); transition: opacity 0.6s var(--transition), transform 0.6s var(--transition), filter 0.6s var(--transition); padding: 60px 0; min-height: 80vh; }
+        .page.active { display: block; opacity: 1; transform: translateY(0); filter: blur(0); }
 
-        /* Container & Page System */
-        .container { max-width: 1400px; margin: 0 auto; padding: 130px 6% 80px; }
-        .page { display: none; opacity: 0; transform: translateY(30px); transition: var(--transition-smooth); }
-        .page.active { display: block; opacity: 1; transform: translateY(0); }
+        /* Hero Section */
+        .hero { text-align: center; padding: 120px 0; }
+        .hero-badge-style { font-size: 0.75rem; letter-spacing: 8px; color: var(--primary); margin-bottom: 30px; font-weight: 800; text-transform: uppercase; }
+        .hero-desc-style { color: var(--text-dim); max-width: 750px; margin: 0 auto 50px; font-size: 1.15rem; font-weight: 300; }
 
-        /* Hero Styling */
-        .hero-section { text-align: center; padding-bottom: 80px; }
-        #hero-title {
-            font-size: clamp(2.5rem, 10vw, 5.5rem); font-weight: 900;
-            line-height: 1; letter-spacing: -4px; margin-bottom: 40px;
-            background: linear-gradient(to bottom, #fff 40%, var(--text-dim));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            min-height: 1.2em;
-        }
+        /* Grid & Cards */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; margin-top: 50px; }
+        .card { background: var(--surface); border: 1px solid var(--border); border-radius: 28px; padding: 40px; position: relative; overflow: hidden; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); transition: 0.6s var(--transition); will-change: transform; z-index: 1; }
+        .card:hover { border-color: var(--primary); transform: translateY(-12px) scale(1.02); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 20px var(--glow); }
 
-        .search-container { max-width: 800px; margin: 0 auto 100px; position: relative; }
-        #search-bar {
-            width: 100%; padding: 25px 40px; border-radius: 100px;
-            background: var(--bg-card); border: 1px solid var(--border);
-            color: #fff; font-size: 1.1rem; outline: none; transition: var(--transition-smooth);
-        }
-        #search-bar:focus { border-color: var(--primary); box-shadow: 0 0 50px rgba(255, 215, 0, 0.15); }
-
-        /* Grid Architecture */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 40px; }
-        
-        .card {
-            background: var(--bg-card); border: 1px solid var(--border);
-            border-radius: 30px; padding: 35px; position: relative;
-            overflow: hidden; transition: var(--transition-smooth);
-            display: flex; flex-direction: column; height: 100%;
-        }
-        .card:hover { transform: translateY(-15px); border-color: var(--primary); box-shadow: 0 25px 50px rgba(0,0,0,0.5); }
-        
-        .ev-video-bg {
-            position: absolute; inset: 0; opacity: 0.05; transition: 0.6s; pointer-events: none;
-            background: linear-gradient(45deg, transparent, var(--primary)); z-index: 0;
-        }
+        /* --- VISUAL BLOCKS SYSTEM (Kartu 1 - 8) --- */
+        .ev-video-bg { position: absolute; inset: 0; z-index: -1; opacity: 0; transition: opacity 0.6s; pointer-events: none; will-change: transform, opacity; }
         .card:hover .ev-video-bg { opacity: 0.15; }
 
-        .price-tag {
-            position: absolute; top: 25px; right: 25px; background: var(--primary);
-            color: #000; padding: 8px 20px; border-radius: 50px;
-            font-weight: 900; font-size: 0.9rem; z-index: 10;
+        /* Kartu 1, 3, 5, 6, 7, 8 (Emas/Universal) */
+        .ai-vid-1, .ai-vid-3, .ai-vid-5, .ai-vid-6, .ai-vid-7, .ai-vid-8 {
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            animation: aiPulse 4s infinite ease-in-out;
+        }
+        /* Kartu 2 (Modern Stream) */
+        .ai-vid-2 {
+            background: repeating-linear-gradient(0deg, transparent, var(--primary) 1px, transparent 2px);
+            background-size: 100% 4px;
+            animation: aiStream 5s linear infinite;
+        }
+        /* Kartu 4 (Rotating Glow) */
+        .ai-vid-4 {
+            background: conic-gradient(from 0deg, transparent, var(--primary), transparent);
+            animation: aiRotate 6s linear infinite;
+            filter: blur(25px);
         }
 
-        .card-img {
-            width: 100%; border-radius: 20px; margin-bottom: 25px;
-            aspect-ratio: 16/10; object-fit: cover; border: 1px solid rgba(255,255,255,0.05);
-            position: relative; z-index: 1;
-        }
+        @keyframes aiPulse { 0%, 100% { transform: scale(1); opacity: 0.1; } 50% { transform: scale(1.2); opacity: 0.3; } }
+        @keyframes aiStream { from { transform: translateY(0); } to { transform: translateY(-40px); } }
+        @keyframes aiRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        .card h3 { position: relative; z-index: 1; margin-bottom: 12px; font-weight: 800; letter-spacing: 0.5px; }
-        .card p { position: relative; z-index: 1; color: var(--text-dim); font-size: 0.9rem; margin-bottom: 30px; }
+        /* Card Elements */
+        .card-img { width: 100%; height: auto; aspect-ratio: 4/3; border-radius: 20px; object-fit: cover; margin-bottom: 25px; filter: grayscale(1); transition: 0.8s var(--transition); background: #1a1a1a; position: relative; z-index: 2; }
+        .card:hover .card-img { filter: grayscale(0); transform: scale(1.05); }
+        .price-tag { position: absolute; top: 30px; right: 30px; background: var(--accent-gradient); color: #000; padding: 8px 18px; border-radius: 12px; font-weight: 900; font-size: 0.8rem; z-index: 10; }
+        .btn-premium { background: var(--primary); color: #000; padding: 18px; border-radius: 18px; width: 100%; border: none; font-weight: 800; text-transform: uppercase; cursor: pointer; transition: 0.3s var(--transition); text-align: center; display: inline-block; text-decoration: none; position: relative; z-index: 5; }
 
-        .btn-premium {
-            background: var(--primary); color: #000; border: none;
-            padding: 18px; border-radius: 16px; font-weight: 800;
-            cursor: pointer; width: 100%; text-transform: uppercase;
-            letter-spacing: 1.5px; transition: 0.3s; margin-top: auto;
-            position: relative; z-index: 1;
-        }
-        .btn-premium:hover { transform: scale(0.98); filter: brightness(1.1); }
-
-        /* Modal Overlay */
-        .modal {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.97);
-            display: none; align-items: center; justify-content: center;
-            z-index: 3000; backdrop-filter: blur(25px);
-        }
-        .modal-content {
-            background: #0d0d0d; border: 1px solid var(--primary);
-            padding: 50px; border-radius: 40px; width: 90%; max-width: 550px;
-            position: relative; animation: modalPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        @keyframes modalPop { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-
-        /* Form Styling */
-        .form-group { margin-bottom: 25px; }
-        .form-group label { display: block; margin-bottom: 10px; font-size: 0.75rem; letter-spacing: 2px; opacity: 0.6; }
-        .form-input {
-            width: 100%; padding: 18px; background: rgba(255,255,255,0.04);
-            border: 1px solid var(--border); border-radius: 14px; color: #fff; outline: none;
-            transition: 0.3s;
-        }
-        .form-input:focus { border-color: var(--primary); background: rgba(255,215,0,0.02); }
-
-        footer { padding: 120px 0 60px; text-align: center; border-top: 1px solid var(--border); opacity: 0.4; font-size: 0.8rem; letter-spacing: 1px; }
-
-        /* Utility */
-        .text-gradient { background: linear-gradient(45deg, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        /* Footer & Others */
+        footer { text-align: center; padding: 100px 0 60px; color: var(--text-dim); border-top: 1px solid var(--border); margin-top: 80px; }
+        .social-strip { display: flex; justify-content: center; gap: 30px; margin: 30px 0; }
+        .social-strip a { color: var(--text-main); font-size: 1.4rem; opacity: 0.4; transition: 0.3s; }
+        .social-strip a:hover { opacity: 1; color: var(--primary); }
+        .validation-logos { display: flex; justify-content: center; gap: 15px; margin-top: 25px; opacity: 0.6; }
+        .validation-logos img { filter: grayscale(1) invert(1); }
     </style>
 </head>
 <body>
+    <div id="cursor" aria-hidden="true"></div>
 
-    <div id="cursor"></div>
-
-    <header>
-        <div class="nav-brand" onclick="navigateTo('home')">FRANS <span>MARCELLINO</span></div>
-        <div style="display: flex; gap: 20px; align-items: center;">
-            <button id="theme-btn" class="btn-premium" style="padding: 10px 20px; font-size: 0.7rem; width: auto;" onclick="toggleTheme()">LIGHT MODE</button>
-            <div class="kebab-menu" id="kebab-menu-btn" onclick="toggleMenu(false, event)">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <nav id="dropdown" class="dropdown"></nav>
-    </header>
-
-    <main class="container">
-        <section id="home" class="page active">
-            <div class="hero-section">
-                <h1 id="hero-title"></h1>
-                <div class="search-container">
-                    <input type="text" id="search-bar" placeholder="Analyze repository assets..." oninput="handleSearch()">
+    <div class="container">
+        <header>
+            <nav aria-label="Main Navigation">
+                <div class="logo">
+                    <a href="#home" aria-label="Frans Marcellino Home">
+                        FRANS <span>MARCELLINO</span>
+                    </a>
                 </div>
-                <h2 style="text-align:center; font-family:'Playfair Display'; font-style:italic; font-size: 2.2rem; margin-bottom:50px;">Market Repository</h2>
-            </div>
-            <div id="main-grid" class="grid"></div>
-        </section>
 
-        <section id="market" class="page">
-            <h2 style="text-align:center; font-size: 3.5rem; margin-bottom: 60px; font-family: 'Playfair Display'; font-style: italic;" class="text-gradient">The Premium Vault</h2>
-            <div id="vault-grid" class="grid"></div>
-        </section>
-
-        <section id="about" class="page">
-            <div class="card" style="max-width: 900px; margin: 0 auto; text-align: center; padding: 70px;">
-                <h2 style="color: var(--primary); font-size: 2.5rem; margin-bottom: 30px;">Digital Architect</h2>
-                <p style="font-size: 1.15rem; color: var(--text-dim); line-height: 2.2;">
-                    Frans Marcellino specializes in the confluence of cinematic aesthetics and structural logic. 
-                    Every asset in this vault is engineered using advanced tech stacks (Next.js, Tailwind, AI) 
-                    to ensure your digital authority remains absolute in a competitive landscape.
-                </p>
-            </div>
-        </section>
-
-        <section id="faq" class="page">
-            <h2 style="text-align:center; margin-bottom: 60px;" class="text-gradient">Technical Protocols</h2>
-            <div id="faq-grid" class="grid"></div>
-        </section>
-    </main>
-
-    <footer>
-        <p id="footer-text"></p>
-    </footer>
-
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <h2 id="target-name" style="color: var(--primary); margin-bottom: 10px; font-size: 2.2rem; font-family: 'Playfair Display'; font-style: italic;"></h2>
-            <p id="target-price" style="font-size: 1.3rem; margin-bottom: 40px; opacity: 0.8; font-family: 'JetBrains Mono'; color: var(--primary);"></p>
-            
-            <div class="form-group">
-                <label>IDENTIFICATION</label>
-                <input type="text" id="client-name" class="form-input" placeholder="Full Name / Entity Name">
-            </div>
-            
-            <div class="form-group">
-                <label>PREFERRED GATEWAY</label>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-                    <button class="method-card" onclick="selectPayment('PayPal', this)" style="background:none; border: 1px solid var(--border); color: #fff; padding: 15px; border-radius: 12px; cursor: pointer; transition: 0.3s;">PayPal</button>
-                    <button class="method-card" onclick="selectPayment('Crypto', this)" style="background:none; border: 1px solid var(--border); color: #fff; padding: 15px; border-radius: 12px; cursor: pointer; transition: 0.3s;">USDT</button>
+                <div class="nav-controls">
+                    <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">LIGHT MODE</button>
+                    <div class="menu-wrapper" style="position: relative">
+                        <button class="kebab-btn" id="kebab-menu-btn" onclick="toggleMenu(false, event)" aria-label="Open Menu" aria-haspopup="true" aria-expanded="false">
+                            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                        </button>
+                        <div id="dropdown" class="dropdown-menu">
+                            <div id="social-links"></div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </nav>
+        </header>
 
-            <button class="btn-premium" style="margin-top: 20px;" onclick="confirmInquiry()">Initiate Acquisition</button>
-            <button onclick="closeModal()" style="width:100%; background:none; border:none; color: var(--text-dim); margin-top: 25px; cursor: pointer; font-size: 0.85rem; letter-spacing: 1px;">ABORT TRANSACTION</button>
-        </div>
+        <main id="main-content">
+            <section id="home" class="page active" aria-labelledby="home-heading">
+                <h1 id="home-heading" style="display:none">Frans Marcellino Digital Architect Portfolio</h1>
+                <article class="hero">
+                    <h2 class="hero-badge-style">ESTABLISHED 2026</h2>
+                    <p style="font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 8vw, 5.5rem); font-weight: 900; margin-bottom: 24px; line-height: 1.1; font-style: italic;">
+                        Architecting Digital Sovereignty.
+                    </p>
+                    <p class="hero-desc-style">Industrial-grade software assets designed for absolute performance.</p>
+                    <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 30px;">
+                        <button class="btn-premium" style="max-width: 280px" onclick="navigateTo('market')">VIEW REPOSITORY</button>
+                        <a href="mailto:fransmarselinosroyer@gmail.com" class="btn-premium" style="max-width: 280px; background: transparent; border: 1px solid var(--border); color: var(--text-main);">CONTACT OPERATOR</a>
+                    </div>
+                </article>
+            </section>
+
+            <section id="market" class="page" aria-labelledby="market-title">
+                <header style="text-align: center; margin-bottom: 50px">
+                    <h2 id="market-title" style="font-size: 2.8rem; letter-spacing: -2px; margin-bottom: 10px;">The Repository</h2>
+                    <p style="color: var(--text-dim); font-weight: 300">CURATED ASSETS BY FRANS MARCELLINO</p>
+                </header>
+                <div class="search-container" style="max-width: 500px; margin: 0 auto 40px">
+                    <input type="text" id="search-bar" aria-label="Search Assets" placeholder="Filter Assets..." onkeyup="handleSearch()" style="width: 100%; padding: 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; color: var(--text-main); outline: none;" />
+                </div>
+                <div class="grid" id="main-grid"></div>
+            </section>
+
+            <section id="about" class="page" aria-labelledby="about-title">
+                <header style="text-align: center; margin-bottom: 50px;">
+                    <h2 id="about-title" style="font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(2rem, 8vw, 2.8rem); font-weight: 900;">
+                        The Architecture of Absolute Precision
+                    </h2>
+                    <p style="color: var(--text-dim); font-weight: 300; text-transform: uppercase; letter-spacing: 2px; font-size: 0.75rem;">VALIDATED CORE & EMPIRICAL PERFORMANCE</p>
+                </header>
+                <div class="grid">
+                    <article class="card">
+                        <div class="ev-video-bg ai-vid-1"></div>
+                        <h3 style="color: var(--primary); margin-bottom: 15px;">Zero-Error Technical Integrity</h3>
+                        <p style="color: var(--text-dim);">Elite Vault V8 is engineered for absolute stability. Every line of code has been meticulously audited.</p>
+                    </article>
+                    <article class="card">
+                        <div class="ev-video-bg ai-vid-2"></div>
+                        <h3 style="color: var(--primary); margin-bottom: 15px;">Validated by Global Standards</h3>
+                        <p style="color: var(--text-dim);">Built upon a strictly W3C-validated framework for peak architectural integrity.</p>
+                    </article>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="social-strip">
+                <a href="https://instagram.com/frans_marcellino" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+                <a href="https://linkedin.com/in/frans-marcellino" target="_blank" rel="noopener" aria-label="LinkedIn">LN</a>
+            </div>
+            <div id="footer-text"></div>
+            <div class="validation-logos">
+                <a href="https://validator.w3.org" target="_blank" rel="noopener">
+                    <img src="https://www.w3.org/Icons/valid-html401" alt="Valid HTML" width="88" height="31" />
+                </a>
+                <a href="https://jigsaw.w3.org/css-validator/" target="_blank" rel="noopener">
+                    <img src="https://www.w3.org/Icons/valid-css" alt="Valid CSS" width="88" height="31" />
+                </a>
+            </div>
+        </footer>
     </div>
 
-    <script src="script.js"></script>
+    <script src="assets/js/script.js" defer></script>
 </body>
 </html>
