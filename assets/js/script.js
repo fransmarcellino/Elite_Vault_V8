@@ -1,8 +1,7 @@
 /**
  * @file script.js
- * @description Master-Optimized Core for Elite Vault v8.2.9 + Search Feedback & Instant Sync
+ * @description Master-Optimized Core for Elite Vault v8.2.9
  * @author Frans Marcellino
- * @status W3C Compliant & PageSpeed Optimized (Universal Excellence Edition)
  */
 
 "use strict";
@@ -18,106 +17,50 @@ const VAULT_DATA = {
     footer: "© 2026 FRANS MARCELLINO — ALL RIGHTS RESERVED",
   },
   products: [
-    {
-      name: "Titan Core",
-      price: "$1,290",
-      desc: "Enterprise SaaS Framework.",
-      img: "assets/img/Titan Core.webp",
-    },
-    {
-      name: "Quantum UI",
-      price: "$750",
-      desc: "Kinetic React Components.",
-      img: "assets/img/Quantum UI.webp",
-    },
-    {
-      name: "SecureAuth X",
-      price: "$490",
-      desc: "Zero-Knowledge Auth Suite.",
-      img: "assets/img/SecureAuth X.webp",
-    },
-    {
-      name: "Nebula AI",
-      price: "$2,999",
-      desc: "Neural Integration Engine.",
-      img: "assets/img/Nebula AI.webp",
-    },
-    {
-      name: "Apex CMS",
-      price: "$1,800",
-      desc: "Headless Content Engine.",
-      img: "assets/img/Apex CMS.webp",
-    },
-    {
-      name: "Zenith ERP",
-      price: "$4,500",
-      desc: "Global Logistics Logic.",
-      img: "assets/img/Zenith ERP.webp",
-    },
-    {
-      name: "Vortex DB",
-      price: "$980",
-      desc: "Real-time Vector Database.",
-      img: "assets/img/Vortex DB.webp",
-    },
-    {
-      name: "Cipher Mesh",
-      price: "$1,100",
-      desc: "P2P Encryption Layer.",
-      img: "assets/img/Cipher Mesh.webp",
-    },
+    { name: "Titan Core", price: "$1,290", desc: "Enterprise SaaS Framework.", img: "assets/img/Titan Core.webp" },
+    { name: "Quantum UI", price: "$750", desc: "Kinetic React Components.", img: "assets/img/Quantum UI.webp" },
+    { name: "SecureAuth X", price: "$490", desc: "Zero-Knowledge Auth Suite.", img: "assets/img/SecureAuth X.webp" },
+    { name: "Nebula AI", price: "$2,999", desc: "Neural Integration Engine.", img: "assets/img/Nebula AI.webp" },
+    { name: "Apex CMS", price: "$1,800", desc: "Headless Content Engine.", img: "assets/img/Apex CMS.webp" },
+    { name: "Zenith ERP", price: "$4,500", desc: "Global Logistics Logic.", img: "assets/img/Zenith ERP.webp" },
+    { name: "Vortex DB", price: "$980", desc: "Real-time Vector Database.", img: "assets/img/Vortex DB.webp" },
+    { name: "Cipher Mesh", price: "$1,100", desc: "P2P Encryption Layer.", img: "assets/img/Cipher Mesh.webp" },
   ],
   menu: [
     { label: "Home", id: "home" },
     { label: "Vault", id: "market" },
-    { label: "About", id: "about" },
     { label: "FAQ", id: "faq" },
   ],
   faq: [
-    {
-      q: "How is the code architecture and performance verified?",
-      a: "Our technical integrity is paramount. This website has passed rigorous W3C Validation (HTML5 & CSS3) and is optimized for maximum Google PageSpeed scores.",
-    },
-    {
-      q: "What components are included in the acquisition package?",
-      a: "Upon a successful transaction, you will receive a structured .ZIP Digital Archive containing: Optimized Core Source Code (HTML5, CSS3, JS), Operational Documentation (README) for implementation, and an Official License Certificate.",
-    },
-    {
-      q: "What are the legal restrictions of this license?",
-      a: "This license is exclusive for personal use or client projects. RESELLING, redistributing, or broadcasting this asset as a standalone product on any marketplace is STRICTLY PROHIBITED.",
-    },
-    {
-      q: "How secure is my financial data during the transaction?",
-      a: "All payments are managed by Trusted Digital Marketplaces via global security infrastructure (SSL/TLS). We do not store or have access to your sensitive banking data.",
-    },
-    {
-      q: "Why is the initial procedure conducted via Email?",
-      a: "We implement Email-Inquiry protocols to guarantee client privacy and prevent data exposure on public forms. This ensures a secure, private, and personal assistance path.",
-    },
-    {
-      q: "How can I contact technical support or the operator?",
-      a: "We are committed to professional support. For specific asset inquiries or technical assistance, contact our operator directly at: <a href='mailto:fransmarselinosroyer@gmail.com' style='color:var(--primary); font-weight:bold; text-decoration:underline;'>fransmarselinosroyer@gmail.com</a>.",
-    },
+    { q: "How is the code verified?", a: "Passed rigorous W3C Validation and optimized for maximum PageSpeed scores." },
+    { q: "What is in the package?", a: "ZIP Archive containing Optimized Source Code, README, and License Certificate." },
+    { q: "Legal restrictions?", a: "Exclusive for personal/client use. RESELLING is strictly prohibited." },
+    { q: "Support procedure?", a: "Professional support via secure Email-Inquiry protocols to guarantee privacy." },
   ],
 };
 
-let curN = "",
-  curP = "",
-  selectedGateway = "PayPal";
+let curN = "", curP = "", selectedGateway = "PayPal";
 const cursorEl = document.getElementById("cursor");
 
-// --- UI ENGINE (High Performance) ---
-document.addEventListener(
-  "mousemove",
-  (e) => {
-    if (cursorEl) {
-      window.requestAnimationFrame(() => {
-        cursorEl.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
-      });
-    }
-  },
-  { passive: true },
-);
+// --- UTILITY: DEBOUNCE SEARCH ---
+function debounce(func, timeout = 300) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => { func.apply(this, args); }, timeout);
+  };
+}
+
+const optimizedSearch = debounce(() => handleSearch());
+
+// --- UI ENGINE ---
+document.addEventListener("mousemove", (e) => {
+  if (cursorEl) {
+    window.requestAnimationFrame(() => {
+      cursorEl.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+    });
+  }
+}, { passive: true });
 
 function navigateTo(id) {
   const pages = document.querySelectorAll(".page");
@@ -125,7 +68,6 @@ function navigateTo(id) {
     p.classList.remove("active");
     p.style.display = "none";
   });
-
   const target = document.getElementById(id);
   if (target) {
     target.style.display = "block";
@@ -138,40 +80,21 @@ function navigateTo(id) {
 function toggleTheme() {
   const isLight = document.body.classList.toggle("light-mode");
   localStorage.setItem("theme", isLight ? "light" : "dark");
-  const btn = document.getElementById("theme-btn");
-  if (btn) btn.innerText = isLight ? "DARK MODE" : "LIGHT MODE";
+  document.getElementById("theme-btn").innerText = isLight ? "DARK MODE" : "LIGHT MODE";
   applyStructuralColoring();
 }
 
-function toggleMenu(forceClose = false, event = null) {
-  if (event) event.stopPropagation();
+function toggleMenu(forceClose = false) {
   const dropdown = document.getElementById("dropdown");
-  if (!dropdown) return;
-
   if (forceClose || dropdown.classList.contains("active")) {
     dropdown.classList.remove("active");
-    setTimeout(() => {
-      if (!dropdown.classList.contains("active"))
-        dropdown.style.display = "none";
-    }, 300);
+    setTimeout(() => { if (!dropdown.classList.contains("active")) dropdown.style.display = "none"; }, 300);
   } else {
     dropdown.style.display = "block";
     dropdown.offsetHeight;
     dropdown.classList.add("active");
   }
 }
-
-document.addEventListener("click", (e) => {
-  const dropdown = document.getElementById("dropdown");
-  const kebabBtn = document.getElementById("kebab-menu-btn");
-  if (
-    dropdown?.classList.contains("active") &&
-    !dropdown.contains(e.target) &&
-    !kebabBtn.contains(e.target)
-  ) {
-    toggleMenu(true);
-  }
-});
 
 function typeWriter(text, i) {
   const el = document.getElementById("hero-title");
@@ -181,30 +104,11 @@ function typeWriter(text, i) {
   }
 }
 
-// --- VISUAL EXCELLENCE ENGINE (Typography & Flattening) ---
+// --- VISUAL EXCELLENCE ---
 function applyStructuralColoring() {
   const isLight = document.body.classList.contains("light-mode");
-  const bgCol = isLight ? "#f5f5f5" : "#1a1a1a";
   const shadowCol = isLight ? "rgba(0,0,0,0.15)" : "rgba(255,215,0,0.25)";
-
-  const header =
-    document.querySelector("header") ||
-    document.querySelector(".nav-main-wrapper");
-  if (header) {
-    Object.assign(header.style, {
-      backgroundColor: bgCol,
-      transition: "all 0.4s ease",
-      borderBottom: "1px solid var(--border)",
-      padding: "0",
-      margin: "0",
-    });
-  }
-
-  const titles = [
-    document.getElementById("repo-title"),
-    document.getElementById("faq-title"),
-    document.querySelector("#market h2"),
-  ];
+  const titles = [document.getElementById("repo-title"), document.getElementById("faq-title")];
 
   titles.forEach((title) => {
     if (title) {
@@ -213,73 +117,41 @@ function applyStructuralColoring() {
         fontStyle: "italic",
         fontWeight: "900",
         letterSpacing: "-1.5px",
-        textTransform: "none",
         fontSize: "clamp(2.2rem, 8vw, 3.8rem)",
         textShadow: `0 4px 15px ${shadowCol}`,
-        marginBottom: "50px",
-        textAlign: "center",
-        width: "100%",
-        transition: "all 0.4s ease",
+        margin: "50px 0", textAlign: "center"
       });
     }
   });
-
-  const socialDock =
-    document.querySelector(".social-icons-wrapper") ||
-    document.getElementById("social-icons-container");
-  if (socialDock) {
-    Object.assign(socialDock.style, {
-      backgroundColor: bgCol,
-      padding: "15px 35px",
-      borderRadius: "12px",
-      display: "inline-flex",
-      alignItems: "center",
-      gap: "20px",
-      border: `1px solid ${isLight ? "rgba(0,0,0,0.05)" : "rgba(255,215,0,0.1)"}`,
-    });
-  }
 }
 
-// --- OPTIMIZED RENDERER (Search Feedback & Sync Loading) ---
+// --- RENDERER (Sync & Search Feedback) ---
 function renderProducts(data) {
   const grid = document.getElementById("main-grid");
   if (!grid) return;
-  const fragment = document.createDocumentFragment();
-  const aiClasses = [
-    "ai-vid-1", "ai-vid-2", "ai-vid-3", "ai-vid-4",
-    "ai-vid-5", "ai-vid-6", "ai-vid-7", "ai-vid-8",
-  ];
-
-  // SEARCH FEEDBACK: Tampilkan pesan jika barang tidak ditemukan
+  
   if (data.length === 0) {
-    const noResults = document.createElement("div");
-    noResults.style =
-      "grid-column: 1 / -1; text-align: center; padding: 80px 20px; color: var(--text-dim); border: 1px dashed var(--border); border-radius: 20px; background: rgba(255,255,255,0.02);";
-    noResults.innerHTML = `
-            <div style="font-size: 3.5rem; margin-bottom: 20px; filter: grayscale(1);">🔍</div>
-            <h3 style="color: var(--text-main); margin-bottom: 10px; font-family: 'Playfair Display', serif; font-style: italic;">Asset Not Found</h3>
-            <p style="font-size: 0.9rem; opacity: 0.8;">Maaf, barang yang Anda cari tidak tersedia dalam repository ini.</p>
-        `;
-    grid.innerHTML = "";
-    grid.appendChild(noResults);
+    grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 80px; border: 1px dashed var(--border); border-radius: 20px;">
+      <h3 style="font-family: 'Playfair Display', serif; font-style: italic;">Asset Not Found</h3>
+      <p style="opacity: 0.6; font-size: 0.9rem;">Maaf, repository tidak menemukan hasil untuk pencarian Anda.</p>
+    </div>`;
     return;
   }
 
+  const fragment = document.createDocumentFragment();
   data.forEach((p, index) => {
     const card = document.createElement("article");
     card.className = "card";
-
-    // PERFORMANCE SYNC: 4 kartu pertama dimuat prioritas tinggi
     const loadingStrategy = index < 4 ? "eager" : "lazy";
-    const priorityAttr = index < 4 ? 'fetchpriority="high"' : "";
-
+    const priority = index < 4 ? 'fetchpriority="high"' : "";
+    
     card.innerHTML = `
-            <div class="ev-video-bg ${aiClasses[index % 8]}"></div>
-            <div class="price-tag">${p.price}</div>
-            <img src="${p.img}" class="card-img" alt="${p.name}" loading="${loadingStrategy}" ${priorityAttr}>
-            <h3 style="margin-bottom:10px; position:relative; z-index:2;">${p.name}</h3>
-            <p style="color:var(--text-dim);margin-bottom:25px;font-size:0.9rem; position:relative; z-index:2;">${p.desc}</p>
-            <button class="btn-premium" onclick="openModal('${p.name}', '${p.price}')">Acquire License</button>`;
+      <div class="ev-video-bg" style="background-image: url('assets/img/overlay-${(index % 4) + 1}.webp')"></div>
+      <div class="price-tag">${p.price}</div>
+      <img src="${p.img}" class="card-img" alt="${p.name}" loading="${loadingStrategy}" ${priority}>
+      <h3 style="position:relative; z-index:2;">${p.name}</h3>
+      <p style="color:var(--text-dim); font-size:0.85rem; margin-bottom:20px; position:relative; z-index:2;">${p.desc}</p>
+      <button class="btn-premium" onclick="openModal('${p.name}', '${p.price}')">Acquire License</button>`;
     fragment.appendChild(card);
   });
   grid.innerHTML = "";
@@ -287,107 +159,67 @@ function renderProducts(data) {
 }
 
 function handleSearch() {
-  const searchBar = document.getElementById("search-bar");
-  if (!searchBar) return;
-  const q = searchBar.value.toLowerCase().trim();
-  const filtered = VAULT_DATA.products.filter(
-    (p) => p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q),
-  );
+  const q = document.getElementById("search-bar").value.toLowerCase().trim();
+  const filtered = VAULT_DATA.products.filter(p => p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q));
   renderProducts(filtered);
 }
 
 function renderFAQ() {
   const faqGrid = document.getElementById("faq-grid");
   if (!faqGrid) return;
-  const aiClasses = ["ai-vid-1", "ai-vid-2", "ai-vid-3", "ai-vid-4"];
-  faqGrid.innerHTML = VAULT_DATA.faq
-    .map(
-      (item, i) => `
-        <article class="card" style="position:relative; overflow:hidden;">
-            <div class="ev-video-bg ${aiClasses[i % 4]}" style="opacity: 0.05;"></div>
-            <h3 style="color:var(--text-main); margin-bottom:20px; font-size:1.05rem; position:relative; z-index:2; display:flex; gap:10px;">
-                <span style="color:var(--primary); font-family:'Playfair Display', serif; font-style:italic; font-weight:900;">Q.</span> ${item.q}
-            </h3>
-            <div style="color:var(--text-dim); font-size:0.85rem; position:relative; z-index:2; line-height:1.8; padding-left:30px; border-left: 1px solid var(--border);">
-                ${item.a}
-            </div>
-        </article>
-    `,
-    )
-    .join("");
+  faqGrid.innerHTML = VAULT_DATA.faq.map(item => `
+    <article class="card">
+      <h3 style="margin-bottom:15px; font-size:1rem; color:var(--primary);">Q. ${item.q}</h3>
+      <p style="font-size:0.85rem; line-height:1.6; opacity:0.8;">${item.a}</p>
+    </article>
+  `).join("");
 }
 
+// --- MODAL & TRANSACTION ---
 function openModal(n, p) {
-  curN = n;
-  curP = p;
-  const modal = document.getElementById("modal");
-  if (modal) {
-    document.getElementById("target-name").innerText = n.toUpperCase();
-    document.getElementById("target-price").innerText = p;
-    modal.style.display = "flex";
-  }
+  curN = n; curP = p;
+  document.getElementById("target-name").innerText = n.toUpperCase();
+  document.getElementById("target-price").innerText = p;
+  document.getElementById("modal").style.display = "flex";
 }
 
-function closeModal() {
-  const modal = document.getElementById("modal");
-  if (modal) modal.style.display = "none";
-}
+function closeModal() { document.getElementById("modal").style.display = "none"; }
 
 function selectPayment(method, element) {
-  document
-    .querySelectorAll(".method-card")
-    .forEach((c) => c.classList.remove("active"));
+  document.querySelectorAll(".method-card").forEach(c => c.classList.remove("active"));
   element.classList.add("active");
   selectedGateway = method;
 }
 
 function confirmInquiry() {
-  const clientNameInput = document.getElementById("client-name");
-  const clientName = clientNameInput ? clientNameInput.value : "";
-  if (!clientName) return alert("Identity Verification Required.");
-  const body = `CLIENT: ${clientName}\nASSET: ${curN}\nVALUE: ${curP}\nGATEWAY: ${selectedGateway}`;
-  window.location.href = `mailto:${VAULT_DATA.owner.email}?subject=Inquiry: ${curN}&body=${encodeURIComponent(body)}`;
+  const client = document.getElementById("client-name").value;
+  if (!client) return alert("Identity Verification Required.");
+  const body = `CLIENT: ${client}\nASSET: ${curN}\nVALUE: ${curP}\nGATEWAY: ${selectedGateway}`;
+  const mailtoLink = document.createElement('a');
+  mailtoLink.href = `mailto:${VAULT_DATA.owner.email}?subject=Inquiry: ${curN}&body=${encodeURIComponent(body)}`;
+  mailtoLink.click();
   closeModal();
 }
 
+// --- INITIALIZATION ---
 function init() {
-  // DARK MODE DEFAULT LOGIC
-  const savedTheme = localStorage.getItem("theme");
-  const btn = document.getElementById("theme-btn");
+  if (localStorage.getItem("theme") === "light") toggleTheme();
+  document.getElementById("footer-text").innerText = VAULT_DATA.content.footer;
   
-  if (savedTheme === "light") {
-    document.body.classList.add("light-mode");
-    if (btn) btn.innerText = "DARK MODE";
-  } else {
-    document.body.classList.remove("light-mode");
-    if (btn) btn.innerText = "LIGHT MODE";
-  }
-
-  const footerText = document.getElementById("footer-text");
-  if (footerText) footerText.innerText = VAULT_DATA.content.footer;
-
   const linksBox = document.getElementById("social-links");
-  if (linksBox) {
-    linksBox.innerHTML = "";
-    VAULT_DATA.menu.forEach((item) => {
-      const a = document.createElement("a");
-      a.href = "#" + item.id;
-      a.style = "padding:18px 25px; display:block; color:var(--text-main); text-decoration:none; font-size:0.75rem; border-bottom:1px solid var(--border); font-weight:700;";
-      a.innerText = item.label.toUpperCase();
-      a.onclick = (e) => {
-        e.preventDefault();
-        navigateTo(item.id);
-      };
-      linksBox.appendChild(a);
-    });
-  }
+  VAULT_DATA.menu.forEach(item => {
+    const a = document.createElement("a");
+    a.href = "#" + item.id;
+    a.style = "padding:15px 20px; display:block; color:var(--text-main); text-decoration:none; font-size:0.8rem; font-weight:700; border-bottom:1px solid var(--border);";
+    a.innerText = item.label.toUpperCase();
+    a.onclick = (e) => { e.preventDefault(); navigateTo(item.id); };
+    linksBox.appendChild(a);
+  });
 
   renderProducts(VAULT_DATA.products);
   renderFAQ();
   applyStructuralColoring();
-
-  const heroTitleEl = document.getElementById("hero-title");
-  if (heroTitleEl) typeWriter(VAULT_DATA.content.heroTitle, 0);
+  typeWriter(VAULT_DATA.content.heroTitle, 0);
 }
 
 window.addEventListener("DOMContentLoaded", init);
