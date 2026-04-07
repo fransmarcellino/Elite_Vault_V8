@@ -1,399 +1,1013 @@
-/**
- * @file script.js
- * @description Master-Optimized Core for Elite Vault v8.2.9 + Search Feedback & Instant Sync
- * @author Frans Marcellino
- * @status W3C Compliant & PageSpeed Optimized (Universal Excellence Edition)
- */
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-"use strict";
+    <title>
+      Frans Marcellino | Elite Vault v8.1.1 — Digital Architect Portfolio
+    </title>
+    <meta
+      name="description"
+      content="Official repository of Frans Marcellino. Industrial-grade software assets and AI Cinematic Artistry. Established 2026."
+    />
+    <meta name="author" content="Frans Marcellino" />
 
-const VAULT_DATA = {
-  owner: {
-    firstName: "FRANS",
-    lastName: "MARCELLINO",
-    email: "fransmarselinosroyer@gmail.com",
-  },
-  content: {
-    heroTitle: "Architecting Digital Sovereignty.",
-    footer: "© 2026 FRANS MARCELLINO — ALL RIGHTS RESERVED",
-  },
-  products: [
-    {
-      name: "Titan Core",
-      price: "$1,290",
-      desc: "Enterprise SaaS Framework.",
-      img: "assets/img/Titan Core.webp",
-    },
-    {
-      name: "Quantum UI",
-      price: "$750",
-      desc: "Kinetic React Components.",
-      img: "assets/img/Quantum UI.webp",
-    },
-    {
-      name: "SecureAuth X",
-      price: "$490",
-      desc: "Zero-Knowledge Auth Suite.",
-      img: "assets/img/SecureAuth X.webp",
-    },
-    {
-      name: "Nebula AI",
-      price: "$2,999",
-      desc: "Neural Integration Engine.",
-      img: "assets/img/Nebula AI.webp",
-    },
-    {
-      name: "Apex CMS",
-      price: "$1,800",
-      desc: "Headless Content Engine.",
-      img: "assets/img/Apex CMS.webp",
-    },
-    {
-      name: "Zenith ERP",
-      price: "$4,500",
-      desc: "Global Logistics Logic.",
-      img: "assets/img/Zenith ERP.webp",
-    },
-    {
-      name: "Vortex DB",
-      price: "$980",
-      desc: "Real-time Vector Database.",
-      img: "assets/img/Vortex DB.webp",
-    },
-    {
-      name: "Cipher Mesh",
-      price: "$1,100",
-      desc: "P2P Encryption Layer.",
-      img: "assets/img/Cipher Mesh.webp",
-    },
-  ],
-  menu: [
-    { label: "Home", id: "home" },
-    { label: "Vault", id: "market" },
-    { label: "About", id: "about" },
-    { label: "FAQ", id: "faq" },
-  ],
-  faq: [
-    {
-      q: "How is the code architecture and performance verified?",
-      a: "Our technical integrity is paramount. This website has passed rigorous W3C Validation (HTML5 & CSS3) and is optimized for maximum Google PageSpeed scores.",
-    },
-    {
-      q: "What components are included in the acquisition package?",
-      a: "Upon a successful transaction, you will receive a structured .ZIP Digital Archive containing: Optimized Core Source Code (HTML5, CSS3, JS), Operational Documentation (README) for implementation, and an Official License Certificate.",
-    },
-    {
-      q: "What are the legal restrictions of this license?",
-      a: "This license is exclusive for personal use or client projects. RESELLING, redistributing, or broadcasting this asset as a standalone product on any marketplace is STRICTLY PROHIBITED.",
-    },
-    {
-      q: "How secure is my financial data during the transaction?",
-      a: "All payments are managed by Trusted Digital Marketplaces via global security infrastructure (SSL/TLS). We do not store or have access to your sensitive banking data.",
-    },
-    {
-      q: "Why is the initial procedure conducted via Email?",
-      a: "We implement Email-Inquiry protocols to guarantee client privacy and prevent data exposure on public forms. This ensures a secure, private, and personal assistance path.",
-    },
-    {
-      q: "How can I contact technical support or the operator?",
-      a: "We are committed to professional support. For specific asset inquiries or technical assistance, contact our operator directly at: <a href='mailto:fransmarselinosroyer@gmail.com' style='color:var(--primary); font-weight:bold; text-decoration:underline;'>fransmarselinosroyer@gmail.com</a>.",
-    },
-  ],
-};
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&family=Playfair+Display:ital,wght@0,900;1,900&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&family=Playfair+Display:ital,wght@0,900;1,900&display=swap"
+      media="print"
+      onload="this.media = 'all'"
+    />
 
-let curN = "",
-  curP = "",
-  selectedGateway = "PayPal";
-const cursorEl = document.getElementById("cursor");
+    <style>
+      /* CORE SYSTEM - Elite Vault v8.1.1 */
+      :root {
+        --primary: #ffd700;
+        --bg: #050505;
+        --surface: #0f0f0f;
+        --text-main: #fff;
+        --text-dim: #888;
+        --border: rgba(255, 255, 255, 0.05);
+        --transition: cubic-bezier(0.23, 1, 0.32, 1);
+        --glow: rgba(255, 215, 0, 0.15);
+        --accent-gradient: linear-gradient(45deg, #ffd700, #ff8c00);
+      }
+      body.light-mode {
+        --bg: #f5f5f7;
+        --surface: #fff;
+        --text-main: #1d1d1f;
+        --text-dim: #6e6e73;
+        --border: rgba(0, 0, 0, 0.1);
+        --glow: rgba(255, 215, 0, 0.3);
+      }
 
-// --- UI ENGINE (High Performance) ---
-document.addEventListener(
-  "mousemove",
-  (e) => {
-    if (cursorEl) {
-      window.requestAnimationFrame(() => {
-        cursorEl.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
-      });
-    }
-  },
-  { passive: true },
-);
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        cursor: none;
+      }
 
-function navigateTo(id) {
-  const pages = document.querySelectorAll(".page");
-  pages.forEach((p) => {
-    p.classList.remove("active");
-    p.style.display = "none";
-  });
+      #cursor {
+        width: 20px;
+        height: 20px;
+        background: var(--primary);
+        border-radius: 50%;
+        position: fixed;
+        pointer-events: none;
+        z-index: 9999;
+        mix-blend-mode: difference;
+        transition: transform 0.15s ease-out;
+        transform: translate3d(-50%, -50%, 0);
+        box-shadow: 0 0 20px var(--primary);
+        will-change: transform;
+      }
+      @media (max-width: 768px) {
+        #cursor {
+          display: none;
+        }
+        * {
+          cursor: auto !important;
+        }
+      }
 
-  const target = document.getElementById(id);
-  if (target) {
-    target.style.display = "block";
-    requestAnimationFrame(() => target.classList.add("active"));
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-  toggleMenu(true);
-}
+      body {
+        background: var(--bg);
+        color: var(--text-main);
+        line-height: 1.6;
+        transition: background 0.5s var(--transition);
+        overflow-x: hidden;
+      }
+      .container {
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 0 5%;
+      }
 
-function toggleTheme() {
-  const isLight = document.body.classList.toggle("light-mode");
-  localStorage.setItem("theme", isLight ? "light" : "dark");
-  const btn = document.getElementById("theme-btn");
-  if (btn) btn.innerText = isLight ? "DARK MODE" : "LIGHT MODE";
-  applyStructuralColoring();
-}
+      nav {
+        padding: 20px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: var(--bg);
+        backdrop-filter: blur(25px);
+        border-bottom: 1px solid var(--border);
+      }
+      .logo {
+        font-weight: 800;
+        letter-spacing: 4px;
+        font-size: 1rem;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+      .logo span {
+        color: var(--primary);
+        text-shadow: 0 0 10px var(--glow);
+      }
+      .nav-controls {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+      .theme-toggle {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        color: var(--text-main);
+        padding: 10px 188px; /* Adjusted based on original snippet */
+        padding: 10px 18px;
+        border-radius: 12px;
+        font-weight: 700;
+        font-size: 0.75rem;
+        transition: 0.3s var(--transition);
+        cursor: pointer;
+      }
+      .kebab-btn {
+        background: none;
+        border: 1px solid var(--border);
+        padding: 12px;
+        border-radius: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        cursor: pointer;
+      }
+      .dot {
+        width: 4px;
+        height: 4px;
+        background: var(--text-main);
+        border-radius: 50%;
+      }
 
-function toggleMenu(forceClose = false, event = null) {
-  if (event) event.stopPropagation();
-  const dropdown = document.getElementById("dropdown");
-  if (!dropdown) return;
+      .dropdown-menu {
+        position: absolute;
+        right: 0;
+        top: 100%;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        width: 220px;
+        z-index: 1001;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        display: none;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition:
+          opacity 0.3s var(--transition),
+          transform 0.3s var(--transition);
+        overflow: hidden;
+      }
+      .dropdown-menu.active {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .page {
+        display: none;
+        opacity: 0;
+        transform: translateY(20px);
+        filter: blur(5px);
+        transition:
+          opacity 0.6s var(--transition),
+          transform 0.6s var(--transition),
+          filter 0.6s var(--transition);
+        padding: 60px 0;
+        min-height: 80vh;
+      }
+      .page.active {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
 
-  if (forceClose || dropdown.classList.contains("active")) {
-    dropdown.classList.remove("active");
-    setTimeout(() => {
-      if (!dropdown.classList.contains("active"))
-        dropdown.style.display = "none";
-    }, 300);
-  } else {
-    dropdown.style.display = "block";
-    dropdown.offsetHeight;
-    dropdown.classList.add("active");
-  }
-}
+      .hero {
+        text-align: center;
+        position: relative;
+        padding: 120px 0;
+      }
+      .hero h1 {
+        font-family: "Playfair Display", serif !important;
+        font-size: clamp(2.5rem, 8vw, 5.5rem);
+        font-weight: 900;
+        margin-bottom: 24px;
+        line-height: 1.1;
+        font-style: italic;
+      }
+      .hero-badge-style {
+        font-size: 0.75rem;
+        letter-spacing: 8px;
+        color: var(--primary);
+        margin-bottom: 30px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+      .hero-desc-style {
+        color: var(--text-dim);
+        max-width: 750px;
+        margin: 0 auto 50px;
+        font-size: 1.15rem;
+        font-weight: 300;
+      }
 
-document.addEventListener("click", (e) => {
-  const dropdown = document.getElementById("dropdown");
-  const kebabBtn = document.getElementById("kebab-menu-btn");
-  if (
-    dropdown?.classList.contains("active") &&
-    !dropdown.contains(e.target) &&
-    !kebabBtn.contains(e.target)
-  ) {
-    toggleMenu(true);
-  }
-});
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 32px;
+        margin-top: 50px;
+      }
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 28px;
+        padding: 40px;
+        position: relative;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        transition: 0.6s var(--transition);
+        will-change: transform, border-color;
+        z-index: 1;
+      }
+      .card:hover {
+        border-color: var(--primary);
+        transform: translateY(-12px) scale(1.02);
+        box-shadow:
+          0 30px 60px rgba(0, 0, 0, 0.8),
+          0 0 20px var(--glow);
+      }
 
-function typeWriter(text, i) {
-  const el = document.getElementById("hero-title");
-  if (el && i <= text.length) {
-    el.textContent = text.substring(0, i);
-    setTimeout(() => typeWriter(text, i + 1), 50);
-  }
-}
+      .ev-video-bg {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.6s;
+        pointer-events: none;
+        will-change: transform, opacity;
+      }
+      .card:hover .ev-video-bg {
+        opacity: 0.15;
+      }
 
-// --- VISUAL EXCELLENCE ENGINE (Typography & Flattening) ---
-function applyStructuralColoring() {
-  const isLight = document.body.classList.contains("light-mode");
-  const bgCol = isLight ? "#f5f5f5" : "#1a1a1a";
-  const shadowCol = isLight ? "rgba(0,0,0,0.15)" : "rgba(255,215,0,0.25)";
+      /* FRANS MARCELLINO - VFX ENGINE v8.1 */
+      .ai-vid-1 {
+        background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+        animation: aiPulse 4s infinite;
+      }
+      .ai-vid-2 {
+        background: repeating-linear-gradient(
+          0deg,
+          transparent,
+          #00ffff 1px,
+          transparent 2px
+        );
+        background-size: 100% 4px;
+        animation: aiStream 5s linear infinite;
+      }
+      .ai-vid-3 {
+        background-image:
+          linear-gradient(var(--border) 1px, transparent 1px),
+          linear-gradient(90deg, var(--border) 1px, transparent 1px);
+        background-size: 20px 20px;
+        animation: aiGrid 15s linear infinite;
+      }
+      .ai-vid-4 {
+        background: conic-gradient(
+          from 0deg,
+          transparent,
+          var(--primary),
+          transparent
+        );
+        animation: aiRotate 6s linear infinite;
+        filter: blur(25px);
+      }
 
-  const header =
-    document.querySelector("header") ||
-    document.querySelector(".nav-main-wrapper");
-  if (header) {
-    Object.assign(header.style, {
-      backgroundColor: bgCol,
-      transition: "all 0.4s ease",
-      borderBottom: "1px solid var(--border)",
-      padding: "0",
-      margin: "0",
-    });
-  }
+      /* START: FRANS MARCELLINO - VFX EXPANSION (GOLD OPTIMIZED) */
+      .ai-vid-5 {
+        background: radial-gradient(circle at 30% 30%, rgba(255, 215, 0, 0.15) 0%, transparent 60%);
+        animation: aiFloat 8s ease-in-out infinite;
+      }
+      .ai-vid-6 {
+        background: linear-gradient(135deg, transparent 40%, rgba(255, 215, 0, 0.2) 50%, transparent 60%);
+        background-size: 250% 250%;
+        animation: aiShimmer 4s linear infinite;
+      }
+      .ai-vid-7 {
+        background-image: radial-gradient(var(--primary) 1px, transparent 1.2px);
+        background-size: 20px 20px;
+        opacity: 0.1;
+        animation: aiScan 12s linear infinite;
+      }
+      .ai-vid-8 {
+        background: conic-gradient(from 0deg, transparent 0deg 300deg, rgba(255, 215, 0, 0.1) 360deg);
+        animation: aiRotate 15s linear infinite;
+      }
 
-  const titles = [
-    document.getElementById("repo-title"),
-    document.getElementById("faq-title"),
-    document.querySelector("#market h2"),
-  ];
+      @keyframes aiFloat {
+        0%, 100% { transform: translate3d(0, 0, 0); }
+        50% { transform: translate3d(15px, -15px, 0); }
+      }
+      @keyframes aiShimmer {
+        0% { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
+      }
+      @keyframes aiScan {
+        from { background-position: 0 0; }
+        to { background-position: 0 100%; }
+      }
+      /* END: FRANS MARCELLINO - VFX EXPANSION */
 
-  titles.forEach((title) => {
-    if (title) {
-      Object.assign(title.style, {
-        fontFamily: "'Playfair Display', serif",
-        fontStyle: "italic",
-        fontWeight: "900",
-        letterSpacing: "-1.5px",
-        textTransform: "none",
-        fontSize: "clamp(2.2rem, 8vw, 3.8rem)",
-        textShadow: `0 4px 15px ${shadowCol}`,
-        marginBottom: "50px",
-        textAlign: "center",
-        width: "100%",
-        transition: "all 0.4s ease",
-      });
-    }
-  });
+      @keyframes aiPulse {
+        0%, 100% { transform: scale(1); opacity: 0.05; }
+        50% { transform: scale(1.2); opacity: 0.2; }
+      }
+      @keyframes aiStream {
+        from { transform: translateY(0); }
+        to { transform: translateY(-40px); }
+      }
+      @keyframes aiGrid {
+        from { background-position: 0 0; }
+        to { background-position: 20px 20px; }
+      }
+      @keyframes aiRotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
 
-  const socialDock =
-    document.querySelector(".social-icons-wrapper") ||
-    document.getElementById("social-icons-container");
-  if (socialDock) {
-    Object.assign(socialDock.style, {
-      backgroundColor: bgCol,
-      padding: "15px 35px",
-      borderRadius: "12px",
-      display: "inline-flex",
-      alignItems: "center",
-      gap: "20px",
-      border: `1px solid ${isLight ? "rgba(0,0,0,0.05)" : "rgba(255,215,0,0.1)"}`,
-    });
-  }
-}
+      .card-img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 4/3;
+        border-radius: 20px;
+        object-fit: cover;
+        margin-bottom: 25px;
+        filter: grayscale(1);
+        transition: 0.8s var(--transition);
+        background: #1a1a1a;
+        position: relative;
+        z-index: 2;
+      }
+      .card:hover .card-img {
+        filter: grayscale(0);
+        transform: scale(1.05);
+      }
+      .price-tag {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        background: var(--accent-gradient);
+        color: #000;
+        padding: 8px 18px;
+        border-radius: 12px;
+        font-weight: 900;
+        font-size: 0.8rem;
+        z-index: 10;
+      }
+      .btn-premium {
+        background: var(--primary);
+        color: #000;
+        padding: 18px;
+        border-radius: 18px;
+        width: 100%;
+        border: none;
+        font-weight: 800;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: 0.3s var(--transition);
+        text-align: center;
+        display: inline-block;
+        text-decoration: none;
+        position: relative;
+        z-index: 5;
+      }
 
-// --- OPTIMIZED RENDERER (Search Feedback & Sync Loading) ---
-function renderProducts(data) {
-  const grid = document.getElementById("main-grid");
-  if (!grid) return;
-  const fragment = document.createDocumentFragment();
-  const aiClasses = [
-    "ai-vid-1",
-    "ai-vid-2",
-    "ai-vid-3",
-    "ai-vid-4",
-    "ai-vid-5",
-    "ai-vid-6",
-    "ai-vid-7",
-    "ai-vid-8",
-  ];
+      #modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(15px);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+        padding: 20px;
+      }
+      .m-box {
+        background: var(--surface);
+        padding: 50px 30px;
+        border-radius: 32px;
+        border: 1px solid var(--border);
+        width: 100%;
+        max-width: 450px;
+        text-align: center;
+      }
+      .modal-price {
+        font-size: 3.5rem;
+        margin: 20px 0;
+        background: var(--accent-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 900;
+      }
+      .modal-input {
+        width: 100%;
+        padding: 18px;
+        margin-bottom: 20px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        color: var(--text-main);
+        border-radius: 16px;
+        text-align: center;
+        font-size: 1rem;
+        outline: none;
+      }
+      footer {
+        text-align: center;
+        padding: 100px 0 60px;
+        color: var(--text-dim);
+        border-top: 1px solid var(--border);
+        position: relative;
+        margin-top: 80px;
+      }
+      .social-strip {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin: 30px 0;
+      }
+      .social-strip a {
+        color: var(--text-main);
+        font-size: 1.4rem;
+        opacity: 0.4;
+        transition: all 0.3s var(--transition);
+        text-decoration: none;
+      }
+      .social-strip a:hover {
+        opacity: 1;
+        color: var(--primary);
+      }
+      .validation-logos {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 25px;
+        opacity: 0.6;
+      }
+      .validation-logos img {
+        filter: grayscale(1) invert(1);
+        transition: 0.3s;
+      }
+      .validation-logos a:hover img {
+        filter: grayscale(0) invert(0);
+        opacity: 1;
+      }
+      .payment-methods {
+        margin: 25px 0;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 20px;
+        border: 1px solid var(--border);
+      }
+      .method-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+      .method-card {
+        padding: 15px 10px;
+        border: 1px solid var(--border);
+        border-radius: 15px;
+        cursor: pointer;
+        transition: all 0.3s var(--transition);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        background: var(--bg);
+      }
+      .method-card span {
+        font-size: 0.75rem;
+        font-weight: 800;
+        color: var(--text-dim);
+        text-transform: uppercase;
+      }
+      .method-card.active {
+        border-color: var(--primary);
+        background: rgba(255, 215, 0, 0.05);
+        box-shadow: 0 0 15px var(--glow);
+        transform: translateY(-5px);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="cursor" aria-hidden="true"></div>
 
-  // SEARCH FEEDBACK: Menampilkan pesan jika barang tidak ditemukan
-  if (data.length === 0) {
-    const noResults = document.createElement("div");
-    noResults.style =
-      "grid-column: 1 / -1; text-align: center; padding: 80px 20px; color: var(--text-dim); border: 1px dashed var(--border); border-radius: 20px; background: rgba(255,255,255,0.02);";
-    noResults.innerHTML = `
-            <div style="font-size: 3.5rem; margin-bottom: 20px; filter: grayscale(1);">🔍</div>
-            <h3 style="color: var(--text-main); margin-bottom: 10px; font-family: 'Playfair Display', serif; font-style: italic;">Asset Not Found</h3>
-            <p style="font-size: 0.9rem; opacity: 0.8;">Maaf, barang yang Anda cari tidak tersedia dalam repository ini.</p>
-        `;
-    grid.innerHTML = "";
-    grid.appendChild(noResults);
-    return;
-  }
+    <div class="container">
+      <header>
+        <nav aria-label="Main Navigation">
+          <div class="logo">
+            <a
+              href="#top"
+              style="text-decoration: none; color: inherit"
+              aria-label="Frans Marcellino Home"
+            >
+              FRANS <span>MARCELLINO</span>
+            </a>
+          </div>
 
-  data.forEach((p, index) => {
-    const card = document.createElement("article");
-    card.className = "card";
-
-    // PERFORMANCE SYNC: 4 kartu pertama muat serentak
-    const loadingStrategy = index < 4 ? "eager" : "lazy";
-    const priorityAttr = index < 4 ? 'fetchpriority="high"' : "";
-
-    card.innerHTML = `
-            <div class="ev-video-bg ${aiClasses[index % 8]}"></div>
-            <div class="price-tag">${p.price}</div>
-            <img src="${p.img}" class="card-img" alt="${p.name}" loading="${loadingStrategy}" ${priorityAttr}>
-            <h3 style="margin-bottom:10px; position:relative; z-index:2;">${p.name}</h3>
-            <p style="color:var(--text-dim);margin-bottom:25px;font-size:0.9rem; position:relative; z-index:2;">${p.desc}</p>
-            <button class="btn-premium" onclick="openModal('${p.name}', '${p.price}')">Acquire License</button>`;
-    fragment.appendChild(card);
-  });
-  grid.innerHTML = "";
-  grid.appendChild(fragment);
-}
-
-function handleSearch() {
-  const searchBar = document.getElementById("search-bar");
-  if (!searchBar) return;
-  const q = searchBar.value.toLowerCase().trim();
-  const filtered = VAULT_DATA.products.filter(
-    (p) => p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q),
-  );
-  renderProducts(filtered);
-}
-
-function renderFAQ() {
-  const faqGrid = document.getElementById("faq-grid");
-  if (!faqGrid) return;
-  const aiClasses = ["ai-vid-1", "ai-vid-2", "ai-vid-3", "ai-vid-4"];
-  faqGrid.innerHTML = VAULT_DATA.faq
-    .map(
-      (item, i) => `
-        <article class="card" style="position:relative; overflow:hidden;">
-            <div class="ev-video-bg ${aiClasses[i % 4]}" style="opacity: 0.05;"></div>
-            <h3 style="color:var(--text-main); margin-bottom:20px; font-size:1.05rem; position:relative; z-index:2; display:flex; gap:10px;">
-                <span style="color:var(--primary); font-family:'Playfair Display', serif; font-style:italic; font-weight:900;">Q.</span> ${item.q}
-            </h3>
-            <div style="color:var(--text-dim); font-size:0.85rem; position:relative; z-index:2; line-height:1.8; padding-left:30px; border-left: 1px solid var(--border);">
-                ${item.a}
+          <div class="nav-controls">
+            <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">
+              LIGHT MODE
+            </button>
+            <div class="menu-wrapper" style="position: relative">
+              <button
+                class="kebab-btn"
+                id="kebab-menu-btn"
+                onclick="toggleMenu(false, event)"
+                aria-label="Open Menu"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+              </button>
+              <div id="dropdown" class="dropdown-menu">
+                <div id="social-links">
+                  </div>
+              </div>
             </div>
-        </article>
-    `,
-    )
-    .join("");
-}
+          </div>
+        </nav>
+      </header>
 
-function openModal(n, p) {
-  curN = n;
-  curP = p;
-  const modal = document.getElementById("modal");
-  if (modal) {
-    document.getElementById("target-name").innerText = n.toUpperCase();
-    document.getElementById("target-price").innerText = p;
-    modal.style.display = "flex";
-  }
-}
+      <main id="main-content">
+        <section id="home" class="page active" aria-labelledby="home-heading">
+          <h1 id="home-heading" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">
+            Frans Marcellino Digital Architect Portfolio
+          </h1>
 
-function closeModal() {
-  const modal = document.getElementById("modal");
-  if (modal) modal.style.display = "none";
-}
+          <article class="hero">
+            <h2 class="hero-badge-style">ESTABLISHED 2026</h2>
+            <p
+              style="
+                font-family: 'Playfair Display', serif;
+                font-size: clamp(2.5rem, 8vw, 5.5rem);
+                font-weight: 900;
+                margin-bottom: 24px;
+                line-height: 1.1;
+                font-style: italic;
+              "
+            >
+              Architecting Digital Sovereignty.
+            </p>
+            <p class="hero-desc-style">
+              Industrial-grade software assets designed for absolute
+              performance.
+            </p>
+            <div
+              style="
+                display: flex;
+                gap: 15px;
+                justify-content: center;
+                flex-wrap: wrap;
+                margin-top: 30px;
+              "
+            >
+              <button
+                class="btn-premium"
+                style="max-width: 280px"
+                onclick="navigateTo('market')"
+              >
+                VIEW REPOSITORY
+              </button>
+              <a
+                href="mailto:fransmarselinosroyer@gmail.com"
+                class="btn-premium"
+                style="
+                  max-width: 280px;
+                  background: transparent;
+                  border: 1px solid var(--border);
+                  color: var(--text-main);
+                "
+                >CONTACT OPERATOR</a
+              >
+            </div>
+          </article>
+        </section>
 
-function selectPayment(method, element) {
-  document
-    .querySelectorAll(".method-card")
-    .forEach((c) => c.classList.remove("active"));
-  element.classList.add("active");
-  selectedGateway = method;
-}
+        <section id="market" class="page" aria-labelledby="market-title">
+          <header style="text-align: center; margin-bottom: 50px">
+            <h2
+              id="market-title"
+              style="
+                font-size: 2.8rem;
+                letter-spacing: -2px;
+                margin-bottom: 10px;
+              "
+            >
+              The Repository
+            </h2>
+            <p style="color: var(--text-dim); font-weight: 300">
+              CURATED ASSETS BY FRANS MARCELLINO
+            </p>
+          </header>
+          <div
+            class="search-container"
+            style="max-width: 500px; margin: 0 auto 40px"
+          >
+            <input
+              type="text"
+              id="search-bar"
+              aria-label="Search Assets"
+              placeholder="Filter Assets..."
+              onkeyup="handleSearch()"
+              style="
+                width: 100%;
+                padding: 18px;
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 18px;
+                color: var(--text-main);
+                outline: none;
+              "
+            />
+          </div>
+          <div class="grid" id="main-grid"></div>
+        </section>
 
-function confirmInquiry() {
-  const clientNameInput = document.getElementById("client-name");
-  const clientName = clientNameInput ? clientNameInput.value : "";
-  if (!clientName) return alert("Identity Verification Required.");
-  const body = `CLIENT: ${clientName}\nASSET: ${curN}\nVALUE: ${curP}\nGATEWAY: ${selectedGateway}`;
-  window.location.href = `mailto:${VAULT_DATA.owner.email}?subject=Inquiry: ${curN}&body=${encodeURIComponent(body)}`;
-  closeModal();
-}
+        <section id="about" class="page" aria-labelledby="about-title">
+          <header
+            style="text-align: center; margin-bottom: 50px; padding: 0 20px"
+          >
+            <h2
+              id="about-title"
+              style="
+                font-family: 'Playfair Display', serif;
+                font-style: italic;
+                font-size: clamp(2rem, 8vw, 2.8rem);
+                letter-spacing: -1px;
+                margin-bottom: 10px;
+                line-height: 1.1;
+                font-weight: 900;
+                text-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+              "
+            >
+              The Architecture of Absolute Precision
+            </h2>
+            <p
+              style="
+                color: var(--text-dim);
+                font-weight: 300;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                font-size: 0.75rem;
+              "
+            >
+              VALIDATED CORE & EMPIRICAL PERFORMANCE
+            </p>
+          </header>
+          <div style="max-width: 1100px; margin: 0 auto">
+            <div class="grid">
+              <article class="card">
+                <div class="ev-video-bg ai-vid-1"></div>
+                <h3
+                  style="
+                    color: var(--primary);
+                    margin-bottom: 15px;
+                    font-size: 1.5rem;
+                  "
+                >
+                  Zero-Error Technical Integrity
+                </h3>
+                <p
+                  style="
+                    color: var(--text-dim);
+                    font-size: 1rem;
+                    line-height: 1.6;
+                    font-weight: 400;
+                    letter-spacing: 0px;
+                  "
+                >
+                  Elite Vault V8 is engineered for those who demand absolute
+                  stability. Every line of code has been meticulously audited to
+                  ensure a zero-error environment.
+                </p>
+              </article>
+              <article class="card">
+                <div class="ev-video-bg ai-vid-2"></div>
+                <h3
+                  style="
+                    color: var(--primary);
+                    margin-bottom: 15px;
+                    font-size: 1.5rem;
+                  "
+                >
+                  Validated by Global Standards
+                </h3>
+                <p
+                  style="
+                    color: var(--text-dim);
+                    font-size: 1rem;
+                    line-height: 1.6;
+                    font-weight: 400;
+                    letter-spacing: 0px;
+                  "
+                >
+                  Built upon a strictly W3C-validated framework. We encourage
+                  users to verify our architectural integrity through the
+                  official W3C Validation Service.
+                </p>
+                <div style="margin-top: 20px">
+                  <a
+                    href="https://validator.w3.org/"
+                    target="_blank"
+                    rel="noopener"
+                    style="
+                      color: var(--primary);
+                      text-decoration: none;
+                      font-size: 0.75rem;
+                      font-weight: 800;
+                      letter-spacing: 1px;
+                      border: 1px solid var(--border);
+                      padding: 8px 12px;
+                      border-radius: 10px;
+                    "
+                    >VERIFY VIA W3C</a
+                  >
+                </div>
+              </article>
+              <article class="card">
+                <div class="ev-video-bg ai-vid-3"></div>
+                <h3
+                  style="
+                    color: var(--primary);
+                    margin-bottom: 15px;
+                    font-size: 1.5rem;
+                  "
+                >
+                  Peak Performance Documentation
+                </h3>
+                <p
+                  style="
+                    color: var(--text-dim);
+                    font-size: 1rem;
+                    line-height: 1.6;
+                    font-weight: 400;
+                    letter-spacing: 0px;
+                  "
+                >
+                  Achieve the highest tier of Lighthouse benchmarks. Perform a
+                  real-time audit via Google PageSpeed Insights to observe
+                  near-instantaneous load times.
+                </p>
+                <div style="margin-top: 20px">
+                  <a
+                    href="https://pagespeed.web.dev/"
+                    target="_blank"
+                    rel="noopener"
+                    style="
+                      color: var(--primary);
+                      text-decoration: none;
+                      font-size: 0.75rem;
+                      font-weight: 800;
+                      letter-spacing: 1px;
+                      border: 1px solid var(--border);
+                      padding: 8px 12px;
+                      border-radius: 10px;
+                    "
+                    >AUDIT VIA GOOGLE SPEED</a
+                  >
+                </div>
+              </article>
+              <article class="card">
+                <div class="ev-video-bg ai-vid-4"></div>
+                <h3
+                  style="
+                    color: var(--primary);
+                    margin-bottom: 15px;
+                    font-size: 1.5rem;
+                  "
+                >
+                  Industrial-Grade Reliability
+                </h3>
+                <p
+                  style="
+                    color: var(--text-dim);
+                    font-size: 1rem;
+                    line-height: 1.6;
+                    font-weight: 400;
+                    letter-spacing: 0px;
+                  "
+                >
+                  Curated for tech-forward agencies, providing an Immutable
+                  Digital Fortress. Combining zero-error code with peak
+                  performance dynamics.
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
 
-function init() {
-  // DARK MODE DEFAULT LOGIC
-  if (localStorage.getItem("theme") === "light") {
-    document.body.classList.add("light-mode");
-    const btn = document.getElementById("theme-btn");
-    if (btn) btn.innerText = "DARK MODE";
-  } else {
-    document.body.classList.remove("light-mode");
-    const btn = document.getElementById("theme-btn");
-    if (btn) btn.innerText = "LIGHT MODE";
-  }
+        <section id="faq" class="page" aria-labelledby="faq-title">
+          <header style="text-align: center; margin-bottom: 50px">
+            <h2
+              id="faq-title"
+              style="
+                font-family: 'Playfair Display', serif;
+                font-style: italic;
+                font-size: 2.8rem;
+                letter-spacing: -2px;
+                margin-bottom: 10px;
+                font-weight: 900;
+              "
+            >
+              Knowledge Base
+            </h2>
+            <p style="color: var(--text-dim); font-weight: 300">
+              ACQUISITION PROTOCOLS & INTEL
+            </p>
+          </header>
+          <div class="grid" id="faq-grid"></div>
+        </section>
+      </main>
 
-  const footerText = document.getElementById("footer-text");
-  if (footerText) footerText.innerText = VAULT_DATA.content.footer;
+      <footer>
+        <div class="social-strip">
+          <a
+            href="https://instagram.com/frans_marcellino"
+            target="_blank"
+            rel="noopener"
+            aria-label="Instagram"
+          >
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.332 3.608 1.308.975.975 1.247 2.242 1.308 3.607.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.332 2.633-1.308 3.608-.975.975-2.242 1.247-3.607 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.332-3.608-1.308-.975-.975-1.247-2.242-1.308-3.607-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.062-1.366.332-2.633 1.308-3.608.975-.975 2.242-1.247 3.607-1.308 1.266-.058 1.646-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.337 2.617 6.78 6.979 6.98 1.281.059 1.689.073 4.948.073s3.667-.014 4.947-.072c4.357-.2 6.78-2.618 6.98-6.98.058-1.281.072-1.689.072-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.059-1.69-.072-4.949-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+              />
+            </svg>
+          </a>
+          <a
+            href="https://twitter.com/frans_marcellino"
+            target="_blank"
+            rel="noopener"
+            aria-label="Twitter"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path
+                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.25 2.25h6.763l4.711 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+              ></path>
+            </svg>
+          </a>
+          <a
+            href="https://linkedin.com/in/frans-marcellino"
+            target="_blank"
+            rel="noopener"
+            aria-label="LinkedIn"
+          >
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"
+              />
+            </svg>
+          </a>
+        </div>
+        
+        <div
+          id="footer-text"
+          style="margin-top: 20px; font-size: 0.8rem; color: var(--text-dim); font-weight: 400; text-transform: none;"
+        ></div>
 
-  const linksBox = document.getElementById("social-links");
-  if (linksBox) {
-    linksBox.innerHTML = "";
-    VAULT_DATA.menu.forEach((item) => {
-      const a = document.createElement("a");
-      a.href = "#" + item.id;
-      a.style =
-        "padding:18px 25px; display:block; color:var(--text-main); text-decoration:none; font-size:0.75rem; border-bottom:1px solid var(--border); font-weight:700;";
-      a.innerText = item.label.toUpperCase();
-      a.onclick = (e) => {
-        e.preventDefault();
-        navigateTo(item.id);
-      };
-      linksBox.appendChild(a);
-    });
-  }
+        <div class="validation-logos">
+          <a
+            href="https://validator.w3.org/nu/?doc=https://fransmarcellino.github.io/Elite_Vault_V8/"
+            target="_blank"
+            rel="noopener"
+            aria-label="W3C HTML Validator"
+          >
+            <img
+              src="https://www.w3.org/Icons/valid-html401"
+              alt=""
+              height="31"
+              width="88"
+            />
+          </a>
+          <a
+            href="https://jigsaw.w3.org/css-validator/validator?uri=https://fransmarcellino.github.io/Elite_Vault_V8/"
+            target="_blank"
+            rel="noopener"
+            aria-label="W3C CSS Validator"
+          >
+            <img
+              src="https://www.w3.org/Icons/valid-css"
+              alt=""
+              height="31"
+              width="88"
+            />
+          </a>
+        </div>
+      </footer>
+    </div>
 
-  renderProducts(VAULT_DATA.products);
-  renderFAQ();
-  applyStructuralColoring();
+    <div
+      id="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-status-label"
+    >
+      <div class="m-box">
+        <h3
+          id="modal-status-label"
+          style="
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+          "
+        >
+          ASSET SELECTION
+        </h3>
+        <p
+          id="target-name"
+          style="
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-top: 5px;
+            color: var(--primary);
+          "
+        ></p>
+        <p id="target-price" class="modal-price">$0</p>
+        <div class="payment-methods">
+          <div class="method-grid" role="radiogroup" aria-label="Select Payment Method">
+            <div
+              class="method-card active"
+              onclick="selectPayment('PayPal', this)"
+              role="radio"
+              aria-checked="true"
+              tabindex="0"
+            >
+              <span>PayPal</span>
+            </div>
+            <div
+              class="method-card"
+              onclick="selectPayment('Card', this)"
+              role="radio"
+              aria-checked="false"
+              tabindex="0"
+            >
+              <span>Card</span>
+            </div>
+            <div
+              class="method-card"
+              onclick="selectPayment('Crypto', this)"
+              role="radio"
+              aria-checked="false"
+              tabindex="0"
+            >
+              <span>Crypto</span>
+            </div>
+          </div>
+        </div>
+        <input
+          type="text"
+          id="client-name"
+          placeholder="VERIFY FULL NAME"
+          class="modal-input"
+          aria-label="Your Full Name"
+        />
+        <button class="btn-premium" onclick="confirmInquiry()">
+          REQUEST LICENSE
+        </button>
+        <button
+          onclick="closeModal()"
+          style="
+            background: none;
+            border: none;
+            color: inherit;
+            cursor: pointer;
+            margin-top: 25px;
+            opacity: 0.5;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            font-weight: 800;
+            display: block;
+            width: 100%;
+          "
+        >
+          CANCEL PROTOCOL
+        </button>
+      </div>
+    </div>
 
-  const heroTitleEl = document.getElementById("hero-title");
-  if (heroTitleEl) typeWriter(VAULT_DATA.content.heroTitle, 0);
-}
-
-window.addEventListener("DOMContentLoaded", init);
+    <script src="assets/js/script.js" defer></script>
+  </body>
+</html>
