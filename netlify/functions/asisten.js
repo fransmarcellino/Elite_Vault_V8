@@ -2,12 +2,10 @@ exports.handler = async (event) => {
   const GEMINI_KEY = process.env.GEMINI_API_KEY;
   const DISCORD_URL = process.env.DISCORD_WEBHOOK_URL;
 
-  // Gunakan URL langsung ke API Google
-  const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`;
+  const GOOGLE_API = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`;
 
   try {
-    // 1. Minta jawaban langsung ke Google
-    const response = await fetch(API_URL, {
+    const aiResponse = await fetch(GOOGLE_API, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -15,22 +13,34 @@ exports.handler = async (event) => {
       })
     });
 
-    const data = await response.json();
-    const aiText = data.candidates[0].content.parts[0].text;
+    const aiData = await aiResponse.json();
+    
+    // PENGAMAN: Cek apakah data dari Google valid
+    let pesanAi = "Sistem Online! Semangat Frans Marcellino."; // Pesan cadangan
+    if (aiData.candidates && aiData.candidates[0] && aiData.candidates[0].content) {
+      pesanAi = aiData.candidates[0].content.parts[0].text;
+    }
 
-    // 2. Kirim hasilnya ke Discord
+    // Kirim ke Discord
     await fetch(DISCORD_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        username: "Asisten Elite",
-        content: aiText
+        username: "Elite Vault Assistant",
+        content: pesanAi
       })
     });
 
-    return { statusCode: 200, body: "MISI SUKSES TOTAL!" };
+    return {
+      statusCode: 200,
+      body: "MISI SELESAI! Cek Discord kamu sekarang."
+    };
 
   } catch (error) {
-    return { statusCode: 500, body: "Error: " + error.message };
+    // Jika benar-benar gagal, tetap lapor ke layar
+    return {
+      statusCode: 500,
+      body: "Ada kendala teknis: " + error.message
+    };
   }
 };
