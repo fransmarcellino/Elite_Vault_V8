@@ -1,4 +1,4 @@
-const { GoogleGenerativeAI } = require("@google/generative-ai");
+// Update paksa jam 22.35 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 exports.handler = async (event) => {
   // 1. Ambil kunci dari Environment Variables Netlify
