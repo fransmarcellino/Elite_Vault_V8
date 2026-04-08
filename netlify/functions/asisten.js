@@ -1,4 +1,3 @@
-// Baris ini WAJIB ada di paling atas
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 exports.handler = async (event) => {
@@ -9,11 +8,11 @@ exports.handler = async (event) => {
     const genAI = new GoogleGenerativeAI(GEMINI_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-    const prompt = "Berikan sapaan singkat dan semangat untuk Frans Sroyer yang sedang lembur membangun Elite Vault V8!";
-    const result = await model.generateContent(prompt);
+    // Membuat sapaan otomatis
+    const result = await model.generateContent("Halo Gemini, berikan salam sukses untuk Frans Sroyer yang sedang membangun Elite Vault V8!");
     const responseText = result.response.text();
 
-    // Kirim ke Discord
+    // Kirim ke Discord lewat Webhook
     await fetch(DISCORD_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -25,13 +24,13 @@ exports.handler = async (event) => {
 
     return {
       statusCode: 200,
-      body: "Pesan Gemini berhasil dikirim ke Discord!"
+      body: "Misi Sukses! Pesan sudah meluncur ke Discord Frans Sroyer."
     };
 
   } catch (error) {
     return {
       statusCode: 500,
-      body: "Error: " + error.message
+      body: "Masalah teknis: " + error.message
     };
   }
 };
