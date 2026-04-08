@@ -1,0 +1,20 @@
+{
+  "project_info": {
+    "name": "Elite Vault V8",
+    "owner": "Frans Marcellino",
+    "version": "1.0.0"
+  },
+  "ai_asisten": {
+    "identity": "Engineering Digital Authority Assistant",
+    "tone_of_voice": "Professional, Sophisticated, and Tech-Savvy",
+    "core_task": "Membantu penjualan aset digital dan optimasi SEO otomatis"
+  },
+  "seo_settings": {
+    "target_keywords": ["Digital Architect", "Web Architect", "AI Cinematic Artist"],
+    "auto_update": true
+  },
+  "business_rules": {
+    "currency": "USD",
+    "enable_discord_reporting": true
+  }
+}
