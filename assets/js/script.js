@@ -246,11 +246,17 @@ function renderProducts(data) {
   if (!grid) return;
   const fragment = document.createDocumentFragment();
   const aiClasses = [
-    "ai-vid-1", "ai-vid-2", "ai-vid-3", "ai-vid-4",
-    "ai-vid-5", "ai-vid-6", "ai-vid-7", "ai-vid-8",
+    "ai-vid-1",
+    "ai-vid-2",
+    "ai-vid-3",
+    "ai-vid-4",
+    "ai-vid-5",
+    "ai-vid-6",
+    "ai-vid-7",
+    "ai-vid-8",
   ];
 
-  // SEARCH FEEDBACK: Tampilkan pesan jika barang tidak ditemukan
+  // SEARCH FEEDBACK: Menampilkan pesan jika barang tidak ditemukan
   if (data.length === 0) {
     const noResults = document.createElement("div");
     noResults.style =
@@ -269,7 +275,7 @@ function renderProducts(data) {
     const card = document.createElement("article");
     card.className = "card";
 
-    // PERFORMANCE SYNC: 4 kartu pertama dimuat prioritas tinggi
+    // PERFORMANCE SYNC: 4 kartu pertama muat serentak
     const loadingStrategy = index < 4 ? "eager" : "lazy";
     const priorityAttr = index < 4 ? 'fetchpriority="high"' : "";
 
@@ -352,14 +358,13 @@ function confirmInquiry() {
 
 function init() {
   // DARK MODE DEFAULT LOGIC
-  const savedTheme = localStorage.getItem("theme");
-  const btn = document.getElementById("theme-btn");
-  
-  if (savedTheme === "light") {
+  if (localStorage.getItem("theme") === "light") {
     document.body.classList.add("light-mode");
+    const btn = document.getElementById("theme-btn");
     if (btn) btn.innerText = "DARK MODE";
   } else {
     document.body.classList.remove("light-mode");
+    const btn = document.getElementById("theme-btn");
     if (btn) btn.innerText = "LIGHT MODE";
   }
 
@@ -372,7 +377,8 @@ function init() {
     VAULT_DATA.menu.forEach((item) => {
       const a = document.createElement("a");
       a.href = "#" + item.id;
-      a.style = "padding:18px 25px; display:block; color:var(--text-main); text-decoration:none; font-size:0.75rem; border-bottom:1px solid var(--border); font-weight:700;";
+      a.style =
+        "padding:18px 25px; display:block; color:var(--text-main); text-decoration:none; font-size:0.75rem; border-bottom:1px solid var(--border); font-weight:700;";
       a.innerText = item.label.toUpperCase();
       a.onclick = (e) => {
         e.preventDefault();
