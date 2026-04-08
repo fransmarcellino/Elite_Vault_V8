@@ -1,31 +1,39 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 exports.handler = async (event) => {
+  // 1. Ambil kunci dari Environment Variables Netlify
   const GEMINI_KEY = process.env.GEMINI_API_KEY;
   const DISCORD_URL = process.env.DISCORD_WEBHOOK_URL;
-  
+
   const genAI = new GoogleGenerativeAI(GEMINI_KEY);
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
   try {
-    // Memberikan konteks waktu agar laporan tidak "stuck" di jam lama
-    const waktuSekarang = new Date().toLocaleString("id-ID", { timeZone: "Asia/Makassar" });
-    const prompt = `Berikan laporan status singkat untuk Pak Frans Sroyer. Beritahu bahwa sistem aman pada pukul ${waktuSekarang}. Tambahkan satu tips singkat tentang AI Cinematic.`;
-    
+    // 2. Minta Gemini buat pesan
+    const prompt = "Halo Gemini, buatkan satu kalimat sapaan keren untuk Pak Frans Sroyer yang sedang membangun Elite Vault V8. Katakan sistem sudah online!";
     const result = await model.generateContent(prompt);
-    const text = result.response.text();
+    const responseText = result.response.text();
 
+    // 3. KIRIM KE DISCORD (Jalur Webhook)
     await fetch(DISCORD_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        username: "Asisten Elite Vault",
-        content: text
+        username: "Elite Vault Assistant",
+        content: responseText
       }),
     });
 
-    return { statusCode: 200, body: "Laporan Terkirim!" };
+    // 4. Munculkan pesan sukses di browser kamu
+    return {
+      statusCode: 200,
+      body: "Pesan berhasil dikirim ke Discord!"
+    };
+
   } catch (error) {
-    return { statusCode: 500, body: error.toString() };
+    return {
+      statusCode: 500,
+      body: "Gagal mengirim: " + error.toString()
+    };
   }
 };
