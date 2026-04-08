@@ -1,45 +1,36 @@
-// BARIS INI WAJIB ADA DI PALING ATAS (Baris 1)
-const { GoogleGenerativeAI } = require("@google/generative-ai");
-
 exports.handler = async (event) => {
-  // Ambil kunci rahasia dari Netlify
   const GEMINI_KEY = process.env.GEMINI_API_KEY;
   const DISCORD_URL = process.env.DISCORD_WEBHOOK_URL;
 
-  // Pastikan kunci tersedia
-  if (!GEMINI_KEY || !DISCORD_URL) {
-    return { statusCode: 500, body: "Error: Key belum diset di Netlify!" };
-  }
+  // Gunakan URL langsung ke API Google
+  const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`;
 
   try {
-    // Inisialisasi AI
-    const genAI = new GoogleGenerativeAI(GEMINI_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
-    // Buat pesan spesial
-    const prompt = "Berikan sapaan singkat dan semangat untuk Frans Marcellino yang sedang lembur di Makassar!";
-    const result = await model.generateContent(prompt);
-    const responseText = result.response.text();
-
-    // Kirim ke Discord
-    await fetch(DISCORD_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    // 1. Minta jawaban langsung ke Google
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        username: "Asisten Elite",
-        content: responseText
-      }),
+        contents: [{ parts: [{ text: "Berikan sapaan semangat singkat untuk Frans Marcellino!" }] }]
+      })
     });
 
-    return {
-      statusCode: 200,
-      body: "MISI SUKSES! Pesan sudah meluncur ke Discord."
-    };
+    const data = await response.json();
+    const aiText = data.candidates[0].content.parts[0].text;
+
+    // 2. Kirim hasilnya ke Discord
+    await fetch(DISCORD_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: "Asisten Elite",
+        content: aiText
+      })
+    });
+
+    return { statusCode: 200, body: "MISI SUKSES TOTAL!" };
 
   } catch (error) {
-    return {
-      statusCode: 500,
-      body: "Masalah teknis: " + error.message
-    };
+    return { statusCode: 500, body: "Error: " + error.message };
   }
 };
