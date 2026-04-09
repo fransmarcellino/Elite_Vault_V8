@@ -39,6 +39,7 @@
         --transition: cubic-bezier(0.23, 1, 0.32, 1);
         --glow: rgba(255, 215, 0, 0.15);
         --accent-gradient: linear-gradient(45deg, #ffd700, #ff8c00);
+        --modal-overlay: rgba(0, 0, 0, 0.85);
       }
       body.light-mode {
         --bg: #f5f5f7;
@@ -47,6 +48,7 @@
         --text-dim: #6e6e73;
         --border: rgba(0, 0, 0, 0.1);
         --glow: rgba(255, 215, 0, 0.3);
+        --modal-overlay: rgba(255, 255, 255, 0.4);
       }
 
       * {
@@ -356,16 +358,19 @@
         z-index: 5;
       }
 
+      /* REVISED MODAL SYSTEM - FLOATING EFFECT */
       #modal {
         position: fixed;
         inset: 0;
-        background: rgba(0, 0, 0, 0.85);
+        background: var(--modal-overlay); /* Dynamic overlay based on theme */
         backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
         display: none;
         justify-content: center;
         align-items: center;
         z-index: 2000;
         padding: 20px;
+        transition: all 0.5s var(--transition);
       }
       .m-box {
         background: var(--surface);
@@ -375,8 +380,18 @@
         width: 100%;
         max-width: 500px;
         text-align: center;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        /* Floating Shadow Effect */
+        box-shadow: 0 30px 70px rgba(0, 0, 0, 0.3), 0 0 20px var(--glow);
+        transform: translateY(0);
+        animation: modalFloat 0.6s var(--transition);
+        position: relative;
       }
+      
+      @keyframes modalFloat {
+        from { transform: translateY(40px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+
       .modal-price {
         font-size: 3rem;
         margin-top: 10px;
@@ -386,12 +401,12 @@
         font-weight: 900;
       }
       
-      /* New Description Styles */
+      /* Revised Description Box for Light Mode */
       .description-container {
         text-align: left;
         margin: 25px 0;
         padding: 20px;
-        background: rgba(255, 255, 255, 0.02);
+        background: rgba(128, 128, 128, 0.05); /* Neutral tint */
         border-radius: 20px;
         border: 1px solid var(--border);
       }
@@ -764,14 +779,14 @@
         <p id="target-price" class="modal-price">$0</p>
         
         <div class="description-container" id="target-description-box">
-            <span class="desc-headline" id="desc-headline"></span>
+            <span class="desc-headline" id="desc-headline">Loading Narrative...</span>
             <p class="desc-body" id="desc-body">Architecting digital sovereignty with industrial-grade precision.</p>
             <ul class="desc-features" id="desc-features">
                 </ul>
         </div>
 
         <button class="btn-premium" id="acquire-btn" onclick="confirmInquiry()">
-          BUY
+          ACQUIRE FULL LICENSE
         </button>
         
         <button
@@ -796,47 +811,47 @@
     </div>
 
     <script>
-      // Product Database for Modal Injection - Elite Vault v8.1.1
+      // Product Database for Modal Injection
       const productData = {
         "Titan Core": {
-          headline: "Industrial-Grade Infrastructure",
-          body: "Master your infrastructure with a high-performance SaaS framework. Engineered for rapid scaling and absolute authority.",
-          features: ["SaaS Architecture", "Rapid Scaling", "Validated Core", "High-Load Capacity"]
+          headline: "The Digital Sovereignty Engine",
+          body: "A monolithic, zero-error SaaS framework engineered for absolute performance. Validated for high-scale digital ecosystems.",
+          features: ["W3C Validated Core", "PageSpeed 100/100", "Zero-Error Code Audit", "Full Source Access"]
         },
         "Quantum UI": {
-          headline: "Cinematic Interface Architecture",
-          body: "Experience the next generation of interface design. A modular, lightning-fast component library built for cinematic web architectures.",
-          features: ["Modular Components", "Next-Gen Design", "Tailwind Native", "Performance Optimized"]
+          headline: "Next-Gen Visual Architecture",
+          body: "Cinematic UI components built with Tailwind & Next.js. Designed for elite agencies requiring high-end digital aesthetics.",
+          features: ["Cinematic Animations", "Adaptive Design", "Ultra-Lightweight", "Atomic Components"]
         },
         "SecureAuth X": {
-          headline: "Immutable Authentication Protocol",
-          body: "Implement impenetrable security protocols. Advanced multi-layer authentication designed to safeguard high-value digital assets.",
-          features: ["Multi-Layer Auth", "Zero-Latency Logic", "Enterprise Encryption", "Asset Guarding"]
+          headline: "Immutable Security Protocol",
+          body: "Enterprise-grade authentication system with zero-latency encryption. Protect your assets with an unyielding digital fortress.",
+          features: ["End-to-End Encryption", "Multi-Factor Guard", "Vault-Grade Privacy", "Real-time Monitoring"]
         },
         "Nebula AI": {
-          headline: "Neural Workflow Orchestration",
-          body: "Leverage the power of neural processing. An intelligent engine designed to automate complex workflows with surgical precision.",
-          features: ["Neural Prompting", "Workflow Automation", "LLM Ready", "High Precision"]
+          headline: "Intelligent Neural Integration",
+          body: "Advanced AI prompts and LLM orchestration tools for creative automation. Bridge the gap between logic and artistry.",
+          features: ["Neural Prompting", "Automated Workflows", "API Ready", "Cinematic Logic"]
         },
         "Apex CMS": {
-          headline: "Engineering Digital Authority",
-          body: "Dominate your content ecosystem. A streamlined management system built for high-frequency updates and enterprise-grade performance.",
-          features: ["Streamlined Management", "Performance Focused", "SEO Native", "Content Sovereignty"]
+          headline: "Authority Content Management",
+          body: "A high-performance CMS designed for engineering digital authority. Scalable, secure, and incredibly fast content delivery.",
+          features: ["Headless Architecture", "SEO Supremacy", "Dynamic Assets", "Multi-Tenant Ready"]
         },
         "Zenith ERP": {
-          headline: "Command Center Operations",
-          body: "The ultimate command center for business operations. Integrated resource planning that delivers total operational sovereignty.",
-          features: ["Resource Planning", "Operational Sync", "Real-Time Tracking", "Sovereign Logistics"]
+          headline: "Industrial Resource Protocol",
+          body: "Optimized resource planning for tech agencies. Manage technical stacks and creative workflows with surgical precision.",
+          features: ["Workflow Automation", "Asset Management", "Performance Metrics", "Cloud Integrated"]
         },
         "Vortex DB": {
           headline: "High-Velocity Data Stream",
-          body: "High-velocity data management with zero latency. Engineered to handle massive datasets while maintaining peak structural integrity.",
-          features: ["Zero Latency", "Massive Scalability", "Structural Integrity", "Edge Sync"]
+          body: "A zero-latency database architecture designed for absolute performance and data integrity in demanding environments.",
+          features: ["Real-time Sync", "ACID Compliant", "Edge Computing", "Security Hardened"]
         },
         "Cipher Mesh": {
-          headline: "Encrypted Network Sovereignty",
-          body: "Secure your digital borders with advanced encryption. Delivers seamless connectivity and impenetrable data sovereignty.",
-          features: ["Advanced Encryption", "Seamless Connectivity", "Mesh Protocol", "Data Sovereignty"]
+          headline: "Encrypted Network Skeleton",
+          body: "The ultimate skeleton for decentralized applications. Engineered for peak security and global scalability.",
+          features: ["Mesh Networking", "Cipher Shielding", "P2P Optimized", "Absolute Privacy"]
         }
       };
 
@@ -874,9 +889,6 @@
         alert(`Initializing acquisition protocol for: ${name}. Contacting repository operator...`);
         closeModal();
       }
-
-      // Placeholder for your other functions (toggleTheme, navigateTo, handleSearch, etc.)
-      // Make sure script.js contains ini atau tambahkan di bawah.
     </script>
     <script src="assets/js/script.js" defer></script>
   </body>
