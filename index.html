@@ -23,8 +23,6 @@
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&family=Playfair+Display:ital,wght@0,900;1,900&display=swap"
-      media="print"
-      onload="this.media = 'all'"
     />
 
     <style>
@@ -172,6 +170,21 @@
         opacity: 1;
         transform: translateY(0);
       }
+      .dropdown-item {
+        padding: 15px 20px;
+        color: var(--text-main);
+        text-decoration: none;
+        display: block;
+        font-size: 0.8rem;
+        font-weight: 700;
+        border-bottom: 1px solid var(--border);
+        transition: 0.3s;
+      }
+      .dropdown-item:hover {
+        background: var(--primary);
+        color: #000;
+      }
+
       .page {
         display: none;
         opacity: 0;
@@ -195,14 +208,6 @@
         text-align: center;
         position: relative;
         padding: 120px 0;
-      }
-      .hero h1 {
-        font-family: "Playfair Display", serif !important;
-        font-size: clamp(2.5rem, 8vw, 5.5rem);
-        font-weight: 900;
-        margin-bottom: 24px;
-        line-height: 1.1;
-        font-style: italic;
       }
       .hero-badge-style {
         font-size: 0.75rem;
@@ -355,6 +360,10 @@
         position: relative;
         z-index: 5;
       }
+      .btn-premium:hover {
+        transform: scale(1.02);
+        box-shadow: 0 0 20px var(--glow);
+      }
 
       #modal {
         position: fixed;
@@ -483,6 +492,7 @@
           <div class="logo">
             <a
               href="#top"
+              onclick="navigateTo('home')"
               style="text-decoration: none; color: inherit"
               aria-label="Frans Marcellino Home"
             >
@@ -498,7 +508,7 @@
               <button
                 class="kebab-btn"
                 id="kebab-menu-btn"
-                onclick="toggleMenu(false, event)"
+                onclick="toggleMenu(event)"
                 aria-label="Open Menu"
                 aria-haspopup="true"
                 aria-expanded="false"
@@ -506,8 +516,10 @@
                 <span class="dot"></span><span class="dot"></span><span class="dot"></span>
               </button>
               <div id="dropdown" class="dropdown-menu">
-                <div id="social-links">
-                  </div>
+                <a href="#" class="dropdown-item" onclick="navigateTo('home')">HOME</a>
+                <a href="#" class="dropdown-item" onclick="navigateTo('market')">REPOSITORY</a>
+                <a href="#" class="dropdown-item" onclick="navigateTo('about')">ABOUT</a>
+                <a href="#" class="dropdown-item" onclick="navigateTo('faq')">FAQ</a>
               </div>
             </div>
           </div>
@@ -516,10 +528,6 @@
 
       <main id="main-content">
         <section id="home" class="page active" aria-labelledby="home-heading">
-          <h1 id="home-heading" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">
-            Frans Marcellino Digital Architect Portfolio
-          </h1>
-
           <article class="hero">
             <h2 class="hero-badge-style">ESTABLISHED 2026</h2>
             <p
@@ -610,196 +618,28 @@
         </section>
 
         <section id="about" class="page" aria-labelledby="about-title">
-          <header
-            style="text-align: center; margin-bottom: 50px; padding: 0 20px"
-          >
-            <h2
-              id="about-title"
-              style="
-                font-family: 'Playfair Display', serif;
-                font-style: italic;
-                font-size: clamp(2rem, 8vw, 2.8rem);
-                letter-spacing: -1px;
-                margin-bottom: 10px;
-                line-height: 1.1;
-                font-weight: 900;
-                text-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
-              "
-            >
+          <header style="text-align: center; margin-bottom: 50px; padding: 0 20px">
+            <h2 id="about-title" style="font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(2rem, 8vw, 2.8rem); font-weight: 900;">
               The Architecture of Absolute Precision
             </h2>
-            <p
-              style="
-                color: var(--text-dim);
-                font-weight: 300;
-                text-transform: uppercase;
-                letter-spacing: 2px;
-                font-size: 0.75rem;
-              "
-            >
-              VALIDATED CORE & EMPIRICAL PERFORMANCE
-            </p>
           </header>
-          <div style="max-width: 1100px; margin: 0 auto">
-            <div class="grid">
-              <article class="card">
-                <div class="ev-video-bg ai-vid-1"></div>
-                <h3
-                  style="
-                    color: var(--primary);
-                    margin-bottom: 15px;
-                    font-size: 1.5rem;
-                  "
-                >
-                  Zero-Error Technical Integrity
-                </h3>
-                <p
-                  style="
-                    color: var(--text-dim);
-                    font-size: 1rem;
-                    line-height: 1.6;
-                    font-weight: 400;
-                    letter-spacing: 0px;
-                  "
-                >
-                  Elite Vault V8 is engineered for those who demand absolute
-                  stability. Every line of code has been meticulously audited to
-                  ensure a zero-error environment.
-                </p>
-              </article>
-              <article class="card">
-                <div class="ev-video-bg ai-vid-2"></div>
-                <h3
-                  style="
-                    color: var(--primary);
-                    margin-bottom: 15px;
-                    font-size: 1.5rem;
-                  "
-                >
-                  Validated by Global Standards
-                </h3>
-                <p
-                  style="
-                    color: var(--text-dim);
-                    font-size: 1rem;
-                    line-height: 1.6;
-                    font-weight: 400;
-                    letter-spacing: 0px;
-                  "
-                >
-                  Built upon a strictly W3C-validated framework. We encourage
-                  users to verify our architectural integrity through the
-                  official W3C Validation Service.
-                </p>
-                <div style="margin-top: 20px">
-                  <a
-                    href="https://validator.w3.org/"
-                    target="_blank"
-                    rel="noopener"
-                    style="
-                      color: var(--primary);
-                      text-decoration: none;
-                      font-size: 0.75rem;
-                      font-weight: 800;
-                      letter-spacing: 1px;
-                      border: 1px solid var(--border);
-                      padding: 8px 12px;
-                      border-radius: 10px;
-                    "
-                    >VERIFY VIA W3C</a
-                  >
-                </div>
-              </article>
-              <article class="card">
-                <div class="ev-video-bg ai-vid-3"></div>
-                <h3
-                  style="
-                    color: var(--primary);
-                    margin-bottom: 15px;
-                    font-size: 1.5rem;
-                  "
-                >
-                  Peak Performance Documentation
-                </h3>
-                <p
-                  style="
-                    color: var(--text-dim);
-                    font-size: 1rem;
-                    line-height: 1.6;
-                    font-weight: 400;
-                    letter-spacing: 0px;
-                  "
-                >
-                  Achieve the highest tier of Lighthouse benchmarks. Perform a
-                  real-time audit via Google PageSpeed Insights to observe
-                  near-instantaneous load times.
-                </p>
-                <div style="margin-top: 20px">
-                  <a
-                    href="https://pagespeed.web.dev/"
-                    target="_blank"
-                    rel="noopener"
-                    style="
-                      color: var(--primary);
-                      text-decoration: none;
-                      font-size: 0.75rem;
-                      font-weight: 800;
-                      letter-spacing: 1px;
-                      border: 1px solid var(--border);
-                      padding: 8px 12px;
-                      border-radius: 10px;
-                    "
-                    >AUDIT VIA GOOGLE SPEED</a
-                  >
-                </div>
-              </article>
-              <article class="card">
-                <div class="ev-video-bg ai-vid-4"></div>
-                <h3
-                  style="
-                    color: var(--primary);
-                    margin-bottom: 15px;
-                    font-size: 1.5rem;
-                  "
-                >
-                  Industrial-Grade Reliability
-                </h3>
-                <p
-                  style="
-                    color: var(--text-dim);
-                    font-size: 1rem;
-                    line-height: 1.6;
-                    font-weight: 400;
-                    letter-spacing: 0px;
-                  "
-                >
-                  Curated for tech-forward agencies, providing an Immutable
-                  Digital Fortress. Combining zero-error code with peak
-                  performance dynamics.
-                </p>
-              </article>
-            </div>
+          <div class="grid">
+            <article class="card">
+              <div class="ev-video-bg ai-vid-1"></div>
+              <h3 style="color: var(--primary); margin-bottom: 15px;">Zero-Error Technical Integrity</h3>
+              <p style="color: var(--text-dim);">Elite Vault V8 is engineered for those who demand absolute stability. Every line of code is meticulously audited.</p>
+            </article>
+            <article class="card">
+              <div class="ev-video-bg ai-vid-2"></div>
+              <h3 style="color: var(--primary); margin-bottom: 15px;">Industrial-Grade Reliability</h3>
+              <p style="color: var(--text-dim);">Curated for tech-forward agencies, providing an Immutable Digital Fortress.</p>
+            </article>
           </div>
         </section>
 
         <section id="faq" class="page" aria-labelledby="faq-title">
           <header style="text-align: center; margin-bottom: 50px">
-            <h2
-              id="faq-title"
-              style="
-                font-family: 'Playfair Display', serif;
-                font-style: italic;
-                font-size: 2.8rem;
-                letter-spacing: -2px;
-                margin-bottom: 10px;
-                font-weight: 900;
-              "
-            >
-              Knowledge Base
-            </h2>
-            <p style="color: var(--text-dim); font-weight: 300">
-              ACQUISITION PROTOCOLS & INTEL
-            </p>
+            <h2 id="faq-title" style="font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 900;">Knowledge Base</h2>
           </header>
           <div class="grid" id="faq-grid"></div>
         </section>
@@ -807,170 +647,148 @@
 
       <footer>
         <div class="social-strip">
-          <a
-            href="https://instagram.com/frans_marcellino"
-            target="_blank"
-            rel="noopener"
-            aria-label="Instagram"
-          >
-            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.332 3.608 1.308.975.975 1.247 2.242 1.308 3.607.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.332 2.633-1.308 3.608-.975.975-2.242 1.247-3.607 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.332-3.608-1.308-.975-.975-1.247-2.242-1.308-3.607-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.062-1.366.332-2.633 1.308-3.608.975-.975 2.242-1.247 3.607-1.308 1.266-.058 1.646-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.337 2.617 6.78 6.979 6.98 1.281.059 1.689.073 4.948.073s3.667-.014 4.947-.072c4.357-.2 6.78-2.618 6.98-6.98.058-1.281.072-1.689.072-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.059-1.69-.072-4.949-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
-              />
-            </svg>
+          <a href="https://instagram.com/frans_marcellino" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.332 3.608 1.308.975.975 1.247 2.242 1.308 3.607.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.332 2.633-1.308 3.608-.975.975-2.242 1.247-3.607 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.332-3.608-1.308-.975-.975-1.247-2.242-1.308-3.607-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.062-1.366.332-2.633 1.308-3.608.975-.975 2.242-1.247 3.607-1.308 1.266-.058 1.646-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.337 2.617 6.78 6.979 6.98 1.281.059 1.689.073 4.948.073s3.667-.014 4.947-.072c4.357-.2 6.78-2.618 6.98-6.98.058-1.281.072-1.689.072-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.059-1.69-.072-4.949-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
           </a>
-          <a
-            href="https://twitter.com/frans_marcellino"
-            target="_blank"
-            rel="noopener"
-            aria-label="Twitter"
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path
-                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.25 2.25h6.763l4.711 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
-              ></path>
-            </svg>
-          </a>
-          <a
-            href="https://linkedin.com/in/frans-marcellino"
-            target="_blank"
-            rel="noopener"
-            aria-label="LinkedIn"
-          >
-            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"
-              />
-            </svg>
+          <a href="https://linkedin.com/in/frans-marcellino" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"/></svg>
           </a>
         </div>
-        
-        <div
-          id="footer-text"
-          style="margin-top: 20px; font-size: 0.8rem; color: var(--text-dim); font-weight: 400; text-transform: none;"
-        ></div>
-
-        <div class="validation-logos">
-          <a
-            href="https://validator.w3.org/nu/?doc=https://fransmarcellino.github.io/Elite_Vault_V8/"
-            target="_blank"
-            rel="noopener"
-            aria-label="W3C HTML Validator"
-          >
-            <img
-              src="https://www.w3.org/Icons/valid-html401"
-              alt=""
-              height="31"
-              width="88"
-            />
-          </a>
-          <a
-            href="https://jigsaw.w3.org/css-validator/validator?uri=https://fransmarcellino.github.io/Elite_Vault_V8/"
-            target="_blank"
-            rel="noopener"
-            aria-label="W3C CSS Validator"
-          >
-            <img
-              src="https://www.w3.org/Icons/valid-css"
-              alt=""
-              height="31"
-              width="88"
-            />
-          </a>
-        </div>
+        <p>© 2026 Frans Marcellino. All Rights Reserved.</p>
       </footer>
     </div>
 
-    <div
-      id="modal"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="modal-status-label"
-    >
+    <div id="modal" role="dialog" aria-modal="true">
       <div class="m-box">
-        <h3
-          id="modal-status-label"
-          style="
-            font-size: 0.75rem;
-            letter-spacing: 3px;
-            color: var(--text-dim);
-            text-transform: uppercase;
-          "
-        >
-          ASSET SELECTION
-        </h3>
-        <p
-          id="target-name"
-          style="
-            font-size: 1.2rem;
-            font-weight: 800;
-            margin-top: 5px;
-            color: var(--primary);
-          "
-        ></p>
+        <h3 style="font-size: 0.75rem; letter-spacing: 3px; color: var(--text-dim);">ASSET SELECTION</h3>
+        <p id="target-name" style="font-size: 1.2rem; font-weight: 800; margin-top: 5px; color: var(--primary);"></p>
         <p id="target-price" class="modal-price">$0</p>
         <div class="payment-methods">
-          <div class="method-grid" role="radiogroup" aria-label="Select Payment Method">
-            <div
-              class="method-card active"
-              onclick="selectPayment('PayPal', this)"
-              role="radio"
-              aria-checked="true"
-              tabindex="0"
-            >
-              <span>PayPal</span>
-            </div>
-            <div
-              class="method-card"
-              onclick="selectPayment('Card', this)"
-              role="radio"
-              aria-checked="false"
-              tabindex="0"
-            >
-              <span>Card</span>
-            </div>
-            <div
-              class="method-card"
-              onclick="selectPayment('Crypto', this)"
-              role="radio"
-              aria-checked="false"
-              tabindex="0"
-            >
-              <span>Crypto</span>
-            </div>
+          <div class="method-grid">
+            <div class="method-card active" onclick="selectPayment('PayPal', this)"><span>PayPal</span></div>
+            <div class="method-card" onclick="selectPayment('Card', this)"><span>Card</span></div>
+            <div class="method-card" onclick="selectPayment('Crypto', this)"><span>Crypto</span></div>
           </div>
         </div>
-        <input
-          type="text"
-          id="client-name"
-          placeholder="VERIFY FULL NAME"
-          class="modal-input"
-          aria-label="Your Full Name"
-        />
-        <button class="btn-premium" onclick="confirmInquiry()">
-          Buy
-        </button>
-        <button
-          onclick="closeModal()"
-          style="
-            background: none;
-            border: none;
-            color: inherit;
-            cursor: pointer;
-            margin-top: 25px;
-            opacity: 0.5;
-            font-size: 0.75rem;
-            letter-spacing: 2px;
-            font-weight: 800;
-            display: block;
-            width: 100%;
-          "
-        >
-          CANCEL PROTOCOL
-        </button>
+        <input type="text" id="client-name" placeholder="VERIFY FULL NAME" class="modal-input" />
+        <button class="btn-premium" onclick="confirmInquiry()">BUY NOW</button>
+        <button onclick="closeModal()" style="background: none; border: none; color: inherit; cursor: pointer; margin-top: 25px; opacity: 0.5;">CANCEL PROTOCOL</button>
       </div>
     </div>
 
-    <script src="assets/js/script.js" defer></script>
+    <script>
+      // LOGIC SYSTEM - Elite Vault v8.1.1
+      const assets = [
+        { id: 1, name: "Vanguard UI Kit", price: 49, category: "Web", img: "https://images.unsplash.com/photo-1614332287897-cdc485fa562d?auto=format&fit=crop&w=800&q=80" },
+        { id: 2, name: "Cinematic AI Motion", price: 120, category: "Video", img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80" },
+        { id: 3, name: "Neural Logo Logic", price: 75, category: "Design", img: "https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=800&q=80" },
+        { id: 4, name: "Apex 3D Character", price: 210, category: "3D", img: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=800&q=80" }
+      ];
+
+      const faqs = [
+        { q: "Bagaimana sistem lisensinya?", a: "Setiap aset hadir dengan lisensi komersial seumur hidup." },
+        { q: "Apakah mendukung pembayaran Crypto?", a: "Ya, kami menerima BTC, ETH, dan USDT untuk semua transaksi." }
+      ];
+
+      let selectedPaymentMethod = 'PayPal';
+
+      // Navigation
+      function navigateTo(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+        window.scrollTo(0, 0);
+        toggleMenu(null, true);
+      }
+
+      // Cursor Logic
+      const cursor = document.getElementById('cursor');
+      document.addEventListener('mousemove', e => {
+        cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+      });
+
+      // Theme Logic
+      function toggleTheme() {
+        const body = document.body;
+        const btn = document.getElementById('theme-btn');
+        body.classList.toggle('light-mode');
+        btn.innerText = body.classList.contains('light-mode') ? 'DARK MODE' : 'LIGHT MODE';
+      }
+
+      // Menu Logic
+      function toggleMenu(e, forceClose = false) {
+        const dropdown = document.getElementById('dropdown');
+        if (forceClose) {
+          dropdown.classList.remove('active');
+          return;
+        }
+        if (e) e.stopPropagation();
+        dropdown.classList.toggle('active');
+      }
+
+      document.addEventListener('click', () => toggleMenu(null, true));
+
+      // Market Rendering
+      function renderMarket(items = assets) {
+        const grid = document.getElementById('main-grid');
+        grid.innerHTML = items.map(item => `
+          <article class="card">
+            <div class="price-tag">$${item.price}</div>
+            <img src="${item.img}" class="card-img" alt="${item.name}">
+            <h3>${item.name}</h3>
+            <p style="color: var(--text-dim); font-size: 0.8rem; margin-bottom: 20px;">Category: ${item.category}</p>
+            <button class="btn-premium" onclick="openModal('${item.name}', ${item.price})">ACQUIRE ASSET</button>
+          </article>
+        `).join('');
+      }
+
+      function handleSearch() {
+        const query = document.getElementById('search-bar').value.toLowerCase();
+        const filtered = assets.filter(a => a.name.toLowerCase().includes(query) || a.category.toLowerCase().includes(query));
+        renderMarket(filtered);
+      }
+
+      // FAQ Rendering
+      function renderFAQ() {
+        const grid = document.getElementById('faq-grid');
+        grid.innerHTML = faqs.map(f => `
+          <article class="card">
+            <h3 style="color: var(--primary); margin-bottom: 10px;">${f.q}</h3>
+            <p style="color: var(--text-dim);">${f.a}</p>
+          </article>
+        `).join('');
+      }
+
+      // Modal Logic
+      function openModal(name, price) {
+        document.getElementById('target-name').innerText = name;
+        document.getElementById('target-price').innerText = `$${price}`;
+        document.getElementById('modal').style.display = 'flex';
+      }
+
+      function closeModal() {
+        document.getElementById('modal').style.display = 'none';
+      }
+
+      function selectPayment(method, el) {
+        selectedPaymentMethod = method;
+        document.querySelectorAll('.method-card').forEach(c => c.classList.remove('active'));
+        el.classList.add('active');
+      }
+
+      function confirmInquiry() {
+        const name = document.getElementById('client-name').value;
+        if (!name) return alert("Masukkan nama lengkap untuk verifikasi.");
+        
+        const asset = document.getElementById('target-name').innerText;
+        alert(`Protocol Initiated. Order for ${asset} via ${selectedPaymentMethod} has been logged for ${name}.`);
+        closeModal();
+      }
+
+      // Init
+      window.onload = () => {
+        renderMarket();
+        renderFAQ();
+      };
+    </script>
   </body>
 </html>
