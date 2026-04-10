@@ -369,7 +369,7 @@
         display: none;
         justify-content: center;
         align-items: center;
-        z-index: 9999; /* Higher than Nav */
+        z-index: 9999;
         padding: 20px;
         transition: all 0.5s var(--transition);
       }
@@ -386,7 +386,6 @@
           0 40px 100px -20px rgba(0, 0, 0, 0.4),
           0 0 0 1px var(--border);
         transition: transform 0.4s var(--transition), background 0.5s;
-        /* Floating Effect */
         animation: modalFloat 4s ease-in-out infinite;
       }
       @keyframes modalFloat {
@@ -446,6 +445,26 @@
         font-size: 0.7rem;
       }
 
+      /* SINKRONISASI FAQ DENGAN ABOUT - START */
+      #faq header h2 {
+        font-family: 'Playfair Display', serif !important;
+        font-style: italic !important;
+        font-size: clamp(2rem, 8vw, 2.8rem) !important;
+        letter-spacing: -1px !important;
+        margin-bottom: 10px !important;
+        line-height: 1.1 !important;
+        font-weight: 900 !important;
+      }
+
+      #faq header p {
+        color: var(--text-dim) !important;
+        font-weight: 300 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 2px !important;
+        font-size: 0.75rem !important;
+      }
+      /* SINKRONISASI FAQ DENGAN ABOUT - END */
+
       footer {
         text-align: center;
         padding: 100px 0 60px;
@@ -490,7 +509,6 @@
         opacity: 1;
       }
 
-      /* Mobile Adjustment */
       @media (max-width: 480px) {
         .m-box {
           padding: 30px 20px;
@@ -686,10 +704,10 @@
 
         <section id="faq" class="page" aria-labelledby="faq-title">
           <header style="text-align: center; margin-bottom: 50px">
-            <h2 id="faq-title" style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 2.8rem; letter-spacing: -2px; margin-bottom: 10px; font-weight: 900;">
+            <h2 id="faq-title">
               Knowledge Base
             </h2>
-            <p style="color: var(--text-dim); font-weight: 300">ACQUISITION PROTOCOLS & INTEL</p>
+            <p>ACQUISITION PROTOCOLS & INTEL</p>
           </header>
           <div class="grid" id="faq-grid"></div>
         </section>
@@ -802,7 +820,6 @@
         });
 
         document.getElementById('modal').style.display = 'flex';
-        // Prevent body scroll when modal open
         document.body.style.overflow = 'hidden';
       }
 
