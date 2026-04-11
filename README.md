@@ -1,76 +1,50 @@
-# 📑 THE ULITE VAULT V8.2.9: TECHNICAL MANIFEST & DOCUMENTATION
-**Professional-Grade Deployment & Customization Guide for Digital Architects**
+ 🏗️ MASTER GUIDE: ELITE VAULT V8.2.9 MAINTENANCE
+__________________________________________________________________________________________________________________________
+
+●This website is built with a **Clean-Code & Modular** architecture. Follow this guide to ensure maximum performance and  prevent breaking core functionalities during updates.
 
 ---
 
-## 1. ARCHITECTURAL OVERVIEW
-Elite Vault v8.2.9 is engineered with a **Zero-Dependency Architecture**. It prioritizes "Native Performance" over heavy frameworks to ensure a 100/100 Google PageSpeed score and instant LCP (Largest Contentful Paint).
-
-### Core Stack:
-- **Engine:** Vanilla ES6+ JavaScript (Asynchronous Data Rendering).
-- **Styling:** CSS3 Dynamic Variables with Hardware-Accelerated Transforms.
-- **Visuals:** AI-Generated Procedural Backgrounds & WebP Optimized Assets.
-- **Compliance:** W3C Semantic HTML5 & WCAG Accessibility Standards.
+### 1. Folder Structure & File Management
+Maintain the following directory structure for the scripts and assets to load correctly:
+* `index.html` (Main Structure)
+* `assets/css/style.css` (Visuals & Themes)
+* `assets/js/script.js` (Logic & Product Data)
+* `assets/img/` (Store all product images in `.webp` format here)
 
 ---
 
-## 2. THE GLOBAL CONFIGURATION (SYSTEM SYNC)
-All core data is centralized in `script.js` under the `VAULT_DATA` constant. This allows for "Single Point of Truth" updates.
-
-### A. Professional Branding
-Locate the `owner` and `content` objects:
-- `firstName` & `lastName`: Synchronizes your brand across the UI.
-- `heroTitle`: Controls the automated typewriter engine (50ms interval).
-- `footer`: Legal copyright string (Global standard).
-
-### B. Dynamic Product Engine (The Vault)
-To scale your repository, add objects to the `products` array. 
-**PRO-TIP:** Use the `img` property to point to `.webp` files only. The system uses a **Dual-Loading Strategy**:
-- **First 4 Cards:** `fetchpriority="high"` (Instant visibility).
-- **Remaining Cards:** `loading="lazy"` (Bandwidth preservation).
+### 2. Product Management (Inventory Update)
+You do not need to edit the HTML file to add or modify products. Open `script.js` and locate the `VAULT_DATA.products` object.
+* **Adding a Product:** Add a new line inside the square brackets `[]`:
+    `{ name: "Product Name", price: "$200", desc: "Short description.", img: "assets/img/filename.webp" },`
+* **Important:** The image filename must match exactly with the `img` path. Use `.webp` format for industry-leading page speed.
 
 ---
 
-## 3. DESIGN SYSTEM & UI CUSTOMIZATION
-The UI uses a **Modular CSS Variable System** located in the `:root` of the `<style>` block.
-
-### A. Color Theory & Branding
-- `--primary`: Your brand's "Signature Glow" (Default: Gold #ffd700).
-- `--bg` & `--surface`: Defines the depth of the "Dark-Mode" aesthetic.
-- `--accent-gradient`: Used for high-conversion buttons (Linear 45deg).
-
-### B. Motion Graphics & Performance
-The "Circle Cursor" and "Hover Glow" use `translate3d` to bypass the CPU and utilize the **GPU (Graphics Processing Unit)**. This prevents lag on mobile devices with limited RAM.
-- To adjust cursor sensitivity: Modify `transition: transform 0.15s ease-out;` in `#cursor`.
+### 3. Identity & Contact Synchronization (Global Sync)
+Static text and contact details are managed via `VAULT_DATA.owner` at the top of the `script.js` file.
+* **Operational Email:** Change the `email: "..."` value to update where inquiry forms are sent.
+* **Hero & Footer:** Modify the `heroTitle` or `footer` within the `content` object for instant sitewide updates.
 
 ---
 
-## 4. DEPLOYMENT & ASSET OPTIMIZATION PROTOCOL
-To maintain the "Industrial-Grade" status, all media MUST adhere to these strict protocols:
-
-1. **Image Compression:** Use **Lossy WebP** (80% quality).
-2. **Resolution Limits:** Width should not exceed **800px** for product thumbnails to minimize Main-Thread blocking.
-3. **AI Video Backgrounds:** Use `.webm` format for the `ev-video-bg` classes. The CSS handles the opacity (0.05) to ensure text readability remains at AAA standards.
-4. **Hosting:** Optimized for **Vercel, Netlify, or AWS S3**. Ensure Gzip or Brotli compression is enabled on your server.
+### 4. CSS Maintenance & Code Integrity
+* **W3C Compliance:** This site is validated using HTML5 and CSS3 standards. Avoid using inline `style="..."` attributes. Use existing classes in `style.css`.
+* **ID Logic:** Do not change the `id` tags on navigation elements (e.g., `home`, `market`, `about`, `faq`) or modal buttons. The JavaScript relies on these IDs for navigation and search functions.
+* **Search Engine Logic:** The `handleSearch()` function in JS filters keywords within the product `name` and `desc` in real-time.
 
 ---
 
-## 5. SECURE INQUIRY & GATEWAY LOGIC
-Elite Vault does not store sensitive data locally, mitigating GDPR and CCPA risks.
-
-### Transaction Flow:
-1. **Method Selection:** Client selects a gateway (PayPal, Stripe, Crypto).
-2. **Data Injection:** The `openModal()` function captures the asset's metadata (Name & Price).
-3. **Encryption-Ready Email:** `confirmInquiry()` parses the "Client Identity" and "Selected Gateway" into a URI-encoded mailto string.
-4. **Privacy:** No databases are used, ensuring zero data-leakage during the inquiry phase.
+### 5. Visual Optimization (AI Cinematic Artistry)
+The site uses a layered background system for product cards to maintain a premium feel.
+* **AI Video Classes:** The `aiClasses` array in JS automatically assigns different animation styles to each product card.
+* **Light/Dark Mode:** Color variables in the CSS `:root` switch seamlessly via the `toggleTheme()` function. User preference is saved via `localStorage`.
 
 ---
+**STATUS:** Documentation Protocol Complete. Prepared for Industrial Implementation.
+__________________________________________________________________________________________________________________________
 
-## 6. MAINTENANCE & VALIDATION
-- **W3C Integrity:** Click the "W3C Validator" link in the footer after every update. Any red flags in the HTML structure can decrease your SEO ranking on Google/Bing.
-- **PageSpeed Audit:** Aim for a "Time to Interactive" (TTI) of <1.5s.
-- **Support:** Technical inquiries and Extended Commercial Licenses are managed via: **fransmarselinosroyer@gmail.com**.
-- LINKEDIN: https://www.linkedin.com/in/frans-marcellino-047228189?trk=contact-info
+● LINKEDIN: https://www.linkedin.com/in/frans marcellino
 
----
 *© 2026 FRANS MARCELLINO. All Rights Reserved. This documentation is part of the Elite Vault Proprietary License. Unauthorized redistribution of this manifest is strictly prohibited.*
