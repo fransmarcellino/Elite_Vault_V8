@@ -184,7 +184,7 @@ function renderFAQ() {
         </article>`).join("");
 }
 
-// --- MASTER MODAL LOGIC (CENTRALIZED WARRIORPLUS INTEGRATION) ---
+// --- CENTRALIZED WARRIORPLUS MODAL LOGIC ---
 function openModal(n, p) {
   curN = n; curP = p;
   const modal = document.getElementById("modal");
@@ -192,17 +192,21 @@ function openModal(n, p) {
     document.getElementById("target-name").innerText = n.toUpperCase();
     document.getElementById("target-price").innerText = p;
 
-    // Integrasi Link WarriorPlus Terpusat
+    // TARGET: Mengaitkan link WarriorPlus secara dinamis ke elemen <a> buy-link
     const buyLink = document.getElementById("buy-link");
     if (buyLink) {
+      // Constraint 2: Update href
       buyLink.href = "https://warriorplus.com/o2/buy/bg58p0/fyfs9n/gh5vkg";
-      buyLink.innerHTML = `<img src="https://warriorplus.com/o2/btn/fn100011001/bg58p0/fyfs9n/462091" alt="Buy Now" style="max-width:100%; height:auto; transition: transform 0.3s ease;">`;
       
-      // Memberikan efek hover manual karena ini adalah element dinamis
-      buyLink.onmouseover = () => buyLink.style.transform = "scale(1.05)";
-      buyLink.onmouseout = () => buyLink.style.transform = "scale(1)";
+      // Constraint 3: Menggantikan konten tombol dengan image WarriorPlus
+      // Menggunakan innerHTML agar gambar tersemat rapi di dalam wrapper link
+      buyLink.innerHTML = `<img src="https://warriorplus.com/o2/btn/fn100011001/bg58p0/fyfs9n/462091" alt="Buy Now" style="max-width:100%; height:auto; display:block; margin: 0 auto; transition: opacity 0.3s ease;">`;
+      
+      // Memberikan style tambahan agar transisi modal tetap mulus
+      buyLink.style.display = "block";
+      buyLink.style.marginTop = "20px";
     }
-    
+
     modal.style.display = "flex";
   }
 }
