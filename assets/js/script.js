@@ -1,6 +1,6 @@
 /**
  * @file script.js
- * @description Master-Optimized Core for Elite Vault v8.2.9 + WarriorPlus JS Logic Integration
+ * @description Master-Optimized Core for Elite Vault v8.2.9 + Search Feedback & Instant Sync
  * @author Frans Marcellino
  * @status W3C Compliant & PageSpeed Optimized (Universal Excellence Edition)
  */
@@ -43,7 +43,7 @@ const VAULT_DATA = {
   ],
 };
 
-let curN = "", curP = "", selectedGateway = "WarriorPlus";
+let curN = "", curP = "", selectedGateway = "PayPal";
 const cursorEl = document.getElementById("cursor");
 
 // --- UI ENGINE ---
@@ -184,29 +184,12 @@ function renderFAQ() {
         </article>`).join("");
 }
 
-// --- CENTRALIZED WARRIORPLUS MODAL LOGIC ---
 function openModal(n, p) {
   curN = n; curP = p;
   const modal = document.getElementById("modal");
   if (modal) {
     document.getElementById("target-name").innerText = n.toUpperCase();
     document.getElementById("target-price").innerText = p;
-
-    // TARGET: Mengaitkan link WarriorPlus secara dinamis ke elemen <a> buy-link
-    const buyLink = document.getElementById("buy-link");
-    if (buyLink) {
-      // Constraint 2: Update href
-      buyLink.href = "https://warriorplus.com/o2/buy/bg58p0/fyfs9n/gh5vkg";
-      
-      // Constraint 3: Menggantikan konten tombol dengan image WarriorPlus
-      // Menggunakan innerHTML agar gambar tersemat rapi di dalam wrapper link
-      buyLink.innerHTML = `<img src="https://warriorplus.com/o2/btn/fn100011001/bg58p0/fyfs9n/462091" alt="Buy Now" style="max-width:100%; height:auto; display:block; margin: 0 auto; transition: opacity 0.3s ease;">`;
-      
-      // Memberikan style tambahan agar transisi modal tetap mulus
-      buyLink.style.display = "block";
-      buyLink.style.marginTop = "20px";
-    }
-
     modal.style.display = "flex";
   }
 }
