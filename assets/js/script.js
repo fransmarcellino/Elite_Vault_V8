@@ -1,6 +1,6 @@
 /**
  * @file script.js
- * @description Master-Optimized Core for Elite Vault v8.2.9 + Search Feedback & Instant Sync
+ * @description Master-Optimized Core for Elite Vault v8.2.9 + WarriorPlus JS Logic Integration
  * @author Frans Marcellino
  * @status W3C Compliant & PageSpeed Optimized (Universal Excellence Edition)
  */
@@ -43,7 +43,7 @@ const VAULT_DATA = {
   ],
 };
 
-let curN = "", curP = "", selectedGateway = "PayPal";
+let curN = "", curP = "", selectedGateway = "WarriorPlus";
 const cursorEl = document.getElementById("cursor");
 
 // --- UI ENGINE ---
@@ -184,12 +184,25 @@ function renderFAQ() {
         </article>`).join("");
 }
 
+// --- MASTER MODAL LOGIC (CENTRALIZED WARRIORPLUS INTEGRATION) ---
 function openModal(n, p) {
   curN = n; curP = p;
   const modal = document.getElementById("modal");
   if (modal) {
     document.getElementById("target-name").innerText = n.toUpperCase();
     document.getElementById("target-price").innerText = p;
+
+    // Integrasi Link WarriorPlus Terpusat
+    const buyLink = document.getElementById("buy-link");
+    if (buyLink) {
+      buyLink.href = "https://warriorplus.com/o2/buy/bg58p0/fyfs9n/gh5vkg";
+      buyLink.innerHTML = `<img src="https://warriorplus.com/o2/btn/fn100011001/bg58p0/fyfs9n/462091" alt="Buy Now" style="max-width:100%; height:auto; transition: transform 0.3s ease;">`;
+      
+      // Memberikan efek hover manual karena ini adalah element dinamis
+      buyLink.onmouseover = () => buyLink.style.transform = "scale(1.05)";
+      buyLink.onmouseout = () => buyLink.style.transform = "scale(1)";
+    }
+    
     modal.style.display = "flex";
   }
 }
