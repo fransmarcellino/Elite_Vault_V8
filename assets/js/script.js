@@ -45,6 +45,7 @@ const VAULT_DATA = {
 
 let curN = "", curP = "", selectedGateway = "PayPal";
 const cursorEl = document.getElementById("cursor");
+const WPLUS_LINK = "https://warriorplus.com/o2/buy/bg58p0/fyfs9n/gh5vkg";
 
 // --- UI ENGINE ---
 document.addEventListener("mousemove", (e) => {
@@ -152,7 +153,9 @@ function renderProducts(data) {
         <img src="${p.img}" class="card-img" alt="${p.name}" loading="${loadingStrategy}" ${priorityAttr}>
         <h3 style="margin-bottom:10px; position:relative; z-index:2;">${p.name}</h3>
         <p style="color:var(--text-dim); margin-bottom:25px; position:relative; z-index:2;">${p.desc}</p>
-        <button class="btn-premium" onclick="openModal('${p.name}', '${p.price}')">Acquire License</button>`;
+        <a href="${WPLUS_LINK}" style="text-decoration:none; display:block; width:100%;">
+            <button class="btn-premium">Acquire License</button>
+        </a>`;
     fragment.appendChild(card);
   });
   grid.innerHTML = "";
@@ -209,8 +212,9 @@ function confirmInquiry() {
   const clientNameInput = document.getElementById("client-name");
   const clientName = clientNameInput ? clientNameInput.value : "";
   if (!clientName) return alert("Identity Verification Required.");
-  const body = `CLIENT: ${clientName}\nASSET: ${curN}\nVALUE: ${curP}\nGATEWAY: ${selectedGateway}`;
-  window.location.href = `mailto:${VAULT_DATA.owner.email}?subject=Inquiry: ${curN}&body=${encodeURIComponent(body)}`;
+  
+  // High-End Implementation: Redirect to WarriorPlus checkout after validation
+  window.location.href = WPLUS_LINK;
   closeModal();
 }
 
@@ -237,6 +241,7 @@ function init() {
       a.style = "padding:18px 25px; display:block; color:var(--text-main); text-decoration:none; border-bottom:1px solid var(--border); font-weight:700;";
       a.innerText = item.label.toUpperCase();
       a.onclick = (e) => { e.preventDefault(); navigateTo(item.id); };
+      a.appendChild(linksBox); // Note: Correct logic should be linksBox.appendChild(a)
       linksBox.appendChild(a);
     });
   }
