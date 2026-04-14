@@ -433,7 +433,7 @@
         font-size: 0.7rem;
       }
 
-      /* SINKRONISASI FAQ DENGAN ABOUT - START */
+      /* SINKRONISASI FAQ AND ABOUT - START */
       #faq header h2 {
         font-family: 'Playfair Display', serif !important;
         font-style: italic !important;
@@ -451,7 +451,7 @@
         letter-spacing: 2px !important;
         font-size: 0.75rem !important;
       }
-      /* SINKRONISASI FAQ DENGAN ABOUT - END */
+      /* SINKRONISASI FAQ AND ABOUT - END */
 
       footer {
         text-align: center;
@@ -754,9 +754,8 @@
       }
 
       function confirmInquiry() {
-        const name = document.getElementById('target-name').innerText;
-        alert(`Initializing acquisition protocol for: ${name}. Contacting repository operator...`);
-        closeModal();
+        // REDIRECT LOGIC: Redirecting to index.html as per strict instructions
+        window.location.href = 'index.html';
       }
 
       function toggleTheme() {
