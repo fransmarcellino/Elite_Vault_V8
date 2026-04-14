@@ -187,23 +187,6 @@
         position: relative;
         padding: 120px 0;
       }
-      /* TOMBOL WARRIOR PLUS STYLING */
-      .warrior-plus-cta {
-        margin-bottom: 30px;
-        display: flex;
-        justify-content: center;
-        filter: drop-shadow(0 0 10px var(--glow));
-        transition: transform 0.3s var(--transition);
-      }
-      .warrior-plus-cta:hover {
-        transform: scale(1.05);
-      }
-      .warrior-plus-cta img {
-        max-width: 260px;
-        width: 100%;
-        height: auto;
-      }
-
       .hero h1 {
         font-family: "Playfair Display", serif !important;
         font-size: clamp(2.5rem, 8vw, 5.5rem);
@@ -529,7 +512,7 @@
     <div id="cursor" aria-hidden="true"></div>
 
     <div class="container">
-      <header id="top">
+      <header>
         <nav aria-label="Main Navigation">
           <div class="logo">
             <a href="#top" style="text-decoration: none; color: inherit" aria-label="Frans Marcellino Home">
@@ -561,12 +544,6 @@
           </h1>
 
           <article class="hero">
-            <div class="warrior-plus-cta">
-              <a href="https://warriorplus.com/o2/buy/bg58p0/fyfs9n/gh5vkg" target="_blank">
-                <img src="https://warriorplus.com/o2/btn/fn100011001/bg58p0/fyfs9n/462091" alt="Add To Cart">
-              </a>
-            </div>
-
             <h2 class="hero-badge-style">ESTABLISHED 2026</h2>
             <p style="font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 8vw, 5.5rem); font-weight: 900; margin-bottom: 24px; line-height: 1.1; font-style: italic;">
               Architecting Digital Sovereignty.
@@ -778,8 +755,7 @@
 
       function confirmInquiry() {
         const name = document.getElementById('target-name').innerText;
-        // Langsung arahkan ke link WarriorPlus untuk kemudahan checkout
-        window.open("https://warriorplus.com/o2/buy/bg58p0/fyfs9n/gh5vkg", "_blank");
+        alert(`Initializing acquisition protocol for: ${name}. Contacting repository operator...`);
         closeModal();
       }
 
