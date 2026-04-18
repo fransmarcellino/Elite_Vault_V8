@@ -4,19 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>
-      Frans Marcellino | Elite Vault v8.1.1 — Digital Architect Portfolio
-    </title>
+    <title>Frans Marcellino | Elite Vault v8.1.1 — Digital Architect Portfolio</title>
     <meta name="description" content="Official repository of Frans Marcellino. Industrial-grade software assets and AI Cinematic Artistry. Established 2026.">
     <meta name="author" content="Frans Marcellino">
 
+    <!-- ═══ FONT PRECONNECT & PRELOAD ═══ -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&family=Playfair+Display:ital,wght@0,900;1,900&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" media="print" onload="this.media = 'all'">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" media="print" onload="this.media='all'">
 
     <style>
-      /* CORE SYSTEM - Elite Vault v8.1.1 */
+      /* ═══════════════════════════════════════
+         CORE SYSTEM — Elite Vault v8.1.1
+         ═══════════════════════════════════════ */
+
+      /* ── 1. CSS CUSTOM PROPERTIES (THEME) ── */
       :root {
         --primary: #ffd700;
         --bg: #050505;
@@ -39,6 +42,7 @@
         --modal-overlay: rgba(255, 255, 255, 0.6);
       }
 
+      /* ── 2. RESET & BASE ── */
       * {
         margin: 0;
         padding: 0;
@@ -46,7 +50,35 @@
         font-family: "Plus Jakarta Sans", sans-serif;
         cursor: none;
       }
+      body {
+        background: var(--bg);
+        color: var(--text-main);
+        line-height: 1.6;
+        overflow-x: hidden;
+        transition: background 0.5s var(--transition);
+      }
 
+      /* ── 3. LAYOUT UTILITIES ── */
+      .container {
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 0 5%;
+      }
+      .flex-center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .flex-between {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .text-center {
+        text-align: center;
+      }
+
+      /* ── 4. CUSTOM CURSOR ── */
       #cursor {
         width: 20px;
         height: 20px;
@@ -62,27 +94,11 @@
         will-change: transform;
       }
       @media (max-width: 768px) {
-        #cursor {
-          display: none;
-        }
-        * {
-          cursor: auto !important;
-        }
+        #cursor { display: none; }
+        * { cursor: auto !important; }
       }
 
-      body {
-        background: var(--bg);
-        color: var(--text-main);
-        line-height: 1.6;
-        transition: background 0.5s var(--transition);
-        overflow-x: hidden;
-      }
-      .container {
-        max-width: 1300px;
-        margin: 0 auto;
-        padding: 0 5%;
-      }
-
+      /* ── 5. NAVIGATION ── */
       nav {
         padding: 20px 0;
         display: flex;
@@ -112,6 +128,8 @@
         align-items: center;
         gap: 15px;
       }
+
+      /* ── 6. NAV BUTTONS ── */
       .theme-toggle {
         background: var(--surface);
         border: 1px solid var(--border);
@@ -120,8 +138,8 @@
         border-radius: 12px;
         font-weight: 700;
         font-size: 0.75rem;
-        transition: 0.3s var(--transition);
         cursor: pointer;
+        transition: 0.3s var(--transition);
       }
       .kebab-btn {
         background: none;
@@ -140,6 +158,10 @@
         border-radius: 50%;
       }
 
+      /* ── 7. DROPDOWN MENU ── */
+      .menu-wrapper {
+        position: relative;
+      }
       .dropdown-menu {
         position: absolute;
         right: 0;
@@ -153,27 +175,29 @@
         display: none;
         opacity: 0;
         transform: translateY(-10px);
+        overflow: hidden;
         transition:
           opacity 0.3s var(--transition),
           transform 0.3s var(--transition);
-        overflow: hidden;
       }
       .dropdown-menu.active {
         display: block;
         opacity: 1;
         transform: translateY(0);
       }
+
+      /* ── 8. PAGE SYSTEM ── */
       .page {
         display: none;
         opacity: 0;
         transform: translateY(20px);
         filter: blur(5px);
+        padding: 60px 0;
+        min-height: 80vh;
         transition:
           opacity 0.6s var(--transition),
           transform 0.6s var(--transition),
           filter 0.6s var(--transition);
-        padding: 60px 0;
-        min-height: 80vh;
       }
       .page.active {
         display: block;
@@ -182,18 +206,11 @@
         filter: blur(0);
       }
 
+      /* ── 9. HERO SECTION ── */
       .hero {
         text-align: center;
         position: relative;
         padding: 120px 0;
-      }
-      .hero h1 {
-        font-family: "Playfair Display", serif !important;
-        font-size: clamp(2.5rem, 8vw, 5.5rem);
-        font-weight: 900;
-        margin-bottom: 24px;
-        line-height: 1.1;
-        font-style: italic;
       }
       .hero-badge-style {
         font-size: 0.75rem;
@@ -203,6 +220,14 @@
         font-weight: 800;
         text-transform: uppercase;
       }
+      .hero-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2.5rem, 8vw, 5.5rem);
+        font-weight: 900;
+        margin-bottom: 24px;
+        line-height: 1.1;
+        font-style: italic;
+      }
       .hero-desc-style {
         color: var(--text-dim);
         max-width: 750px;
@@ -210,13 +235,23 @@
         font-size: 1.15rem;
         font-weight: 300;
       }
+      .hero-cta-group {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 30px;
+      }
 
+      /* ── 10. GRID SYSTEM ── */
       .grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
         gap: 32px;
         margin-top: 50px;
       }
+
+      /* ── 11. CARD COMPONENT ── */
       .card {
         background: var(--surface);
         border: 1px solid var(--border);
@@ -226,9 +261,9 @@
         overflow: hidden;
         backdrop-filter: blur(10px);
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        transition: 0.6s var(--transition);
-        will-change: transform, border-color;
         z-index: 1;
+        will-change: transform, border-color;
+        transition: 0.6s var(--transition);
       }
       .card:hover {
         border-color: var(--primary);
@@ -238,19 +273,19 @@
           0 0 20px var(--glow);
       }
 
+      /* ── 12. CARD ANIMATED BACKGROUNDS ── */
       .ev-video-bg {
         position: absolute;
         inset: 0;
         z-index: -1;
         opacity: 0;
-        transition: opacity 0.6s;
         pointer-events: none;
         will-change: transform, opacity;
+        transition: opacity 0.6s;
       }
       .card:hover .ev-video-bg {
         opacity: 0.15;
       }
-
       .ai-vid-1 {
         background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
         animation: aiPulse 4s infinite;
@@ -273,14 +308,9 @@
         animation: aiGrid 15s linear infinite;
       }
       .ai-vid-4 {
-        background: conic-gradient(
-          from 0deg,
-          transparent,
-          var(--primary),
-          transparent
-        );
-        animation: aiRotate 6s linear infinite;
+        background: conic-gradient(from 0deg, transparent, var(--primary), transparent);
         filter: blur(25px);
+        animation: aiRotate 6s linear infinite;
       }
 
       @keyframes aiPulse {
@@ -300,6 +330,7 @@
         to { transform: rotate(360deg); }
       }
 
+      /* ── 13. CARD IMAGE ── */
       .card-img {
         width: 100%;
         height: auto;
@@ -307,16 +338,18 @@
         border-radius: 20px;
         object-fit: cover;
         margin-bottom: 25px;
-        filter: grayscale(1);
-        transition: 0.8s var(--transition);
         background: #1a1a1a;
         position: relative;
         z-index: 2;
+        filter: grayscale(1);
+        transition: 0.8s var(--transition);
       }
       .card:hover .card-img {
         filter: grayscale(0);
         transform: scale(1.05);
       }
+
+      /* ── 14. PRICE TAG ── */
       .price-tag {
         position: absolute;
         top: 30px;
@@ -329,6 +362,8 @@
         font-size: 0.8rem;
         z-index: 10;
       }
+
+      /* ── 15. BUTTONS ── */
       .btn-premium {
         background: var(--primary);
         color: #000;
@@ -339,15 +374,84 @@
         font-weight: 800;
         text-transform: uppercase;
         cursor: pointer;
-        transition: 0.3s var(--transition);
         text-align: center;
         display: inline-block;
         text-decoration: none;
         position: relative;
         z-index: 5;
+        transition: 0.3s var(--transition);
+      }
+      .btn-outline {
+        background: transparent;
+        border: 1px solid var(--border);
+        color: var(--text-main);
+      }
+      .btn-max-280 {
+        max-width: 280px;
       }
 
-      /* MODAL VISUAL RECONSTRUCTION */
+      /* ── 16. SECTION HEADERS ── */
+      .section-header {
+        text-align: center;
+        margin-bottom: 50px;
+      }
+      .section-header h2 {
+        font-size: 2.8rem;
+        letter-spacing: -2px;
+        margin-bottom: 10px;
+      }
+      .section-header p {
+        color: var(--text-dim);
+        font-weight: 300;
+      }
+
+      /* About & FAQ synced header style */
+      .section-header-editorial h2 {
+        font-family: "Playfair Display", serif;
+        font-style: italic;
+        font-size: clamp(2rem, 8vw, 2.8rem);
+        letter-spacing: -1px;
+        margin-bottom: 10px;
+        line-height: 1.1;
+        font-weight: 900;
+      }
+      .section-header-editorial p {
+        color: var(--text-dim);
+        font-weight: 300;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 0.75rem;
+      }
+
+      /* ── 17. SEARCH BAR ── */
+      .search-container {
+        max-width: 500px;
+        margin: 0 auto 40px;
+      }
+      #search-bar {
+        width: 100%;
+        padding: 18px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        color: var(--text-main);
+        outline: none;
+      }
+
+      /* ── 18. ABOUT SECTION — CARD TEXT ── */
+      .about-card-title {
+        color: var(--primary);
+        margin-bottom: 15px;
+        font-size: 1.5rem;
+      }
+      .about-card-body {
+        color: var(--text-dim);
+        font-size: 1rem;
+        line-height: 1.6;
+        font-weight: 400;
+      }
+
+      /* ── 19. MODAL ── */
       #modal {
         position: fixed;
         inset: 0;
@@ -370,17 +474,32 @@
         max-width: 500px;
         text-align: center;
         position: relative;
-        box-shadow: 
+        box-shadow:
           0 40px 100px -20px rgba(0, 0, 0, 0.4),
           0 0 0 1px var(--border);
-        transition: transform 0.4s var(--transition), background 0.5s;
         animation: modalFloat 4s ease-in-out infinite;
+        transition: transform 0.4s var(--transition), background 0.5s;
       }
       @keyframes modalFloat {
         0%, 100% { transform: translateY(0); }
         50% { transform: translateY(-10px); }
       }
-      
+
+      /* ── 20. MODAL CONTENT ── */
+      .modal-status-label {
+        font-size: 0.75rem;
+        letter-spacing: 3px;
+        color: var(--text-dim);
+        text-transform: uppercase;
+      }
+      .modal-product-name {
+        font-size: 1.5rem;
+        font-weight: 800;
+        margin-top: 5px;
+        color: var(--primary);
+        font-family: "Playfair Display", serif;
+        font-style: italic;
+      }
       .modal-price {
         font-size: 3rem;
         margin-top: 10px;
@@ -389,7 +508,21 @@
         -webkit-text-fill-color: transparent;
         font-weight: 900;
       }
-      
+      .modal-cancel-btn {
+        background: none;
+        border: none;
+        color: inherit;
+        cursor: pointer;
+        margin-top: 25px;
+        opacity: 0.5;
+        font-size: 0.75rem;
+        letter-spacing: 2px;
+        font-weight: 800;
+        display: block;
+        width: 100%;
+      }
+
+      /* ── 21. DESCRIPTION BOX (MODAL) ── */
       .description-container {
         text-align: left;
         margin: 25px 0;
@@ -433,26 +566,7 @@
         font-size: 0.7rem;
       }
 
-      /* SINKRONISASI FAQ DENGAN ABOUT - START */
-      #faq header h2 {
-        font-family: 'Playfair Display', serif !important;
-        font-style: italic !important;
-        font-size: clamp(2rem, 8vw, 2.8rem) !important;
-        letter-spacing: -1px !important;
-        margin-bottom: 10px !important;
-        line-height: 1.1 !important;
-        font-weight: 900 !important;
-      }
-
-      #faq header p {
-        color: var(--text-dim) !important;
-        font-weight: 300 !important;
-        text-transform: uppercase !important;
-        letter-spacing: 2px !important;
-        font-size: 0.75rem !important;
-      }
-      /* SINKRONISASI FAQ DENGAN ABOUT - END */
-
+      /* ── 22. FOOTER ── */
       footer {
         text-align: center;
         padding: 100px 0 60px;
@@ -471,12 +585,17 @@
         color: var(--text-main);
         font-size: 1.4rem;
         opacity: 0.4;
-        transition: all 0.3s var(--transition);
         text-decoration: none;
+        transition: all 0.3s var(--transition);
       }
       .social-strip a:hover {
         opacity: 1;
         color: var(--primary);
+      }
+      .footer-copy {
+        margin-top: 20px;
+        font-size: 0.8rem;
+        color: var(--text-dim);
       }
       .validation-logos {
         display: flex;
@@ -497,6 +616,7 @@
         opacity: 1;
       }
 
+      /* ── 23. RESPONSIVE ── */
       @media (max-width: 480px) {
         .m-box {
           padding: 30px 20px;
@@ -506,141 +626,191 @@
           font-size: 2.2rem;
         }
       }
+
+      /* ── 24. FAQ SECTION — synced with About ── */
+      #faq header h2 {
+        font-family: "Playfair Display", serif !important;
+        font-style: italic !important;
+        font-size: clamp(2rem, 8vw, 2.8rem) !important;
+        letter-spacing: -1px !important;
+        margin-bottom: 10px !important;
+        line-height: 1.1 !important;
+        font-weight: 900 !important;
+      }
+      #faq header p {
+        color: var(--text-dim) !important;
+        font-weight: 300 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 2px !important;
+        font-size: 0.75rem !important;
+      }
     </style>
   </head>
+
   <body>
+    <!-- ═══ CUSTOM CURSOR ═══ -->
     <div id="cursor" aria-hidden="true"></div>
 
     <div class="container">
+
+      <!-- ═══ HEADER / NAV ═══ -->
       <header>
         <nav aria-label="Main Navigation">
           <div class="logo">
-            <a href="#top" style="text-decoration: none; color: inherit" aria-label="Frans Marcellino Home">
+            <a href="#top" style="text-decoration: none; color: inherit;" aria-label="Frans Marcellino Home">
               FRANS <span>MARCELLINO</span>
             </a>
           </div>
 
           <div class="nav-controls">
-            <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">
+            <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()">
               LIGHT MODE
             </button>
-            <div class="menu-wrapper" style="position: relative">
-              <button class="kebab-btn" id="kebab-menu-btn" onclick="toggleMenu(false, event)" aria-label="Open Menu" aria-haspopup="true" aria-expanded="false">
-                <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            <div class="menu-wrapper">
+              <button class="kebab-btn" id="kebab-menu-btn"
+                onclick="toggleMenu(false, event)"
+                aria-label="Open Menu"
+                aria-haspopup="true"
+                aria-expanded="false">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
               </button>
               <div id="dropdown" class="dropdown-menu">
-                <div id="social-links">
-                  </div>
+                <div id="social-links"></div>
               </div>
             </div>
           </div>
         </nav>
       </header>
 
+      <!-- ═══ MAIN CONTENT ═══ -->
       <main id="main-content">
+
+        <!-- ── HOME PAGE ── -->
         <section id="home" class="page active" aria-labelledby="home-heading">
-          <h1 id="home-heading" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">
+          <!-- Visually hidden H1 for SEO/accessibility -->
+          <h1 id="home-heading" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;">
             Frans Marcellino Digital Architect Portfolio
           </h1>
 
           <article class="hero">
             <h2 class="hero-badge-style">ESTABLISHED 2026</h2>
-            <p style="font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 8vw, 5.5rem); font-weight: 900; margin-bottom: 24px; line-height: 1.1; font-style: italic;">
-              Architecting Digital Sovereignty.
-            </p>
+            <p class="hero-title">Architecting Digital Sovereignty.</p>
             <p class="hero-desc-style">
-              Industrial-grade software assets designed for absolute
-              performance.
+              Industrial-grade software assets designed for absolute performance.
             </p>
-            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 30px;">
-              <button class="btn-premium" style="max-width: 280px" onclick="navigateTo('market')">
+            <div class="hero-cta-group">
+              <button class="btn-premium btn-max-280" onclick="navigateTo('market')">
                 VIEW REPOSITORY
               </button>
-              <a href="mailto:fransmarselinosroyer@gmail.com" class="btn-premium" style="max-width: 280px; background: transparent; border: 1px solid var(--border); color: var(--text-main);">CONTACT OPERATOR</a>
+              <a href="mailto:fransmarselinosroyer@gmail.com"
+                class="btn-premium btn-outline btn-max-280">
+                CONTACT OPERATOR
+              </a>
             </div>
           </article>
         </section>
 
+        <!-- ── MARKET / REPOSITORY PAGE ── -->
         <section id="market" class="page" aria-labelledby="market-title">
-          <header style="text-align: center; margin-bottom: 50px">
-            <h2 id="market-title" style="font-size: 2.8rem; letter-spacing: -2px; margin-bottom: 10px;">
-              The Repository
-            </h2>
-            <p style="color: var(--text-dim); font-weight: 300">
-              CURATED ASSETS BY FRANS MARCELLINO
-            </p>
+          <header class="section-header">
+            <h2 id="market-title">The Repository</h2>
+            <p>CURATED ASSETS BY FRANS MARCELLINO</p>
           </header>
-          <div class="search-container" style="max-width: 500px; margin: 0 auto 40px">
-            <input type="text" id="search-bar" aria-label="Search Assets" placeholder="Filter Assets..." onkeyup="handleSearch()" style="width: 100%; padding: 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; color: var(--text-main); outline: none;">
+          <div class="search-container">
+            <input type="text" id="search-bar"
+              aria-label="Search Assets"
+              placeholder="Filter Assets..."
+              onkeyup="handleSearch()">
           </div>
-          <div class="grid" id="main-grid">
-              </div>
+          <div class="grid product-grid" id="main-grid"></div>
         </section>
 
+        <!-- ── ABOUT PAGE ── -->
         <section id="about" class="page" aria-labelledby="about-title">
-          <header style="text-align: center; margin-bottom: 50px; padding: 0 20px">
-            <h2 id="about-title" style="font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(2rem, 8vw, 2.8rem); letter-spacing: -1px; margin-bottom: 10px; line-height: 1.1; font-weight: 900;">
-              The Architecture of Absolute Precision
-            </h2>
-            <p style="color: var(--text-dim); font-weight: 300; text-transform: uppercase; letter-spacing: 2px; font-size: 0.75rem;">
-              VALIDATED CORE & EMPIRICAL PERFORMANCE
-            </p>
+          <header class="section-header section-header-editorial" style="padding: 0 20px;">
+            <h2 id="about-title">The Architecture of Absolute Precision</h2>
+            <p>VALIDATED CORE & EMPIRICAL PERFORMANCE</p>
           </header>
-          <div style="max-width: 1100px; margin: 0 auto">
-            <div class="grid">
-              <article class="card">
+
+          <div style="max-width: 1100px; margin: 0 auto;">
+            <div class="grid about-grid">
+
+              <article class="card about-card">
                 <div class="ev-video-bg ai-vid-1"></div>
-                <h3 style="color: var(--primary); margin-bottom: 15px; font-size: 1.5rem;">Zero-Error Technical Integrity</h3>
-                <p style="color: var(--text-dim); font-size: 1rem; line-height: 1.6; font-weight: 400;">
+                <h3 class="about-card-title">Zero-Error Technical Integrity</h3>
+                <p class="about-card-body">
                   Elite Vault V8 is engineered for those who demand absolute stability. Every line of code has been meticulously audited to ensure a zero-error environment.
                 </p>
               </article>
 
-              <article class="card">
+              <article class="card about-card">
                 <div class="ev-video-bg ai-vid-2"></div>
-                <h3 style="color: var(--primary); margin-bottom: 15px; font-size: 1.5rem;">AI Cinematic Artistry</h3>
-                <p style="color: var(--text-dim); font-size: 1rem; line-height: 1.6; font-weight: 400;">
+                <h3 class="about-card-title">AI Cinematic Artistry</h3>
+                <p class="about-card-body">
                   Menggabungkan kecerdasan buatan dengan estetika visual kelas atas. Kami membangun aset digital yang tidak hanya berfungsi secara teknis, tetapi juga menghadirkan pengalaman sinematik yang mendalam.
                 </p>
               </article>
 
-              <article class="card">
+              <article class="card about-card">
                 <div class="ev-video-bg ai-vid-3"></div>
-                <h3 style="color: var(--primary); margin-bottom: 15px; font-size: 1.5rem;">Sovereign Architecture</h3>
-                <p style="color: var(--text-dim); font-size: 1rem; line-height: 1.6; font-weight: 400;">
+                <h3 class="about-card-title">Sovereign Architecture</h3>
+                <p class="about-card-body">
                   Setiap aset dirancang dengan prinsip kedaulatan digital. Memberikan kontrol penuh kepada pengguna melalui struktur kode yang bersih, modular, dan siap untuk skalabilitas industri masa depan.
                 </p>
               </article>
 
-              <article class="card">
+              <article class="card about-card">
                 <div class="ev-video-bg ai-vid-4"></div>
-                <h3 style="color: var(--primary); margin-bottom: 15px; font-size: 1.5rem;">Empirical Performance</h3>
-                <p style="color: var(--text-dim); font-size: 1rem; line-height: 1.6; font-weight: 400;">
+                <h3 class="about-card-title">Empirical Performance</h3>
+                <p class="about-card-body">
                   Kecepatan adalah standar utama. Dengan optimasi tingkat tinggi pada setiap komponen, kami memastikan performa yang konsisten di berbagai perangkat, menjaga otoritas digital Anda tetap tanpa tanding.
                 </p>
               </article>
-              </div>
+
+            </div>
           </div>
         </section>
 
+        <!-- ── FAQ PAGE ── -->
         <section id="faq" class="page" aria-labelledby="faq-title">
-          <header style="text-align: center; margin-bottom: 50px">
-            <h2 id="faq-title">
-              Knowledge Base
-            </h2>
+          <header class="section-header" style="text-align: center; margin-bottom: 50px;">
+            <h2 id="faq-title">Knowledge Base</h2>
             <p>ACQUISITION PROTOCOLS & INTEL</p>
           </header>
-          <div class="grid" id="faq-grid"></div>
+          <div class="grid faq-grid" id="faq-grid"></div>
         </section>
+
       </main>
 
+      <!-- ═══ FOOTER ═══ -->
       <footer>
         <div class="social-strip">
-          <a href="#" aria-label="Instagram"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.332 3.608 1.308.975.975 1.247 2.242 1.308 3.607.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.332 2.633-1.308 3.608-.975.975-2.242 1.247-3.607 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.332-3.608-1.308-.975-.975-1.247-2.242-1.308-3.607-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.062-1.366.332-2.633 1.308-3.608.975-.975 2.242-1.247 3.607-1.308 1.266-.058 1.646-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.337 2.617 6.78 6.979 6.98 1.281.059 1.689.073 4.948.073s3.667-.014 4.947-.072c4.357-.2 6.78-2.618 6.98-6.98.058-1.281.072-1.689.072-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.059-1.69-.072-4.949-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
-          <a href="#" aria-label="Twitter"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.25 2.25h6.763l4.711 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg></a>
-          <a href="#" aria-label="LinkedIn"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"/></svg></a>
+          <!-- Instagram -->
+          <a href="#" aria-label="Instagram">
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.332 3.608 1.308.975.975 1.247 2.242 1.308 3.607.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.332 2.633-1.308 3.608-.975.975-2.242 1.247-3.607 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.332-3.608-1.308-.975-.975-1.247-2.242-1.308-3.607-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.062-1.366.332-2.633 1.308-3.608.975-.975 2.242-1.247 3.607-1.308 1.266-.058 1.646-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.337 2.617 6.78 6.979 6.98 1.281.059 1.689.073 4.948.073s3.667-.014 4.947-.072c4.357-.2 6.78-2.618 6.98-6.98.058-1.281.072-1.689.072-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.059-1.69-.072-4.949-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
+          </a>
+          <!-- Twitter / X -->
+          <a href="#" aria-label="Twitter">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.25 2.25h6.763l4.711 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+          <!-- LinkedIn -->
+          <a href="#" aria-label="LinkedIn">
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"/>
+            </svg>
+          </a>
         </div>
-        <div id="footer-text" style="margin-top: 20px; font-size: 0.8rem; color: var(--text-dim);">© 2026 Frans Marcellino. All Rights Reserved.</div>
+
+        <div id="footer-text" class="footer-copy">
+          © 2026 Frans Marcellino. All Rights Reserved.
+        </div>
+
         <div class="validation-logos">
           <a href="#" aria-label="W3C HTML5 Validation Verification">
             <img src="https://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01 Logo" height="31" width="88">
@@ -650,36 +820,30 @@
           </a>
         </div>
       </footer>
-    </div>
 
+    </div><!-- /.container -->
+
+    <!-- ═══ MODAL ═══ -->
     <div id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-status-label">
       <div class="m-box">
-        <h3 id="modal-status-label" style="font-size: 0.75rem; letter-spacing: 3px; color: var(--text-dim); text-transform: uppercase;">
-          ASSET SELECTION
-        </h3>
-        <p id="target-name" style="font-size: 1.5rem; font-weight: 800; margin-top: 5px; color: var(--primary); font-family: 'Playfair Display', serif; font-style: italic;">
-          Product Name
-        </p>
+        <h3 id="modal-status-label" class="modal-status-label">ASSET SELECTION</h3>
+        <p id="target-name" class="modal-product-name">Product Name</p>
         <p id="target-price" class="modal-price">$0</p>
-        
+
         <div class="description-container" id="target-description-box">
-            <span class="desc-headline" id="desc-headline">Headline Asset</span>
-            <p class="desc-body" id="desc-body">Architecting digital sovereignty with industrial-grade precision.</p>
-            <ul class="desc-features" id="desc-features">
-                </ul>
+          <span class="desc-headline" id="desc-headline">Headline Asset</span>
+          <p class="desc-body" id="desc-body">Architecting digital sovereignty with industrial-grade precision.</p>
+          <ul class="desc-features" id="desc-features"></ul>
         </div>
 
-        <button class="btn-premium" id="acquire-btn" onclick="confirmInquiry()">
-          BUY
-        </button>
-        
-        <button onclick="closeModal()" style="background: none; border: none; color: inherit; cursor: pointer; margin-top: 25px; opacity: 0.5; font-size: 0.75rem; letter-spacing: 2px; font-weight: 800; display: block; width: 100%;">
-          CANCEL PROTOCOL
-        </button>
+        <button class="btn-premium" id="acquire-btn" onclick="confirmInquiry()">BUY</button>
+        <button class="modal-cancel-btn" onclick="closeModal()">CANCEL PROTOCOL</button>
       </div>
     </div>
 
+    <!-- ═══ INLINE SCRIPTS ═══ -->
     <script>
+      /* ── Product Data ── */
       const productData = {
         "Titan Core": {
           headline: "Industrial-Grade Infrastructure",
@@ -723,25 +887,26 @@
         }
       };
 
+      /* ── Modal Controls ── */
       function openModal(name, price) {
         document.getElementById('target-name').innerText = name;
         document.getElementById('target-price').innerText = price;
-        
+
         const data = productData[name] || {
-            headline: "Digital Asset",
-            body: "Elite industrial-grade software asset.",
-            features: ["Validated Core", "High Performance"]
+          headline: "Digital Asset",
+          body: "Elite industrial-grade software asset.",
+          features: ["Validated Core", "High Performance"]
         };
 
         document.getElementById('desc-headline').innerText = data.headline;
         document.getElementById('desc-body').innerText = data.body;
-        
+
         const featureList = document.getElementById('desc-features');
         featureList.innerHTML = '';
         data.features.forEach(feat => {
-            const li = document.createElement('li');
-            li.innerText = feat;
-            featureList.appendChild(li);
+          const li = document.createElement('li');
+          li.innerText = feat;
+          featureList.appendChild(li);
         });
 
         document.getElementById('modal').style.display = 'flex';
@@ -759,19 +924,22 @@
         closeModal();
       }
 
+      /* ── Theme Toggle ── */
       function toggleTheme() {
         document.body.classList.toggle('light-mode');
         const btn = document.getElementById('theme-btn');
         btn.innerText = document.body.classList.contains('light-mode') ? 'DARK MODE' : 'LIGHT MODE';
       }
 
-      // Cursor Logic
+      /* ── Custom Cursor ── */
       const cursor = document.getElementById('cursor');
       document.addEventListener('mousemove', (e) => {
         cursor.style.left = e.clientX + 'px';
         cursor.style.top = e.clientY + 'px';
       });
     </script>
+
+    <!-- ═══ EXTERNAL SCRIPT ═══ -->
     <script src="assets/js/script.js" defer></script>
   </body>
 </html>
