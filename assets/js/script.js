@@ -22,14 +22,72 @@ const VAULT_DATA = {
     footer:    "© 2026 FRANS MARCELLINO — ALL RIGHTS RESERVED",
   },
   products: [
-    { name: "Titan Core",   price: "$1,290", desc: "Enterprise SaaS Framework.",    img: "assets/img/Titan Core.webp"   },
-    { name: "Quantum UI",   price: "$750",   desc: "Kinetic React Components.",      img: "assets/img/Quantum UI.webp"   },
-    { name: "SecureAuth X", price: "$490",   desc: "Zero-Knowledge Auth Suite.",     img: "assets/img/SecureAuth X.webp" },
-    { name: "Nebula AI",    price: "$2,999", desc: "Neural Integration Engine.",     img: "assets/img/Nebula AI.webp"    },
-    { name: "Apex CMS",     price: "$1,800", desc: "Headless Content Engine.",       img: "assets/img/Apex CMS.webp"     },
-    { name: "Zenith ERP",   price: "$4,500", desc: "Global Logistics Logic.",        img: "assets/img/Zenith ERP.webp"   },
-    { name: "Vortex DB",    price: "$980",   desc: "Real-time Vector Database.",     img: "assets/img/Vortex DB.webp"    },
-    { name: "Cipher Mesh",  price: "$1,100", desc: "P2P Encryption Layer.",          img: "assets/img/Cipher Mesh.webp"  },
+    {
+      name:  "Titan Core",
+      price: "$1,290",
+      desc:  "Enterprise SaaS Framework.",
+      // FIX: spaces removed → kebab-case filename
+      img:   "assets/img/titan-core.webp",
+      // FIX: explicit intrinsic dimensions — matches aspect-ratio: 4/3 at 320px card min-width
+      imgW:  640,
+      imgH:  480,
+    },
+    {
+      name:  "Quantum UI",
+      price: "$750",
+      desc:  "Kinetic React Components.",
+      img:   "assets/img/quantum-ui.webp",
+      imgW:  640,
+      imgH:  480,
+    },
+    {
+      name:  "SecureAuth X",
+      price: "$490",
+      desc:  "Zero-Knowledge Auth Suite.",
+      img:   "assets/img/secure-auth-x.webp",
+      imgW:  640,
+      imgH:  480,
+    },
+    {
+      name:  "Nebula AI",
+      price: "$2,999",
+      desc:  "Neural Integration Engine.",
+      img:   "assets/img/nebula-ai.webp",
+      imgW:  640,
+      imgH:  480,
+    },
+    {
+      name:  "Apex CMS",
+      price: "$1,800",
+      desc:  "Headless Content Engine.",
+      img:   "assets/img/apex-cms.webp",
+      imgW:  640,
+      imgH:  480,
+    },
+    {
+      name:  "Zenith ERP",
+      price: "$4,500",
+      desc:  "Global Logistics Logic.",
+      img:   "assets/img/zenith-erp.webp",
+      imgW:  640,
+      imgH:  480,
+    },
+    {
+      name:  "Vortex DB",
+      price: "$980",
+      desc:  "Real-time Vector Database.",
+      img:   "assets/img/vortex-db.webp",
+      imgW:  640,
+      imgH:  480,
+    },
+    {
+      name:  "Cipher Mesh",
+      price: "$1,100",
+      desc:  "P2P Encryption Layer.",
+      img:   "assets/img/cipher-mesh.webp",
+      imgW:  640,
+      imgH:  480,
+    },
   ],
   menu: [
     { label: "Home",  id: "home"   },
@@ -75,8 +133,11 @@ let selectedGateway = "PayPal";
 /* ══════════════════════════════════════
    3. CONSTANTS — Cached DOM References
    ══════════════════════════════════════ */
-const cursorEl  = document.getElementById("cursor");
-const AI_CLASSES = ["ai-vid-1", "ai-vid-2", "ai-vid-3", "ai-vid-4", "ai-vid-5", "ai-vid-6", "ai-vid-7", "ai-vid-8"];
+const cursorEl   = document.getElementById("cursor");
+const AI_CLASSES = [
+  "ai-vid-1", "ai-vid-2", "ai-vid-3", "ai-vid-4",
+  "ai-vid-5", "ai-vid-6", "ai-vid-7", "ai-vid-8",
+];
 
 /* ══════════════════════════════════════
    4. CURSOR ENGINE
@@ -212,6 +273,12 @@ function applyStructuralColoring() {
 
 /* ══════════════════════════════════════
    10. PRODUCT RENDERER
+   ── PERFORMANCE FIXES APPLIED:
+      • All images: loading="lazy"   (consistent, no mixed eager/lazy)
+      • All images: decoding="async" (non-blocking decode)
+      • fetchpriority removed        (was inconsistent, caused prioritization conflicts)
+      • width + height set           (prevents layout shift / CLS)
+      • img src: kebab-case paths    (no spaces → reliable URL resolution)
    ══════════════════════════════════════ */
 function renderProducts(data) {
   const grid = document.getElementById("main-grid");
@@ -242,15 +309,21 @@ function renderProducts(data) {
   const fragment = document.createDocumentFragment();
 
   data.forEach((p, index) => {
-    const card            = document.createElement("article");
-    card.className        = "card";
-    const loadingStrategy = index < 4 ? "eager" : "lazy";
-    const priorityAttr    = index < 4 ? 'fetchpriority="high"' : "";
+    const card     = document.createElement("article");
+    card.className = "card";
 
     card.innerHTML = `
       <div class="ev-video-bg ${AI_CLASSES[index % 8]}"></div>
       <div class="price-tag">${p.price}</div>
-      <img src="${p.img}" class="card-img" alt="${p.name}" loading="${loadingStrategy}" ${priorityAttr}>
+      <img
+        src="${p.img}"
+        class="card-img"
+        alt="${p.name}"
+        width="${p.imgW}"
+        height="${p.imgH}"
+        loading="lazy"
+        decoding="async"
+      >
       <h3 style="margin-bottom:10px; position:relative; z-index:2;">${p.name}</h3>
       <p style="color:var(--text-dim); margin-bottom:25px; position:relative; z-index:2;">${p.desc}</p>
       <button class="btn-premium" onclick="openModal('${p.name}', '${p.price}')">Acquire License</button>`;
@@ -363,11 +436,11 @@ function buildMenu() {
   linksBox.innerHTML = "";
 
   VAULT_DATA.menu.forEach((item) => {
-    const a        = document.createElement("a");
-    a.href         = "#" + item.id;
+    const a         = document.createElement("a");
+    a.href          = "#" + item.id;
     a.style.cssText = "padding:18px 25px; display:block; color:var(--text-main); text-decoration:none; border-bottom:1px solid var(--border); font-weight:700;";
-    a.innerText    = item.label.toUpperCase();
-    a.onclick      = (e) => { e.preventDefault(); navigateTo(item.id); };
+    a.innerText     = item.label.toUpperCase();
+    a.onclick       = (e) => { e.preventDefault(); navigateTo(item.id); };
     linksBox.appendChild(a);
   });
 }
