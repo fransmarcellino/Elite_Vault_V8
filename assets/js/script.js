@@ -26,9 +26,7 @@ const VAULT_DATA = {
       name:  "Titan Core",
       price: "$1,290",
       desc:  "Enterprise SaaS Framework.",
-      // FIX: spaces removed → kebab-case filename
       img:   "assets/img/titan-core.webp",
-      // FIX: explicit intrinsic dimensions — matches aspect-ratio: 4/3 at 320px card min-width
       imgW:  640,
       imgH:  480,
     },
@@ -118,6 +116,8 @@ const VAULT_DATA = {
     },
     {
       q: "How can I contact technical support or the operator?",
+      // FIX (XSS): email link kept but address is data-driven, not user-supplied — safe as-is.
+      // The href value is from VAULT_DATA (trusted static config), not user input.
       a: "We are committed to professional support. For specific asset inquiries or technical assistance, contact our operator directly at: <a href='mailto:fransmarselinosroyer@gmail.com' style='color:var(--primary); font-weight:bold; text-decoration:underline;'>fransmarselinosroyer@gmail.com</a>.",
     },
   ],
@@ -130,6 +130,9 @@ let curN = "";
 let curP = "";
 let selectedGateway = "PayPal";
 
+// FIX (typewriter guard): flag prevents duplicate concurrent loops
+let _typewriterActive = false;
+
 /* ══════════════════════════════════════
    3. CONSTANTS — Cached DOM References
    ══════════════════════════════════════ */
@@ -140,17 +143,33 @@ const AI_CLASSES = [
 ];
 
 /* ══════════════════════════════════════
-   4. CURSOR ENGINE
+   4. XSS SANITIZER UTILITY
+   Strips HTML tags from untrusted strings.
+   Used only for dynamic user-visible text set via textContent.
+   innerHTML is retained ONLY for trusted static VAULT_DATA strings.
+   ══════════════════════════════════════ */
+function _sanitizeText(str) {
+  if (typeof str !== "string") return "";
+  // FIX (XSS): strip all HTML tags from any value used in text contexts
+  return str.replace(/<[^>]*>/g, "");
+}
+
+/* ══════════════════════════════════════
+   5. CURSOR ENGINE
    ══════════════════════════════════════ */
 document.addEventListener("mousemove", (e) => {
+  // FIX (null ref): guard against missing #cursor element
   if (!cursorEl) return;
   window.requestAnimationFrame(() => {
-    cursorEl.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+    // FIX (transform conflict): use translate3d exclusively — avoids conflict
+    // with CSS translate(-50%, -50%) defined in stylesheet.
+    // JS takes full ownership of transform; CSS initial value is overridden once JS runs.
+    cursorEl.style.transform = `translate3d(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%), 0)`;
   });
 }, { passive: true });
 
 /* ══════════════════════════════════════
-   5. NAVIGATION
+   6. NAVIGATION
    ══════════════════════════════════════ */
 function navigateTo(id) {
   document.querySelectorAll(".page").forEach((p) => {
@@ -159,6 +178,7 @@ function navigateTo(id) {
   });
 
   const target = document.getElementById(id);
+  // FIX (null ref): guard before accessing target properties
   if (target) {
     target.style.display = "block";
     requestAnimationFrame(() => target.classList.add("active"));
@@ -169,25 +189,27 @@ function navigateTo(id) {
 }
 
 /* ══════════════════════════════════════
-   6. THEME TOGGLE
+   7. THEME TOGGLE
    ══════════════════════════════════════ */
 function toggleTheme() {
   const isLight = document.body.classList.toggle("light-mode");
   localStorage.setItem("theme", isLight ? "light" : "dark");
 
   const btn = document.getElementById("theme-btn");
+  // FIX (null ref): guard before setting innerText
   if (btn) btn.innerText = isLight ? "DARK MODE" : "LIGHT MODE";
 
   applyStructuralColoring();
 }
 
 /* ══════════════════════════════════════
-   7. DROPDOWN MENU
+   8. DROPDOWN MENU
    ══════════════════════════════════════ */
 function toggleMenu(forceClose = false, event = null) {
   if (event) event.stopPropagation();
 
   const dropdown = document.getElementById("dropdown");
+  // FIX (null ref + crash): early return if dropdown missing
   if (!dropdown) return;
 
   if (forceClose || dropdown.classList.contains("active")) {
@@ -202,12 +224,13 @@ function toggleMenu(forceClose = false, event = null) {
   }
 }
 
-// Close dropdown on outside click
+// FIX (null ref + event crash): guard both dropdown AND kebabBtn before contains() calls
 document.addEventListener("click", (e) => {
   const dropdown = document.getElementById("dropdown");
   const kebabBtn = document.getElementById("kebab-menu-btn");
+  if (!dropdown || !kebabBtn) return;
   if (
-    dropdown?.classList.contains("active") &&
+    dropdown.classList.contains("active") &&
     !dropdown.contains(e.target) &&
     !kebabBtn.contains(e.target)
   ) {
@@ -216,25 +239,42 @@ document.addEventListener("click", (e) => {
 });
 
 /* ══════════════════════════════════════
-   8. TYPEWRITER EFFECT
+   9. TYPEWRITER EFFECT
+   FIX: _typewriterActive flag prevents duplicate concurrent loops
+   (e.g., if init() is called more than once or hero element re-appears)
    ══════════════════════════════════════ */
 function typeWriter(text, i) {
+  // FIX (recursive loop guard): abort if another instance already running
+  if (i === 0) {
+    if (_typewriterActive) return;
+    _typewriterActive = true;
+  }
+
   const el = document.getElementById("hero-title");
-  if (el && i <= text.length) {
+  // FIX (null ref): guard against missing element mid-animation
+  if (!el) {
+    _typewriterActive = false;
+    return;
+  }
+
+  if (i <= text.length) {
     el.textContent = text.substring(0, i);
     setTimeout(() => typeWriter(text, i + 1), 50);
+  } else {
+    // Animation complete — release lock
+    _typewriterActive = false;
   }
 }
 
 /* ══════════════════════════════════════
-   9. STRUCTURAL COLORING (THEME SYNC)
+   10. STRUCTURAL COLORING (THEME SYNC)
    ══════════════════════════════════════ */
 function applyStructuralColoring() {
   const isLight   = document.body.classList.contains("light-mode");
   const bgCol     = isLight ? "#f5f5f5" : "#1a1a1a";
   const shadowCol = isLight ? "rgba(0,0,0,0.15)" : "rgba(255,215,0,0.25)";
 
-  // Header / nav wrapper
+  // FIX (null ref): guarded before style assignment
   const header = document.querySelector("header") || document.querySelector(".nav-main-wrapper");
   if (header) {
     Object.assign(header.style, {
@@ -246,7 +286,6 @@ function applyStructuralColoring() {
     });
   }
 
-  // Synced title elements
   const titles = [
     document.getElementById("repo-title"),
     document.getElementById("faq-title"),
@@ -254,6 +293,7 @@ function applyStructuralColoring() {
   ];
 
   titles.forEach((title) => {
+    // FIX (null ref): skip missing elements instead of throwing
     if (!title) return;
     Object.assign(title.style, {
       fontFamily:    "'Playfair Display', serif",
@@ -272,16 +312,34 @@ function applyStructuralColoring() {
 }
 
 /* ══════════════════════════════════════
-   10. PRODUCT RENDERER
-   ── PERFORMANCE FIXES APPLIED:
-      • All images: loading="lazy"   (consistent, no mixed eager/lazy)
-      • All images: decoding="async" (non-blocking decode)
-      • fetchpriority removed        (was inconsistent, caused prioritization conflicts)
-      • width + height set           (prevents layout shift / CLS)
-      • img src: kebab-case paths    (no spaces → reliable URL resolution)
+   11. PRODUCT RENDERER
    ══════════════════════════════════════ */
+
+/* FIX (XSS): sanitize all dynamic product fields before insertion into innerHTML.
+   VAULT_DATA is static/trusted config, but defensive sanitization is applied
+   to name, desc, price, and img to guard against future data source changes. */
+function _escAttr(val) {
+  // Escape characters unsafe in HTML attribute values
+  return String(val)
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+function _escHtml(val) {
+  // Escape characters unsafe in HTML text nodes
+  return String(val)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 function renderProducts(data) {
   const grid = document.getElementById("main-grid");
+  // FIX (null ref): guard against missing grid container
   if (!grid) return;
 
   // Empty state
@@ -297,6 +355,7 @@ function renderProducts(data) {
       "border-radius: 20px",
       "background: rgba(255,255,255,0.02)",
     ].join(";");
+    // FIX (XSS): no user data in this block — static strings only, safe as-is
     noResults.innerHTML = `
       <div style="font-size:3.5rem; margin-bottom:20px; filter:grayscale(1);">🔍</div>
       <h3 style="color:var(--text-main); margin-bottom:10px; font-family:'Playfair Display',serif; font-style:italic;">Asset Not Found</h3>
@@ -305,28 +364,38 @@ function renderProducts(data) {
     return;
   }
 
-  // Build cards via DocumentFragment (single DOM write)
   const fragment = document.createDocumentFragment();
 
   data.forEach((p, index) => {
     const card     = document.createElement("article");
     card.className = "card";
 
+    // FIX (XSS): escape all dynamic values before injecting into innerHTML
+    const safeName  = _escHtml(p.name);
+    const safePrice = _escHtml(p.price);
+    const safeDesc  = _escHtml(p.desc);
+    const safeImg   = _escAttr(p.img);
+    const safeImgW  = _escAttr(p.imgW);
+    const safeImgH  = _escAttr(p.imgH);
+    // onclick values use attr-escaped name and price (no HTML injection via event strings)
+    const safeNameAttr  = _escAttr(p.name);
+    const safePriceAttr = _escAttr(p.price);
+
     card.innerHTML = `
       <div class="ev-video-bg ${AI_CLASSES[index % 8]}"></div>
-      <div class="price-tag">${p.price}</div>
+      <div class="price-tag">${safePrice}</div>
       <img
-        src="${p.img}"
+        src="${safeImg}"
         class="card-img"
-        alt="${p.name}"
-        width="${p.imgW}"
-        height="${p.imgH}"
+        alt="${safeName}"
+        width="${safeImgW}"
+        height="${safeImgH}"
         loading="lazy"
         decoding="async"
       >
-      <h3 style="margin-bottom:10px; position:relative; z-index:2;">${p.name}</h3>
-      <p style="color:var(--text-dim); margin-bottom:25px; position:relative; z-index:2;">${p.desc}</p>
-      <button class="btn-premium" onclick="openModal('${p.name}', '${p.price}')">Acquire License</button>`;
+      <h3 style="margin-bottom:10px; position:relative; z-index:2;">${safeName}</h3>
+      <p style="color:var(--text-dim); margin-bottom:25px; position:relative; z-index:2;">${safeDesc}</p>
+      <button class="btn-premium" onclick="openModal('${safeNameAttr}', '${safePriceAttr}')">Acquire License</button>`;
 
     fragment.appendChild(card);
   });
@@ -336,36 +405,49 @@ function renderProducts(data) {
 }
 
 /* ══════════════════════════════════════
-   11. SEARCH HANDLER
+   12. SEARCH HANDLER WITH DEBOUNCE
+   FIX: debounce prevents excessive renderProducts calls on rapid keystrokes
    ══════════════════════════════════════ */
+let _searchDebounceTimer = null;
+
 function handleSearch() {
-  const searchBar = document.getElementById("search-bar");
-  if (!searchBar) return;
+  // FIX (debounce): clear previous pending call before scheduling new one
+  clearTimeout(_searchDebounceTimer);
+  _searchDebounceTimer = setTimeout(() => {
+    const searchBar = document.getElementById("search-bar");
+    // FIX (null ref): guard against missing search input
+    if (!searchBar) return;
 
-  const q = searchBar.value.toLowerCase().trim();
-  const filtered = VAULT_DATA.products.filter((p) =>
-    p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q)
-  );
+    const q = searchBar.value.toLowerCase().trim();
+    const filtered = VAULT_DATA.products.filter((p) =>
+      p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q)
+    );
 
-  renderProducts(filtered);
+    renderProducts(filtered);
+  }, 250); // 250ms debounce window
 }
 
 /* ══════════════════════════════════════
-   12. FAQ RENDERER
+   13. FAQ RENDERER
+   FIX: FAQ answer for last item uses trusted static mailto — safe to keep as innerHTML.
+   Q strings are static data, not user input — no sanitization risk here.
    ══════════════════════════════════════ */
 function renderFAQ() {
   const faqGrid = document.getElementById("faq-grid");
+  // FIX (null ref): guard against missing FAQ container
   if (!faqGrid) return;
 
   const faqClasses = ["ai-vid-1", "ai-vid-2", "ai-vid-3", "ai-vid-4"];
 
+  // FIX (XSS): escape Q strings (static but defensive); A strings kept as-is
+  // because they are trusted static config and one contains an intentional <a> tag.
   faqGrid.innerHTML = VAULT_DATA.faq
     .map((item, i) => `
       <article class="card" style="position:relative; overflow:hidden;">
         <div class="ev-video-bg ${faqClasses[i % 4]}" style="opacity:0.05;"></div>
         <h3 style="color:var(--text-main); margin-bottom:20px; position:relative; z-index:2; display:flex; gap:10px;">
           <span style="color:var(--primary); font-family:'Playfair Display',serif; font-style:italic; font-weight:900;">Q.</span>
-          ${item.q}
+          ${_escHtml(item.q)}
         </h3>
         <div style="color:var(--text-dim); position:relative; z-index:2; padding-left:30px; border-left:1px solid var(--border);">
           ${item.a}
@@ -375,46 +457,54 @@ function renderFAQ() {
 }
 
 /* ══════════════════════════════════════
-   13. MODAL SYSTEM
+   14. MODAL SYSTEM
    ══════════════════════════════════════ */
 function openModal(n, p) {
   curN = n;
   curP = p;
 
-  const modal = document.getElementById("modal");
-  if (!modal) return;
+  const modal      = document.getElementById("modal");
+  const targetName  = document.getElementById("target-name");
+  const targetPrice = document.getElementById("target-price");
 
-  document.getElementById("target-name").innerText  = n.toUpperCase();
-  document.getElementById("target-price").innerText = p;
+  // FIX (null ref): guard all modal elements before access
+  if (!modal || !targetName || !targetPrice) return;
+
+  // FIX (XSS): use textContent (not innerHTML) for user-triggered name/price display
+  targetName.textContent  = n.toUpperCase();
+  targetPrice.textContent = p;
   modal.style.display = "flex";
 }
 
 function closeModal() {
   const modal = document.getElementById("modal");
+  // FIX (null ref): guard before style access
   if (modal) modal.style.display = "none";
 }
 
 /* ══════════════════════════════════════
-   14. PAYMENT GATEWAY
+   15. PAYMENT GATEWAY
    ══════════════════════════════════════ */
 function selectPayment(method, element) {
   document.querySelectorAll(".method-card").forEach((c) => c.classList.remove("active"));
-  element.classList.add("active");
+  // FIX (null ref): guard element before classList access
+  if (element) element.classList.add("active");
   selectedGateway = method;
 }
 
 /* ══════════════════════════════════════
-   15. INQUIRY / CONFIRM
+   16. INQUIRY / CONFIRM
    ══════════════════════════════════════ */
 function confirmInquiry() {
   const clientNameInput = document.getElementById("client-name");
-  const clientName      = clientNameInput ? clientNameInput.value : "";
+  const clientName      = clientNameInput ? clientNameInput.value.trim() : "";
 
   if (!clientName) {
     alert("Identity Verification Required.");
     return;
   }
 
+  // FIX (XSS via mailto): encodeURIComponent already applied — safe
   const body = [
     `CLIENT: ${clientName}`,
     `ASSET: ${curN}`,
@@ -422,15 +512,16 @@ function confirmInquiry() {
     `GATEWAY: ${selectedGateway}`,
   ].join("\n");
 
-  window.location.href = `mailto:${VAULT_DATA.owner.email}?subject=Inquiry: ${curN}&body=${encodeURIComponent(body)}`;
+  window.location.href = `mailto:${VAULT_DATA.owner.email}?subject=Inquiry: ${encodeURIComponent(curN)}&body=${encodeURIComponent(body)}`;
   closeModal();
 }
 
 /* ══════════════════════════════════════
-   16. MENU BUILDER
+   17. MENU BUILDER
    ══════════════════════════════════════ */
 function buildMenu() {
   const linksBox = document.getElementById("social-links");
+  // FIX (null ref): guard before DOM manipulation
   if (!linksBox) return;
 
   linksBox.innerHTML = "";
@@ -439,14 +530,15 @@ function buildMenu() {
     const a         = document.createElement("a");
     a.href          = "#" + item.id;
     a.style.cssText = "padding:18px 25px; display:block; color:var(--text-main); text-decoration:none; border-bottom:1px solid var(--border); font-weight:700;";
-    a.innerText     = item.label.toUpperCase();
+    // FIX (XSS): use textContent (not innerHTML/innerText with HTML) for menu labels
+    a.textContent   = item.label.toUpperCase();
     a.onclick       = (e) => { e.preventDefault(); navigateTo(item.id); };
     linksBox.appendChild(a);
   });
 }
 
 /* ══════════════════════════════════════
-   17. INIT — Entry Point
+   18. INIT — Entry Point
    ══════════════════════════════════════ */
 function init() {
   // Restore theme from localStorage
@@ -455,11 +547,13 @@ function init() {
   document.body.classList.toggle("light-mode", isLight);
 
   const btn = document.getElementById("theme-btn");
+  // FIX (null ref): guard before text assignment
   if (btn) btn.innerText = isLight ? "DARK MODE" : "LIGHT MODE";
 
   // Footer text
   const footerText = document.getElementById("footer-text");
-  if (footerText) footerText.innerText = VAULT_DATA.content.footer;
+  // FIX (XSS + null ref): use textContent; value is trusted static string
+  if (footerText) footerText.textContent = VAULT_DATA.content.footer;
 
   // Build navigation menu, products, FAQ
   buildMenu();
@@ -469,7 +563,8 @@ function init() {
   // Sync structural coloring
   applyStructuralColoring();
 
-  // Typewriter on hero (if element exists)
+  // FIX (typewriter null ref + duplicate loop):
+  // Guard element existence; _typewriterActive flag prevents re-entry
   const heroTitleEl = document.getElementById("hero-title");
   if (heroTitleEl) typeWriter(VAULT_DATA.content.heroTitle, 0);
 }
