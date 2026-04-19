@@ -371,13 +371,12 @@ function renderProducts(data) {
     card.className = "card";
 
     // FIX (XSS): escape all dynamic values before injecting into innerHTML
-    const safeName  = _escHtml(p.name);
-    const safePrice = _escHtml(p.price);
-    const safeDesc  = _escHtml(p.desc);
-    const safeImg   = _escAttr(p.img);
-    const safeImgW  = _escAttr(p.imgW);
-    const safeImgH  = _escAttr(p.imgH);
-    // onclick values use attr-escaped name and price (no HTML injection via event strings)
+    const safeName      = _escHtml(p.name);
+    const safePrice     = _escHtml(p.price);
+    const safeDesc      = _escHtml(p.desc);
+    const safeImg       = _escAttr(p.img);
+    const safeImgW      = _escAttr(p.imgW);
+    const safeImgH      = _escAttr(p.imgH);
     const safeNameAttr  = _escAttr(p.name);
     const safePriceAttr = _escAttr(p.price);
 
@@ -390,7 +389,7 @@ function renderProducts(data) {
         alt="${safeName}"
         width="${safeImgW}"
         height="${safeImgH}"
-        loading="lazy"
+        loading="eager"
         decoding="async"
       >
       <h3 style="margin-bottom:10px; position:relative; z-index:2;">${safeName}</h3>
