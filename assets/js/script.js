@@ -22,7 +22,6 @@ const VAULT_DATA = {
     footer:    "© 2026 FRANS MARCELLINO — ALL RIGHTS RESERVED",
   },
   products: [
-    /* FIX [JS-09]: Path disesuaikan dengan nama file asli (mengandung spasi & kapital) */
     { name: "Titan Core",   price: "$1,290", desc: "Enterprise SaaS Framework.",   img: "assets/img/" + encodeURIComponent("Titan Core.webp"),   imgW: 640, imgH: 480 },
     { name: "Quantum UI",   price: "$750",   desc: "Kinetic React Components.",     img: "assets/img/" + encodeURIComponent("Quantum UI.webp"),   imgW: 640, imgH: 480 },
     { name: "SecureAuth X", price: "$490",   desc: "Zero-Knowledge Auth Suite.",    img: "assets/img/" + encodeURIComponent("SecureAuth X.webp"), imgW: 640, imgH: 480 },
@@ -66,20 +65,27 @@ const VAULT_DATA = {
   ],
 };
 
-/* (SELURUH KODE DI BAWAH INI TIDAK DIUBAH SAMA SEKALI) */
-
+/* ══════════════════════════════════════
+   2. STATE
+   ══════════════════════════════════════ */
 let curN = "";
 let curP = "";
 let selectedGateway = "PayPal";
 let _typewriterActive = false;
 let _searchDebounceTimer = null;
 
+/* ══════════════════════════════════════
+   3. CONSTANTS — Cached DOM References
+   ══════════════════════════════════════ */
 const cursorEl   = document.getElementById("cursor");
 const AI_CLASSES = [
   "ai-vid-1", "ai-vid-2", "ai-vid-3", "ai-vid-4",
   "ai-vid-5", "ai-vid-6", "ai-vid-7", "ai-vid-8",
 ];
 
+/* ══════════════════════════════════════
+   4. XSS ESCAPE UTILITIES
+   ══════════════════════════════════════ */
 function _escHtml(val) {
   return String(val)
     .replace(/&/g, "&amp;")
