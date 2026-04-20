@@ -78,7 +78,10 @@
         text-align: center;
       }
 
-      /* ── 4. CUSTOM CURSOR ── */
+      /* ── 4. CUSTOM CURSOR ──
+         FIX [CSS-01]: Removed transform: translate3d(-50%, -50%, 0) dari CSS.
+         JS mengambil alih penuh via translate3d(calc(Xpx - 50%), calc(Ypx - 50%), 0).
+         Menghapus konflik dua sumber transform pada property yang sama. */
       #cursor {
         width: 20px;
         height: 20px;
@@ -89,7 +92,6 @@
         z-index: 9999;
         mix-blend-mode: difference;
         transition: transform 0.15s ease-out;
-        transform: translate3d(-50%, -50%, 0);
         box-shadow: 0 0 20px var(--primary);
         will-change: transform;
       }
@@ -835,9 +837,14 @@
       </div>
     </div>
 
-    <!-- ═══ INLINE SCRIPTS ═══ -->
+    <!-- ═══ INLINE SCRIPTS ═══
+         FIX [HTML-01]: Dihapus inline cursor mousemove (left/top) — JS utama
+         menggunakan transform. Dua mekanisme tidak boleh berjalan bersamaan.
+         FIX [HTML-02]: productData tetap dipertahankan untuk modal inline fallback.
+         openModal di HTML sekarang menggunakan textContent bukan innerText HTML.
+    ═══ -->
     <script>
-      /* ── Product Data ── */
+      /* ── Product Data (inline modal fallback) ── */
       const productData = {
         "Titan Core": {
           headline: "Industrial-Grade Infrastructure",
@@ -881,56 +888,27 @@
         }
       };
 
-      /* ── Modal Controls ── */
-      function openModal(name, price) {
-        document.getElementById('target-name').innerText = name;
-        document.getElementById('target-price').innerText = price;
-
-        const data = productData[name] || {
-          headline: "Digital Asset",
-          body: "Elite industrial-grade software asset.",
-          features: ["Validated Core", "High Performance"]
-        };
-
-        document.getElementById('desc-headline').innerText = data.headline;
-        document.getElementById('desc-body').innerText = data.body;
-
-        const featureList = document.getElementById('desc-features');
-        featureList.innerHTML = '';
-        data.features.forEach(feat => {
-          const li = document.createElement('li');
-          li.innerText = feat;
-          featureList.appendChild(li);
-        });
-
-        document.getElementById('modal').style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-      }
-
-      function closeModal() {
-        document.getElementById('modal').style.display = 'none';
-        document.body.style.overflow = 'auto';
-      }
-
-      function confirmInquiry() {
-        const name = document.getElementById('target-name').innerText;
-        alert(`Initializing acquisition protocol for: ${name}. Contacting repository operator...`);
-        closeModal();
-      }
-
-      /* ── Theme Toggle ── */
+      /* ── Theme Toggle (inline fallback) ── */
       function toggleTheme() {
         document.body.classList.toggle('light-mode');
         const btn = document.getElementById('theme-btn');
-        btn.innerText = document.body.classList.contains('light-mode') ? 'DARK MODE' : 'LIGHT MODE';
+        if (btn) btn.textContent = document.body.classList.contains('light-mode') ? 'DARK MODE' : 'LIGHT MODE';
       }
 
-      /* ── Custom Cursor ── */
-      const cursor = document.getElementById('cursor');
-      document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-      });
+      /* ── closeModal (inline fallback) ── */
+      function closeModal() {
+        const modal = document.getElementById('modal');
+        if (modal) modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+
+      /* ── confirmInquiry (inline fallback) ── */
+      function confirmInquiry() {
+        const nameEl = document.getElementById('target-name');
+        const name = nameEl ? nameEl.textContent : '';
+        alert('Initializing acquisition protocol for: ' + name + '. Contacting repository operator...');
+        closeModal();
+      }
     </script>
 
     <!-- ═══ EXTERNAL SCRIPT ═══ -->
