@@ -23,7 +23,7 @@ const VAULT_DATA = {
   },
   products: [
     /* FIX [JS-09]: Spasi dalam nama file diganti kebab-case — URL-safe di semua server */
-    { name: "Titan Core",   price: "$1,290", desc: "Enterprise SaaS Framework.",   img: "assets/img/titan-core.webp",    imgW: 640, imgH: 480 },
+    { name: "Titan Core",   price: "$1,290", desc: "Enterprise SaaS Framework.",   img:"assets/img/Titan Core.webp" },    imgW: 640, imgH: 480 },
     { name: "Quantum UI",   price: "$750",   desc: "Kinetic React Components.",     img: "assets/img/quantum-ui.webp",    imgW: 640, imgH: 480 },
     { name: "SecureAuth X", price: "$490",   desc: "Zero-Knowledge Auth Suite.",    img: "assets/img/secure-auth-x.webp", imgW: 640, imgH: 480 },
     { name: "Nebula AI",    price: "$2,999", desc: "Neural Integration Engine.",    img: "assets/img/nebula-ai.webp",     imgW: 640, imgH: 480 },
