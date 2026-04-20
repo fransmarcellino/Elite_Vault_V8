@@ -1,26 +1,28 @@
 # Elite Vault v8.1.1 — Digital Architect Portfolio
 
-**Official repository of Frans Marcellino.** A high-fidelity, static portfolio and digital asset catalog designed to showcase industrial-grade software assets and AI Cinematic Artistry. Built with vanilla HTML, CSS, and JavaScript—no external frameworks required.
+A personal portfolio and digital asset catalog website for Frans Marcellino. This project showcases a product repository, technical architecture information, and an FAQ section. Built with pure HTML, CSS, and vanilla JavaScript — no external frameworks required.
 
 ---
 
-## ✦ Core Features
+## 🧩 Core Features
 
-*Based strictly on the provided codebase analysis:*
+Based strictly on the available code, this project includes:
 
-- **Multi-Page SPA Navigation** — Seamless transition between Home, Vault (Market), About, and FAQ views without page reloads.
-- **Dynamic Product Grid** — Displays 8 curated digital assets with dynamic pricing, descriptions, and optimized image assets.
-- **Real-Time Search Filter** — Client-side filtering with debounce logic (250ms) to search assets by name or description.
-- **Cinematic Visual Identity** — Custom animated card backgrounds (grid, radial pulse, stream, conic rotation) triggered on hover.
-- **Asset Inquiry Modal** — Secure pre-transaction interface. Users select an asset, provide identification, and choose a payment method simulation.
-- **Email Inquiry Protocol** — Automatically constructs a pre-formatted `mailto:` link directed to the repository operator for private negotiation.
-- **Persistent Theme Toggle** — Light/Dark mode switching with state saved to `localStorage`.
-- **Custom Cursor System** — Precision custom cursor with `mix-blend-mode: difference` (disabled on mobile/touch devices).
-- **W3C Compliant Structure** — Semantic HTML5 structure with integrated accessibility attributes (`aria-label`, `role`).
+- **Home Page** — Hero section with a typewriter text effect and navigation buttons to the Market page.
+- **Market / Repository Page** — Displays a grid of 8 digital assets, each with a name, price, short description, and image.
+- **Product Search** — Real-time filtering of products by name or description (debounced at 250ms).
+- **About Page** — Four informational cards covering "Zero-Error Technical Integrity," "AI Cinematic Artistry," "Sovereign Architecture," and "Empirical Performance."
+- **FAQ Page** — Displays 6 predefined questions and answers hardcoded in the JavaScript data object.
+- **Product Detail Modal** — Clicking "Acquire License" opens a popup displaying the selected product's name and price.
+- **Email Inquiry Form** — Inside the modal, users can input their name, select a preferred payment method (PayPal, Bank Transfer, Crypto), and trigger their default email client with a pre-filled inquiry message.
+- **Dark / Light Mode Toggle** — Theme switcher located in the navigation bar. Preference is saved to `localStorage`.
+- **Custom Cursor** — A gold circular cursor (visible on desktop only).
+- **Dropdown Navigation Menu** — Accessible via the "kebab" (three-dot) button. Contains links to Home, Vault, About, and FAQ.
+- **Animated Card Hover Effects** — Product cards feature animated gradient backgrounds (pulse, streaming lines, rotating conic gradients) on hover.
 
 ---
 
-## 📁 Project Structure
+## 📁 Folder Structure
 
 
 Analisis Kode Menyeluruh untuk Pembuatan README
@@ -197,39 +199,42 @@ Proyek ini murni frontend statis. Tidak ada panggilan `fetch`, `XMLHttpRequest`,
 7. **Mode Light/Dark**  
    - Preferensi tema disimpan di `localStorage` dengan key `"theme"`. Nilai yang disimpan: `"light"` atau `"dark"`.
 Jangan memakai bahasa indonesia, tetapi memakai bahasa inggris yang profesional dan mudah dimengerti klien internasional
-Here is the professionally revised README.md in English, based strictly on the code you provided. It is optimized for an international client audience and is ready to be copied directly to GitHub.
+I will now analyze all the provided code (HTML, CSS, and JavaScript) and create a README.md based only on what exists in the code, written in professional English for an international audience.
 
+README.md
 markdown
 # Elite Vault v8.1.1 — Digital Architect Portfolio
 
-**Official repository of Frans Marcellino.** A high-fidelity, static portfolio and digital asset catalog designed to showcase industrial-grade software assets and AI Cinematic Artistry. Built with vanilla HTML, CSS, and JavaScript—no external frameworks required.
+A personal portfolio and digital asset catalog website for Frans Marcellino. This project showcases a product repository, technical architecture information, and an FAQ section. Built with pure HTML, CSS, and vanilla JavaScript — no external frameworks required.
 
 ---
 
-## ✦ Core Features
+## 🧩 Core Features
 
-*Based strictly on the provided codebase analysis:*
+Based strictly on the available code, this project includes:
 
-- **Multi-Page SPA Navigation** — Seamless transition between Home, Vault (Market), About, and FAQ views without page reloads.
-- **Dynamic Product Grid** — Displays 8 curated digital assets with dynamic pricing, descriptions, and optimized image assets.
-- **Real-Time Search Filter** — Client-side filtering with debounce logic (250ms) to search assets by name or description.
-- **Cinematic Visual Identity** — Custom animated card backgrounds (grid, radial pulse, stream, conic rotation) triggered on hover.
-- **Asset Inquiry Modal** — Secure pre-transaction interface. Users select an asset, provide identification, and choose a payment method simulation.
-- **Email Inquiry Protocol** — Automatically constructs a pre-formatted `mailto:` link directed to the repository operator for private negotiation.
-- **Persistent Theme Toggle** — Light/Dark mode switching with state saved to `localStorage`.
-- **Custom Cursor System** — Precision custom cursor with `mix-blend-mode: difference` (disabled on mobile/touch devices).
-- **W3C Compliant Structure** — Semantic HTML5 structure with integrated accessibility attributes (`aria-label`, `role`).
+- **Home Page** — Hero section with a typewriter text effect and navigation buttons to the Market page.
+- **Market / Repository Page** — Displays a grid of 8 digital assets, each with a name, price, short description, and image.
+- **Product Search** — Real-time filtering of products by name or description (debounced at 250ms).
+- **About Page** — Four informational cards covering "Zero-Error Technical Integrity," "AI Cinematic Artistry," "Sovereign Architecture," and "Empirical Performance."
+- **FAQ Page** — Displays 6 predefined questions and answers hardcoded in the JavaScript data object.
+- **Product Detail Modal** — Clicking "Acquire License" opens a popup displaying the selected product's name and price.
+- **Email Inquiry Form** — Inside the modal, users can input their name, select a preferred payment method (PayPal, Bank Transfer, Crypto), and trigger their default email client with a pre-filled inquiry message.
+- **Dark / Light Mode Toggle** — Theme switcher located in the navigation bar. Preference is saved to `localStorage`.
+- **Custom Cursor** — A gold circular cursor (visible on desktop only).
+- **Dropdown Navigation Menu** — Accessible via the "kebab" (three-dot) button. Contains links to Home, Vault, About, and FAQ.
+- **Animated Card Hover Effects** — Product cards feature animated gradient backgrounds (pulse, streaming lines, rotating conic gradients) on hover.
 
 ---
 
-## 📁 Project Structure
+## 📁 Folder Structure
 project-root/
-├── index.html # Main entry point (contains inline fallback logic)
+├── index.html # Main HTML file (contains structure, inline styles, and fallback functions)
 ├── assets/
 │ ├── css/
-│ │ └── style.css # Core stylesheet (Design Tokens, Layout, Modal)
+│ │ └── style.css # Primary external stylesheet
 │ ├── js/
-│ │ └── script.js # Application Logic (VAULT_DATA, Render, Navigation)
+│ │ └── script.js # Core JavaScript logic
 │ └── img/
 │ ├── Titan Core.webp
 │ ├── Quantum UI.webp
@@ -238,8 +243,7 @@ project-root/
 │ ├── Apex CMS.webp
 │ ├── Zenith ERP.webp
 │ ├── Vortex DB.webp
-│ └── Cipher Mesh.webp # Required: 8 product image assets
-
+│ └── Cipher Mesh.webp # 8 product image files (must be present)
 
 
 ### Key File Descriptions
