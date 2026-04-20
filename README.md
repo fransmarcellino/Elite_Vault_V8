@@ -1,3 +1,235 @@
+# Elite Vault v8.2.9 — Digital Architect Portfolio
+
+A personal portfolio and digital asset catalog website for Frans Marcellino. This project showcases a product repository, technical architecture information, and an FAQ section. Built with pure HTML, CSS, and vanilla JavaScript — no external frameworks required.
+
+---
+
+## 🧩 Core Features
+
+Based strictly on the available code, this project includes:
+
+- **Home Page** — Hero section with a typewriter text effect and navigation buttons to the Market page.
+- **Market / Repository Page** — Displays a grid of 8 digital assets, each with a name, price, short description, and image.
+- **Product Search** — Real-time filtering of products by name or description (debounced at 250ms).
+- **About Page** — Four informational cards covering "Zero-Error Technical Integrity," "AI Cinematic Artistry," "Sovereign Architecture," and "Empirical Performance."
+- **FAQ Page** — Displays 6 predefined questions and answers hardcoded in the JavaScript data object.
+- **Product Detail Modal** — Clicking "Acquire License" opens a popup displaying the selected product's name and price.
+- **Email Inquiry Form** — Inside the modal, users can input their name, select a preferred payment method (PayPal, Bank Transfer, Crypto), and trigger their default email client with a pre-filled inquiry message.
+- **Dark / Light Mode Toggle** — Theme switcher located in the navigation bar. Preference is saved to `localStorage`.
+- **Custom Cursor** — A gold circular cursor (visible on desktop only).
+- **Dropdown Navigation Menu** — Accessible via the "kebab" (three-dot) button. Contains links to Home, Vault, About, and FAQ.
+- **Animated Card Hover Effects** — Product cards feature animated gradient backgrounds (pulse, streaming lines, rotating conic gradients) on hover.
+
+---
+
+## 📁 Folder Structure
+
+Analisis Kode Menyeluruh untuk Pembuatan README
+Terima kasih telah mengirimkan tangkapan layar dari GitHub repository dan README.md Anda. Saya melihat beberapa hal penting yang perlu diselaraskan dan diperbaiki:
+
+📋 Observasi dari Screenshot
+1. GitHub Repository
+Item	Status	Catatan
+Repository Name	Elite_Vault_V8.2.9	✅ Bagus
+Branch	main	✅ Standar
+Folder Structure	assets/css/, assets/img/, assets/js/	✅ Sudah sesuai
+Username	fransmacrellino	⚠️ Ada typo? "macrellino" vs "Marcellino"
+2. README.md di GitHub
+Item	Status	Catatan
+Bahasa	Campur (Inggris + Indonesia)	⚠️ Paragraf terakhir masih bahasa Indonesia
+Typo	"Keyboard" button	⚠️ Seharusnya "Kebab" button
+Pemotongan Teks	Terpotong di bagian akhir	⚠️ Tidak selesai dirender
+🔧 Saran Perbaikan README.md (Final Version)
+Berikut adalah README.md lengkap dalam Bahasa Inggris profesional yang sudah saya perbaiki dari typo, pemotongan, dan campuran bahasa. Siap langsung di-copy ke GitHub.
+
+markdown
+# Elite Vault v8.2.9 — Digital Architect Portfolio
+
+A personal portfolio and digital asset catalog website for Frans Marcellino. This project showcases a product repository, technical architecture information, and an FAQ section. Built with pure HTML, CSS, and vanilla JavaScript — no external frameworks required.
+
+---
+
+## 🧩 Core Features
+
+Based strictly on the available code, this project includes:
+
+- **Home Page** — Hero section with a typewriter text effect and navigation buttons to the Market page.
+- **Market / Repository Page** — Displays a grid of 8 digital assets, each with a name, price, short description, and image.
+- **Product Search** — Real-time filtering of products by name or description (debounced at 250ms).
+- **About Page** — Four informational cards covering "Zero-Error Technical Integrity," "AI Cinematic Artistry," "Sovereign Architecture," and "Empirical Performance."
+- **FAQ Page** — Displays 6 predefined questions and answers hardcoded in the JavaScript data object.
+- **Product Detail Modal** — Clicking "Acquire License" opens a popup displaying the selected product's name and price.
+- **Email Inquiry Form** — Inside the modal, users can input their name, select a preferred payment method (PayPal, Bank Transfer, Crypto), and trigger their default email client with a pre-filled inquiry message.
+- **Dark / Light Mode Toggle** — Theme switcher located in the navigation bar. Preference is saved to `localStorage`.
+- **Custom Cursor** — A gold circular cursor (visible on desktop only).
+- **Dropdown Navigation Menu** — Accessible via the "kebab" (three-dot) button. Contains links to Home, Vault, About, and FAQ.
+- **Animated Card Hover Effects** — Product cards feature animated gradient backgrounds (pulse, streaming lines, rotating conic gradients) on hover.
+
+---
+
+## 📁 Folder Structure
+Elite_Vault_V8.2.9/
+├── index.html # Main HTML file (contains structure, inline styles, and fallback functions)
+├── assets/
+│ ├── css/
+│ │ └── style.css # Primary external stylesheet
+│ ├── js/
+│ │ └── script.js # Core JavaScript logic
+│ └── img/
+│ ├── Titan Core.webp
+│ ├── Quantum UI.webp
+│ ├── SecureAuth X.webp
+│ ├── Nebula AI.webp
+│ ├── Apex CMS.webp
+│ ├── Zenith ERP.webp
+│ ├── Vortex DB.webp
+│ └── Cipher Mesh.webp # 8 product image files (must be present)
+
+text
+
+### Key File Descriptions
+
+| File | Purpose |
+|------|---------|
+| `index.html` | Main entry point. Contains HTML structure, a portion of inline CSS, and fallback functions (`toggleTheme`, `closeModal`, `confirmInquiry`). |
+| `assets/css/style.css` | Primary external stylesheet. Defines all theme variables, layouts, animations, and component styles (cards, modal, navigation). |
+| `assets/js/script.js` | Primary external JavaScript file. Stores the product dataset, FAQ content, menu configuration, rendering logic, search functionality, page navigation, typewriter effect, and email integration. |
+
+---
+
+## 🔧 Installation
+
+### Required Tools
+
+No dependencies. Only a modern web browser is required.
+
+- A modern web browser (Chrome, Firefox, Edge, Safari)
+- A text editor (if you wish to modify the code)
+
+### Installation Steps
+
+1. **Clone or download** this repository to your local machine.
+2. Ensure the folder structure matches the layout shown above.
+3. No package manager commands (`npm install`, etc.) are needed — this is a static website.
+
+---
+
+## 🚀 How to Run the Project
+
+1. Navigate to the project folder.
+2. Locate the `index.html` file.
+3. **Double-click** the file, or **right-click → Open with → Your preferred browser**.
+4. The website will load and function immediately.
+
+> **Note**: A local server is not required. All operations are client-side and static.
+
+---
+
+## 📘 Usage Guide
+
+### User Flow
+
+1. **Home Page**  
+   - View the typewriter animation displaying: *"Architecting Digital Sovereignty."*  
+   - Click **VIEW REPOSITORY** to browse the product catalog.  
+   - Click **CONTACT OPERATOR** to send a direct email to the site owner.
+
+2. **Vault / Repository Page**  
+   - Browse the grid of 8 digital assets.  
+   - Use the search bar (`Filter Assets...`) to filter products by name or description.  
+   - Click the **Acquire License** button on any product card.
+
+3. **Inquiry Modal**  
+   - A popup appears showing the selected product name and price.  
+   - Enter your name in the input field (required).  
+   - Select a payment method (PayPal, Transfer, Crypto) by clicking the corresponding card.  
+   - Click the **INQUIRE NOW** button → Your default email application will open with a pre-filled subject line and body.
+
+4. **Navigate to Other Pages**  
+   - Click the **three-dot icon (⋮)** in the top-right corner to open the dropdown menu.  
+   - Select **About** to view technical vision statements.  
+   - Select **FAQ** to view frequently asked questions.
+
+5. **Switch Theme**  
+   - Click the **LIGHT MODE / DARK MODE** button in the navigation bar. Your preference will be saved for future visits.
+
+### Real-World Usage Example
+
+- **Finding the "Nebula AI" product**:  
+  Type `nebula` into the search bar → The grid will update to display only the "Nebula AI" product.
+
+- **Inquiring about "Titan Core"**:  
+  Click **Acquire License** on the "Titan Core" card → Enter your name → Select a payment method → Click **INQUIRE NOW** → Your email client opens with the recipient set to `fransmarselinosroyer@gmail.com` and the body containing your inquiry details.
+
+---
+
+## ⚙️ Configuration
+
+### Environment Variables
+
+No `.env` file or environment variable usage was found in the codebase.
+
+### Hardcoded Data Configuration
+
+All product, FAQ, and owner data is stored in the **`VAULT_DATA`** object located in `script.js`. To modify site content:
+
+- **Edit `VAULT_DATA.products`** to change product names, prices, descriptions, or image paths.
+- **Edit `VAULT_DATA.faq`** to update the questions and answers displayed on the FAQ page.
+- **Edit `VAULT_DATA.owner`** to change the displayed name and the target email address for inquiries.
+
+---
+
+## 🌐 API Endpoints
+
+**Not found in the code.**  
+This project is a purely static frontend application. There are no `fetch` calls, `XMLHttpRequest` instances, or backend integrations.
+
+---
+
+## 📝 Important Notes & Limitations
+
+1. **Product Images**  
+   - The code references 8 specific image files located in the `assets/img/` folder (e.g., `Titan Core.webp`).  
+   - If these image files are missing, the browser will display a broken image icon.
+
+2. **Payment Methods**  
+   - This is a **simulation only**. No actual payment gateway integration exists.  
+   - The actual transaction process is intended to be handled manually via email correspondence.
+
+3. **Custom Cursor**  
+   - The custom cursor is automatically disabled on mobile devices (screen width ≤ 768px) via a CSS `@media` query.
+
+4. **Fallback Functions**  
+   - The `index.html` file contains inline fallback functions for `toggleTheme`, `closeModal`, and `confirmInquiry`.  
+   - Under normal operation, the primary logic in `script.js` takes precedence.
+
+5. **W3C Validation Badges**  
+   - Validation logo links are present in the footer, but their `href` attributes are set to `"#"` and do not link to official validation results.
+
+6. **External Dependencies**  
+   - Only Google Fonts (`Plus Jakarta Sans` and `Playfair Display`) are loaded externally. No third-party JavaScript libraries are used.
+
+7. **Theme Persistence**  
+   - Theme preference is stored in `localStorage` under the key `"theme"`. Stored values are either `"light"` or `"dark"`.
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** with additional terms for digital asset redistribution.
+
+© 2026 Frans Marcellino. All Rights Reserved.
+📌 Catatan Tambahan untuk GitHub
+Username Typo: Jika fransmacrellino adalah typo, Anda bisa mengubahnya di Settings → Account → Change username (hati-hati, ini mempengaruhi semua link repository).
+
+Versi di README: Saya lihat di screenshot GitHub tertulis v8.2.9, tapi di README masih v8.1.1. Saya sudah sinkronkan menjadi v8.2.9 di atas.
+
+Commit Message: Saat update README, gunakan commit message seperti:
+
+text
+docs: update README with full English version and fix typos
+Apakah Anda ingin saya lanjutkan dengan Opsi 1 (Documentation.html) atau Opsi 2 (Item Description untuk ThemeForest) seperti yang ditawarkan sebelumnya?
+
 # Elite Vault v8.1.1 — Digital Architect Portfolio
 
 A personal portfolio and digital asset catalog website for Frans Marcellino. This project showcases a product repository, technical architecture information, and an FAQ section. Built with pure HTML, CSS, and vanilla JavaScript — no external frameworks required.
@@ -371,4 +603,183 @@ This project is a purely static frontend application. There are no `fetch` calls
 7. **Theme Persistence**  
    - Theme preference is stored in `localStorage` under the key `"theme"`. Stored values are either `"light"` or `"dark"`.
   
-     =========================================================================================================================
+     ========================================================================================================================
+Silahkan ganti bahasanya keseluruhan menjadi bahasa inggris
+Berikut adalah README.md lengkap dalam Bahasa Inggris profesional tanpa campuran Bahasa Indonesia. Siap langsung di-copy ke repository GitHub Anda.
+
+markdown
+# Elite Vault v8.2.9 — Digital Architect Portfolio
+
+A personal portfolio and digital asset catalog website for Frans Marcellino. This project showcases a product repository, technical architecture information, and an FAQ section. Built with pure HTML, CSS, and vanilla JavaScript — no external frameworks required.
+
+---
+
+## 🧩 Core Features
+
+Based strictly on the available code, this project includes:
+
+- **Home Page** — Hero section with a typewriter text effect and navigation buttons to the Market page.
+- **Market / Repository Page** — Displays a grid of 8 digital assets, each with a name, price, short description, and image.
+- **Product Search** — Real-time filtering of products by name or description (debounced at 250ms).
+- **About Page** — Four informational cards covering "Zero-Error Technical Integrity," "AI Cinematic Artistry," "Sovereign Architecture," and "Empirical Performance."
+- **FAQ Page** — Displays 6 predefined questions and answers hardcoded in the JavaScript data object.
+- **Product Detail Modal** — Clicking "Acquire License" opens a popup displaying the selected product's name and price.
+- **Email Inquiry Form** — Inside the modal, users can input their name, select a preferred payment method (PayPal, Bank Transfer, Crypto), and trigger their default email client with a pre-filled inquiry message.
+- **Dark / Light Mode Toggle** — Theme switcher located in the navigation bar. Preference is saved to `localStorage`.
+- **Custom Cursor** — A gold circular cursor (visible on desktop only).
+- **Dropdown Navigation Menu** — Accessible via the "kebab" (three-dot) button. Contains links to Home, Vault, About, and FAQ.
+- **Animated Card Hover Effects** — Product cards feature animated gradient backgrounds (pulse, streaming lines, rotating conic gradients) on hover.
+
+---
+
+## 📁 Folder Structure
+Elite_Vault_V8.2.9/
+├── index.html # Main HTML file (contains structure, inline styles, and fallback functions)
+├── assets/
+│ ├── css/
+│ │ └── style.css # Primary external stylesheet
+│ ├── js/
+│ │ └── script.js # Core JavaScript logic
+│ └── img/
+│ ├── Titan Core.webp
+│ ├── Quantum UI.webp
+│ ├── SecureAuth X.webp
+│ ├── Nebula AI.webp
+│ ├── Apex CMS.webp
+│ ├── Zenith ERP.webp
+│ ├── Vortex DB.webp
+│ └── Cipher Mesh.webp # 8 product image files (must be present)
+
+
+### Key File Descriptions
+
+| File | Purpose |
+|------|---------|
+| `index.html` | Main entry point. Contains HTML structure, a portion of inline CSS, and fallback functions (`toggleTheme`, `closeModal`, `confirmInquiry`). |
+| `assets/css/style.css` | Primary external stylesheet. Defines all theme variables, layouts, animations, and component styles (cards, modal, navigation). |
+| `assets/js/script.js` | Primary external JavaScript file. Stores the product dataset, FAQ content, menu configuration, rendering logic, search functionality, page navigation, typewriter effect, and email integration. |
+
+---
+
+## 🔧 Installation
+
+### Required Tools
+
+No dependencies. Only a modern web browser is required.
+
+- A modern web browser (Chrome, Firefox, Edge, Safari)
+- A text editor (if you wish to modify the code)
+
+### Installation Steps
+
+1. **Clone or download** this repository to your local machine.
+2. Ensure the folder structure matches the layout shown above.
+3. No package manager commands (`npm install`, etc.) are needed — this is a static website.
+
+---
+
+## 🚀 How to Run the Project
+
+1. Navigate to the project folder.
+2. Locate the `index.html` file.
+3. **Double-click** the file, or **right-click → Open with → Your preferred browser**.
+4. The website will load and function immediately.
+
+> **Note**: A local server is not required. All operations are client-side and static.
+
+---
+
+## 📘 Usage Guide
+
+### User Flow
+
+1. **Home Page**  
+   - View the typewriter animation displaying: *"Architecting Digital Sovereignty."*  
+   - Click **VIEW REPOSITORY** to browse the product catalog.  
+   - Click **CONTACT OPERATOR** to send a direct email to the site owner.
+
+2. **Vault / Repository Page**  
+   - Browse the grid of 8 digital assets.  
+   - Use the search bar (`Filter Assets...`) to filter products by name or description.  
+   - Click the **Acquire License** button on any product card.
+
+3. **Inquiry Modal**  
+   - A popup appears showing the selected product name and price.  
+   - Enter your name in the input field (required).  
+   - Select a payment method (PayPal, Transfer, Crypto) by clicking the corresponding card.  
+   - Click the **INQUIRE NOW** button → Your default email application will open with a pre-filled subject line and body.
+
+4. **Navigate to Other Pages**  
+   - Click the **three-dot icon (⋮)** in the top-right corner to open the dropdown menu.  
+   - Select **About** to view technical vision statements.  
+   - Select **FAQ** to view frequently asked questions.
+
+5. **Switch Theme**  
+   - Click the **LIGHT MODE / DARK MODE** button in the navigation bar. Your preference will be saved for future visits.
+
+### Real-World Usage Example
+
+- **Finding the "Nebula AI" product**:  
+  Type `nebula` into the search bar → The grid will update to display only the "Nebula AI" product.
+
+- **Inquiring about "Titan Core"**:  
+  Click **Acquire License** on the "Titan Core" card → Enter your name → Select a payment method → Click **INQUIRE NOW** → Your email client opens with the recipient set to `fransmarselinosroyer@gmail.com` and the body containing your inquiry details.
+
+---
+
+## ⚙️ Configuration
+
+### Environment Variables
+
+No `.env` file or environment variable usage was found in the codebase.
+
+### Hardcoded Data Configuration
+
+All product, FAQ, and owner data is stored in the **`VAULT_DATA`** object located in `script.js`. To modify site content:
+
+- **Edit `VAULT_DATA.products`** to change product names, prices, descriptions, or image paths.
+- **Edit `VAULT_DATA.faq`** to update the questions and answers displayed on the FAQ page.
+- **Edit `VAULT_DATA.owner`** to change the displayed name and the target email address for inquiries.
+
+---
+
+## 🌐 API Endpoints
+
+**Not found in the code.**  
+This project is a purely static frontend application. There are no `fetch` calls, `XMLHttpRequest` instances, or backend integrations.
+
+---
+
+## 📝 Important Notes & Limitations
+
+1. **Product Images**  
+   - The code references 8 specific image files located in the `assets/img/` folder (e.g., `Titan Core.webp`).  
+   - If these image files are missing, the browser will display a broken image icon.
+
+2. **Payment Methods**  
+   - This is a **simulation only**. No actual payment gateway integration exists.  
+   - The actual transaction process is intended to be handled manually via email correspondence.
+
+3. **Custom Cursor**  
+   - The custom cursor is automatically disabled on mobile devices (screen width ≤ 768px) via a CSS `@media` query.
+
+4. **Fallback Functions**  
+   - The `index.html` file contains inline fallback functions for `toggleTheme`, `closeModal`, and `confirmInquiry`.  
+   - Under normal operation, the primary logic in `script.js` takes precedence.
+
+5. **W3C Validation Badges**  
+   - Validation logo links are present in the footer, but their `href` attributes are set to `"#"` and do not link to official validation results.
+
+6. **External Dependencies**  
+   - Only Google Fonts (`Plus Jakarta Sans` and `Playfair Display`) are loaded externally. No third-party JavaScript libraries are used.
+
+7. **Theme Persistence**  
+   - Theme preference is stored in `localStorage` under the key `"theme"`. Stored values are either `"light"` or `"dark"`.
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** with additional terms for digital asset redistribution.
+
+© 2026 Frans Marcellino. All Rights Reserved.
