@@ -34,7 +34,7 @@ const VAULT_DATA = {
       name:  "Quantum UI",
       price: "$750",
       desc:  "Kinetic React Components.",
-      img:   "assets/img/quantum-ui.webp",
+      img:"assets/img/quantum-ui.webp",
       imgW:  640,
       imgH:  480,
     },
