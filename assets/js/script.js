@@ -1,758 +1,413 @@
-/* ═══════════════════════════════════════════
-   ELITE VAULT v8.1.1 — CORE STYLESHEET
-   Author: Frans Marcellino
-   ═══════════════════════════════════════════ */
+/**
+ * @file        script.js
+ * @description Master-Optimized Core for Elite Vault v8.2.9
+ *              Search Feedback & Instant Sync
+ * @author      Frans Marcellino
+ * @status      W3C Compliant & PageSpeed Optimized (Universal Excellence Edition)
+ */
+
+"use strict";
 
 /* ══════════════════════════════════════
-   1. FONT IMPORT
+   1. VAULT DATA — Single Source of Truth
    ══════════════════════════════════════ */
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&family=Playfair+Display:ital,wght@0,900;1,900&display=swap");
+const VAULT_DATA = {
+  owner: {
+    firstName: "FRANS",
+    lastName:  "MARCELLINO",
+    email:     "fransmarselinosroyer@gmail.com",
+  },
+  content: {
+    heroTitle: "Architecting Digital Sovereignty.",
+    footer:    "© 2026 FRANS MARCELLINO — ALL RIGHTS RESERVED",
+  },
+  products: [
+    { name: "Titan Core",   price: "$1,290", desc: "Enterprise SaaS Framework.",   img: "assets/img/" + encodeURIComponent("Titan Core.webp"),   imgW: 640, imgH: 480 },
+    { name: "Quantum UI",   price: "$750",   desc: "Kinetic React Components.",     img: "assets/img/" + encodeURIComponent("Quantum UI.webp"),   imgW: 640, imgH: 480 },
+    { name: "SecureAuth X", price: "$490",   desc: "Zero-Knowledge Auth Suite.",    img: "assets/img/" + encodeURIComponent("SecureAuth X.webp"), imgW: 640, imgH: 480 },
+    { name: "Nebula AI",    price: "$2,999", desc: "Neural Integration Engine.",    img: "assets/img/" + encodeURIComponent("Nebula AI.webp"),    imgW: 640, imgH: 480 },
+    { name: "Apex CMS",     price: "$1,800", desc: "Headless Content Engine.",      img: "assets/img/" + encodeURIComponent("Apex CMS.webp"),     imgW: 640, imgH: 480 },
+    { name: "Zenith ERP",   price: "$4,500", desc: "Global Logistics Logic.",       img: "assets/img/" + encodeURIComponent("Zenith ERP.webp"),   imgW: 640, imgH: 480 },
+    { name: "Vortex DB",    price: "$980",   desc: "Real-time Vector Database.",    img: "assets/img/" + encodeURIComponent("Vortex DB.webp"),    imgW: 640, imgH: 480 },
+    { name: "Cipher Mesh",  price: "$1,100", desc: "P2P Encryption Layer.",         img: "assets/img/" + encodeURIComponent("Cipher Mesh.webp"),  imgW: 640, imgH: 480 },
+  ],
+  menu: [
+    { label: "Home",  id: "home"   },
+    { label: "Vault", id: "market" },
+    { label: "About", id: "about"  },
+    { label: "FAQ",   id: "faq"    },
+  ],
+  faq: [
+    {
+      q: "How is the code architecture and performance verified?",
+      a: "Our technical integrity is paramount. This website has passed rigorous W3C Validation (HTML5 & CSS3) and is optimized for maximum Google PageSpeed scores.",
+    },
+    {
+      q: "What components are included in the acquisition package?",
+      a: "Upon a successful transaction, you will receive a structured .ZIP Digital Archive containing: Optimized Core Source Code (HTML5, CSS3, JS), Operational Documentation (README) for implementation, and an Official License Certificate.",
+    },
+    {
+      q: "What are the legal restrictions of this license?",
+      a: "This license is exclusive for personal use or client projects. RESELLING, redistributing, or broadcasting this asset as a standalone product on any marketplace is STRICTLY PROHIBITED.",
+    },
+    {
+      q: "How secure is my financial data during the transaction?",
+      a: "All payments are managed by Trusted Digital Marketplaces via global security infrastructure (SSL/TLS). We do not store or have access to your sensitive banking data.",
+    },
+    {
+      q: "Why is the initial procedure conducted via Email?",
+      a: "We implement Email-Inquiry protocols to guarantee client privacy and prevent data exposure on public forms. This ensures a secure, private, and personal assistance path.",
+    },
+    {
+      q: "How can I contact technical support or the operator?",
+      a: "We are committed to professional support. For specific asset inquiries or technical assistance, contact our operator directly at: <a href='mailto:fransmarselinosroyer@gmail.com' style='color:var(--primary); font-weight:bold; text-decoration:underline;'>fransmarselinosroyer@gmail.com</a>.",
+    },
+  ],
+};
 
 /* ══════════════════════════════════════
-   2. DESIGN TOKENS (CSS CUSTOM PROPERTIES)
+   2. STATE
    ══════════════════════════════════════ */
-:root {
-  --primary:          #ffd700;
-  --bg:               #050505;
-  --surface:          #0f0f0f;
-  --text-main:        #ffffff;
-  --text-dim:         #888888;
-  --border:           rgba(255, 255, 255, 0.05);
-  --transition:       cubic-bezier(0.23, 1, 0.32, 1);
-  --glow:             rgba(255, 215, 0, 0.15);
-  --accent-gradient:  linear-gradient(45deg, #ffd700, #ff8c00);
-}
-
-/* Light mode overrides */
-body.light-mode {
-  --bg:        #f5f5f7;
-  --surface:   #ffffff;
-  --text-main: #1d1d1f;
-  --text-dim:  #6e6e73;
-  --border:    rgba(0, 0, 0, 0.1);
-  --glow:      rgba(255, 215, 0, 0.3);
-}
+let curN = "";
+let curP = "";
+let selectedGateway = "PayPal";
+let _typewriterActive = false;
+let _searchDebounceTimer = null;
 
 /* ══════════════════════════════════════
-   3. RESET & BASE
+   3. CONSTANTS — Cached DOM References
    ══════════════════════════════════════ */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Plus Jakarta Sans", sans-serif;
-  cursor: none;
-}
-
-body {
-  background: var(--bg);
-  color: var(--text-main);
-  line-height: 1.6;
-  overflow-x: hidden;
-  transition: background 0.5s var(--transition);
-}
+const cursorEl   = document.getElementById("cursor");
+const AI_CLASSES = [
+  "ai-vid-1", "ai-vid-2", "ai-vid-3", "ai-vid-4",
+  "ai-vid-5", "ai-vid-6", "ai-vid-7", "ai-vid-8",
+];
 
 /* ══════════════════════════════════════
-   4. LAYOUT UTILITIES
+   4. XSS ESCAPE UTILITIES
    ══════════════════════════════════════ */
-.container {
-  max-width: 1300px;
-  margin: 0 auto;
-  padding: 0 5%;
-}
-
-.flex-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.flex-between {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.text-center {
-  text-align: center;
-}
-
-/* ══════════════════════════════════════
-   5. CUSTOM CURSOR
-   FIX [CSS-01]: Dihapus `transform: translate(-50%, -50%)` dari CSS.
-   JS di script.js mengambil alih penuh transform via:
-   translate3d(calc(Xpx - 50%), calc(Ypx - 50%), 0)
-   Dua sumber transform pada property yang sama menyebabkan konflik
-   dan drift posisi kursor. JS adalah satu-satunya pemilik transform.
-   ══════════════════════════════════════ */
-#cursor {
-  width: 20px;
-  height: 20px;
-  background: var(--primary);
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-  mix-blend-mode: difference;
-  transition: transform 0.15s ease-out;
-  /* transform dihapus — dikelola eksklusif oleh JS */
-  box-shadow: 0 0 20px var(--primary);
-  will-change: transform;
-}
-
-@media (max-width: 768px) {
-  #cursor { display: none; }
-  * { cursor: auto !important; }
-}
-
-/* ══════════════════════════════════════
-   6. NAVIGATION
-   ══════════════════════════════════════ */
-nav {
-  padding: 20px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: var(--bg);
-  backdrop-filter: blur(25px);
-  border-bottom: 1px solid var(--border);
-  transition: background 0.5s var(--transition);
-}
-
-.logo {
-  font-weight: 800;
-  letter-spacing: 4px;
-  font-size: 1rem;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-.logo span {
-  color: var(--primary);
-  text-shadow: 0 0 10px var(--glow);
-}
-
-.nav-controls {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-/* ── Nav Buttons ── */
-.theme-toggle {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  color: var(--text-main);
-  padding: 10px 18px;
-  border-radius: 12px;
-  font-weight: 700;
-  font-size: 0.65rem;
-  cursor: pointer;
-  transition: 0.3s var(--transition);
-}
-
-.kebab-btn {
-  background: none;
-  border: 1px solid var(--border);
-  padding: 12px;
-  border-radius: 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  cursor: pointer;
-}
-
-.dot {
-  width: 4px;
-  height: 4px;
-  background: var(--text-main);
-  border-radius: 50%;
-}
-
-/* ══════════════════════════════════════
-   7. DROPDOWN MENU
-   ══════════════════════════════════════ */
-.dropdown-menu {
-  position: absolute;
-  right: 0;
-  top: 70px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  width: 220px;
-  z-index: 1001;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-  display: none;
-  opacity: 0;
-  overflow: hidden;
-  transform: translateY(-10px);
-  transition:
-    opacity 0.3s var(--transition),
-    transform 0.3s var(--transition);
-}
-
-.dropdown-menu.active {
-  display: block;
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ══════════════════════════════════════
-   8. PAGE TRANSITION SYSTEM
-   ══════════════════════════════════════ */
-.page {
-  display: none;
-  opacity: 0;
-  transform: translateY(20px);
-  filter: blur(5px);
-  padding: 60px 0;
-  min-height: 80vh;
-  transition:
-    opacity 0.6s var(--transition),
-    transform 0.6s var(--transition),
-    filter 0.6s var(--transition);
-}
-
-.page.active {
-  display: block;
-  opacity: 1;
-  transform: translateY(0);
-  filter: blur(0);
-}
-
-/* ══════════════════════════════════════
-   9. HERO SECTION
-   ══════════════════════════════════════ */
-.hero {
-  text-align: center;
-  position: relative;
-  padding: 120px 0;
-}
-
-/* Legacy selector preserved for compatibility */
-.hero h1 {
-  font-family: "Playfair Display", serif !important;
-  font-size: clamp(2.5rem, 8vw, 5.5rem);
-  font-weight: 900;
-  margin-bottom: 24px;
-  line-height: 1.1;
-  font-style: italic;
-}
-
-/* Utility class version */
-.hero-title {
-  font-family: "Playfair Display", serif;
-  font-size: clamp(2.5rem, 8vw, 5.5rem);
-  font-weight: 900;
-  margin-bottom: 24px;
-  line-height: 1.1;
-  font-style: italic;
-}
-
-.hero-badge-style {
-  font-size: 0.7rem;
-  letter-spacing: 8px;
-  color: var(--primary);
-  margin-bottom: 30px;
-  font-weight: 800;
-  text-transform: uppercase;
-}
-
-.hero-desc-style {
-  color: var(--text-dim);
-  max-width: 750px;
-  margin: 0 auto 50px;
-  font-size: 1.15rem;
-  font-weight: 300;
-}
-
-.hero-cta-group {
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 30px;
-}
-
-/* ══════════════════════════════════════
-   10. SECTION HEADERS
-   ══════════════════════════════════════ */
-.section-header {
-  text-align: center;
-  margin-bottom: 50px;
-}
-
-.section-header h2 {
-  font-size: 2.8rem;
-  letter-spacing: -2px;
-  margin-bottom: 10px;
-}
-
-.section-header p {
-  color: var(--text-dim);
-  font-weight: 300;
-}
-
-/* Editorial variant — used in About & FAQ */
-.section-header-editorial h2 {
-  font-family: "Playfair Display", serif;
-  font-style: italic;
-  font-size: clamp(2rem, 8vw, 2.8rem);
-  letter-spacing: -1px;
-  margin-bottom: 10px;
-  line-height: 1.1;
-  font-weight: 900;
-}
-
-.section-header-editorial p {
-  color: var(--text-dim);
-  font-weight: 300;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-size: 0.75rem;
-}
-
-/* ══════════════════════════════════════
-   11. GRID SYSTEM
-   ══════════════════════════════════════ */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 32px;
-  margin-top: 50px;
-}
-
-/* ══════════════════════════════════════
-   12. CARD COMPONENT
-   ══════════════════════════════════════ */
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 28px;
-  padding: 40px;
-  position: relative;
-  overflow: hidden;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  will-change: transform, border-color;
-  transition: 0.6s var(--transition);
-}
-
-.card:hover {
-  border-color: var(--primary);
-  transform: translateY(-12px) scale(1.02);
-  box-shadow:
-    0 30px 60px rgba(0, 0, 0, 0.8),
-    0 0 20px var(--glow);
-}
-
-/* ── Card Image ── */
-.card-img {
-  width: 100%;
-  height: 250px;
-  border-radius: 20px;
-  object-fit: cover;
-  margin-bottom: 25px;
-  background: #1a1a1a;
-  filter: grayscale(1);
-  transition: 0.8s var(--transition);
-}
-
-.card:hover .card-img {
-  filter: grayscale(0);
-  transform: scale(1.05);
-}
-
-/* ── Price Tag ── */
-.price-tag {
-  position: absolute;
-  top: 30px;
-  right: 30px;
-  background: var(--accent-gradient);
-  color: #000;
-  padding: 8px 18px;
-  border-radius: 12px;
-  font-weight: 900;
-  font-size: 0.8rem;
-  z-index: 10;
-}
-
-/* ── About Card Typography ── */
-.about-card-title {
-  color: var(--primary);
-  margin-bottom: 15px;
-  font-size: 1.5rem;
-}
-
-.about-card-body {
-  color: var(--text-dim);
-  font-size: 1rem;
-  line-height: 1.6;
-  font-weight: 400;
-}
-
-/* ══════════════════════════════════════
-   13. BUTTON SYSTEM
-   ══════════════════════════════════════ */
-.btn-premium {
-  background: var(--primary);
-  color: #000;
-  padding: 18px;
-  border-radius: 18px;
-  width: 100%;
-  border: none;
-  font-weight: 800;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: 0.3s var(--transition);
-}
-
-.btn-premium:hover {
-  transform: scale(1.02);
-  box-shadow: 0 10px 20px var(--glow);
-}
-
-.btn-outline {
-  background: transparent;
-  border: 1px solid var(--border);
-  color: var(--text-main);
-}
-
-.btn-max-280 {
-  max-width: 280px;
-}
-
-/* ══════════════════════════════════════
-   14. SEARCH BAR
-   ══════════════════════════════════════ */
-.search-container {
-  max-width: 500px;
-  margin: 0 auto 40px;
-}
-
-#search-bar {
-  width: 100%;
-  padding: 18px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  color: var(--text-main);
-  outline: none;
-}
-
-/* ══════════════════════════════════════
-   15. MODAL SYSTEM
-   ══════════════════════════════════════ */
-#modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(15px);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 2000;
-  padding: 20px;
-}
-
-.m-box {
-  background: var(--surface);
-  padding: 50px 30px;
-  border-radius: 32px;
-  border: 1px solid var(--border);
-  width: 100%;
-  max-width: 450px;
-  text-align: center;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-}
-
-/* ── Modal Typography ── */
-.modal-status-label {
-  font-size: 0.75rem;
-  letter-spacing: 3px;
-  color: var(--text-dim);
-  text-transform: uppercase;
-}
-
-.modal-product-name {
-  font-size: 1.5rem;
-  font-weight: 800;
-  margin-top: 5px;
-  color: var(--primary);
-  font-family: "Playfair Display", serif;
-  font-style: italic;
-}
-
-.modal-price {
-  font-size: 3.5rem;
-  margin: 20px 0;
-  background: var(--accent-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: 900;
-}
-
-.modal-cancel-btn {
-  background: none;
-  border: none;
-  color: inherit;
-  cursor: pointer;
-  margin-top: 25px;
-  opacity: 0.5;
-  font-size: 0.75rem;
-  letter-spacing: 2px;
-  font-weight: 800;
-  display: block;
-  width: 100%;
-}
-
-/* ── Modal Input ── */
-.modal-input {
-  width: 100%;
-  padding: 18px;
-  margin-bottom: 20px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  color: var(--text-main);
-  border-radius: 16px;
-  text-align: center;
-  font-size: 1rem;
-  outline: none;
-}
-
-.modal-input:focus {
-  border-color: var(--primary);
-}
-
-/* ── Description Box ── */
-.description-container {
-  text-align: left;
-  margin: 25px 0;
-  padding: 20px;
-  background: rgba(128, 128, 128, 0.05);
-  border-radius: 20px;
-  border: 1px solid var(--border);
-}
-
-.desc-headline {
-  color: var(--text-main);
-  font-weight: 800;
-  font-size: 1.1rem;
-  margin-bottom: 12px;
-  display: block;
-}
-
-.desc-body {
-  color: var(--text-dim);
-  font-size: 0.9rem;
-  line-height: 1.5;
-  margin-bottom: 15px;
-}
-
-.desc-features {
-  list-style: none;
-  padding: 0;
-}
-
-.desc-features li {
-  color: var(--text-main);
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 6px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  opacity: 0.9;
-}
-
-.desc-features li::before {
-  content: "⚡";
-  color: var(--primary);
-  font-size: 0.7rem;
-}
-
-/* ══════════════════════════════════════
-   16. PAYMENT GATEWAY SYSTEM
-   ══════════════════════════════════════ */
-.payment-methods {
-  margin: 25px 0;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: 20px;
-  border: 1px solid var(--border);
-}
-
-.method-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-}
-
-.method-card {
-  padding: 15px 10px;
-  border: 1px solid var(--border);
-  border-radius: 15px;
-  cursor: pointer;
-  background: var(--bg);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.3s var(--transition);
-}
-
-.method-card i {
-  font-size: 1.2rem;
-  color: var(--text-dim);
-}
-
-.method-card span {
-  font-size: 0.6rem;
-  font-weight: 800;
-  color: var(--text-dim);
-  text-transform: uppercase;
-}
-
-.method-card.active {
-  border-color: var(--primary);
-  background: rgba(255, 215, 0, 0.05);
-  box-shadow: 0 0 15px var(--glow);
-  transform: translateY(-5px);
-}
-
-.method-card.active i,
-.method-card.active span {
-  color: var(--primary);
-}
-
-/* ══════════════════════════════════════
-   17. FOOTER
-   ══════════════════════════════════════ */
-footer {
-  text-align: center;
-  padding: 100px 0 60px;
-  color: var(--text-dim);
-  border-top: 1px solid var(--border);
-  position: relative;
-  margin-top: 80px;
-}
-
-footer::after {
-  content: "CORE SYSTEM: SECURE • ENCRYPTION: ACTIVE";
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.5rem;
-  opacity: 0.2;
-  letter-spacing: 3px;
-  font-weight: 400;
-}
-
-.social-strip {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  margin: 30px 0;
-}
-
-.social-strip a {
-  color: var(--text-main);
-  font-size: 1.4rem;
-  opacity: 0.4;
-  text-decoration: none;
-  transition: all 0.3s var(--transition);
-}
-
-.social-strip a:hover {
-  opacity: 1;
-  color: var(--primary);
-  transform: translateY(-5px);
-}
-
-.footer-copy {
-  margin-top: 20px;
-  font-size: 0.8rem;
-  color: var(--text-dim);
-}
-
-/* ── Validation Logos ── */
-.validation-logos {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-top: 25px;
-  opacity: 0.6;
-}
-
-.validation-logos img {
-  filter: grayscale(1) invert(0);
-  transition: 0.3s;
-}
-
-body:not(.light-mode) .validation-logos img {
-  filter: grayscale(1) invert(1);
-}
-
-.validation-logos a:hover img {
-  filter: grayscale(0) invert(0);
-  opacity: 1;
-}
-
-/* ── W3C Container (alternate) ── */
-.w3c-container {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-}
-
-.w3c-logo {
-  height: 25px;
-  opacity: 0.2;
-  filter: grayscale(1);
-  transition: 0.3s ease;
-}
-
-.w3c-logo:hover {
-  opacity: 1;
-  filter: grayscale(0);
-}
-
-body.light-mode .w3c-logo {
-  filter: grayscale(1);
-}
-
-body:not(.light-mode) .w3c-logo {
-  filter: grayscale(1) invert(0.8);
-}
-
-body:not(.light-mode) .w3c-logo:hover {
-  filter: grayscale(0) invert(0);
-}
-
-/* ══════════════════════════════════════
-   18. FAQ — SYNC WITH ABOUT HEADER
-   ══════════════════════════════════════ */
-#faq header h2 {
-  font-family: "Playfair Display", serif !important;
-  font-style: italic !important;
-  font-size: clamp(2rem, 8vw, 2.8rem) !important;
-  letter-spacing: -1px !important;
-  margin-bottom: 10px !important;
-  line-height: 1.1 !important;
-  font-weight: 900 !important;
-}
-
-#faq header p {
-  color: var(--text-dim) !important;
-  font-weight: 300 !important;
-  text-transform: uppercase !important;
-  letter-spacing: 2px !important;
-  font-size: 0.75rem !important;
-}
+function _escHtml(val) {
+  return String(val)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function _escAttr(val) {
+  return String(val)
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+document.addEventListener("mousemove", (e) => {
+  if (!cursorEl) return;
+  window.requestAnimationFrame(() => {
+    cursorEl.style.transform =
+      `translate3d(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%), 0)`;
+  });
+}, { passive: true });
+
+function navigateTo(id) {
+  document.querySelectorAll(".page").forEach((p) => {
+    p.classList.remove("active");
+    p.style.display = "none";
+  });
+
+  const target = document.getElementById(id);
+  if (target) {
+    target.style.display = "block";
+    requestAnimationFrame(() => target.classList.add("active"));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  toggleMenu(true);
+}
+
+function toggleTheme() {
+  const isLight = document.body.classList.toggle("light-mode");
+  localStorage.setItem("theme", isLight ? "light" : "dark");
+
+  const btn = document.getElementById("theme-btn");
+  if (btn) btn.innerText = isLight ? "DARK MODE" : "LIGHT MODE";
+
+  applyStructuralColoring();
+}
+
+function toggleMenu(forceClose = false, event = null) {
+  if (event) event.stopPropagation();
+
+  const dropdown = document.getElementById("dropdown");
+  if (!dropdown) return;
+
+  if (forceClose || dropdown.classList.contains("active")) {
+    dropdown.classList.remove("active");
+    setTimeout(() => {
+      if (!dropdown.classList.contains("active")) dropdown.style.display = "none";
+    }, 300);
+  } else {
+    dropdown.style.display = "block";
+    dropdown.offsetHeight;
+    dropdown.classList.add("active");
+  }
+}
+
+document.addEventListener("click", (e) => {
+  const dropdown = document.getElementById("dropdown");
+  const kebabBtn = document.getElementById("kebab-menu-btn");
+  if (!dropdown || !kebabBtn) return;
+  if (
+    dropdown.classList.contains("active") &&
+    !dropdown.contains(e.target) &&
+    !kebabBtn.contains(e.target)
+  ) {
+    toggleMenu(true);
+  }
+});
+
+function typeWriter(text, i) {
+  if (i === 0) {
+    if (_typewriterActive) return;
+    _typewriterActive = true;
+  }
+
+  const el = document.getElementById("hero-title");
+  if (!el) {
+    _typewriterActive = false;
+    return;
+  }
+
+  if (i <= text.length) {
+    el.textContent = text.substring(0, i);
+    setTimeout(() => typeWriter(text, i + 1), 50);
+  } else {
+    _typewriterActive = false;
+  }
+}
+
+function applyStructuralColoring() {
+  const isLight   = document.body.classList.contains("light-mode");
+  const bgCol     = isLight ? "#f5f5f5" : "#1a1a1a";
+  const shadowCol = isLight ? "rgba(0,0,0,0.15)" : "rgba(255,215,0,0.25)";
+
+  const header = document.querySelector("header") || document.querySelector(".nav-main-wrapper");
+  if (header) {
+    Object.assign(header.style, {
+      backgroundColor: bgCol,
+      transition:      "all 0.4s ease",
+      borderBottom:    "1px solid var(--border)",
+      padding:         "0",
+      margin:          "0",
+    });
+  }
+
+  const titles = [
+    document.getElementById("repo-title"),
+    document.getElementById("faq-title"),
+    document.querySelector("#market h2"),
+  ];
+
+  titles.forEach((title) => {
+    if (!title) return;
+    Object.assign(title.style, {
+      fontFamily:    "'Playfair Display', serif",
+      fontStyle:     "italic",
+      fontWeight:    "900",
+      letterSpacing: "-1.5px",
+      textTransform: "none",
+      fontSize:      "clamp(2.2rem, 8vw, 3.8rem)",
+      textShadow:    `0 4px 15px ${shadowCol}`,
+      marginBottom:  "50px",
+      textAlign:     "center",
+      width:         "100%",
+      transition:    "all 0.4s ease",
+    });
+  });
+}
+
+function renderProducts(data) {
+  const grid = document.getElementById("main-grid");
+  if (!grid) return;
+
+  if (data.length === 0) {
+    grid.innerHTML = "";
+    const noResults = document.createElement("div");
+    noResults.style.cssText = [
+      "grid-column: 1 / -1",
+      "text-align: center",
+      "padding: 80px 20px",
+      "color: var(--text-dim)",
+      "border: 1px dashed var(--border)",
+      "border-radius: 20px",
+      "background: rgba(255,255,255,0.02)",
+    ].join(";");
+    noResults.innerHTML = `
+      <div style="font-size:3.5rem; margin-bottom:20px; filter:grayscale(1);">🔍</div>
+      <h3 style="color:var(--text-main); margin-bottom:10px; font-family:'Playfair Display',serif; font-style:italic;">Asset Not Found</h3>
+      <p style="opacity:0.8;">Maaf, barang yang Anda cari tidak tersedia dalam repository ini.</p>`;
+    grid.appendChild(noResults);
+    return;
+  }
+
+  const fragment = document.createDocumentFragment();
+
+  data.forEach((p, index) => {
+    const card     = document.createElement("article");
+    card.className = "card";
+
+    const safeName      = _escHtml(p.name);
+    const safePrice     = _escHtml(p.price);
+    const safeDesc      = _escHtml(p.desc);
+    const safeImg       = _escAttr(p.img);
+    const safeImgW      = _escAttr(p.imgW);
+    const safeImgH      = _escAttr(p.imgH);
+    const safeNameAttr  = _escAttr(p.name);
+    const safePriceAttr = _escAttr(p.price);
+
+    card.innerHTML = `
+      <div class="ev-video-bg ${AI_CLASSES[index % 8]}"></div>
+      <div class="price-tag">${safePrice}</div>
+      <img
+        src="${safeImg}"
+        class="card-img"
+        alt="${safeName}"
+        width="${safeImgW}"
+        height="${safeImgH}"
+        loading="eager"
+        decoding="async"
+      >
+      <h3 style="margin-bottom:10px; position:relative; z-index:2;">${safeName}</h3>
+      <p style="color:var(--text-dim); margin-bottom:25px; position:relative; z-index:2;">${safeDesc}</p>
+      <button class="btn-premium" onclick="openModal('${safeNameAttr}', '${safePriceAttr}')">Acquire License</button>`;
+
+    fragment.appendChild(card);
+  });
+
+  grid.innerHTML = "";
+  grid.appendChild(fragment);
+}
+
+function handleSearch() {
+  clearTimeout(_searchDebounceTimer);
+  _searchDebounceTimer = setTimeout(() => {
+    const searchBar = document.getElementById("search-bar");
+    if (!searchBar) return;
+
+    const q = searchBar.value.toLowerCase().trim();
+    const filtered = VAULT_DATA.products.filter((p) =>
+      p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q)
+    );
+
+    renderProducts(filtered);
+  }, 250);
+}
+
+function renderFAQ() {
+  const faqGrid = document.getElementById("faq-grid");
+  if (!faqGrid) return;
+
+  const faqClasses = ["ai-vid-1", "ai-vid-2", "ai-vid-3", "ai-vid-4"];
+
+  faqGrid.innerHTML = VAULT_DATA.faq
+    .map((item, i) => `
+      <article class="card" style="position:relative; overflow:hidden;">
+        <div class="ev-video-bg ${faqClasses[i % 4]}" style="opacity:0.05;"></div>
+        <h3 style="color:var(--text-main); margin-bottom:20px; position:relative; z-index:2; display:flex; gap:10px;">
+          <span style="color:var(--primary); font-family:'Playfair Display',serif; font-style:italic; font-weight:900;">Q.</span>
+          ${_escHtml(item.q)}
+        </h3>
+        <div style="color:var(--text-dim); position:relative; z-index:2; padding-left:30px; border-left:1px solid var(--border);">
+          ${item.a}
+        </div>
+      </article>`)
+    .join("");
+}
+
+function openModal(n, p) {
+  curN = n;
+  curP = p;
+
+  const modal       = document.getElementById("modal");
+  const targetName  = document.getElementById("target-name");
+  const targetPrice = document.getElementById("target-price");
+
+  if (!modal || !targetName || !targetPrice) return;
+
+  targetName.textContent  = n.toUpperCase();
+  targetPrice.textContent = p;
+  modal.style.display     = "flex";
+}
+
+function closeModal() {
+  const modal = document.getElementById("modal");
+  if (modal) modal.style.display = "none";
+}
+
+function selectPayment(method, element) {
+  document.querySelectorAll(".method-card").forEach((c) => c.classList.remove("active"));
+  if (element) element.classList.add("active");
+  selectedGateway = method;
+}
+
+function confirmInquiry() {
+  const clientNameInput = document.getElementById("client-name");
+  const clientName      = clientNameInput ? clientNameInput.value.trim() : "";
+
+  if (!clientName) {
+    alert("Identity Verification Required.");
+    return;
+  }
+
+  const body = [
+    `CLIENT: ${clientName}`,
+    `ASSET: ${curN}`,
+    `VALUE: ${curP}`,
+    `GATEWAY: ${selectedGateway}`,
+  ].join("\n");
+
+  window.location.href =
+    `mailto:${VAULT_DATA.owner.email}?subject=Inquiry: ${encodeURIComponent(curN)}&body=${encodeURIComponent(body)}`;
+  closeModal();
+}
+
+function buildMenu() {
+  const linksBox = document.getElementById("social-links");
+  if (!linksBox) return;
+
+  linksBox.innerHTML = "";
+
+  VAULT_DATA.menu.forEach((item) => {
+    const a         = document.createElement("a");
+    a.href          = "#" + item.id;
+    a.style.cssText = "padding:18px 25px; display:block; color:var(--text-main); text-decoration:none; border-bottom:1px solid var(--border); font-weight:700;";
+    a.textContent   = item.label.toUpperCase();
+    a.onclick       = (e) => { e.preventDefault(); navigateTo(item.id); };
+    linksBox.appendChild(a);
+  });
+}
+
+function init() {
+  const savedTheme = localStorage.getItem("theme");
+  const isLight    = savedTheme === "light";
+  document.body.classList.toggle("light-mode", isLight);
+
+  const btn = document.getElementById("theme-btn");
+  if (btn) btn.innerText = isLight ? "DARK MODE" : "LIGHT MODE";
+
+  const footerText = document.getElementById("footer-text");
+  if (footerText) footerText.textContent = VAULT_DATA.content.footer;
+
+  buildMenu();
+  renderProducts(VAULT_DATA.products);
+  renderFAQ();
+  applyStructuralColoring();
+
+  const heroTitleEl = document.getElementById("hero-title");
+  if (heroTitleEl) typeWriter(VAULT_DATA.content.heroTitle, 0);
+}
+
+window.addEventListener("DOMContentLoaded", init);
