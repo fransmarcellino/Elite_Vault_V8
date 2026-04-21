@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Frans Marcellino | Elite Vault v8.2.9 — Digital Architect Portfolio</title>
+    <title>Frans Marcellino | Elite Vault v8.1.1 — Digital Architect Portfolio</title>
     <meta name="description" content="Official repository of Frans Marcellino. Industrial-grade software assets and AI Cinematic Artistry. Established 2026.">
     <meta name="author" content="Frans Marcellino">
 
@@ -627,123 +627,6 @@
         }
       }
 
-      /* ── 24. MODAL INLINE STATES — validation error + demo checkout ── */
-
-      /* Inline field error */
-      #modal-field-error {
-        display: none;
-        color: #ff6b6b;
-        font-size: 0.72rem;
-        font-weight: 700;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        margin: -8px 0 16px;
-        padding: 10px 14px;
-        border-radius: 10px;
-        background: rgba(255, 107, 107, 0.08);
-        border: 1px solid rgba(255, 107, 107, 0.2);
-        text-align: left;
-        opacity: 0;
-        transform: translateY(-4px);
-        transition: opacity 0.3s var(--transition), transform 0.3s var(--transition);
-      }
-      #modal-field-error.visible {
-        display: block;
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      /* Demo checkout overlay — sits inside .m-box, above all content */
-      #demo-checkout-overlay {
-        display: none;
-        position: absolute;
-        inset: 0;
-        border-radius: 32px;
-        background: var(--surface);
-        z-index: 10;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 40px 30px;
-        text-align: center;
-        opacity: 0;
-        transform: translateY(12px);
-        transition: opacity 0.45s var(--transition), transform 0.45s var(--transition);
-      }
-      #demo-checkout-overlay.visible {
-        display: flex;
-        opacity: 1;
-        transform: translateY(0);
-      }
-      .demo-checkout-icon {
-        width: 56px;
-        height: 56px;
-        border-radius: 50%;
-        background: rgba(255, 215, 0, 0.1);
-        border: 1px solid rgba(255, 215, 0, 0.3);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 20px;
-        font-size: 1.4rem;
-      }
-      .demo-checkout-label {
-        font-size: 0.65rem;
-        letter-spacing: 4px;
-        color: var(--primary);
-        font-weight: 800;
-        text-transform: uppercase;
-        margin-bottom: 10px;
-      }
-      .demo-checkout-title {
-        font-family: "Playfair Display", serif;
-        font-style: italic;
-        font-size: 1.6rem;
-        font-weight: 900;
-        color: var(--text-main);
-        margin-bottom: 16px;
-        line-height: 1.2;
-      }
-      .demo-checkout-body {
-        color: var(--text-dim);
-        font-size: 0.85rem;
-        font-weight: 300;
-        line-height: 1.6;
-        max-width: 320px;
-        margin: 0 auto 28px;
-      }
-      .demo-checkout-asset {
-        font-size: 0.7rem;
-        font-weight: 800;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        color: var(--primary);
-        padding: 8px 16px;
-        border-radius: 10px;
-        background: rgba(255, 215, 0, 0.07);
-        border: 1px solid rgba(255, 215, 0, 0.15);
-        margin-bottom: 28px;
-        display: inline-block;
-      }
-      .demo-checkout-close {
-        background: var(--primary);
-        color: #000;
-        border: none;
-        border-radius: 14px;
-        padding: 14px 32px;
-        font-weight: 800;
-        font-size: 0.75rem;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        cursor: pointer;
-        transition: 0.3s var(--transition);
-        width: 100%;
-      }
-      .demo-checkout-close:hover {
-        transform: scale(1.02);
-        box-shadow: 0 8px 20px var(--glow);
-      }
-
       /* ── 24. FAQ SECTION — synced with About ── */
       #faq header h2 {
         font-family: "Playfair Display", serif !important;
@@ -949,25 +832,8 @@
           <ul class="desc-features" id="desc-features"></ul>
         </div>
 
-        <!-- Inline validation error — shown if name field empty -->
-        <div id="modal-field-error" role="alert" aria-live="polite">
-          &#9888; Please enter your name to continue.
-        </div>
-
         <button class="btn-premium" id="acquire-btn" onclick="confirmInquiry()">BUY</button>
         <button class="modal-cancel-btn" onclick="closeModal()">CANCEL PROTOCOL</button>
-
-        <!-- Demo checkout overlay — shown after valid submission -->
-        <div id="demo-checkout-overlay" role="status" aria-live="polite">
-          <div class="demo-checkout-icon">&#128272;</div>
-          <p class="demo-checkout-label">Secure Checkout</p>
-          <h3 class="demo-checkout-title">Order Received</h3>
-          <p class="demo-checkout-body">
-            This is a demo environment. Payment integration is required for live transactions. Your inquiry has been registered and the operator will be in contact.
-          </p>
-          <span class="demo-checkout-asset" id="demo-checkout-asset-name"></span>
-          <button class="demo-checkout-close" onclick="closeDemoCheckout()">CLOSE SESSION</button>
-        </div>
       </div>
     </div>
 
