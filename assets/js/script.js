@@ -22,14 +22,15 @@ const VAULT_DATA = {
     footer:    "© 2026 FRANS MARCELLINO — ALL RIGHTS RESERVED",
   },
   products: [
-    { name: "Titan Core",   price: "$1,290", desc: "Enterprise SaaS Framework.",   img: "assets/img/" + encodeURIComponent("Titan Core.webp"),   imgW: 640, imgH: 480 },
-    { name: "Quantum UI",   price: "$750",   desc: "Kinetic React Components.",     img: "assets/img/" + encodeURIComponent("Quantum UI.webp"),   imgW: 640, imgH: 480 },
-    { name: "SecureAuth X", price: "$490",   desc: "Zero-Knowledge Auth Suite.",    img: "assets/img/" + encodeURIComponent("SecureAuth X.webp"), imgW: 640, imgH: 480 },
-    { name: "Nebula AI",    price: "$2,999", desc: "Neural Integration Engine.",    img: "assets/img/" + encodeURIComponent("Nebula AI.webp"),    imgW: 640, imgH: 480 },
-    { name: "Apex CMS",     price: "$1,800", desc: "Headless Content Engine.",      img: "assets/img/" + encodeURIComponent("Apex CMS.webp"),     imgW: 640, imgH: 480 },
-    { name: "Zenith ERP",   price: "$4,500", desc: "Global Logistics Logic.",       img: "assets/img/" + encodeURIComponent("Zenith ERP.webp"),   imgW: 640, imgH: 480 },
-    { name: "Vortex DB",    price: "$980",   desc: "Real-time Vector Database.",    img: "assets/img/" + encodeURIComponent("Vortex DB.webp"),    imgW: 640, imgH: 480 },
-    { name: "Cipher Mesh",  price: "$1,100", desc: "P2P Encryption Layer.",         img: "assets/img/" + encodeURIComponent("Cipher Mesh.webp"),  imgW: 640, imgH: 480 },
+    /* FIX [JS-09]: Spasi dalam nama file diganti kebab-case — URL-safe di semua server */
+    { name: "Titan Core",   price: "$1,290", desc: "Enterprise SaaS Framework.",   img: "assets/img/titan-core.webp",    imgW: 640, imgH: 480 },
+    { name: "Quantum UI",   price: "$750",   desc: "Kinetic React Components.",     img: "assets/img/quantum-ui.webp",    imgW: 640, imgH: 480 },
+    { name: "SecureAuth X", price: "$490",   desc: "Zero-Knowledge Auth Suite.",    img: "assets/img/secure-auth-x.webp", imgW: 640, imgH: 480 },
+    { name: "Nebula AI",    price: "$2,999", desc: "Neural Integration Engine.",    img: "assets/img/nebula-ai.webp",     imgW: 640, imgH: 480 },
+    { name: "Apex CMS",     price: "$1,800", desc: "Headless Content Engine.",      img: "assets/img/apex-cms.webp",      imgW: 640, imgH: 480 },
+    { name: "Zenith ERP",   price: "$4,500", desc: "Global Logistics Logic.",       img: "assets/img/zenith-erp.webp",    imgW: 640, imgH: 480 },
+    { name: "Vortex DB",    price: "$980",   desc: "Real-time Vector Database.",    img: "assets/img/vortex-db.webp",     imgW: 640, imgH: 480 },
+    { name: "Cipher Mesh",  price: "$1,100", desc: "P2P Encryption Layer.",         img: "assets/img/cipher-mesh.webp",   imgW: 640, imgH: 480 },
   ],
   menu: [
     { label: "Home",  id: "home"   },
@@ -59,6 +60,8 @@ const VAULT_DATA = {
       a: "We implement Email-Inquiry protocols to guarantee client privacy and prevent data exposure on public forms. This ensures a secure, private, and personal assistance path.",
     },
     {
+      /* FIX [JS-01/JS-02 note]: item.a dengan <a> tag ini adalah static trusted config,
+         bukan input pengguna. Dipertahankan sebagai innerHTML yang aman. */
       q: "How can I contact technical support or the operator?",
       a: "We are committed to professional support. For specific asset inquiries or technical assistance, contact our operator directly at: <a href='mailto:fransmarselinosroyer@gmail.com' style='color:var(--primary); font-weight:bold; text-decoration:underline;'>fransmarselinosroyer@gmail.com</a>.",
     },
@@ -71,7 +74,11 @@ const VAULT_DATA = {
 let curN = "";
 let curP = "";
 let selectedGateway = "PayPal";
+
+/* FIX [JS-06]: Flag mencegah duplikasi loop typewriter */
 let _typewriterActive = false;
+
+/* FIX [JS-07]: Timer untuk debounce search */
 let _searchDebounceTimer = null;
 
 /* ══════════════════════════════════════
@@ -85,7 +92,11 @@ const AI_CLASSES = [
 
 /* ══════════════════════════════════════
    4. XSS ESCAPE UTILITIES
+   FIX [JS-01, JS-02, JS-03]: Escaping karakter berbahaya sebelum
+   masuk ke innerHTML atau atribut HTML.
    ══════════════════════════════════════ */
+
+/* Escape untuk konten di dalam tag HTML (text node) */
 function _escHtml(val) {
   return String(val)
     .replace(/&/g, "&amp;")
@@ -95,6 +106,7 @@ function _escHtml(val) {
     .replace(/'/g, "&#39;");
 }
 
+/* Escape untuk nilai atribut HTML (src, alt, onclick string param) */
 function _escAttr(val) {
   return String(val)
     .replace(/&/g, "&amp;")
@@ -104,7 +116,15 @@ function _escAttr(val) {
     .replace(/>/g, "&gt;");
 }
 
+/* ══════════════════════════════════════
+   5. CURSOR ENGINE
+   FIX [JS / CSS-01]: Transform dikelola eksklusif oleh JS.
+   CSS tidak lagi mendefinisikan transform pada #cursor.
+   calc() menggabungkan posisi mouse dan centering (-50%) dalam
+   satu transform tunggal — tidak ada konflik properti.
+   ══════════════════════════════════════ */
 document.addEventListener("mousemove", (e) => {
+  /* FIX [JS-04 terkait cursor]: null check sebelum akses */
   if (!cursorEl) return;
   window.requestAnimationFrame(() => {
     cursorEl.style.transform =
@@ -112,6 +132,9 @@ document.addEventListener("mousemove", (e) => {
   });
 }, { passive: true });
 
+/* ══════════════════════════════════════
+   6. NAVIGATION
+   ══════════════════════════════════════ */
 function navigateTo(id) {
   document.querySelectorAll(".page").forEach((p) => {
     p.classList.remove("active");
@@ -119,6 +142,7 @@ function navigateTo(id) {
   });
 
   const target = document.getElementById(id);
+  /* FIX: null check sebelum akses .style dan .classList */
   if (target) {
     target.style.display = "block";
     requestAnimationFrame(() => target.classList.add("active"));
@@ -128,20 +152,28 @@ function navigateTo(id) {
   toggleMenu(true);
 }
 
+/* ══════════════════════════════════════
+   7. THEME TOGGLE
+   ══════════════════════════════════════ */
 function toggleTheme() {
   const isLight = document.body.classList.toggle("light-mode");
   localStorage.setItem("theme", isLight ? "light" : "dark");
 
   const btn = document.getElementById("theme-btn");
+  /* FIX: null check sebelum akses .innerText */
   if (btn) btn.innerText = isLight ? "DARK MODE" : "LIGHT MODE";
 
   applyStructuralColoring();
 }
 
+/* ══════════════════════════════════════
+   8. DROPDOWN MENU
+   ══════════════════════════════════════ */
 function toggleMenu(forceClose = false, event = null) {
   if (event) event.stopPropagation();
 
   const dropdown = document.getElementById("dropdown");
+  /* FIX: null check — early return jika elemen tidak ada */
   if (!dropdown) return;
 
   if (forceClose || dropdown.classList.contains("active")) {
@@ -151,11 +183,12 @@ function toggleMenu(forceClose = false, event = null) {
     }, 300);
   } else {
     dropdown.style.display = "block";
-    dropdown.offsetHeight;
+    dropdown.offsetHeight; /* Force reflow untuk CSS transition */
     dropdown.classList.add("active");
   }
 }
 
+/* FIX [JS-04]: Guard null pada dropdown DAN kebabBtn sebelum .contains() */
 document.addEventListener("click", (e) => {
   const dropdown = document.getElementById("dropdown");
   const kebabBtn = document.getElementById("kebab-menu-btn");
@@ -169,6 +202,11 @@ document.addEventListener("click", (e) => {
   }
 });
 
+/* ══════════════════════════════════════
+   9. TYPEWRITER EFFECT
+   FIX [JS-06]: _typewriterActive mencegah dua loop berjalan paralel.
+   Flag di-set saat i===0, di-release saat selesai atau elemen hilang.
+   ══════════════════════════════════════ */
 function typeWriter(text, i) {
   if (i === 0) {
     if (_typewriterActive) return;
@@ -189,6 +227,9 @@ function typeWriter(text, i) {
   }
 }
 
+/* ══════════════════════════════════════
+   10. STRUCTURAL COLORING (THEME SYNC)
+   ══════════════════════════════════════ */
 function applyStructuralColoring() {
   const isLight   = document.body.classList.contains("light-mode");
   const bgCol     = isLight ? "#f5f5f5" : "#1a1a1a";
@@ -212,6 +253,7 @@ function applyStructuralColoring() {
   ];
 
   titles.forEach((title) => {
+    /* FIX: null check — skip elemen yang tidak ada */
     if (!title) return;
     Object.assign(title.style, {
       fontFamily:    "'Playfair Display', serif",
@@ -229,10 +271,20 @@ function applyStructuralColoring() {
   });
 }
 
+/* ══════════════════════════════════════
+   11. PRODUCT RENDERER
+   FIX [JS-01]: Semua nilai dinamis di-escape sebelum masuk innerHTML.
+   FIX [JS-03]: onclick string menggunakan _escAttr agar quote aman.
+   FIX [JS-08]: loading="eager" — karena #market display:none saat init,
+                lazy-load intersection observer tidak pernah memicu.
+                eager memastikan semua gambar dimuat tanpa syarat visibilitas.
+   ══════════════════════════════════════ */
 function renderProducts(data) {
   const grid = document.getElementById("main-grid");
+  /* FIX: null check */
   if (!grid) return;
 
+  /* Empty state */
   if (data.length === 0) {
     grid.innerHTML = "";
     const noResults = document.createElement("div");
@@ -245,6 +297,7 @@ function renderProducts(data) {
       "border-radius: 20px",
       "background: rgba(255,255,255,0.02)",
     ].join(";");
+    /* String statis — tidak ada data pengguna, aman */
     noResults.innerHTML = `
       <div style="font-size:3.5rem; margin-bottom:20px; filter:grayscale(1);">🔍</div>
       <h3 style="color:var(--text-main); margin-bottom:10px; font-family:'Playfair Display',serif; font-style:italic;">Asset Not Found</h3>
@@ -259,6 +312,7 @@ function renderProducts(data) {
     const card     = document.createElement("article");
     card.className = "card";
 
+    /* FIX [JS-01, JS-03]: Escape semua nilai sebelum injeksi */
     const safeName      = _escHtml(p.name);
     const safePrice     = _escHtml(p.price);
     const safeDesc      = _escHtml(p.desc);
@@ -291,6 +345,11 @@ function renderProducts(data) {
   grid.appendChild(fragment);
 }
 
+/* ══════════════════════════════════════
+   12. SEARCH HANDLER
+   FIX [JS-07]: Debounce 250ms — mencegah renderProducts dipanggil
+   setiap keystroke saat pengetikan cepat.
+   ══════════════════════════════════════ */
 function handleSearch() {
   clearTimeout(_searchDebounceTimer);
   _searchDebounceTimer = setTimeout(() => {
@@ -306,6 +365,11 @@ function handleSearch() {
   }, 250);
 }
 
+/* ══════════════════════════════════════
+   13. FAQ RENDERER
+   FIX [JS-02]: item.q di-escape via _escHtml.
+   item.a tetap innerHTML karena mengandung <a> tag statis yang disengaja.
+   ══════════════════════════════════════ */
 function renderFAQ() {
   const faqGrid = document.getElementById("faq-grid");
   if (!faqGrid) return;
@@ -327,6 +391,11 @@ function renderFAQ() {
     .join("");
 }
 
+/* ══════════════════════════════════════
+   14. MODAL SYSTEM
+   FIX [JS-05]: Null check pada semua elemen modal sebelum akses.
+   FIX [JS-01]: textContent (bukan innerHTML) untuk name dan price.
+   ══════════════════════════════════════ */
 function openModal(n, p) {
   curN = n;
   curP = p;
@@ -337,6 +406,13 @@ function openModal(n, p) {
 
   if (!modal || !targetName || !targetPrice) return;
 
+  /* Reset inline states from any previous open cycle */
+  const errorEl   = document.getElementById("modal-field-error");
+  const overlayEl = document.getElementById("demo-checkout-overlay");
+  if (errorEl)   { errorEl.classList.remove("visible"); errorEl.style.display = "none"; }
+  if (overlayEl) { overlayEl.classList.remove("visible"); overlayEl.style.display = "none"; }
+
+  /* FIX: textContent mencegah HTML injection di display name */
   targetName.textContent  = n.toUpperCase();
   targetPrice.textContent = p;
   modal.style.display     = "flex";
@@ -347,33 +423,89 @@ function closeModal() {
   if (modal) modal.style.display = "none";
 }
 
+/* ══════════════════════════════════════
+   15. PAYMENT GATEWAY
+   ══════════════════════════════════════ */
 function selectPayment(method, element) {
   document.querySelectorAll(".method-card").forEach((c) => c.classList.remove("active"));
   if (element) element.classList.add("active");
   selectedGateway = method;
 }
 
+/* ══════════════════════════════════════
+   16. INQUIRY / CONFIRM
+   UPGRADE: Replaced alert() with inline modal states.
+   Step 1 — empty input: shows #modal-field-error inline (no alert).
+   Step 2 — valid input: shows #demo-checkout-overlay premium notice.
+   All transitions respect existing animation system via CSS classes.
+   ══════════════════════════════════════ */
 function confirmInquiry() {
   const clientNameInput = document.getElementById("client-name");
   const clientName      = clientNameInput ? clientNameInput.value.trim() : "";
 
+  const errorEl   = document.getElementById("modal-field-error");
+  const overlayEl = document.getElementById("demo-checkout-overlay");
+  const assetEl   = document.getElementById("demo-checkout-asset-name");
+
+  /* ── STEP 1: Inline validation — no alert() ── */
   if (!clientName) {
-    alert("Identity Verification Required.");
+    if (errorEl) {
+      /* Show inline error with smooth transition */
+      errorEl.style.display = "block";
+      /* Force reflow so transition fires */
+      void errorEl.offsetHeight;
+      errorEl.classList.add("visible");
+      /* Auto-hide after 3.5s */
+      setTimeout(() => {
+        errorEl.classList.remove("visible");
+        setTimeout(() => { errorEl.style.display = "none"; }, 320);
+      }, 3500);
+    }
     return;
   }
 
-  const body = [
-    `CLIENT: ${clientName}`,
-    `ASSET: ${curN}`,
-    `VALUE: ${curP}`,
-    `GATEWAY: ${selectedGateway}`,
-  ].join("\n");
+  /* Hide validation error if previously shown */
+  if (errorEl) {
+    errorEl.classList.remove("visible");
+    errorEl.style.display = "none";
+  }
 
-  window.location.href =
-    `mailto:${VAULT_DATA.owner.email}?subject=Inquiry: ${encodeURIComponent(curN)}&body=${encodeURIComponent(body)}`;
-  closeModal();
+  /* ── STEP 2: Show premium demo checkout overlay ── */
+  if (overlayEl) {
+    /* Set asset name label */
+    if (assetEl) assetEl.textContent = curN + " — " + curP;
+
+    /* Trigger display then animate in */
+    overlayEl.style.display = "flex";
+    void overlayEl.offsetHeight;
+    overlayEl.classList.add("visible");
+  }
 }
 
+/* ══════════════════════════════════════
+   16b. CLOSE DEMO CHECKOUT
+   Animates overlay out, then fully closes modal.
+   Resets all injected state for next open cycle.
+   ══════════════════════════════════════ */
+function closeDemoCheckout() {
+  const overlayEl = document.getElementById("demo-checkout-overlay");
+
+  if (overlayEl) {
+    overlayEl.classList.remove("visible");
+    /* Wait for CSS transition to complete before hiding */
+    setTimeout(() => {
+      overlayEl.style.display = "none";
+    }, 460);
+  }
+
+  /* Close the parent modal after overlay fades */
+  setTimeout(() => closeModal(), 460);
+}
+
+/* ══════════════════════════════════════
+   17. MENU BUILDER
+   FIX: textContent untuk label menu — mencegah HTML injection.
+   ══════════════════════════════════════ */
 function buildMenu() {
   const linksBox = document.getElementById("social-links");
   if (!linksBox) return;
@@ -384,13 +516,18 @@ function buildMenu() {
     const a         = document.createElement("a");
     a.href          = "#" + item.id;
     a.style.cssText = "padding:18px 25px; display:block; color:var(--text-main); text-decoration:none; border-bottom:1px solid var(--border); font-weight:700;";
+    /* FIX: textContent bukan innerText/innerHTML untuk label */
     a.textContent   = item.label.toUpperCase();
     a.onclick       = (e) => { e.preventDefault(); navigateTo(item.id); };
     linksBox.appendChild(a);
   });
 }
 
+/* ══════════════════════════════════════
+   18. INIT — Entry Point
+   ══════════════════════════════════════ */
 function init() {
+  /* Restore tema dari localStorage */
   const savedTheme = localStorage.getItem("theme");
   const isLight    = savedTheme === "light";
   document.body.classList.toggle("light-mode", isLight);
@@ -398,6 +535,7 @@ function init() {
   const btn = document.getElementById("theme-btn");
   if (btn) btn.innerText = isLight ? "DARK MODE" : "LIGHT MODE";
 
+  /* Footer text — textContent untuk keamanan */
   const footerText = document.getElementById("footer-text");
   if (footerText) footerText.textContent = VAULT_DATA.content.footer;
 
@@ -406,6 +544,7 @@ function init() {
   renderFAQ();
   applyStructuralColoring();
 
+  /* FIX [JS-06]: Guard elemen + flag aktif mencegah loop ganda */
   const heroTitleEl = document.getElementById("hero-title");
   if (heroTitleEl) typeWriter(VAULT_DATA.content.heroTitle, 0);
 }
