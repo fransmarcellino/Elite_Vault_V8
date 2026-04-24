@@ -22,7 +22,7 @@ const VAULT_DATA = {
     footer:    "© 202 FRANS MARCELLINO — ALL RIGHTS RESERVED",
   },
   products: [
-    { name: "Titan Core",   price: "$1,290", desc: "Enterprise SaaS Framework.",   img: "assets/img/" + encodeURIComponent("Titan Core.webp"),   imgW: 640, imgH: 480 },
+    { name: "Titan Core",   price: "$1,29", desc: "Enterprise SaaS Framework.",   img: "assets/img/" + encodeURIComponent("Titan Core.webp"),   imgW: 640, imgH: 480 },
     { name: "Quantum UI",   price: "$750",   desc: "Kinetic React Components.",     img: "assets/img/" + encodeURIComponent("Quantum UI.webp"),   imgW: 640, imgH: 480 },
     { name: "SecureAuth X", price: "$490",   desc: "Zero-Knowledge Auth Suite.",    img: "assets/img/" + encodeURIComponent("SecureAuth X.webp"), imgW: 640, imgH: 480 },
     { name: "Nebula AI",    price: "$2,999", desc: "Neural Integration Engine.",    img: "assets/img/" + encodeURIComponent("Nebula AI.webp"),    imgW: 640, imgH: 480 },
