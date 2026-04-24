@@ -14,12 +14,12 @@
 const VAULT_DATA = {
   owner: {
     firstName: "FRANS",
-    lastName:  "MARCELLINO",
+    lastName:  "MARCELLIN",
     email:     "fransmarselinosroyer@gmail.com",
   },
   content: {
     heroTitle: "Architecting Digital Sovereignty.",
-    footer:    "© 2026 FRANS MARCELLINO — ALL RIGHTS RESERVED",
+    footer:    "© 202 FRANS MARCELLINO — ALL RIGHTS RESERVED",
   },
   products: [
     { name: "Titan Core",   price: "$1,290", desc: "Enterprise SaaS Framework.",   img: "assets/img/" + encodeURIComponent("Titan Core.webp"),   imgW: 640, imgH: 480 },
