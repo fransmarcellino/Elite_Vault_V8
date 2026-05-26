@@ -60,7 +60,7 @@ const VAULT_DATA = {
     },
     {
       q: "How can I contact technical support or the operator?",
-      a: "We are committed to professional support. For specific asset inquiries or technical assistance, contact our operator directly at: <a href='mailto:fransmarselinosroyer@gmail.com' style='color:var(--primary); font-weight:bold; text-decoration:underline;'>fransmarselinosroyer@gmail.com</a>.",
+      a: "We are committed to professional support. For specific asset inquiries or technical assistance, contact our operator directly at: <a href='mailto:digitalmarket@gmail.com' style='color:var(--primary); font-weight:bold; text-decoration:underline;'>digitalmarket@gmail.com</a>.",
     },
   ],
 };
