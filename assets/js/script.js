@@ -13,9 +13,9 @@
    ══════════════════════════════════════ */
 const VAULT_DATA = {
   owner: {
-    firstName: "FRANS",
-    lastName:  "MARCELLINO",
-    email:     "fransmarselinosroyer@gmail.com",
+    firstName: "DIGITAL",
+    lastName:  "MARKET",
+    email:     "digitalmarket@gmail.com",
   },
   content: {
     heroTitle: "Architecting Digital Sovereignty.",
