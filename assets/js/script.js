@@ -2,7 +2,7 @@
  * @file        script.js
  * @description Master-Optimized Core for Elite Vault v8.2.9
  *              Search Feedback & Instant Sync
- * @author      Frans Marcellino
+ * @author      Digital Market
  * @status      W3C Compliant & PageSpeed Optimized (Universal Excellence Edition)
  */
 
@@ -13,13 +13,13 @@
    ══════════════════════════════════════ */
 const VAULT_DATA = {
   owner: {
-    firstName: "FRANS",
-    lastName:  "MARCELLINO",
-    email:     "fransmarselinosroyer@gmail.com",
+    firstName: "Digital",
+    lastName:  "Market",
+    email:     "digitalmarket@gmail.com",
   },
   content: {
     heroTitle: "Architecting Digital Sovereignty.",
-    footer:    "© 2026 FRANS MARCELLINO — ALL RIGHTS RESERVED",
+    footer:    "© 2026 Digital Market — ALL RIGHTS RESERVED",
   },
   products: [
     { name: "Titan Core",   price: "$1,290", desc: "Enterprise SaaS Framework.",   img: "assets/img/" + encodeURIComponent("Titan Core.webp"),   imgW: 640, imgH: 480 },
